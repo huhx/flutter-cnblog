@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'business/main/main_screen.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: MainApp(),
-    ),
-  );
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
