@@ -569,6 +569,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "6d7fbdd5b3cde242a474d66da312aac4aa892b9b"
+      url: "https://github.com/miquelbeltran/flutter_pulltorefresh"
+    source: git
+    version: "2.0.0"
   quiver:
     dependency: transitive
     description:
