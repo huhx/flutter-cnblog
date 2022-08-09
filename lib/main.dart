@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'business/main/main_screen.dart';
@@ -18,9 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MainScreen(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: appThemeData[AppTheme.light],
     );
   }
 }
