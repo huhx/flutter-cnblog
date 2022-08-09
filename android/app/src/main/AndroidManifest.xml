@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huhx.flutter_cnblog">
    <application
-        android:label="flutter_cnblog"
+        android:label="博客园"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
