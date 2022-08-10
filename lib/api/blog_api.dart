@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
+import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -22,6 +23,10 @@ abstract class BlogApi {
 
   @GET("/blog/v2/blogposts/aggsites/mostliked")
   Future<List<PopularBlogResp>> getMostLikedBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
+
+
+  @GET("/blog/v2/blogposts/aggsites/headline")
+  Future<List<RecommendBlogResp>> getRecommendBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 }
 
 final blogApi = BlogApi(RestClient.getInstance());

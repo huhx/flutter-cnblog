@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/business/home/category/home/home_category_screen.dart';
 
+import 'category/home/home_category_screen.dart';
 import 'category/liked/most_liked_blog_screen.dart';
 import 'category/read/most_read_blog_screen.dart';
+import 'category/recommend/recommend_blog_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
               Tab(text: "首页"),
               Tab(text: "阅读榜"),
               Tab(text: "推荐榜"),
-              Tab(text: "Java"),
+              Tab(text: "编辑推荐"),
             ],
             indicatorColor: Colors.white,
           ),
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             HomeCategoryScreen(),
             MostReadBlogScreen(),
             MostLikedBlogScreen(),
-            HomeCategoryScreen(),
+            RecommendBlogScreen(),
           ],
         ),
       ),
