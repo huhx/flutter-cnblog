@@ -21,11 +21,19 @@ class CircleImage extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: CachedNetworkImageProvider(url),
+          image: buildImage(url),
           fit: BoxFit.cover,
         ),
         border: Border.all(color: Colors.white, width: borderWidth),
       ),
     );
+  }
+
+  ImageProvider buildImage(String url) {
+    if (url.isEmpty) {
+      return const AssetImage('assets/image/logo.png');
+    } else {
+      return CachedNetworkImageProvider(url);
+    }
   }
 }

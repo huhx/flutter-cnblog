@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -81,7 +82,7 @@ class BlogItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color backgroundColor = index < 5 ? Colors.blue : Colors.grey;
     return InkWell(
-      onTap: () => CommUtil.toBeDev(),
+      onTap: () => context.goto(BlogDetailScreen(blog: blog.toBlogResp())),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),

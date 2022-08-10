@@ -1,3 +1,4 @@
+import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'popular_blog_resp.g.dart';
@@ -41,4 +42,20 @@ class PopularBlogResp {
   });
 
   factory PopularBlogResp.fromJson(Map<String, dynamic> json) => _$PopularBlogRespFromJson(json);
+
+  BlogResp toBlogResp() {
+    return BlogResp(
+      id: id,
+      title: title,
+      url: url,
+      description: description,
+      author: author,
+      blogApp: '',
+      avatar: avatar ?? '',
+      postDate: dateAdded,
+      viewCount: viewCount,
+      commentCount: commentCount,
+      diggCount: diggCount,
+    );
+  }
 }
