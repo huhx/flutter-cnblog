@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -16,6 +17,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -29,23 +32,32 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         leading: const AppbarBackButton(),
         title: const Text("博客园登录"),
       ),
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: AuthRequest.getAuthorizeUrl(),
-        onWebViewCreated: (_) {
-          logger.d('加载url：${AuthRequest.getAuthorizeUrl()}');
-        },
-        onPageFinished: (url) async {
-          if (url.startsWith(AuthRequest.callbackUrl)) {
-            logger.d('加载完成：$url');
-            final String code = AuthRequest.getCodeFromUrl(url);
-            await ref.watch(sessionProvider.notifier).login(code);
+      body: Stack(
+        children: [
+          WebView(
+            javascriptMode: JavascriptMode.unrestricted,
+            initialUrl: AuthRequest.getAuthorizeUrl(),
+            onWebViewCreated: (_) {
+              logger.d('加载url：${AuthRequest.getAuthorizeUrl()}');
+            },
+            onPageFinished: (url) async {
+              setState(() => isLoading = false);
+              if (url.startsWith(AuthRequest.callbackUrl)) {
+                logger.d('加载完成：$url');
+                final String code = AuthRequest.getCodeFromUrl(url);
+                await ref.watch(sessionProvider.notifier).login(code);
 
-            if (mounted) {
-              Navigator.pop(context);
-            }
-          }
-        },
+                if (mounted) {
+                  Navigator.pop(context);
+                }
+              }
+            },
+          ),
+          Visibility(
+            visible: isLoading,
+            child: const CenterProgressIndicator(),
+          )
+        ],
       ),
     );
   }
