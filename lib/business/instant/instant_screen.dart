@@ -12,7 +12,7 @@ class _InstantScreenState extends State<InstantScreen> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text("Instant Screen"),
+      child: const Text("Instant Screen"),
     );
   }
 }

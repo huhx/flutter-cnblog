@@ -12,7 +12,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text("Question Screen"),
+      child: const Text("Question Screen"),
     );
   }
 }

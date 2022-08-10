@@ -12,7 +12,7 @@ class _MomentScreenState extends State<MomentScreen> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text("Moment Screen"),
+      child: const Text("Moment Screen"),
     );
   }
 }
