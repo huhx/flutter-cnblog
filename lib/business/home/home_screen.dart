@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/home/category/home/home_category_screen.dart';
 
+import 'category/read/most_read_blog_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         body: const TabBarView(
           children: [
             HomeCategoryScreen(),
-            HomeCategoryScreen(),
+            MostReadBlogScreen(),
             HomeCategoryScreen(),
             HomeCategoryScreen(),
           ],

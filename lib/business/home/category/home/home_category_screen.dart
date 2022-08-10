@@ -4,7 +4,7 @@ import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -37,7 +37,7 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
       if (isLastPage) {
         _pagingController.appendLastPage(blogs);
       } else {
-        final int nextPageKey = pageKey + blogs.length;
+        final int nextPageKey = pageKey + 1;
         _pagingController.appendPage(blogs, nextPageKey);
       }
     } catch (error) {
@@ -124,24 +124,6 @@ class BlogItem extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TextIcon extends StatelessWidget {
-  final String icon;
-  final int counts;
-
-  const TextIcon({super.key, required this.icon, required this.counts});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SvgIcon(name: icon, size: 12, color: Colors.grey),
-        const SizedBox(width: 4),
-        Text("$counts", style: const TextStyle(color: Colors.grey, fontSize: 11)),
-      ],
     );
   }
 }

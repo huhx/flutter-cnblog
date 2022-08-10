@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -14,6 +15,9 @@ abstract class BlogApi {
 
   @GET("/blogposts/{id}/body")
   Future<String> getBlogContent(@Path("id") int id);
+
+  @GET("/blog/v2/blogposts/aggsites/mostread")
+  Future<List<PopularBlogResp>> getMostReadBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 }
 
 final blogApi = BlogApi(RestClient.getInstance());
