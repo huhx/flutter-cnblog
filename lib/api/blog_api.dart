@@ -18,6 +18,10 @@ abstract class BlogApi {
 
   @GET("/blog/v2/blogposts/aggsites/mostread")
   Future<List<PopularBlogResp>> getMostReadBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
+
+
+  @GET("/blog/v2/blogposts/aggsites/mostliked")
+  Future<List<PopularBlogResp>> getMostLikedBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 }
 
 final blogApi = BlogApi(RestClient.getInstance());

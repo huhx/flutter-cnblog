@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/home/category/home/home_category_screen.dart';
 
+import 'category/liked/most_liked_blog_screen.dart';
 import 'category/read/most_read_blog_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             HomeCategoryScreen(),
             MostReadBlogScreen(),
-            HomeCategoryScreen(),
+            MostLikedBlogScreen(),
             HomeCategoryScreen(),
           ],
         ),
