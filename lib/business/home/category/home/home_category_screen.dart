@@ -104,13 +104,13 @@ class BlogItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleImage(url: blog.avatar),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 6),
                       Text(blog.author, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                       const SizedBox(width: 10),
                       TextIcon(icon: "view", counts: blog.viewCount),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 8),
                       TextIcon(icon: "comment", counts: blog.commentCount),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 8),
                       TextIcon(icon: "like", counts: blog.diggCount),
                     ],
                   ),
@@ -139,7 +139,7 @@ class TextIcon extends StatelessWidget {
     return Row(
       children: [
         SvgIcon(name: icon, size: 12, color: Colors.grey),
-        const SizedBox(width: 2),
+        const SizedBox(width: 4),
         Text("$counts", style: const TextStyle(color: Colors.grey, fontSize: 11)),
       ],
     );
