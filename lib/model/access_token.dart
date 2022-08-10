@@ -6,13 +6,13 @@ part 'access_token.g.dart';
 class AccessToken {
   final String tokenType;
   final String accessToken;
-  final String refreshToken;
+  final String? refreshToken;
   final int expiresIn;
 
   AccessToken({
     required this.tokenType,
     required this.accessToken,
-    required this.refreshToken,
+    this.refreshToken,
     required this.expiresIn,
   });
 
