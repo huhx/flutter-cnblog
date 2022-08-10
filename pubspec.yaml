@@ -47,6 +47,9 @@ dependencies:
   fluttertoast: ^8.0.9
   infinite_scroll_pagination: ^3.2.0
   pull_to_refresh: ^2.0.0
+  flutter_dotenv: ^5.0.2
+  webview_flutter: ^3.0.4
+  dio_http_formatter: ^2.1.0
 
 dependency_overrides:
   pull_to_refresh:
@@ -91,6 +94,7 @@ flutter:
     - assets/image/
     - assets/svg/
     - assets/sound/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:
