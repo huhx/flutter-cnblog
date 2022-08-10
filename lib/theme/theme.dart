@@ -19,6 +19,12 @@ final appThemeData = {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
     ),
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
   ),
   AppTheme.dark: ThemeData(
     brightness: Brightness.dark,
@@ -31,6 +37,12 @@ final appThemeData = {
     primaryColor: themeColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
+    ),
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      },
     ),
   )
 };

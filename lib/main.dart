@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +14,7 @@ final Logger logger = Logger(printer: PrettyPrinter());
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  timeago.setLocaleMessages('zh_CN', timeago.ZhCnMessages());
+  timeago.setLocaleMessages('zh_CN', ZhMessages());
 
   runApp(
     const ProviderScope(child: MainApp()),
