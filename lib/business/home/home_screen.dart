@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/business/home/home_category_screen.dart';
-
-import 'data/home_category.dart';
+import 'package:flutter_cnblog/business/home/category/home/home_category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,10 +22,10 @@ class HomeScreen extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            HomeCategoryScreen(category: HomeCategory.home),
-            HomeCategoryScreen(category: HomeCategory.readRank),
-            HomeCategoryScreen(category: HomeCategory.recommendRank),
-            HomeCategoryScreen(category: HomeCategory.java),
+            HomeCategoryScreen(),
+            HomeCategoryScreen(),
+            HomeCategoryScreen(),
+            HomeCategoryScreen(),
           ],
         ),
       ),
