@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -33,12 +32,7 @@ class MainApp extends StatelessWidget {
         theme: appThemeData[AppTheme.light],
         localizationsDelegates: const [
           RefreshLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
         ],
-        locale: const Locale('zh'),
-        supportedLocales: const [Locale('en'), Locale('zh')],
       ),
     );
   }
