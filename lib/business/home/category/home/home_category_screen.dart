@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
@@ -50,6 +53,8 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
       child: PagedListView<int, BlogResp>(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<BlogResp>(
+          firstPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
+          newPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
           itemBuilder: (context, item, index) => BlogItem(blog: item),
         ),
       ),
@@ -75,45 +80,48 @@ class BlogItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(blog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-            const SizedBox(height: 6),
-            Text(
-              blog.description,
-              style: const TextStyle(fontSize: 13, color: Colors.grey),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 6),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleImage(url: blog.avatar),
-                    const SizedBox(width: 4),
-                    Text(blog.author, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                    const SizedBox(width: 10),
-                    TextIcon(icon: "view", counts: blog.viewCount),
-                    const SizedBox(width: 6),
-                    TextIcon(icon: "comment", counts: blog.commentCount),
-                    const SizedBox(width: 6),
-                    TextIcon(icon: "like", counts: blog.diggCount),
-                  ],
-                ),
-                Text(
-                  timeago.format(DateTime.parse(blog.postDate), locale: 'zh_CN'),
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
-                )
-              ],
-            )
-          ],
+    return InkWell(
+      onTap: () => context.goto(BlogDetailScreen(blog: blog)),
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(blog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              const SizedBox(height: 6),
+              Text(
+                blog.description,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 6),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleImage(url: blog.avatar),
+                      const SizedBox(width: 4),
+                      Text(blog.author, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      const SizedBox(width: 10),
+                      TextIcon(icon: "view", counts: blog.viewCount),
+                      const SizedBox(width: 6),
+                      TextIcon(icon: "comment", counts: blog.commentCount),
+                      const SizedBox(width: 6),
+                      TextIcon(icon: "like", counts: blog.diggCount),
+                    ],
+                  ),
+                  Text(
+                    timeago.format(DateTime.parse(blog.postDate), locale: 'zh_CN'),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
