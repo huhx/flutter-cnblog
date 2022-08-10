@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'category/essence/essence_blog_screen.dart';
 import 'category/home/home_category_screen.dart';
 import 'category/liked/most_liked_blog_screen.dart';
 import 'category/read/most_read_blog_screen.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: const TabBar(
@@ -20,8 +21,10 @@ class HomeScreen extends StatelessWidget {
               Tab(text: "阅读榜"),
               Tab(text: "推荐榜"),
               Tab(text: "编辑推荐"),
+              Tab(text: "精华博客"),
             ],
             indicatorColor: Colors.white,
+            isScrollable: true,
           ),
         ),
         body: const TabBarView(
@@ -30,6 +33,7 @@ class HomeScreen extends StatelessWidget {
             MostReadBlogScreen(),
             MostLikedBlogScreen(),
             RecommendBlogScreen(),
+            EssenceBlogScreen(),
           ],
         ),
       ),
