@@ -55,6 +55,11 @@ class _EssenceBlogScreenState extends State<EssenceBlogScreen> {
         builderDelegate: PagedChildBuilderDelegate<BlogResp>(
           firstPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
           newPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
+          noMoreItemsIndicatorBuilder: (_) => Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: const Text("没有更多内容!", style: TextStyle(color: Colors.grey)),
+          ),
           itemBuilder: (context, item, index) => BlogItem(blog: item),
         ),
       ),

@@ -20,6 +20,7 @@ class _MostLikedBlogScreenState extends State<MostLikedBlogScreen> {
   static const _pageSize = 10;
   final PagingController<int, PopularBlogResp> _pagingController = PagingController(firstPageKey: 1);
   final RefreshController refreshController = RefreshController();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -51,9 +52,15 @@ class _MostLikedBlogScreenState extends State<MostLikedBlogScreen> {
       onRefresh: _onRefresh,
       child: PagedListView<int, PopularBlogResp>(
         pagingController: _pagingController,
+        scrollController: scrollController,
         builderDelegate: PagedChildBuilderDelegate<PopularBlogResp>(
           firstPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
           newPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
+          noMoreItemsIndicatorBuilder: (_) => Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: const Text("没有更多内容!", style: TextStyle(color: Colors.grey)),
+          ),
           itemBuilder: (context, item, index) => BlogItem(index: index, blog: item),
         ),
       ),

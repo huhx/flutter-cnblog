@@ -50,6 +50,7 @@ dependencies:
   dio_http_formatter: ^2.1.0
   cached_network_image: ^3.2.1
   timeago: ^3.2.2
+  hidable: ^1.0.2
 
 dependency_overrides:
   pull_to_refresh:
