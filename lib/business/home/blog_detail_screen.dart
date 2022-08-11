@@ -85,7 +85,7 @@ class BlogHeader extends StatelessWidget {
                       Text(blog.author),
                       const SizedBox(height: 4),
                       Text(
-                        "${timeago.format(DateTime.parse(blog.postDate), locale: 'zh_CN')}  阅读 ${blog.viewCount}",
+                        "${timeago.format(DateTime.parse(blog.postDate))}  阅读 ${blog.viewCount}",
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
                       )
                     ],
@@ -115,7 +115,9 @@ class BlogContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-      child: Html(data: content.substring(1, content.length - 1).replaceAll(r"\n", "<br>")),
+      child: Html(
+        data: content.substring(1, content.length - 1).replaceAll(r"\n", "<br>"),
+      ),
     );
   }
 }

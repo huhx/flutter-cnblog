@@ -120,7 +120,7 @@ class BlogItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    timeago.format(DateTime.parse(blog.postDate), locale: 'zh_CN'),
+                    timeago.format(DateTime.parse(blog.postDate)),
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   )
                 ],

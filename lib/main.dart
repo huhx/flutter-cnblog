@@ -17,7 +17,8 @@ final Logger logger = Logger(printer: PrettyPrinter());
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  timeago.setLocaleMessages('zh_CN', ZhMessages());
+  timeago.setLocaleMessages('zh', ZhMessages());
+  timeago.setDefaultLocale('zh');
 
   runApp(
     const ProviderScope(child: MainApp()),
