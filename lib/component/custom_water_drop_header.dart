@@ -9,7 +9,8 @@ class CustomWaterDropHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RefreshString refreshString = RefreshLocalizations.of(context)?.currentLocalization ?? EnRefreshString();
+    final RefreshString refreshString = ChRefreshString();
+
     return WaterDropHeader(
       refresh: const SizedBox(
         width: 25.0,

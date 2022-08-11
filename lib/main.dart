@@ -38,9 +38,6 @@ class MainApp extends StatelessWidget {
         },
         home: const MainScreen(),
         theme: appThemeData[AppTheme.light],
-        localizationsDelegates: const [
-          RefreshLocalizations.delegate,
-        ],
       ),
     );
   }
