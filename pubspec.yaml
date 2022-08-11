@@ -51,6 +51,7 @@ dependencies:
   cached_network_image: ^3.2.1
   timeago: ^3.2.2
   hidable: ^1.0.2
+  double_back_to_close: ^2.0.0
 
 dependency_overrides:
   pull_to_refresh:

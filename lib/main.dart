@@ -1,7 +1,9 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
+import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -36,7 +38,10 @@ class MainApp extends StatelessWidget {
             child: child!,
           );
         },
-        home: const MainScreen(),
+        home: DoubleBack(
+          onFirstBackPress: (_) => CommUtil.toast(message: "再按一次退出"),
+          child: const MainScreen(),
+        ),
         theme: appThemeData[AppTheme.light],
       ),
     );
