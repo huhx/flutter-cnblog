@@ -35,8 +35,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: Stack(
         children: [
           WebView(
-            javascriptMode: JavascriptMode.unrestricted,
             initialUrl: AuthRequest.getAuthorizeUrl(),
+            javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (_) {
               logger.d('加载url：${AuthRequest.getAuthorizeUrl()}');
             },

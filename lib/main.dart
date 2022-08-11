@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
@@ -29,6 +30,12 @@ class MainApp extends StatelessWidget {
     return RefreshConfiguration(
       headerBuilder: () => const CustomWaterDropHeader(),
       child: MaterialApp(
+        builder: (context, child) {
+          return ScrollConfiguration(
+            behavior: const CupertinoScrollBehavior(),
+            child: child!,
+          );
+        },
         home: const MainScreen(),
         theme: appThemeData[AppTheme.light],
         localizationsDelegates: const [
