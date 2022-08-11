@@ -8,7 +8,7 @@ import 'package:flutter_cnblog/component/custom_navigation_bar_item.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

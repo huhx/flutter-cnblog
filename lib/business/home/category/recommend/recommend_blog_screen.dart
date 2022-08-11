@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -51,8 +51,9 @@ class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
       child: PagedListView<int, RecommendBlogResp>(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<RecommendBlogResp>(
-          firstPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
+          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
+          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
+          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
           itemBuilder: (context, item, index) => BlogItem(index: index, blog: item),
         ),
       ),

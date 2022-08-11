@@ -7,7 +7,7 @@ import 'category/read/most_read_blog_screen.dart';
 import 'category/recommend/recommend_blog_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
             ],
             indicatorColor: Colors.white,
             isScrollable: true,
+            indicatorWeight: 1,
           ),
         ),
         body: const TabBarView(

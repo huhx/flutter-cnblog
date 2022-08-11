@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -53,13 +53,9 @@ class _EssenceBlogScreenState extends State<EssenceBlogScreen> {
       child: PagedListView<int, BlogResp>(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<BlogResp>(
-          firstPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const CenterProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: const Text("没有更多内容!", style: TextStyle(color: Colors.grey)),
-          ),
+          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
+          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
+          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
           itemBuilder: (context, item, index) => BlogItem(blog: item),
         ),
       ),
