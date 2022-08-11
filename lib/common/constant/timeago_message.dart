@@ -12,25 +12,25 @@ class ZhMessages implements LookupMessages {
   @override
   String lessThanOneMinute(int seconds) => '少于一分钟';
   @override
-  String aboutAMinute(int minutes) => '约1分钟';
+  String aboutAMinute(int minutes) => '1分钟';
   @override
   String minutes(int minutes) => '$minutes分';
   @override
-  String aboutAnHour(int minutes) => '约1小时';
+  String aboutAnHour(int minutes) => '1小时';
   @override
-  String hours(int hours) => '约$hours小时';
+  String hours(int hours) => '$hours小时';
   @override
-  String aDay(int hours) => '约1天';
+  String aDay(int hours) => '1天';
   @override
-  String days(int days) => '约$days日';
+  String days(int days) => '$days日';
   @override
-  String aboutAMonth(int days) => '约1个月';
+  String aboutAMonth(int days) => '1个月';
   @override
-  String months(int months) => '约$months月';
+  String months(int months) => '$months月';
   @override
-  String aboutAYear(int year) => '约1年';
+  String aboutAYear(int year) => '1年';
   @override
-  String years(int years) => '约$years年';
+  String years(int years) => '$years年';
   @override
   String wordSeparator() => '';
 }
