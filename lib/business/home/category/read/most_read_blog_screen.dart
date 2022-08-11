@@ -108,7 +108,7 @@ class BlogItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${blog.author}   ${timeago.format(DateTime.parse(blog.dateAdded))}",
+                          "${blog.author}   ${timeago.format(blog.dateAdded)}",
                           style: const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                         TextIcon(icon: 'view', counts: blog.viewCount)

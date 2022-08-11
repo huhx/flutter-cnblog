@@ -11,7 +11,7 @@ class BlogResp {
   final String author;
   final String blogApp;
   final String avatar;
-  final String postDate;
+  final DateTime postDate;
   final int viewCount;
   final int commentCount;
   final int diggCount;

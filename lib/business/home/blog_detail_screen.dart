@@ -85,7 +85,7 @@ class BlogHeader extends StatelessWidget {
                       Text(blog.author),
                       const SizedBox(height: 4),
                       Text(
-                        "${timeago.format(DateTime.parse(blog.postDate))}  阅读 ${blog.viewCount}",
+                        "${timeago.format(blog.postDate)}  阅读 ${blog.viewCount}",
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
                       )
                     ],

@@ -102,7 +102,7 @@ class BlogItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          timeago.format(DateTime.parse(blog.dateAdded)),
+                          timeago.format(blog.dateAdded),
                           style: const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                         const SvgIcon(name: 'like', size: 12, color: Colors.grey)

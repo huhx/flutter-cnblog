@@ -18,8 +18,8 @@ class PopularBlogResp {
   final int viewCount;
   final int commentCount;
   final int diggCount;
-  final String dateAdded;
-  final String dateUpdated;
+  final DateTime dateAdded;
+  final DateTime dateUpdated;
   final String? entryName;
 
   PopularBlogResp({

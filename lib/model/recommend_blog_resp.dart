@@ -7,7 +7,7 @@ class RecommendBlogResp {
   final int postId;
   final int blogId;
   final String title;
-  final String dateAdded;
+  final DateTime dateAdded;
 
   RecommendBlogResp({
     required this.postId,
