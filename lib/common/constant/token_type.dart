@@ -1,0 +1,1 @@
+enum TokenType { app, user }
