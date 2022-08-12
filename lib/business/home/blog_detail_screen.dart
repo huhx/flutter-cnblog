@@ -150,46 +150,34 @@ class _BlogFooterState extends State<BlogFooter> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: IconButton(
-                    onPressed: () => CommUtil.toBeDev(),
-                    padding: EdgeInsets.zero,
-                    icon: const SvgIcon(name: "comment", size: 18),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: IconButton(
-                    onPressed: () => CommUtil.toBeDev(),
-                    padding: EdgeInsets.zero,
-                    icon: const SvgIcon(name: "comment", size: 18),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: IconButton(
-                    onPressed: () => CommUtil.toBeDev(),
-                    padding: EdgeInsets.zero,
-                    icon: const SvgIcon(name: "like", size: 18),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: IconButton(
-                    onPressed: () => CommUtil.toBeDev(),
-                    padding: EdgeInsets.zero,
-                    icon: const SvgIcon(name: "star", size: 18),
-                  ),
-                ),
+                BlogIconButton(name: "comment", onPressed: () => CommUtil.toBeDev()),
+                BlogIconButton(name: "comment", onPressed: () => CommUtil.toBeDev()),
+                BlogIconButton(name: "like", onPressed: () => CommUtil.toBeDev()),
+                BlogIconButton(name: "star", onPressed: () => CommUtil.toBeDev())
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BlogIconButton extends StatelessWidget {
+  final String name;
+  final VoidCallback onPressed;
+
+  const BlogIconButton({super.key, required this.name, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 20,
+      width: 20,
+      child: IconButton(
+        onPressed: onPressed,
+        padding: EdgeInsets.zero,
+        icon: SvgIcon(name: name, size: 18),
       ),
     );
   }
