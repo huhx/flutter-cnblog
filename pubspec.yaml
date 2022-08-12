@@ -52,6 +52,11 @@ dependencies:
   timeago: ^3.2.2
   hidable: ^1.0.2
   double_back_to_close: ^2.0.0
+  badges: ^2.0.3
+  emoji_picker_flutter: ^1.3.1
+  animations: ^2.0.3
+  vibration: ^1.7.5
+  shimmer: ^2.0.0
 
 dependency_overrides:
   pull_to_refresh:
