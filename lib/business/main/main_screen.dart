@@ -16,7 +16,13 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var pageIndex = 0;
-  final homeList = [const HomeScreen(), const InstantScreen(), const QuestionScreen(), const MomentScreen(), const ProfileScreen()];
+  final homeList = [
+    const HomeScreen(),
+    const InstantScreen(),
+    const QuestionScreen(),
+    const MomentScreen(),
+    const ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
