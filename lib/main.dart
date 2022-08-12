@@ -21,8 +21,6 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await dotenv.load(fileName: ".env");
-  timeago.setLocaleMessages('zh', ZhMessages());
-  timeago.setDefaultLocale('zh');
 
   runApp(
     const ProviderScope(child: MainApp()),
@@ -41,7 +39,12 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
 
-    FlutterNativeSplash.remove();
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      timeago.setLocaleMessages('zh', ZhMessages());
+      timeago.setDefaultLocale('zh');
+
+      FlutterNativeSplash.remove();
+    });
   }
 
   @override
