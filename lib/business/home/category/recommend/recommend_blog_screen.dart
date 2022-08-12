@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/common/constant/comm_constant.dart';
+import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
@@ -16,7 +18,6 @@ class RecommendBlogScreen extends StatefulWidget {
 }
 
 class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
-  static const _pageSize = 10;
   final PagingController<int, RecommendBlogResp> _pagingController = PagingController(firstPageKey: 1);
   final RefreshController refreshController = RefreshController();
 
@@ -27,18 +28,8 @@ class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    try {
-      final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, _pageSize);
-      final isLastPage = blogs.length < _pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(blogs);
-      } else {
-        final int nextPageKey = pageKey + 1;
-        _pagingController.appendPage(blogs, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
+    final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, pageSize);
+    _pagingController.fetch(blogs, pageKey);
   }
 
   @override
@@ -58,8 +49,8 @@ class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
     );
   }
 
-  void _onRefresh() async {
-    setState(() {});
+  void _onRefresh() {
+    _pagingController.refresh();
     refreshController.refreshCompleted();
   }
 

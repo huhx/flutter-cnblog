@@ -39,7 +39,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 1500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       timeago.setLocaleMessages('zh', ZhMessages());
       timeago.setDefaultLocale('zh');
 

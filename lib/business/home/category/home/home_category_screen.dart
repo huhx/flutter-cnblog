@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/common/constant/comm_constant.dart';
+import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
@@ -18,7 +20,6 @@ class HomeCategoryScreen extends StatefulWidget {
 }
 
 class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
-  static const _pageSize = 10;
   final PagingController<int, BlogResp> _pagingController = PagingController(firstPageKey: 1);
   final RefreshController refreshController = RefreshController();
 
@@ -29,18 +30,8 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    try {
-      final List<BlogResp> blogs = await blogApi.getHomeBlogs(pageKey, _pageSize);
-      final isLastPage = blogs.length < _pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(blogs);
-      } else {
-        final int nextPageKey = pageKey + 1;
-        _pagingController.appendPage(blogs, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
+    final List<BlogResp> blogs = await blogApi.getHomeBlogs(pageKey, pageSize);
+    _pagingController.fetch(blogs, pageKey);
   }
 
   @override
@@ -60,8 +51,8 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
     );
   }
 
-  void _onRefresh() async {
-    setState(() {});
+  void _onRefresh() {
+    _pagingController.refresh();
     refreshController.refreshCompleted();
   }
 
