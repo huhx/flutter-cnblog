@@ -6,9 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TokenApi {
   Future<AccessToken> getToken() async {
-    if (AppConfig.get("access_token") != null) {
-      return AppConfig.get("access_token");
-    }
     final Response<dynamic> response = await Dio().post(
       "https://api.cnblogs.com/token",
       data: {
@@ -24,7 +21,7 @@ class TokenApi {
     return accessToken;
   }
 
-  Future<String> getUserToken(String code) async {
+  Future<AccessToken> getUserToken(String code) async {
     final Response<dynamic> response = await Dio().post(
       "https://oauth.cnblogs.com/connect/token",
       data: {
@@ -39,7 +36,7 @@ class TokenApi {
     final AccessToken accessToken = AccessToken.fromJson(response.data);
     AppConfig.save("user_token", accessToken);
     logger.d("用户Token: ${accessToken.accessToken}");
-    return '${accessToken.tokenType} ${accessToken.accessToken}';
+    return accessToken;
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/api/token_api.dart';
 import 'package:flutter_cnblog/main.dart';
+import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,7 +20,8 @@ class SessionModel extends StateNotifier<User?> {
   bool get isAuth => state != null;
 
   Future<void> login(String code) async {
-    final String userToken = await tokenApi.getUserToken(code);
+    final AccessToken accessToken = await tokenApi.getUserToken(code);
+    final String userToken = '${accessToken.tokenType} ${accessToken.accessToken}';
 
     final Response userResponse = await Dio().get(
       "https://api.cnblogs.com/api/users",

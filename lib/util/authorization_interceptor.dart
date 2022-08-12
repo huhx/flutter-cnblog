@@ -12,13 +12,42 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    late AccessToken accessToken;
-    if (tokenType == TokenType.app) {
-      accessToken = await tokenApi.getToken();
+    late AccessToken? accessToken = getToken(tokenType);
+    if (tokenType == TokenType.user) {
+      handler.reject(DioError(requestOptions: options));
     } else {
-      accessToken = AppConfig.get("user_token");
+      accessToken = await tokenApi.getToken();
+      options.headers["Authorization"] = "Bearer ${accessToken.accessToken}";
+      handler.next(options);
     }
-    options.headers["Authorization"] = "Bearer ${accessToken.accessToken}";
-    handler.next(options);
+  }
+
+  @override
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode == 401) {
+      if (tokenType == TokenType.user) {
+        handler.reject(err);
+        return;
+      }
+      final AccessToken accessToken = await tokenApi.getToken();
+      final RequestOptions requestOptions = err.requestOptions;
+      requestOptions.headers["Authorization"] = "Bearer ${accessToken.accessToken}";
+
+      await Dio().request(
+        requestOptions.path,
+        data: requestOptions.data,
+        queryParameters: requestOptions.queryParameters,
+        options: Options(method: requestOptions.method, headers: requestOptions.headers),
+      );
+    } else {
+      handler.reject(err);
+    }
+  }
+
+  AccessToken? getToken(TokenType tokenType) {
+    if (tokenType == TokenType.app) {
+      return AppConfig.get("access_token");
+    }
+    return AppConfig.get("user_token");
   }
 }
