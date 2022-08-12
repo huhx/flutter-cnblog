@@ -13,13 +13,16 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     late AccessToken? accessToken = getToken(tokenType);
-    if (tokenType == TokenType.user) {
-      handler.reject(DioError(requestOptions: options));
-    } else {
-      accessToken = await tokenApi.getToken();
-      options.headers["Authorization"] = "Bearer ${accessToken.accessToken}";
-      handler.next(options);
+    if (accessToken == null) {
+      if (tokenType == TokenType.user) {
+        return handler.reject(DioError(requestOptions: options));
+      } else {
+        accessToken = await tokenApi.getToken();
+      }
     }
+
+    options.headers["Authorization"] = "Bearer ${accessToken.accessToken}";
+    handler.next(options);
   }
 
   @override

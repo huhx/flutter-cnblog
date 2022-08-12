@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/api/token_api.dart';
+import 'package:flutter_cnblog/api/user_api.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/model/user.dart';
@@ -21,20 +21,14 @@ class SessionModel extends StateNotifier<User?> {
 
   Future<void> login(String code) async {
     final AccessToken accessToken = await tokenApi.getUserToken(code);
-    final String userToken = '${accessToken.tokenType} ${accessToken.accessToken}';
+    logger.d("用户Token: ${accessToken.accessToken}");
+    AppConfig.save("user_token", accessToken);
 
-    final Response userResponse = await Dio().get(
-      "https://api.cnblogs.com/api/users",
-      options: Options(headers: {"Authorization": userToken}),
-    );
-    if (userResponse.data != null) {
-      final User user = User.fromJson(userResponse.data);
-      logger.d("user = ${user.displayName}");
-      AppConfig.save("user", user);
-      AppConfig.save("token", userToken);
-      AppConfig.save("userId", user.userId);
+    final User user = await userApi.currentUser();
+    state = user;
 
-      state = user;
-    }
+    logger.d("user = ${user.displayName}");
+    AppConfig.save("user", user);
+    AppConfig.save("userId", user.userId);
   }
 }

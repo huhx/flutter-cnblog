@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,10 +32,7 @@ class TokenApi {
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
-    final AccessToken accessToken = AccessToken.fromJson(response.data);
-    AppConfig.save("user_token", accessToken);
-    logger.d("用户Token: ${accessToken.accessToken}");
-    return accessToken;
+    return AccessToken.fromJson(response.data);
   }
 }
 
