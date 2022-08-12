@@ -57,6 +57,7 @@ dependencies:
   animations: ^2.0.3
   vibration: ^1.7.5
   shimmer: ^2.0.0
+  flutter_native_splash: ^2.2.7
 
 dependency_overrides:
   pull_to_refresh:

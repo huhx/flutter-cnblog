@@ -5,6 +5,7 @@ import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -16,6 +17,9 @@ import 'component/custom_water_drop_header.dart';
 final Logger logger = Logger(printer: PrettyPrinter());
 
 void main() async {
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await dotenv.load(fileName: ".env");
   timeago.setLocaleMessages('zh', ZhMessages());
   timeago.setDefaultLocale('zh');
@@ -25,8 +29,20 @@ void main() async {
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {

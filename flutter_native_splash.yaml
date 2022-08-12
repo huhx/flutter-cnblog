@@ -1,0 +1,10 @@
+flutter_native_splash:
+  background_image: "assets/image/splash.png"
+#  background_image_dark: "assets/image/background.png"
+
+#  android_12:
+#    image: "assets/image/journal_bg.png"
+#    dark_image: "assets/image/journal_bg.png"
+
+  android: true
+  ios: true
