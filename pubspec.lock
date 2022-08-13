@@ -671,9 +671,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: "6d7fbdd5b3cde242a474d66da312aac4aa892b9b"
-      url: "https://github.com/miquelbeltran/flutter_pulltorefresh"
+      ref: main
+      resolved-ref: "51ac3c2f6ba6174d5c23f2dd7a313ea4ae875a34"
+      url: "https://github.com/huhx/flutter_pulltorefresh"
     source: git
     version: "2.0.0"
   quiver:
