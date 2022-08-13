@@ -29,6 +29,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           List<CategoryList> categoryList = snap.data as List<CategoryList>;
           return ListView.separated(
             physics: const ListScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: categoryList.length,
             separatorBuilder: (context, index) => const Divider(color: Colors.grey),
             itemBuilder: (_, index) => CategoryItem(categoryList[index]),
@@ -50,7 +51,7 @@ class CategoryItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(categoryList.group.label),
         ),
         GridView.count(

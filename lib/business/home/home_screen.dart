@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               InkWell(
                 onTap: () => context.goto(const CategoryScreen()),
                 child: const Padding(
-                  padding: EdgeInsets.only(left: 6),
+                  padding: EdgeInsets.only(left: 10),
                   child: SvgIcon(name: "category_more", color: Colors.white, size: 20),
                 ),
               ),
