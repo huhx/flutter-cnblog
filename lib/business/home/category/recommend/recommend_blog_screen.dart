@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/extension/comm_extension.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -71,7 +73,11 @@ class BlogItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color backgroundColor = index < 5 ? Colors.blue : Colors.grey;
     return InkWell(
-      onTap: () => CommUtil.toBeDev(),
+      onTap: () async {
+        final String encodeString = Uri.encodeComponent(blog.url);
+        final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
+        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp()));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),

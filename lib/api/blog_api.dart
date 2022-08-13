@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
@@ -17,16 +18,17 @@ abstract class BlogApi {
   @GET("/blogposts/@picked")
   Future<List<BlogResp>> getEssenceBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 
+  @GET("/blog/v2/blogposts/url/{url}")
+  Future<BlogContentResp> getBlogByUrl(@Path("url") String url);
+
   @GET("/blogposts/{id}/body")
   Future<String> getBlogContent(@Path("id") int id);
 
   @GET("/blog/v2/blogposts/aggsites/mostread")
   Future<List<PopularBlogResp>> getMostReadBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 
-
   @GET("/blog/v2/blogposts/aggsites/mostliked")
   Future<List<PopularBlogResp>> getMostLikedBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
-
 
   @GET("/blog/v2/blogposts/aggsites/headline")
   Future<List<RecommendBlogResp>> getRecommendBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
