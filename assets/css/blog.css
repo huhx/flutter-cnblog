@@ -1,0 +1,47 @@
+#header {
+  display: none;
+}
+
+#navigator {
+  display: none;
+}
+
+#top_nav {
+  display: none;
+}
+
+#sideBar {
+  display: none;
+}
+
+#footer {
+  display: none;
+}
+
+#blog_post_info_block {
+  display: none;
+}
+
+#mytopmenu {
+    display: none;
+}
+
+.postDesc {
+  display: none;
+}
+
+#comment_form {
+  display: none;
+}
+
+#sidebar_ad, #sidebar_c3 {
+  display: none;
+}
+
+#cnblogs_ch, #cnblogs_c1, cnblogs_c2 {
+  display: none;
+}
+
+#page_begin_html {
+ display: none;
+}

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class BlogDetailScreen extends StatefulWidget {
@@ -31,22 +29,10 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           )
         ],
       ),
-      body: FutureBuilder<String>(
-        future: blogApi.getBlogContent(widget.blog.id),
-        builder: (_, snap) {
-          if (!snap.hasData) return const CenterProgressIndicator();
-          return Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              ListView(
-                children: [
-                  BlogHeader(blog: widget.blog),
-                  BlogContent(content: snap.requireData),
-                ],
-              ),
-              BlogFooter(blog: widget.blog)
-            ],
-          );
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(url: Uri.parse(widget.blog.url)),
+        onPageCommitVisible: (controller, url) async {
+          await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/blog.css");
         },
       ),
     );
@@ -101,22 +87,6 @@ class BlogHeader extends StatelessWidget {
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class BlogContent extends StatelessWidget {
-  final String content;
-
-  const BlogContent({Key? key, required this.content}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-      child: Html(
-        data: content.substring(1, content.length - 1).replaceAll(r"\n", "<br>"),
       ),
     );
   }

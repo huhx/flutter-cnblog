@@ -14,7 +14,7 @@ class _InstantScreenState extends State<InstantScreen> {
   @override
   void initState() {
     super.initState();
-    logger.d(AppConfig.get("token") ?? "none");
+    logger.d(AppConfig.get("user_token") ?? "none");
   }
 
   @override
