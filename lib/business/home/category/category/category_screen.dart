@@ -75,7 +75,11 @@ class CategoryItem extends StatelessWidget {
           width: 80,
           child: Tooltip(
             message: item.label,
-            child: Text(item.label, style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis),
+            child: Text(
+              item.label,
+              style: const TextStyle(fontSize: 13),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ),
         onPressed: () => context.goto(CategoryListScreen(item)),
