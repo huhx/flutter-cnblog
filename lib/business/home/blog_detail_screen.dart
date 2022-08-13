@@ -4,6 +4,7 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -37,7 +38,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: widget.blog.httpsUrl()),
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/blog.css");
+              await controller.injectCSSCode(source: AppConfig.get("css"));
               setState(() => isLoading = false);
             },
           ),
