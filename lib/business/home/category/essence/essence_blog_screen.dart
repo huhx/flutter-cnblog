@@ -52,7 +52,7 @@ class _EssenceBlogScreenState extends State<EssenceBlogScreen> {
   }
 
   void _onRefresh() async {
-    setState(() {});
+    _pagingController.refresh();
     refreshController.refreshCompleted();
   }
 

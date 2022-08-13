@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class CenterProgressIndicator extends StatelessWidget {
-  const CenterProgressIndicator({super.key});
+  final double radius;
+
+  const CenterProgressIndicator({super.key, this.radius = 15});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CupertinoActivityIndicator(radius: 15));
+    return Center(child: CupertinoActivityIndicator(radius: radius));
   }
 }

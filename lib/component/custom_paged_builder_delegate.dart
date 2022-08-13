@@ -19,9 +19,20 @@ class NewPageProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 16, bottom: 16),
-      child: CenterProgressIndicator(),
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 16),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 10,
+        children: [
+          SizedBox.fromSize(
+            size: const Size(20, 20),
+            child: const CenterProgressIndicator(radius: 10),
+          ),
+          const Text("加载中…", style: TextStyle(fontSize: 13, color: Colors.grey)),
+        ],
+      ),
     );
   }
 }
