@@ -12,6 +12,11 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    if (tokenType == TokenType.none) {
+      handler.next(options);
+      return;
+    }
+
     late AccessToken? accessToken = getToken(tokenType);
     if (accessToken == null) {
       if (tokenType == TokenType.user) {

@@ -18,7 +18,7 @@ abstract class BlogApi {
   @GET("/blogposts/@picked")
   Future<List<BlogResp>> getEssenceBlogs(@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 
-  @GET("/blog/v2/blogposts/url/{url}")
+  @GET("/blog/v2/blogposts/url/{url}?includeTags=true&includeCategories=true")
   Future<BlogContentResp> getBlogByUrl(@Path("url") String url);
 
   @GET("/blogposts/{id}/body")
