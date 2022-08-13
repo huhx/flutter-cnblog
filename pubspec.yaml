@@ -58,6 +58,7 @@ dependencies:
   shimmer: ^2.0.0
   flutter_native_splash: ^2.2.7
   flutter_inappwebview: ^5.4.3+7
+  html: ^0.15.0
 
 dependency_overrides:
   pull_to_refresh:
