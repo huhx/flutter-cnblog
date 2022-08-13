@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/category_api.dart';
 import 'package:flutter_cnblog/business/home/category/category/category_list_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/list_scroll_physics.dart';
 import 'package:flutter_cnblog/model/category.dart';
@@ -16,18 +17,24 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<CategoryList>>(
-      future: categoryApi.getAllCategories(),
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        List<CategoryList> categoryList = snap.data as List<CategoryList>;
-        return ListView.separated(
-          physics: const ListScrollPhysics(),
-          itemCount: categoryList.length,
-          separatorBuilder: (context, index) => const Divider(color: Colors.grey),
-          itemBuilder: (_, index) => CategoryItem(categoryList[index]),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        leading: const AppbarBackButton(),
+        title: const Text("所有分类"),
+      ),
+      body: FutureBuilder<List<CategoryList>>(
+        future: categoryApi.getAllCategories(),
+        builder: (context, snap) {
+          if (!snap.hasData) return const CenterProgressIndicator();
+          List<CategoryList> categoryList = snap.data as List<CategoryList>;
+          return ListView.separated(
+            physics: const ListScrollPhysics(),
+            itemCount: categoryList.length,
+            separatorBuilder: (context, index) => const Divider(color: Colors.grey),
+            itemBuilder: (_, index) => CategoryItem(categoryList[index]),
+          );
+        },
+      ),
     );
   }
 }
