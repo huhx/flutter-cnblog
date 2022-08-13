@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
@@ -17,6 +18,8 @@ class BlogDetailScreen extends StatefulWidget {
 }
 
 class _BlogDetailScreenState extends State<BlogDetailScreen> {
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +32,22 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           )
         ],
       ),
-      body: InAppWebView(
-        initialUrlRequest: URLRequest(url: Uri.parse(widget.blog.url)),
-        onPageCommitVisible: (controller, url) async {
-          await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/blog.css");
-        },
+      body: Stack(
+        children: [
+          InAppWebView(
+            initialUrlRequest: URLRequest(url: Uri.parse(widget.blog.url)),
+            onPageCommitVisible: (controller, url) async {
+              await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/blog.css");
+            },
+            onLoadStop: (context, snap) {
+              setState(() => isLoading = false);
+            },
+          ),
+          Visibility(
+            visible: isLoading,
+            child: const CenterProgressIndicator(),
+          )
+        ],
       ),
     );
   }
