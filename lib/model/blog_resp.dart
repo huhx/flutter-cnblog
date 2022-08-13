@@ -30,5 +30,9 @@ class BlogResp {
     required this.diggCount,
   });
 
+  Uri httpsUrl() {
+    return Uri.parse(url).replace(scheme: "https");
+  }
+
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
 }

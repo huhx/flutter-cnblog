@@ -35,11 +35,9 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse(widget.blog.url)),
+            initialUrlRequest: URLRequest(url: widget.blog.httpsUrl()),
             onPageCommitVisible: (controller, url) async {
               await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/blog.css");
-            },
-            onLoadStop: (context, snap) {
               setState(() => isLoading = false);
             },
           ),
