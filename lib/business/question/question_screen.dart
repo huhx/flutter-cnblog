@@ -1,18 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/home/category/category/category_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/model/question.dart';
 
-class QuestionScreen extends StatefulWidget {
+import 'category/question_list_screen.dart';
+
+class QuestionScreen extends StatelessWidget {
   const QuestionScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuestionScreen> createState() => _QuestionScreenState();
-}
-
-class _QuestionScreenState extends State<QuestionScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: const Text("Question Screen"),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Flexible(
+                child: TabBar(
+                  tabs: [
+                    Tab(text: "待解决"),
+                    Tab(text: "高奖励"),
+                    Tab(text: "零回答"),
+                    Tab(text: "已解决"),
+                  ],
+                  indicatorColor: Colors.white,
+                  isScrollable: true,
+                  indicatorWeight: 1,
+                ),
+              ),
+              InkWell(
+                onTap: () => context.goto(const CategoryScreen()),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: SvgIcon(name: "category_more", color: Colors.white, size: 20),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            QuestionListScreen(QuestionStatus.unresolved),
+            QuestionListScreen(QuestionStatus.reward),
+            QuestionListScreen(QuestionStatus.noAnswer),
+            QuestionListScreen(QuestionStatus.resolved),
+          ],
+        ),
+      ),
     );
   }
 }
