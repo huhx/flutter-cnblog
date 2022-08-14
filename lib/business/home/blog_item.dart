@@ -18,7 +18,7 @@ class BlogItem extends StatelessWidget {
       onTap: () => context.goto(BlogDetailScreen(blog: blog)),
       child: Card(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
