@@ -16,7 +16,7 @@ class QuestionScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Flexible(
                 child: TabBar(
