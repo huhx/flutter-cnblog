@@ -30,7 +30,7 @@ class NewPageProgressIndicator extends StatelessWidget {
             size: const Size(20, 20),
             child: const CenterProgressIndicator(radius: 10),
           ),
-          const Text("加载中…", style: TextStyle(fontSize: 13, color: Colors.grey)),
+          const Text("加载中...", style: TextStyle(fontSize: 13, color: Colors.grey)),
         ],
       ),
     );
