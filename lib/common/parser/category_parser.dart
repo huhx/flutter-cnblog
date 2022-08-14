@@ -33,9 +33,9 @@ class CategoryParser {
     final Element titleElement = element.getElementsByClassName("post-item-title")[0];
 
     final String postDate = metaElements[0].children.last.firstChild.toString().trimQuotation();
-    final String viewCount = metaElements[1].children.last.firstChild.toString().trimQuotation();
+    final String diggCount = metaElements[1].children.last.firstChild.toString().trimQuotation();
     final String commentCount = metaElements[2].children.last.firstChild.toString().trimQuotation();
-    final String diggCount = metaElements[3].children.last.firstChild.toString().trimQuotation();
+    final String viewCount = metaElements[3].children.last.firstChild.toString().trimQuotation();
 
     return BlogResp(
       id: int.parse(element.attributes['data-post-id']!),
