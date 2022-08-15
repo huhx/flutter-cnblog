@@ -19,8 +19,8 @@ class _MainScreenState extends State<MainScreen> {
   final homeList = [
     const HomeScreen(),
     const NewsScreen(),
-    const InstantScreen(),
     const QuestionScreen(),
+    const InstantScreen(),
     const ProfileScreen(),
   ];
 
@@ -33,8 +33,8 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           CustomNavigationBarItem(iconName: 'main_blog', text: '博客'),
           CustomNavigationBarItem(iconName: 'main_moment', text: '新闻'),
-          CustomNavigationBarItem(iconName: 'main_instant', text: '闪存'),
           CustomNavigationBarItem(iconName: 'main_question', text: '博问'),
+          CustomNavigationBarItem(iconName: 'main_instant', text: '闪存'),
           CustomNavigationBarItem(iconName: 'main_profile', text: '我的'),
         ],
         selectedItemColor: themeColor,
