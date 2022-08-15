@@ -5,7 +5,7 @@ import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/list_scroll_physics.dart';
-import 'package:flutter_cnblog/model/category.dart';
+import 'package:flutter_cnblog/model/blog_category.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
+import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
-import 'package:flutter_cnblog/model/category.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
 

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cnblog/common/parser/category_parser.dart';
+import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
-import 'package:flutter_cnblog/model/category.dart';
 
 class CategoryApi {
   Future<List<CategoryList>> getAllCategories() async {

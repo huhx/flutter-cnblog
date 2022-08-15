@@ -4,8 +4,8 @@ import 'package:flutter_cnblog/business/home/blog_item.dart';
 import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
-import 'package:flutter_cnblog/model/category.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
