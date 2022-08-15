@@ -6,6 +6,8 @@ import 'package:flutter_cnblog/common/constant/auth_request.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
+import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart' as webView;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -39,6 +41,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             javascriptMode: JavascriptMode.unrestricted,
             onPageFinished: (url) async {
               setState(() => isLoading = false);
+              webView.CookieManager cookieManager = webView.CookieManager.instance();
+              webView.Cookie? cookie = await cookieManager.getCookie(url: Uri.parse(url), name: ".Cnblogs.AspNetCore.Cookies");
+              AppConfig.save("cookie", cookie!.value);
               if (url.startsWith(AuthRequest.callbackUrl)) {
                 logger.d('加载完成：$url');
                 final String code = AuthRequest.getCodeFromUrl(url);
