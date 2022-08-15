@@ -59,6 +59,7 @@ dependencies:
   flutter_native_splash: ^2.2.7
   flutter_inappwebview: ^5.4.3+7
   html: ^0.15.0
+  flutter_html: ^3.0.0-alpha.5
 
 dependency_overrides:
   pull_to_refresh:

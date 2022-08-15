@@ -24,7 +24,7 @@ class InstantParser {
 
     return InstantInfo(
       id: int.parse(bodyElement.attributes['id']!.replaceFirst("feed_content_", "")),
-      content: contentElement.firstChild.toString().trimQuotation(),
+      content: contentElement.outerHtml,
       url: urlElement.attributes['href']!,
       submitter: authorElement.firstChild.toString().trimQuotation().trim(),
       avatar: avatarElement.attributes['src']!,
