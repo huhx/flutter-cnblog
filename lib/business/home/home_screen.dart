@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/home/category/candidate/candidate_blog_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           title: Row(
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                     Tab(text: "推荐榜"),
                     Tab(text: "编辑推荐"),
                     Tab(text: "精华博客"),
+                    Tab(text: "候选区"),
                   ],
                   indicatorColor: Colors.white,
                   isScrollable: true,
@@ -52,6 +54,7 @@ class HomeScreen extends StatelessWidget {
             MostLikedBlogScreen(),
             RecommendBlogScreen(),
             EssenceBlogScreen(),
+            CandidateBlogScreen(),
           ],
         ),
       ),
