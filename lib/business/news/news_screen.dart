@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/model/news.dart';
 
-class NewsScreen extends StatefulWidget {
-  const NewsScreen({Key? key}) : super(key: key);
+import 'news_list_screen.dart';
 
-  @override
-  State<NewsScreen> createState() => _NewsScreenState();
-}
+class NewsScreen extends StatelessWidget {
+  const NewsScreen({super.key});
 
-class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: const Text("Moment Screen"),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: const TabBar(
+            tabs: [
+              Tab(text: "最新发布"),
+              Tab(text: "推荐新闻"),
+              Tab(text: "热门新闻"),
+            ],
+            indicatorColor: Colors.white,
+            isScrollable: true,
+            indicatorWeight: 1,
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            NewsListScreen(NewsCategory.lasted),
+            NewsListScreen(NewsCategory.recommend),
+            NewsListScreen(NewsCategory.hot),
+          ],
+        ),
+      ),
     );
   }
 }
