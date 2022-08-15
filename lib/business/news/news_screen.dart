@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MomentScreen extends StatefulWidget {
-  const MomentScreen({Key? key}) : super(key: key);
+class NewsScreen extends StatefulWidget {
+  const NewsScreen({Key? key}) : super(key: key);
 
   @override
-  State<MomentScreen> createState() => _MomentScreenState();
+  State<NewsScreen> createState() => _NewsScreenState();
 }
 
-class _MomentScreenState extends State<MomentScreen> {
+class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
