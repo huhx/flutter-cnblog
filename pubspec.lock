@@ -401,13 +401,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  hidable:
-    dependency: "direct main"
-    description:
-      name: hidable
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   hooks_riverpod:
     dependency: "direct main"
     description:

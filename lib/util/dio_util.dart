@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_formatter/dio_http_formatter.dart';
 import 'package:flutter_cnblog/common/constant/token_type.dart';
+import 'package:flutter_cnblog/util/cookie_interceptor.dart';
 
 import 'authorization_interceptor.dart';
 
@@ -9,6 +10,13 @@ class RestClient {
     final Dio dio = Dio(BaseOptions());
     dio.interceptors.add(HttpFormatter());
     dio.interceptors.add(AuthorizationInterceptor(tokenType: tokenType));
+    return dio;
+  }
+
+  static Dio withCookie() {
+    final Dio dio = Dio(BaseOptions());
+    dio.interceptors.add(HttpFormatter());
+    dio.interceptors.add(CookieInterceptor());
     return dio;
   }
 }
