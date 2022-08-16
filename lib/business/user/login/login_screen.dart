@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
@@ -7,9 +5,8 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart' as webView;
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,12 +19,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isLoading = true;
 
   @override
-  void initState() {
-    super.initState();
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,17 +27,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
       body: Stack(
         children: [
-          WebView(
-            initialUrl: AuthRequest.getAuthorizeUrl(),
-            javascriptMode: JavascriptMode.unrestricted,
-            onPageFinished: (url) async {
+          InAppWebView(
+            initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
+            onLoadStop: (controller, url) async {
               setState(() => isLoading = false);
-              webView.CookieManager cookieManager = webView.CookieManager.instance();
-              webView.Cookie? cookie = await cookieManager.getCookie(url: Uri.parse(url), name: ".Cnblogs.AspNetCore.Cookies");
+              CookieManager cookieManager = CookieManager.instance();
+              Cookie? cookie = await cookieManager.getCookie(url: url!, name: ".Cnblogs.AspNetCore.Cookies");
               AppConfig.save("cookie", cookie!.value);
-              if (url.startsWith(AuthRequest.callbackUrl)) {
+              if (url.toString().startsWith(AuthRequest.callbackUrl)) {
                 logger.d('加载完成：$url');
-                final String code = AuthRequest.getCodeFromUrl(url);
+                final String code = AuthRequest.getCodeFromUrl(url.toString());
                 await ref.watch(sessionProvider.notifier).login(code);
 
                 if (mounted) {

@@ -5,7 +5,7 @@ class AuthRequest {
   static final String clientId = dotenv.env['clientId']!;
   final String clientSecret = dotenv.env['clientSecret']!;
 
-  static String getAuthorizeUrl() {
+  static Uri getAuthorizeUrl() {
     final Map<String, String> parameters = {
       "client_id": clientId,
       "scope": "openid profile CnBlogsApi offline_access",
@@ -14,7 +14,7 @@ class AuthRequest {
       "state": "cnblog",
       "nonce": DateTime.now().toString(),
     };
-    return Uri(scheme: "https", host: "oauth.cnblogs.com", path: "connect/authorize", queryParameters: parameters).toString();
+    return Uri(scheme: "https", host: "oauth.cnblogs.com", path: "connect/authorize", queryParameters: parameters);
   }
 
   static String getCodeFromUrl(String url) {
