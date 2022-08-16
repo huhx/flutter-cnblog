@@ -5,7 +5,6 @@ class UserBlog {
   final String url;
   final bool isPinned;
   final String summary;
-
   final String name;
   final int commentCount;
   final int diggCount;
