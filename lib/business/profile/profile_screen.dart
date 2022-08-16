@@ -48,31 +48,40 @@ class MyProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  CircleImage(url: user.avatar, size: 48),
-                  const SizedBox(width: 20),
-                  Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 18)),
-                ],
+              InkWell(
+                onTap: () => CommUtil.toBeDev(),
+                child: Row(
+                  children: [
+                    CircleImage(url: user.avatar, size: 48),
+                    const SizedBox(width: 8),
+                    Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   children: [
-                    Row(
-                      children: const [
-                        Text("185", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(width: 2),
-                        Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
+                    InkWell(
+                      onTap: () => CommUtil.toBeDev(),
+                      child: Row(
+                        children: const [
+                          Text("185", style: TextStyle(color: Colors.white, fontSize: 16)),
+                          SizedBox(width: 2),
+                          Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 10),
-                    Row(
-                      children: const [
-                        Text("4", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(width: 2),
-                        Text("关注", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
+                    InkWell(
+                      onTap: () => CommUtil.toBeDev(),
+                      child: Row(
+                        children: const [
+                          Text("4", style: TextStyle(color: Colors.white, fontSize: 16)),
+                          SizedBox(width: 2),
+                          Text("关注", style: TextStyle(fontSize: 12, color: Colors.white70)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
