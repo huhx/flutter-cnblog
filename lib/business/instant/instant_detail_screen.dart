@@ -33,63 +33,66 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
           )
         ],
       ),
-      body: Container(
-        color: Colors.grey,
-        child: Column(
-          children: [
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CircleImage(url: widget.instant.avatar, size: 36),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text(widget.instant.submitter), Text(widget.instant.postDate)],
-                      ),
-                    ],
-                  ),
-                  Html(data: widget.instant.content)
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.grey,
+          child: Column(
+            children: [
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleImage(url: widget.instant.avatar, size: 36),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [Text(widget.instant.submitter), Text(widget.instant.postDate)],
+                        ),
+                      ],
+                    ),
+                    Html(data: widget.instant.content)
+                  ],
+                ),
               ),
-            ),
-            const Divider(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("所有回复 (${widget.instant.commentCounts})"),
-                  FutureBuilder<List<InstantComment>>(
-                    future: instantCommentApi.getInstantComments(widget.instant.id),
-                    builder: (context, snap) {
-                      if (!snap.hasData) return const CenterProgressIndicator();
-                      List<InstantComment> comments = snap.data as List<InstantComment>;
-                      if (comments.isEmpty) {
-                        return Container(
-                          height: 100,
-                          alignment: Alignment.center,
-                          child: const Text("没有回复"),
-                        );
-                      }
+              const Divider(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("所有回复 (${widget.instant.commentCounts})"),
+                    FutureBuilder<List<InstantComment>>(
+                      future: instantCommentApi.getInstantComments(widget.instant.id),
+                      builder: (context, snap) {
+                        if (!snap.hasData) return const CenterProgressIndicator();
+                        List<InstantComment> comments = snap.data as List<InstantComment>;
+                        if (comments.isEmpty) {
+                          return Container(
+                            height: 100,
+                            alignment: Alignment.center,
+                            child: const Text("没有回复"),
+                          );
+                        }
 
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (_, index) => InstantCommentItem(comments[index]),
-                        separatorBuilder: (_, __) => const Divider(),
-                        itemCount: comments.length,
-                      );
-                    },
-                  )
-                ],
-              ),
-            )
-          ],
+                        return ListView.separated(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemBuilder: (_, index) => InstantCommentItem(comments[index]),
+                          separatorBuilder: (_, __) => const Divider(),
+                          itemCount: comments.length,
+                        );
+                      },
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

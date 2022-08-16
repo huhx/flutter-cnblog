@@ -29,7 +29,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         children: [
           InAppWebView(
             initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
-            onLoadStop: (controller, url) async {
+            onPageCommitVisible: (controller, url) async {
               setState(() => isLoading = false);
               CookieManager cookieManager = CookieManager.instance();
               Cookie? cookie = await cookieManager.getCookie(url: url!, name: ".Cnblogs.AspNetCore.Cookies");
