@@ -13,6 +13,8 @@ class InstantParser {
 
   static InstantInfo _parseInstant(Element element) {
     final Element avatarElement = element.getElementsByTagName("img")[0];
+    final String avatarString = avatarElement.attributes['src']!;
+
     final Element bodyElement = element.getElementsByClassName("feed_body")[0];
     final Element contentElement = bodyElement.getElementsByClassName("ing_body")[0];
     final Element urlElement = bodyElement.getElementsByClassName("ing_time")[0];
@@ -21,13 +23,12 @@ class InstantParser {
 
     final RegExp commentsRegex = RegExp(r"([0-9]+)回应");
     final String commentCountString = commentsRegex.firstMatch(commentElement.outerHtml) == null ? "0": commentsRegex.firstMatch(commentElement.outerHtml)!.group(1)!;
-
     return InstantInfo(
       id: int.parse(bodyElement.attributes['id']!.replaceFirst("feed_content_", "")),
       content: contentElement.outerHtml,
       url: urlElement.attributes['href']!,
       submitter: authorElement.firstChild.toString().trimQuotation().trim(),
-      avatar: avatarElement.attributes['src']!,
+      avatar: avatarString.startsWith("http") ? avatarString : "https:$avatarString",
       homeUrl: "https:${authorElement.attributes['href']}",
       postDate: urlElement.nodes.first.toString().toString().trimQuotation().trim(),
       commentCounts: int.parse(commentCountString),
