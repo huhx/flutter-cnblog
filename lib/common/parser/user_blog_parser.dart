@@ -65,43 +65,4 @@ class UserBlogParser {
       name: name,
     );
   }
-
-  static UserBlog _parseUserBlog(Element element) {
-    final Element dayTitleElement = element.getElementsByClassName("dayTitle")[0];
-    final Element titleElement = element.getElementsByClassName("postTitle2")[0];
-
-    final bool isPinned = titleElement.attributes['class']!.contains("pinned-post");
-
-    final Element summaryElement = element.getElementsByClassName("c_b_p_desc")[0];
-    final Element postInfoElement = element.getElementsByClassName("postDesc")[0];
-    final String postInfoString = postInfoElement.firstChild.toString().trimQuotation().trim().replaceFirst("posted @ ", "");
-    final String postDateString = postInfoString.split("\n")[0];
-    final String name = postInfoString.split("\n")[1];
-
-    final Element viewElement = element.getElementsByClassName("post-view-count")[0];
-    final RegExp viewRegex = RegExp(r"阅读\(([0-9]+)\)");
-    final String viewString = viewRegex.firstMatch(viewElement.outerHtml)!.group(1)!;
-
-    final Element commentElement = element.getElementsByClassName("post-comment-count")[0];
-    final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
-    final String commentString = commentRegex.firstMatch(commentElement.outerHtml)!.group(1)!;
-
-    final Element diggElement = element.getElementsByClassName("post-digg-count")[0];
-    final RegExp diggRegex = RegExp(r"推荐\(([0-9]+)\)");
-    final String diggString = diggRegex.firstMatch(diggElement.outerHtml)!.group(1)!;
-
-    return UserBlog(
-      id: int.parse(element.attributes["aria-describedby"]!.replaceFirst("postlist_description_", "")),
-      title: titleElement.children.last.nodes.last.toString().trimQuotation().trim(),
-      url: titleElement.attributes['href']!,
-      summary: summaryElement.nodes.first.toString().trimQuotation().trim().replaceFirst("摘要：", "").trim(),
-      commentCount: int.parse(commentString),
-      diggCount: int.parse(diggString),
-      viewCount: int.parse(viewString),
-      postDate: DateTime.parse(postDateString),
-      dayTitle: dayTitleElement.children.last.firstChild.toString().trimQuotation().trim(),
-      isPinned: isPinned,
-      name: name,
-    );
-  }
 }

@@ -12,6 +12,8 @@ import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'user_profile_detail_screen.dart';
+
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -51,7 +53,7 @@ class MyProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () => CommUtil.toBeDev(),
+                onTap: () => context.goto(UserProfileDetailScreen(user)),
                 child: Row(
                   children: [
                     CircleImage(url: user.avatar, size: 48),
