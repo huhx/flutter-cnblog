@@ -20,10 +20,7 @@ class CircleImage extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          image: buildImage(url),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: buildImage(url), fit: BoxFit.cover),
         border: Border.all(color: Colors.white, width: borderWidth),
       ),
     );
