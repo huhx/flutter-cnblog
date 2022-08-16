@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/model/instant.dart';
+
+import 'my_instant_list_screen.dart';
+
+class MyInstantScreen extends StatelessWidget {
+  const MyInstantScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const AppbarBackButton(),
+          title: const TabBar(
+            tabs: [
+              Tab(text: "回复我"),
+              Tab(text: "提到我"),
+              Tab(text: "我发布"),
+            ],
+            indicatorColor: Colors.white,
+            isScrollable: true,
+            indicatorWeight: 1,
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            MyInstantListScreen(MyInstantCategory.comment),
+            MyInstantListScreen(MyInstantCategory.mention),
+            MyInstantListScreen(MyInstantCategory.publish),
+          ],
+        ),
+      ),
+    );
+  }
+}

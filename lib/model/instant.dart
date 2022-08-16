@@ -34,3 +34,14 @@ enum InstantCategory {
 
   const InstantCategory(this.label, this.url);
 }
+
+enum MyInstantCategory {
+  comment('回复我', 'comment'),
+  mention('提到我', 'mention'),
+  publish('我发布', 'publish');
+
+  final String label;
+  final String url;
+
+  const MyInstantCategory(this.label, this.url);
+}

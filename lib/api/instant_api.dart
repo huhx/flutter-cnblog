@@ -16,6 +16,18 @@ class InstantApi {
     )).get(url);
     return compute(InstantParser.parseInstantList, response.data as String);
   }
+
+  Future<List<InstantInfo>> getMyInstants(MyInstantCategory category, int pageKey) async {
+    final String url =
+        "https://ing.cnblogs.com/ajax/ing/GetIngList?IngListType=${category.url}&PageIndex=$pageKey&_=${DateTime.now().microsecondsSinceEpoch}";
+    final Response response = await Dio(BaseOptions(
+      headers: {
+        "Cookie": ".Cnblogs.AspNetCore.Cookies=${AppConfig.get("cookie")}",
+        "x-requested-with": "XMLHttpRequest"
+      },
+    )).get(url);
+    return compute(InstantParser.parseInstantList, response.data as String);
+  }
 }
 
 final instantApi = InstantApi();
