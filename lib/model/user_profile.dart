@@ -15,3 +15,23 @@ class UserProfileInfo {
     required this.followerCounts,
   });
 }
+
+class UserProfileMoment {
+  final String name;
+  final String avatar;
+  final String url;
+  final String action;
+  final String title;
+  final String summary;
+  final String postDate;
+
+  UserProfileMoment({
+    required this.name,
+    required this.avatar,
+    required this.url,
+    required this.action,
+    required this.title,
+    required this.summary,
+    required this.postDate,
+  });
+}

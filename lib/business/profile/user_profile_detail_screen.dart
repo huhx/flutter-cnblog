@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
+import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UserProfileDetailScreen extends StatelessWidget {
   final User user;
@@ -145,15 +149,106 @@ class UserInfo extends StatelessWidget {
   }
 }
 
-class UserMoment extends StatelessWidget {
+class UserMoment extends StatefulWidget {
   final User user;
 
   const UserMoment(this.user, {Key? key}) : super(key: key);
 
   @override
+  State<UserMoment> createState() => _UserMomentState();
+}
+
+class _UserMomentState extends State<UserMoment> {
+  final PagingController<int, UserProfileMoment> _pagingController = PagingController(firstPageKey: 1);
+  final RefreshController refreshController = RefreshController();
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.displayName, pageKey);
+    _pagingController.fetch(userMoments, pageKey, pageSize: 30);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Hello"),
+    return SmartRefresher(
+      controller: refreshController,
+      onRefresh: _onRefresh,
+      child: PagedListView<int, UserProfileMoment>(
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<UserProfileMoment>(
+          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
+          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
+          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
+          itemBuilder: (context, item, index) => UserMomentItem(item),
+        ),
+      ),
+    );
+  }
+
+  void _onRefresh() {
+    _pagingController.refresh();
+    refreshController.refreshCompleted();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+}
+
+class UserMomentItem extends StatelessWidget {
+  final UserProfileMoment userMoment;
+
+  const UserMomentItem(this.userMoment, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleImage(url: userMoment.avatar, size: 36),
+              const SizedBox(width: 16),
+              Text(
+                userMoment.postDate,
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+              const SizedBox(width: 6),
+              Text(
+                userMoment.action,
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ],
+          ),
+          Card(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(userMoment.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                  const SizedBox(height: 4),
+                  Text(
+                    userMoment.summary,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
