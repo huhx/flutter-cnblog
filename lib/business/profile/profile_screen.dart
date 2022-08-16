@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -95,7 +96,7 @@ class MyProfileScreen extends StatelessWidget {
             ListTile(
               title: const Text("我的博客"),
               trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => CommUtil.toBeDev(),
+              onTap: () => context.goto(UserBlogListScreen(user)),
             ),
             ListTile(
               title: const Text("我的订阅"),
