@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'instant_comment.dart';
 
-class InstantInfo {
+class InstantInfo extends Equatable {
   final int id;
   final String content;
   final String url;
@@ -9,9 +11,9 @@ class InstantInfo {
   final String homeUrl;
   final String postDate;
   final int commentCounts;
-  List<InstantComment> comments = [];
+  final List<InstantComment> comments;
 
-  InstantInfo({
+  const InstantInfo({
     required this.id,
     required this.content,
     required this.url,
@@ -22,6 +24,9 @@ class InstantInfo {
     required this.commentCounts,
     required this.comments,
   });
+
+  @override
+  List<Object?> get props => [id, content, url, submitter, avatar, homeUrl, postDate, commentCounts, comments];
 }
 
 enum InstantCategory {

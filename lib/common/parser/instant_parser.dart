@@ -28,13 +28,13 @@ class InstantParser {
     return InstantInfo(
       id: int.parse(bodyElement.attributes['id']!.replaceFirst("feed_content_", "")),
       content: contentElement.outerHtml,
-      url: urlElement.attributes['href']!,
+      url: "https://ing.cnblogs.com${urlElement.attributes['href']}",
       submitter: authorElement.getText(),
       avatar: avatarString.startsWith("http") ? avatarString : "https:$avatarString",
       homeUrl: "https:${authorElement.attributes['href']}",
       postDate: urlElement.getText(),
       commentCounts: int.parse(commentCountString),
-      comments: [],
+      comments: const [],
     );
   }
 }
