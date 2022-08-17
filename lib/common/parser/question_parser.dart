@@ -36,7 +36,7 @@ class QuestionParser {
       summary: summary,
       avatar: avatarElement.isEmpty ? '' : "https:${avatarElement[0].children[0].attributes['src']}",
       homeUrl: submitterElement.attributes['href']!,
-      submitter: submitterElement.getText(),
+      submitter: submitterElement.getText().trim(),
       answerCount: int.parse(answerString),
       goldCount: int.parse(gold),
       viewCount: int.parse(viewString),

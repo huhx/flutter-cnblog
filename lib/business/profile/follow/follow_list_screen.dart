@@ -75,7 +75,7 @@ class FollowItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       child: Card(
         child: ListTile(
-          leading: CircleImage(url: followInfo.avatar, size: 36),
+          leading: CircleImage(url: followInfo.avatar, size: 48),
           title: Text(followInfo.name),
           subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
           trailing: ElevatedButton(

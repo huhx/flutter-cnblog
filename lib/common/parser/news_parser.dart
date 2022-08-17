@@ -23,7 +23,7 @@ class NewsParser {
     final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
     final String commentString = commentRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
 
-    final String dateString = footerElement.getFirstByClass("date").getText();
+    final String dateString = footerElement.getLastChildText();
     final List<Element> coverElements = summaryElement.getElementsByClassName("topic_img");
 
     return NewsInfo(
