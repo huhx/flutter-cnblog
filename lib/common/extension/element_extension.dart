@@ -29,4 +29,12 @@ extension ElementExtension on Element {
   Element getFirstByTag(String name) {
     return getElementsByTagName(name).first;
   }
+
+  Element getLastByClass(String name) {
+    return getElementsByClassName(name).last;
+  }
+
+  Element getLastByTag(String name) {
+    return getElementsByTagName(name).last;
+  }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter_cnblog/common/parser/category_parser.dart';
+import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -13,19 +13,20 @@ class CandidateParser {
   static BlogResp _parseCandidate(Element element) {
     final List<Element> avatarElement = element.getElementsByClassName("avatar");
     final List<Element> metaElements = element.getElementsByClassName("post-meta-item");
-    final Element titleElement = element.getElementsByClassName("post-item-title")[0];
+    final Element titleElement = element.getFirstByClass("post-item-title");
 
-    final String postDate = metaElements[0].children.last.firstChild.toString().trimQuotation();
-    final String diggCount = metaElements[1].children.last.firstChild.toString().trimQuotation();
-    final String commentCount = metaElements[2].children.last.firstChild.toString().trimQuotation();
-    final String viewCount = metaElements[3].children.last.firstChild.toString().trimQuotation();
+    final String postDate = metaElements[0].getLastChildText();
+    final String diggCount = metaElements[1].getLastChildText();
+    final String commentCount = metaElements[2].getLastChildText();
+    final String viewCount = metaElements[3].getLastChildText();
+
     return BlogResp(
-      id: int.parse(element.attributes['data-post-id']!),
-      title: titleElement.firstChild.toString().trimQuotation(),
-      url: titleElement.attributes['href']!,
-      description: element.getElementsByClassName("post-item-summary").last.nodes.last.toString().trimQuotation().trim(),
-      author: element.getElementsByClassName("post-item-author").last.firstChild!.firstChild!.toString().trimQuotation(),
-      blogApp: element.getElementsByClassName("post-item-author").last.firstChild!.firstChild!.toString(),
+      id: int.parse(element.getAttributeValue("data-post-id")!),
+      title: titleElement.getText(),
+      url: titleElement.getAttributeValue('href')!,
+      description: element.getFirstByClass("post-item-summary").getLastNodeText(),
+      author: element.getFirstByClass("post-item-author").getFirstChildText(),
+      blogApp: element.getFirstByClass("post-item-author").getFirstChildText(),
       avatar: avatarElement.isEmpty ? '' : avatarElement[0].attributes['src'] ?? '',
       postDate: DateTime.parse(postDate),
       viewCount: int.parse(viewCount),
