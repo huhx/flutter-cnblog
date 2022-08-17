@@ -10,9 +10,10 @@ import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'user_follow_count_info.dart';
 
 class UserProfileDetailScreen extends StatelessWidget {
   final User user;
@@ -76,32 +77,7 @@ class UserProfileHeader extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () => CommUtil.toBeDev(),
-                      child: Row(
-                        children: const [
-                          Text("185", style: TextStyle(color: Colors.white, fontSize: 16)),
-                          SizedBox(width: 2),
-                          Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    InkWell(
-                      onTap: () => CommUtil.toBeDev(),
-                      child: Row(
-                        children: const [
-                          Text("4", style: TextStyle(color: Colors.white, fontSize: 16)),
-                          SizedBox(width: 2),
-                          Text("关注", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                child: UserFollowCountInfo(user),
               ),
             ],
           ),
