@@ -1,4 +1,4 @@
-import 'package:flutter_cnblog/common/parser/category_parser.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:html/dom.dart';
 
 extension ElementExtension on Element {

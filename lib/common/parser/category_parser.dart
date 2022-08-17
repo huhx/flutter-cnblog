@@ -63,9 +63,3 @@ class CategoryParser {
     return element.map((e) => _parseCategory(e)).toList();
   }
 }
-
-extension StringExtention on String {
-  String trimQuotation() {
-    return substring(1, length - 1);
-  }
-}
