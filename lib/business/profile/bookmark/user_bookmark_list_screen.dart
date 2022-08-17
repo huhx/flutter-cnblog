@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/profile/user_blog_data_info.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/model/user.dart';
@@ -60,45 +61,7 @@ class UserBookmarkHeader extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () => CommUtil.toBeDev(),
-                      child: Row(
-                        children: const [
-                          Text("267", style: TextStyle(color: Colors.white, fontSize: 16)),
-                          SizedBox(width: 2),
-                          Text("随笔", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Row(
-                      children: const [
-                        Text("11", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(width: 2),
-                        Text("文章", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
-                    ),
-                    const SizedBox(width: 10),
-                    Row(
-                      children: const [
-                        Text("138", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(width: 2),
-                        Text("评论", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
-                    ),
-                    const SizedBox(width: 10),
-                    Row(
-                      children: const [
-                        Text("67万", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        SizedBox(width: 2),
-                        Text("阅读", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
-                    ),
-                  ],
-                ),
+                child: UserBlogDataInfo(user),
               ),
             ],
           ),

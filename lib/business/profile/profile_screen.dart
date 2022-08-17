@@ -104,11 +104,6 @@ class MyProfileScreen extends StatelessWidget {
               onTap: () => context.goto(UserBlogListScreen(user)),
             ),
             ListTile(
-              title: const Text("我的订阅"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => CommUtil.toBeDev(),
-            ),
-            ListTile(
               title: const Text("我的收藏"),
               trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
               onTap: () => context.goto(UserBookmarkListScreen(user)),
