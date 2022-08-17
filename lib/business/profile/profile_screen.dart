@@ -12,6 +12,7 @@ import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'follow/follow_screen.dart';
 import 'user_profile_detail_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -67,23 +68,23 @@ class MyProfileScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () => CommUtil.toBeDev(),
-                      child: Row(
-                        children: const [
-                          Text("185", style: TextStyle(color: Colors.white, fontSize: 16)),
-                          SizedBox(width: 2),
-                          Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    InkWell(
-                      onTap: () => CommUtil.toBeDev(),
+                      onTap: () => context.goto(FollowScreen(name: user.displayName, index: 0)),
                       child: Row(
                         children: const [
                           Text("4", style: TextStyle(color: Colors.white, fontSize: 16)),
                           SizedBox(width: 2),
                           Text("关注", style: TextStyle(fontSize: 12, color: Colors.white70)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () => context.goto(FollowScreen(name: user.displayName, index: 1)),
+                      child: Row(
+                        children: const [
+                          Text("185", style: TextStyle(color: Colors.white, fontSize: 16)),
+                          SizedBox(width: 2),
+                          Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
                         ],
                       ),
                     ),
