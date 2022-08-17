@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'blog_resp.g.dart';
 
 @JsonSerializable(createToJson: false, fieldRename: FieldRename.pascal)
-class BlogResp {
+class BlogResp extends Equatable {
   final int id;
   final String title;
   final String url;
@@ -16,7 +17,7 @@ class BlogResp {
   final int commentCount;
   final int diggCount;
 
-  BlogResp({
+  const BlogResp({
     required this.id,
     required this.title,
     required this.url,
@@ -35,4 +36,7 @@ class BlogResp {
   }
 
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
+
+  @override
+  List<Object?> get props => [id, title, url, description, author, blogApp, avatar, postDate, viewCount, commentCount, diggCount];
 }
