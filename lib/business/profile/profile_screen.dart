@@ -13,6 +13,7 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'follow/follow_screen.dart';
+import 'knowledge/knowledge_list_screen.dart';
 import 'user_profile_detail_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -154,7 +155,7 @@ class ProfileMiddle extends StatelessWidget {
               child: const MomentMiddleItem(iconName: 'main_blog', label: '阅读历史'),
             ),
             InkWell(
-              onTap: () => CommUtil.toBeDev(),
+              onTap: () => context.goto(const KnowledgeListScreen()),
               child: const MomentMiddleItem(iconName: 'main_question', label: '知识库'),
             ),
             InkWell(
