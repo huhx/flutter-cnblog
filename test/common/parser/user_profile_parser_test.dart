@@ -94,4 +94,82 @@ void main() {
       ),
     );
   });
+
+  test("should return user profile recent moments", () {
+    const String string = '''
+    <ul>
+      <li class="feed_item">
+        <div class="feed_avatar">
+          <a href="/u/huhx"><img src="//pic.cnblogs.com/face/849920/20170517210033.png"></a>
+        </div>
+        <div class="feed_body" id="feed_content_62edce62440f98faf95676d1">
+          <div class="feed_title">
+            <a href="/u/huhx/" class="feed_author">huhx</a>
+            发表博客： <a href="//www.cnblogs.com/huhx/p/16556548.html" target="_blank" class="feed_link">发布Android库至Maven Central详解</a>
+            <a class="recycle" onclick="return deleteFeed('3d5b782a-5399-e511-9fc1-ac853d9f53cc', '62edce62440f98faf95676d1')"
+               href="javascript: void(0);" title="删除这个动态">
+              <img alt="删除" src="//common.cnblogs.com/images/icon_trash.gif">
+            </a>
+            <span class="feed_date">2022-08-06 10:13</span>
+          </div>
+          <div class="feed_desc">
+            最近，使用compose编写了一个类QQ的image picker。完成android library的编写，在此记录下发布这个Library到maven central的流程以及碰到的问题。
+            maven：https://mvnrepository.com/artifact/io.github.hu
+          </div>
+        </div>
+        <div class="clear"></div>
+      </li>
+      <li class="feed_item">
+        <div class="feed_avatar">
+          <a href="/u/huhx"><img src="//pic.cnblogs.com/face/849920/20170517210033.png"></a>
+        </div>
+        <div class="feed_body" id="feed_content_5f8a5abd4e324e00065036cb">
+          <div class="feed_title">
+            <a href="/u/huhx/" class="feed_author">huhx</a>
+            评论博客： <a href="https://www.cnblogs.com/caobotao/p/5103673.html#4708941" target="_blank"
+                         class="feed_link">三种实现Android主界面Tab的方式</a>
+            <a class="recycle" onclick="return deleteFeed('3d5b782a-5399-e511-9fc1-ac853d9f53cc', '5f8a5abd4e324e00065036cb')"
+               href="javascript: void(0);" title="删除这个动态">
+              <img alt="删除" src="//common.cnblogs.com/images/icon_trash.gif">
+            </a>
+            <span class="feed_date">2020-10-17 10:45</span>
+          </div>
+          <div class="feed_desc">
+            问下，为什么不使用BottomNavigationView呢？有什么考虑的吗
+          </div>
+        </div>
+        <div class="clear"></div>
+      </li>
+    </ul>
+    ''';
+
+    final List<UserProfileMoment> userProfileMoment = UserProfileParser.parseUserProfileMoment(string);
+
+    expect(userProfileMoment.length, 2);
+    expect(
+      userProfileMoment[0],
+      const UserProfileMoment(
+        name: "huhx",
+        avatar: "https://pic.cnblogs.com/face/849920/20170517210033.png",
+        url: "https://www.cnblogs.com/huhx/p/16556548.html",
+        action: "发表博客",
+        title: "发布Android库至Maven Central详解",
+        summary: '''最近，使用compose编写了一个类QQ的image picker。完成android library的编写，在此记录下发布这个Library到maven central的流程以及碰到的问题。
+            maven：https://mvnrepository.com/artifact/io.github.hu''',
+        postDate: "2022-08-06 10:13",
+      ),
+    );
+    expect(
+      userProfileMoment[1],
+      const UserProfileMoment(
+        name: "huhx",
+        avatar: "https://pic.cnblogs.com/face/849920/20170517210033.png",
+        url: "https://www.cnblogs.com/caobotao/p/5103673.html#4708941",
+        action: "评论博客",
+        title: "三种实现Android主界面Tab的方式",
+        summary: "问下，为什么不使用BottomNavigationView呢？有什么考虑的吗",
+        postDate: "2020-10-17 10:45",
+      ),
+    );
+  });
 }

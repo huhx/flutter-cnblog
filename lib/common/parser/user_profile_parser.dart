@@ -44,11 +44,12 @@ class UserProfileParser {
     final Element titleElement = bodyElement.getFirstByClass("feed_title");
     final Element descElement = bodyElement.getFirstByClass("feed_desc");
     final Element linkElement = bodyElement.getFirstByClass("feed_link");
+    final String urlString = linkElement.attributes['href']!;
 
     return UserProfileMoment(
       name: titleElement.getFirstByClass("feed_author").getText(),
       avatar: "https:$avatarString",
-      url: linkElement.attributes['href']!,
+      url: urlString.startsWith("http") ? urlString : "https:$urlString",
       action: titleElement.nodes[2].toString().trimQuotation().trim().replaceFirst("：", ""),
       title: linkElement.getText(),
       summary: descElement.getText().trim(),
