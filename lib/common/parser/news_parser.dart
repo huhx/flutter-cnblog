@@ -1,5 +1,4 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
-import 'package:flutter_cnblog/common/parser/category_parser.dart';
 import 'package:flutter_cnblog/model/news.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -24,7 +23,7 @@ class NewsParser {
     final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
     final String commentString = commentRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
 
-    final String dateString = footerElement.children.last.firstChild.toString().trimQuotation();
+    final String dateString = footerElement.getFirstByClass("date").getText();
     final List<Element> coverElements = summaryElement.getElementsByClassName("topic_img");
 
     return NewsInfo(

@@ -72,7 +72,7 @@ class FollowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       child: Card(
         child: ListTile(
           leading: CircleImage(url: followInfo.avatar, size: 36),
@@ -80,6 +80,7 @@ class FollowItem extends StatelessWidget {
           subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
           trailing: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              minimumSize: const Size(0, 0),
               primary: themeColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
               textStyle: const TextStyle(color: Colors.white, fontSize: 12),

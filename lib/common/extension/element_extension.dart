@@ -14,6 +14,10 @@ extension ElementExtension on Element {
     return children.last.getText();
   }
 
+  bool hasAttributeValue(String attributeName, String value) {
+    return attributes[attributeName] == value;
+  }
+
   String? getAttributeValue(String attributeName) {
     return attributes[attributeName];
   }
