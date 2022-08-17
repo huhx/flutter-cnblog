@@ -18,6 +18,10 @@ extension ElementExtension on Element {
     return attributes[attributeName];
   }
 
+  String getFirstNodeText() {
+    return nodes.first.toString().trimQuotation().trim();
+  }
+
   String getLastNodeText() {
     return nodes.last.toString().trimQuotation().trim();
   }

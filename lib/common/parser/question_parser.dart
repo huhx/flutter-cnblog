@@ -1,4 +1,4 @@
-import 'package:flutter_cnblog/common/parser/category_parser.dart';
+import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/model/question.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -13,17 +13,16 @@ class QuestionParser {
 
   static QuestionInfo _parseQuestion(Element element) {
     final List<Element> avatarElement = element.getElementsByClassName("author");
-    final Element titleElement = element.getElementsByTagName("a")[0];
-    final Element submitterElement = element.getElementsByClassName("news_contributor")[0];
+    final Element titleElement = element.getFirstByTag("a");
+    final Element submitterElement = element.getFirstByClass("news_contributor");
     final List<Element> goldElements = element.getElementsByClassName("gold");
 
-
     final String url = titleElement.attributes['href']!;
-    final String gold = goldElements.isNotEmpty ? goldElements[0].firstChild.toString().trimQuotation() : "0";
-    final String summary = element.getElementsByClassName("news_summary")[0].firstChild.toString().trimQuotation().trim();
-    final String date = element.getElementsByClassName("date")[0].attributes['title']!;
+    final String gold = goldElements.isNotEmpty ? goldElements[0].getText() : "0";
+    final String summary = element.getFirstByClass("news_summary").getText().trim();
+    final String date = element.getFirstByClass("date").attributes['title']!;
 
-    final Element footerElement = element.getElementsByClassName("news_footer_user")[0];
+    final Element footerElement = element.getFirstByClass("news_footer_user");
     final RegExp answerRegex = RegExp(r"回答\(([0-9]+)\)");
     final String answerString = answerRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
 
@@ -32,12 +31,12 @@ class QuestionParser {
 
     return QuestionInfo(
       id: int.parse(url.split("/")[2]),
-      title: titleElement.firstChild.toString().trimQuotation(),
+      title: titleElement.getText(),
       url: url,
       summary: summary,
       avatar: avatarElement.isEmpty ? '' : "https:${avatarElement[0].children[0].attributes['src']}",
       homeUrl: submitterElement.attributes['href']!,
-      submitter: submitterElement.firstChild.toString().trimQuotation().trim(),
+      submitter: submitterElement.getText(),
       answerCount: int.parse(answerString),
       goldCount: int.parse(gold),
       viewCount: int.parse(viewString),

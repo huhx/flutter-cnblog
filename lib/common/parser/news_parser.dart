@@ -1,3 +1,4 @@
+import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/common/parser/category_parser.dart';
 import 'package:flutter_cnblog/model/news.dart';
 import 'package:html/dom.dart';
@@ -12,10 +13,10 @@ class NewsParser {
   }
 
   static NewsInfo _parseNews(Element element) {
-    final Element titleElement = element.getElementsByTagName("a")[1];
-    final Element diggElement = element.getElementsByClassName("diggnum")[0];
-    final Element summaryElement = element.getElementsByClassName("entry_summary")[0];
-    final Element footerElement = element.getElementsByClassName("entry_footer")[0];
+    final Element titleElement = element.getFirstByClass("news_entry");
+    final Element diggElement = element.getFirstByClass("diggnum");
+    final Element summaryElement = element.getFirstByClass("entry_summary");
+    final Element footerElement = element.getFirstByClass("entry_footer");
 
     final RegExp viewRegex = RegExp(r"([0-9]+) 人浏览");
     final String viewString = viewRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
@@ -24,17 +25,18 @@ class NewsParser {
     final String commentString = commentRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
 
     final String dateString = footerElement.children.last.firstChild.toString().trimQuotation();
+    final List<Element> coverElements = summaryElement.getElementsByClassName("topic_img");
 
     return NewsInfo(
       id: int.parse(element.attributes["id"]!.replaceFirst("entry_", "")),
-      title: element.getElementsByTagName("a")[0].nodes.last.toString().trimQuotation().trim(),
-      url: titleElement.attributes['href']!,
-      summary: summaryElement.nodes.last.toString().trimQuotation().trim(),
-      cover: summaryElement.getElementsByTagName("img").isEmpty ? '': summaryElement.getElementsByTagName("img")[0].attributes['src']!,
-      homeUrl: "https:${footerElement.getElementsByTagName("a")[0].attributes['href']!}",
-      submitter: footerElement.getElementsByTagName("a")[0].firstChild.toString().trimQuotation().trim(),
+      title: titleElement.getFirstChildText(),
+      url: titleElement.children.first.attributes['href']!,
+      summary: summaryElement.getLastNodeText(),
+      cover: coverElements.isEmpty ? '' : coverElements.first.attributes['src']!,
+      homeUrl: "https:${footerElement.getFirstByTag("a").attributes['href']!}",
+      submitter: footerElement.getFirstByTag("a").getText(),
       commentCount: int.parse(commentString),
-      diggCount: int.parse(diggElement.firstChild.toString().trimQuotation()),
+      diggCount: int.parse(diggElement.getText()),
       viewCount: int.parse(viewString),
       pastDate: DateTime.parse(dateString),
     );

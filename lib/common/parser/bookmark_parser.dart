@@ -1,4 +1,4 @@
-import 'package:flutter_cnblog/common/parser/category_parser.dart';
+import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -14,14 +14,14 @@ class BookmarkParser {
 
   static BookmarkInfo _parseBookmark(Element element) {
     final Element titleElement = element.getElementsByTagName("a").firstWhere((element) => element.attributes['rel']! == "nofollow");
-    final Element bodyElement = element.getElementsByClassName("link_memo")[0];
+    final Element bodyElement = element.getFirstByClass("link_memo");
 
     return BookmarkInfo(
       id: int.parse(element.attributes["id"]!.replaceFirst("link_", "")),
-      title: titleElement.firstChild.toString().trimQuotation().trim(),
+      title: titleElement.getText(),
       url: titleElement.attributes['href']!,
-      starCounts: int.parse(bodyElement.getElementsByClassName("wz_item_count")[0].firstChild.toString().trimQuotation()),
-      postDate: DateFormat("MM/dd/yyyy hh:mm:ss").parse((bodyElement.getElementsByClassName("date")[0].attributes['title']!)),
+      starCounts: int.parse(bodyElement.getFirstByClass("wz_item_count").getText()),
+      postDate: DateFormat("MM/dd/yyyy hh:mm:ss").parse((bodyElement.getFirstByClass("date").attributes['title']!)),
     );
   }
 }

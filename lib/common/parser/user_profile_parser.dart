@@ -1,3 +1,4 @@
+import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/common/parser/category_parser.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:html/dom.dart';
@@ -12,7 +13,7 @@ class UserProfileParser {
     final Map<String, String> map = {};
 
     for (final Element ele in elements) {
-      final String key = ele.getElementsByClassName("text_gray")[0].firstChild.toString().trimQuotation().trim().replaceFirst("：", "");
+      final String key = ele.getFirstByClass("text_gray").getText().replaceFirst("：", "");
       final String value = ele.nodes.last.nodes.isNotEmpty
           ? ele.nodes.last.nodes.last.toString().trimQuotation().trim()
           : ele.nodes.last.toString().trimQuotation().trim();
@@ -20,12 +21,12 @@ class UserProfileParser {
     }
 
     return UserProfileInfo(
-      name: element.getElementsByClassName("display_name")[0].firstChild.toString().trimQuotation().trim(),
-      avatar: "https:${element.getElementsByClassName("img_avatar")[0].attributes['src']}",
+      name: element.getFirstByClass("display_name").getText(),
+      avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: document.getElementById("blog_url")!.attributes['href']!,
       info: map,
-      followCounts: int.parse(document.getElementById("following_count")!.firstChild.toString().trimQuotation()),
-      followerCounts: int.parse(document.getElementById("follower_count")!.firstChild.toString().trimQuotation()),
+      followCounts: int.parse(document.getElementById("following_count")!.getText()),
+      followerCounts: int.parse(document.getElementById("follower_count")!.getText()),
     );
   }
 
@@ -37,21 +38,21 @@ class UserProfileParser {
   }
 
   static UserProfileMoment _parseUserProfileMoment(Element element) {
-    final String avatarString = element.getElementsByClassName("feed_avatar")[0].getElementsByTagName("img")[0].attributes['src']!;
-    final Element bodyElement = element.getElementsByClassName("feed_body")[0];
+    final String avatarString = element.getFirstByClass("feed_avatar").getFirstByTag("img").attributes['src']!;
+    final Element bodyElement = element.getFirstByClass("feed_body");
 
-    final Element titleElement = bodyElement.getElementsByClassName("feed_title")[0];
-    final Element descElement = bodyElement.getElementsByClassName("feed_desc")[0];
-    final Element linkElement = bodyElement.getElementsByClassName("feed_link")[0];
+    final Element titleElement = bodyElement.getFirstByClass("feed_title");
+    final Element descElement = bodyElement.getFirstByClass("feed_desc");
+    final Element linkElement = bodyElement.getFirstByClass("feed_link");
 
     return UserProfileMoment(
-      name: titleElement.getElementsByClassName("feed_author")[0].firstChild.toString().trimQuotation().trim(),
+      name: titleElement.getFirstByClass("feed_author").getText(),
       avatar: "https:$avatarString",
       url: linkElement.attributes['href']!,
       action: titleElement.nodes[2].toString().trimQuotation().trim().replaceFirst("：", ""),
-      title: linkElement.nodes.last.toString().trimQuotation().trim(),
-      summary: descElement.nodes.last.toString().trimQuotation().trim(),
-      postDate: titleElement.getElementsByClassName("feed_date")[0].firstChild.toString().trimQuotation().trim(),
+      title: linkElement.getText(),
+      summary: descElement.getText().trim(),
+      postDate: titleElement.getFirstByClass("feed_date").getText(),
     );
   }
 }
