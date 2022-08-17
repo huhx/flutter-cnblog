@@ -59,6 +59,7 @@ dependencies:
   html: ^0.15.0
   flutter_html: ^3.0.0-alpha.5
   intl: ^0.17.0
+  equatable: ^2.0.3
 
 dependency_overrides:
   pull_to_refresh:

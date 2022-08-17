@@ -1,4 +1,6 @@
-class UserProfileInfo {
+import 'package:equatable/equatable.dart';
+
+class UserProfileInfo extends Equatable {
   final String name;
   final String avatar;
   final String url;
@@ -6,7 +8,7 @@ class UserProfileInfo {
   final int followCounts;
   final int followerCounts;
 
-  UserProfileInfo({
+  const UserProfileInfo({
     required this.name,
     required this.avatar,
     required this.url,
@@ -14,6 +16,9 @@ class UserProfileInfo {
     required this.followCounts,
     required this.followerCounts,
   });
+
+  @override
+  List<Object?> get props => [name, avatar, url, info, followCounts, followerCounts];
 }
 
 class UserProfileMoment {

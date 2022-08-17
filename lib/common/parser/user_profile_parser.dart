@@ -21,7 +21,7 @@ class UserProfileParser {
     }
 
     return UserProfileInfo(
-      name: element.getFirstByClass("display_name").getText(),
+      name: element.getFirstByClass("display_name").getText().trim(),
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: document.getElementById("blog_url")!.attributes['href']!,
       info: map,
