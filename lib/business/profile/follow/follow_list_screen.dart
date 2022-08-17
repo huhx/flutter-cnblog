@@ -84,7 +84,7 @@ class FollowItem extends StatelessWidget {
               primary: themeColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
               textStyle: const TextStyle(color: Colors.white, fontSize: 12),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             ),
             onPressed: () => CommUtil.toBeDev(),
             child: const Text("取消关注"),

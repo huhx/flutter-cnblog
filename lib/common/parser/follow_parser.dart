@@ -21,7 +21,7 @@ class FollowParser {
 
     return FollowInfo(
       name: linkString.replaceFirst("/u/", ""),
-      displayName: displayNameElement.getText(),
+      displayName: displayNameElement.getText().trim(),
       url: "https://home.cnblogs.com$linkString",
       avatar: "https:${avatarElement.children[0].attributes["src"]!}",
       followDate: DateTime.parse(titleString.substring(titleString.length - 10)),

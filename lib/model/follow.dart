@@ -1,17 +1,22 @@
-class FollowInfo {
+import 'package:equatable/equatable.dart';
+
+class FollowInfo extends Equatable {
   final String name;
   final String displayName;
   final String url;
   final String avatar;
   final DateTime followDate;
 
-  FollowInfo({
+  const FollowInfo({
     required this.name,
     required this.displayName,
     required this.url,
     required this.avatar,
     required this.followDate,
   });
+
+  @override
+  List<Object?> get props => [name, displayName, url, avatar, followDate];
 }
 
 enum FollowType {
