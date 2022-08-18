@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'user_blog_detail_screen.dart';
@@ -21,7 +20,7 @@ class UserBlogItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Html(data: userBlog.title),
+            Text(userBlog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
             const SizedBox(height: 6),
             Text(
               userBlog.summary,

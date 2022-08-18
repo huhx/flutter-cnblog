@@ -49,10 +49,7 @@ void main() {
       UserBlog(
         id: 5267805,
         dayTitle: "2016年3月19日",
-        title: '''<span>
-                <span class="pinned-post-mark">[置顶]</span>
-            android高级----&gt;AsyncTask的源码分析
-        </span>''',
+        title: 'android高级---->AsyncTask的源码分析',
         url: "https://www.cnblogs.com/huhx/p/asynctask_theory.html",
         isPinned: true,
         summary: '''在Android中实现异步任务机制有两种方式，Handler和AsyncTask,今天我们从源码着手去深入地理解AsyncTask的源码，做一个详细的过程分析与总结。对于方法执行的每一步，都比较细致的分析。''',
@@ -140,9 +137,7 @@ void main() {
       UserBlog(
         id: 13388984,
         dayTitle: "2020年7月30日",
-        title: '''<span>
-                android使用----&gt;常用组件1
-            </span>''',
+        title: 'android使用---->常用组件1',
         url: "https://www.cnblogs.com/huhx/p/13388984.html",
         isPinned: false,
         summary: '''在TextView中创建空心文字 TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -159,9 +154,7 @@ void main() {
       UserBlog(
         id: 13406634,
         dayTitle: "2020年7月30日",
-        title: '''<span>
-                flutter feature----&gt;quick action
-            </span>''',
+        title: 'flutter feature---->quick action',
         url: "https://www.cnblogs.com/huhx/p/13406634.html",
         isPinned: false,
         summary: '''reference: https://www.filledstacks.com/snippet/managing-quick-actions-in-flutter/ code import 'dart:io'; import

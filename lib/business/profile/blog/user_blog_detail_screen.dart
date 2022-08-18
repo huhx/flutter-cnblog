@@ -24,6 +24,7 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
+        title: Text(widget.userBlog.title),
         actions: <Widget>[
           IconButton(
             icon: const SvgIcon(name: "more_hor", color: Colors.white),

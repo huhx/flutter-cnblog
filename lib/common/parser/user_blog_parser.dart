@@ -53,7 +53,7 @@ class UserBlogParser {
 
     return UserBlog(
       id: int.parse(summaryElement.attributes["id"]!.replaceFirst("postlist_description_", "")),
-      title: titleElement.getFirstByTag("span").outerHtml,
+      title: titleElement.getFirstByTag("span").getLastNodeText(),
       url: titleElement.attributes['href']!,
       summary: summaryElement.getFirstNodeText().replaceFirst("摘要：", "").trim(),
       commentCount: int.parse(commentString),
