@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/business/home/category/category/category_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/question.dart';
 
+import 'my/my_question_list_screen.dart';
 import 'question_list_screen.dart';
 
 class QuestionScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class QuestionScreen extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => context.goto(const CategoryScreen()),
+                onTap: () => context.goto(const MyQuestionListScreen()),
                 child: const Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: SvgIcon(name: "category_more", color: Colors.white, size: 20),

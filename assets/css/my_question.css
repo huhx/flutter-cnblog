@@ -1,0 +1,8 @@
+#second_nav, #right_sidebar, #footer {
+    display: none;
+}
+
+.main_nav {
+    display: none;
+}
+
