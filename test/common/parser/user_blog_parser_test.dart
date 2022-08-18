@@ -28,8 +28,7 @@ void main() {
           </div>
         </div>
         <div class="clear"></div>
-        <div class="postDesc">posted @ 2016-03-19 20:50
-          huhx
+        <div class="postDesc">posted @ 2016-03-19 20:50\nhuhx\n
           <span data-post-id="5267805" class="post-view-count">阅读(2209)</span>
           <span data-post-id="5267805" class="post-comment-count">评论(9)</span>
           <span data-post-id="5267805" class="post-digg-count">推荐(11)</span>
@@ -92,8 +91,7 @@ void main() {
           </div>
         </div>
         <div class="clear"></div>
-        <div class="postDesc">posted @ 2020-07-30 21:49
-          huhx
+        <div class="postDesc">posted @ 2020-07-30 21:49\nhuhx\n
           <span data-post-id="13388984" class="post-view-count">阅读(378)</span>
           <span data-post-id="13388984" class="post-comment-count">评论(0)</span>
           <span data-post-id="13388984" class="post-digg-count">推荐(0)</span>
@@ -121,8 +119,7 @@ void main() {
           </div>
         </div>
         <div class="clear"></div>
-        <div class="postDesc">posted @ 2020-07-30 21:48
-          huhx
+        <div class="postDesc">posted @ 2020-07-30 21:48\nhuhx\n
           <span data-post-id="13406634" class="post-view-count">阅读(618)</span>
           <span data-post-id="13406634" class="post-comment-count">评论(0)</span>
           <span data-post-id="13406634" class="post-digg-count">推荐(0)</span>

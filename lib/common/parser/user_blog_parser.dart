@@ -62,7 +62,7 @@ class UserBlogParser {
       postDate: DateTime.parse(postDateString),
       dayTitle: dayTitle,
       isPinned: isPinned,
-      name: name.trim(),
+      name: name,
     );
   }
 }
