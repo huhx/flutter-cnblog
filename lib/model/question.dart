@@ -1,4 +1,6 @@
-class QuestionInfo {
+import 'package:equatable/equatable.dart';
+
+class QuestionInfo extends Equatable {
   final int id;
   final String title;
   final String url;
@@ -9,7 +11,7 @@ class QuestionInfo {
   final int answerCount;
   final int goldCount;
   final int viewCount;
-  final DateTime? pastDate;
+  final DateTime? postDate;
   final DateTime? answeredDate;
 
   const QuestionInfo({
@@ -23,9 +25,13 @@ class QuestionInfo {
     required this.answerCount,
     required this.goldCount,
     required this.viewCount,
-    this.pastDate,
+    this.postDate,
     this.answeredDate,
   });
+
+  @override
+  List<Object?> get props =>
+      [id, title, url, submitter, summary, avatar, homeUrl, answerCount, goldCount, viewCount, postDate, answeredDate];
 }
 
 enum QuestionStatus {

@@ -40,7 +40,7 @@ class QuestionParser {
       answerCount: int.parse(answerString),
       goldCount: int.parse(gold),
       viewCount: int.parse(viewString),
-      pastDate: date.startsWith("解决于 ") ? null : DateTime.parse(date),
+      postDate: date.startsWith("解决于 ") ? null : DateTime.parse(date),
       answeredDate: date.startsWith("解决于 ") ? DateTime.parse(date.replaceAll("解决于 ", "").trim()) : null,
     );
   }

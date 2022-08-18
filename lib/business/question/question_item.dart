@@ -44,7 +44,7 @@ class QuestionItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    timeago.format(question.pastDate ?? question.answeredDate!),
+                    timeago.format(question.postDate ?? question.answeredDate!),
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   )
                 ],
