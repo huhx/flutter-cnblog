@@ -33,11 +33,11 @@ class NewsParser {
       summary: summaryElement.getLastNodeText(),
       cover: coverElements.isEmpty ? '' : coverElements.first.attributes['src']!,
       homeUrl: "https:${footerElement.getFirstByTag("a").attributes['href']!}",
-      submitter: footerElement.getFirstByTag("a").getText(),
+      submitter: footerElement.getFirstByTag("a").getText().trim(),
       commentCount: int.parse(commentString),
       diggCount: int.parse(diggElement.getText()),
       viewCount: int.parse(viewString),
-      pastDate: DateTime.parse(dateString),
+      postDate: DateTime.parse(dateString),
     );
   }
 }

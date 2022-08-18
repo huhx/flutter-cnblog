@@ -1,4 +1,6 @@
-class NewsInfo {
+import 'package:equatable/equatable.dart';
+
+class NewsInfo extends Equatable {
   final int id;
   final String title;
   final String url;
@@ -9,7 +11,7 @@ class NewsInfo {
   final int commentCount;
   final int diggCount;
   final int viewCount;
-  final DateTime pastDate;
+  final DateTime postDate;
 
   const NewsInfo({
     required this.id,
@@ -22,8 +24,11 @@ class NewsInfo {
     required this.commentCount,
     required this.diggCount,
     required this.viewCount,
-    required this.pastDate,
+    required this.postDate,
   });
+
+  @override
+  List<Object?> get props => [id, title, url, submitter, summary, cover, homeUrl, commentCount, diggCount, viewCount, postDate];
 }
 
 enum NewsCategory {
