@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/question.dart';
+import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class QuestionDetailScreen extends StatefulWidget {
   final QuestionInfo question;
@@ -21,14 +24,19 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
         title: Text(widget.question.title),
         leading: const AppbarBackButton(),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Text(
-            widget.question.title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          InAppWebView(
+            initialUrlRequest: URLRequest(url: widget.question.httpsUrl()),
+            onPageCommitVisible: (controller, url) async {
+              await controller.injectCSSCode(source: AppConfig.get("question_css"));
+              setState(() => isLoading = false);
+            },
           ),
-          const SizedBox(height: 16),
-          Text(widget.question.summary)
+          Visibility(
+            visible: isLoading,
+            child: const CenterProgressIndicator(),
+          )
         ],
       ),
     );

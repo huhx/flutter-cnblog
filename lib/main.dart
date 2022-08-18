@@ -44,8 +44,12 @@ class _MainAppState extends State<MainApp> {
     Future.delayed(const Duration(milliseconds: 500), () async {
       final String source = await rootBundle.loadString("assets/css/blog.css");
       AppConfig.save("css", source);
+
       final String newsSource = await rootBundle.loadString("assets/css/news.css");
       AppConfig.save("news_css", newsSource);
+
+      final String questionSource = await rootBundle.loadString("assets/css/question.css");
+      AppConfig.save("question_css", questionSource);
 
       timeago.setLocaleMessages('zh', ZhMessages());
       timeago.setDefaultLocale('zh');

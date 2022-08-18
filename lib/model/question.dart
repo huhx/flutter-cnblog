@@ -32,6 +32,10 @@ class QuestionInfo extends Equatable {
   @override
   List<Object?> get props =>
       [id, title, url, submitter, summary, avatar, homeUrl, answerCount, goldCount, viewCount, postDate, answeredDate];
+
+  Uri httpsUrl() {
+    return Uri.parse("https://q.cnblogs.com$url");
+  }
 }
 
 enum QuestionStatus {
