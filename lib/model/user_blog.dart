@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class UserBlog {
+class UserBlog extends Equatable {
   final int id;
   final String dayTitle;
   final String title;
@@ -26,6 +26,9 @@ class UserBlog {
     required this.viewCount,
     required this.postDate,
   });
+
+  @override
+  List<Object?> get props => [id, dayTitle, title, url, isPinned, summary, name, commentCount, diggCount, viewCount, postDate];
 }
 
 class BlogDataInfo extends Equatable {
