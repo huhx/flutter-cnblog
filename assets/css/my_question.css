@@ -1,3 +1,7 @@
+#header {
+    display: none;
+}
+
 #second_nav, #right_sidebar, #footer {
     display: none;
 }

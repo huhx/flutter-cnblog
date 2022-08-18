@@ -1,4 +1,12 @@
+#header {
+    display: none;
+}
+
 #footer {
+    display: none;
+}
+
+#panelAnswer {
     display: none;
 }
 
