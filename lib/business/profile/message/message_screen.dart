@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/message.dart';
 
 import 'message_list_screen.dart';
@@ -12,6 +13,7 @@ class MessageScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          leading: const AppbarBackButton(),
           centerTitle: false,
           title: const TabBar(
             tabs: [

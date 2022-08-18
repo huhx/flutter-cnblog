@@ -1,0 +1,27 @@
+#hd_info {
+  display: none;
+}
+
+#main_content {
+    margin-top: 0px !important;
+}
+
+#header, #nav_zone, #guide_detail, #guide_de {
+  display: none;
+}
+
+#right_content {
+  display: none;
+}
+
+#panelTags, #PreNextArtilceId, #article_A4area {
+  display: none;
+}
+
+div.ad_bottom {
+  display: none;
+}
+
+#footer {
+  display: none;
+}
