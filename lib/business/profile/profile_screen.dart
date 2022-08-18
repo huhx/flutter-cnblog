@@ -13,6 +13,7 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'knowledge/knowledge_list_screen.dart';
+import 'message/message_screen.dart';
 import 'user_follow_count_info.dart';
 import 'user_profile_detail_screen.dart';
 
@@ -119,7 +120,7 @@ class ProfileMiddle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             InkWell(
-              onTap: () => CommUtil.toBeDev(),
+              onTap: () => context.goto(const MessageScreen()),
               child: const MomentMiddleItem(iconName: 'comment', label: '我的消息'),
             ),
             InkWell(

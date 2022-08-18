@@ -54,6 +54,9 @@ class _MainAppState extends State<MainApp> {
       final String myQuestionSource = await rootBundle.loadString("assets/css/my_question.css");
       AppConfig.save("my_question_css", myQuestionSource);
 
+      final String messageSource = await rootBundle.loadString("assets/css/message.css");
+      AppConfig.save("message_css", messageSource);
+
       timeago.setLocaleMessages('zh', ZhMessages());
       timeago.setDefaultLocale('zh');
 
