@@ -4,17 +4,22 @@ import 'package:flutter_cnblog/business/instant/instant_screen.dart';
 import 'package:flutter_cnblog/business/news/news_screen.dart';
 import 'package:flutter_cnblog/business/profile/profile_screen.dart';
 import 'package:flutter_cnblog/business/question/question_screen.dart';
+import 'package:flutter_cnblog/business/user/data/session_provider.dart';
+import 'package:flutter_cnblog/business/user/login/login_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/custom_navigation_bar_item.dart';
+import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   var pageIndex = 0;
   final homeList = [
     const HomeScreen(),
@@ -26,6 +31,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = ref.watch(sessionProvider);
+
     return Scaffold(
       body: homeList[pageIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -39,7 +46,12 @@ class _MainScreenState extends State<MainScreen> {
         ],
         selectedItemColor: themeColor,
         type: BottomNavigationBarType.fixed,
-        onTap: (value) => setState(() => pageIndex = value),
+        onTap: (value) async {
+          if (user == null) {
+            await context.goto(const LoginScreen());
+          }
+          setState(() => pageIndex = value);
+        },
       ),
     );
   }
