@@ -29,6 +29,10 @@ class NewsInfo extends Equatable {
 
   @override
   List<Object?> get props => [id, title, url, submitter, summary, cover, homeUrl, commentCount, diggCount, viewCount, postDate];
+
+  Uri httpsUrl() {
+    return Uri.parse("https://news.cnblogs.com$url");
+  }
 }
 
 enum NewsCategory {
