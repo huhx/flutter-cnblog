@@ -22,12 +22,12 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SessionModel sessionModel = ref.watch(sessionProvider.notifier);
+    final User? user = ref.watch(sessionProvider);
 
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: sessionModel.isAuth
+        child: user != null
             ? MyProfileScreen(AppConfig.get("user"))
             : InkWell(
                 child: TextButton(
