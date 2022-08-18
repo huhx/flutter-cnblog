@@ -26,6 +26,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
+        title: Text(widget.blog.title),
         actions: <Widget>[
           IconButton(
             icon: const SvgIcon(name: "more_hor", color: Colors.white),
@@ -38,7 +39,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: widget.blog.httpsUrl()),
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("css"));
+              await controller.injectCSSCode(source: AppConfig.get("blog_css"));
               setState(() => isLoading = false);
             },
           ),

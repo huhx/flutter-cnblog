@@ -2,6 +2,10 @@
   display: none;
 }
 
+div#main {
+  padding-top: 8px !important;
+}
+
 #navigator {
   display: none;
 }

@@ -36,7 +36,7 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: Uri.parse(widget.userBlog.url)),
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("css"));
+              await controller.injectCSSCode(source: AppConfig.get("blog_css"));
               setState(() => isLoading = false);
             },
           ),

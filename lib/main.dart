@@ -42,24 +42,7 @@ class _MainAppState extends State<MainApp> {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 500), () async {
-      final String source = await rootBundle.loadString("assets/css/blog.css");
-      AppConfig.save("css", source);
-
-      final String newsSource = await rootBundle.loadString("assets/css/news.css");
-      AppConfig.save("news_css", newsSource);
-
-      final String questionSource = await rootBundle.loadString("assets/css/question.css");
-      AppConfig.save("question_css", questionSource);
-
-      final String myQuestionSource = await rootBundle.loadString("assets/css/my_question.css");
-      AppConfig.save("my_question_css", myQuestionSource);
-
-      final String messageSource = await rootBundle.loadString("assets/css/message.css");
-      AppConfig.save("message_css", messageSource);
-
-      final String knowledgeSource = await rootBundle.loadString("assets/css/knowledge.css");
-      AppConfig.save("knowledge_css", knowledgeSource);
-
+      await initCss();
       timeago.setLocaleMessages('zh', ZhMessages());
       timeago.setDefaultLocale('zh');
 
@@ -85,5 +68,25 @@ class _MainAppState extends State<MainApp> {
         theme: appThemeData[AppTheme.light],
       ),
     );
+  }
+
+  Future<void> initCss() async {
+    final String source = await rootBundle.loadString("assets/css/blog.css");
+    AppConfig.save("blog_css", source);
+
+    final String newsSource = await rootBundle.loadString("assets/css/news.css");
+    AppConfig.save("news_css", newsSource);
+
+    final String questionSource = await rootBundle.loadString("assets/css/question.css");
+    AppConfig.save("question_css", questionSource);
+
+    final String myQuestionSource = await rootBundle.loadString("assets/css/my_question.css");
+    AppConfig.save("my_question_css", myQuestionSource);
+
+    final String messageSource = await rootBundle.loadString("assets/css/message.css");
+    AppConfig.save("message_css", messageSource);
+
+    final String knowledgeSource = await rootBundle.loadString("assets/css/knowledge.css");
+    AppConfig.save("knowledge_css", knowledgeSource);
   }
 }

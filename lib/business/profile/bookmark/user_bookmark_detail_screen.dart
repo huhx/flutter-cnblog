@@ -25,7 +25,7 @@ class _UserBookmarkDetailScreenState extends State<UserBookmarkDetailScreen> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("css"));
+              await controller.injectCSSCode(source: AppConfig.get("blog_css"));
               setState(() => isLoading = false);
             },
           ),
