@@ -1,8 +1,22 @@
-div#guide, #article_A4area, #e4, #news_more_info {
+/* mobile */
+#article_A4area, #e4, #news_more_info {
     display: none;
+}
+
+div#guide {
+    display: none !important;
 }
 
 .prevnext_block {
     display: none;
 }
 
+#footer {
+    display: none;
+}
+
+#comment_main, #comment_tips, #comment_form_block {
+    display: none;
+}
+
+/* ipad */
