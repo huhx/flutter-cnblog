@@ -121,19 +121,19 @@ class ProfileMiddle extends StatelessWidget {
           children: <Widget>[
             InkWell(
               onTap: () => context.goto(const MessageScreen()),
-              child: const MomentMiddleItem(iconName: 'comment', label: '我的消息'),
+              child: const MomentMiddleItem(iconName: 'my_message', label: '我的消息'),
             ),
             InkWell(
               onTap: () => CommUtil.toBeDev(),
-              child: const MomentMiddleItem(iconName: 'main_blog', label: '阅读历史'),
+              child: const MomentMiddleItem(iconName: 'my_history', label: '阅读历史'),
             ),
             InkWell(
               onTap: () => context.goto(const KnowledgeListScreen()),
-              child: const MomentMiddleItem(iconName: 'main_question', label: '知识库'),
+              child: const MomentMiddleItem(iconName: 'my_knowledge', label: '知识库'),
             ),
             InkWell(
               onTap: () => CommUtil.toBeDev(),
-              child: const MomentMiddleItem(iconName: 'main_profile', label: '我的动态'),
+              child: const MomentMiddleItem(iconName: 'my_moment', label: '我的动态'),
             ),
           ],
         ),

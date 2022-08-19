@@ -43,7 +43,7 @@ enum InstantCategory {
 enum MyInstantCategory {
   comment('回复我', 'comment'),
   mention('提到我', 'mention'),
-  publish('我发布', 'publish');
+  publish('我发布', 'my');
 
   final String label;
   final String url;

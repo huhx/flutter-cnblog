@@ -31,7 +31,7 @@ class InstantScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () => context.goto(const MyInstantScreen()),
-                icon: const SvgIcon(name: "like", color: Colors.white, size: 20),
+                icon: const SvgIcon(name: "my_instant", color: Colors.white, size: 20),
               )
             ],
           ),

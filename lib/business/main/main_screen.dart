@@ -39,7 +39,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         currentIndex: pageIndex,
         items: [
           CustomNavigationBarItem(iconName: 'main_blog', text: '博客'),
-          CustomNavigationBarItem(iconName: 'main_moment', text: '新闻'),
+          CustomNavigationBarItem(iconName: 'main_news', text: '新闻'),
           CustomNavigationBarItem(iconName: 'main_question', text: '博问'),
           CustomNavigationBarItem(iconName: 'main_instant', text: '闪存'),
           CustomNavigationBarItem(iconName: 'main_profile', text: '我的'),

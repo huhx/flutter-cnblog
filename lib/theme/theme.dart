@@ -13,7 +13,7 @@ final appThemeData = {
     appBarTheme: const AppBarTheme(
       backgroundColor: themeColor,
       centerTitle: true,
-      titleTextStyle: TextStyle(fontSize: 18),
+      titleTextStyle: TextStyle(fontSize: 17),
       actionsIconTheme: IconThemeData(color: Colors.white, size: 20),
     ),
     primaryColor: themeColor,
@@ -32,7 +32,7 @@ final appThemeData = {
     textTheme: GoogleFonts.latoTextTheme(),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
-      titleTextStyle: TextStyle(fontSize: 18),
+      titleTextStyle: TextStyle(fontSize: 17),
       actionsIconTheme: IconThemeData(color: Colors.white, size: 20),
     ),
     primaryColor: themeColor,
