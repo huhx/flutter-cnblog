@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'list_tile_trailing.dart';
+
 class ListTileItem extends StatelessWidget {
   final Widget leading;
   final Widget title;
@@ -54,7 +56,7 @@ class ListTileItem extends StatelessWidget {
                 ],
               ),
             ),
-            trailing ?? const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
+            trailing ?? const ListTileTrailing(),
           ],
         ),
       ),

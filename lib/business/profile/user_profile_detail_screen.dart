@@ -7,6 +7,7 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
@@ -114,7 +115,7 @@ class UserInfo extends StatelessWidget {
           children: [
             ListTile(
               leading: const Text("我的博客"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
+              trailing: const ListTileTrailing(),
               onTap: () => context.goto(UserBlogListScreen(user)),
             ),
             ...widgets

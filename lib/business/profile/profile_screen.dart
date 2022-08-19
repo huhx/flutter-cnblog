@@ -5,6 +5,7 @@ import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
@@ -49,61 +50,44 @@ class MyProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: themeColor,
-          padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () => context.goto(UserProfileDetailScreen(user)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleImage(url: user.avatar, size: 48),
-                    const SizedBox(width: 8),
-                    Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: UserFollowCountInfo(user),
-              ),
-            ],
-          ),
-        ),
+        ProfileHeader(user),
         const ProfileMiddle(),
-        Column(
-          children: [
-            ListTile(
-              title: const Text("我的博客"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => context.goto(UserBlogListScreen(user)),
-            ),
-            ListTile(
-              title: const Text("我的收藏"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => context.goto(UserBookmarkListScreen(user)),
-            ),
-            ListTile(
-              title: const Text("关于"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => CommUtil.toBeDev(),
-            ),
-            ListTile(
-              title: const Text("联系与反馈"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => CommUtil.toBeDev(),
-            ),
-            ListTile(
-              title: const Text("设置"),
-              trailing: const IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right)),
-              onTap: () => CommUtil.toBeDev(),
-            ),
-          ],
-        )
+        ProfileFooter(user),
       ],
+    );
+  }
+}
+
+class ProfileHeader extends StatelessWidget {
+  final User user;
+
+  const ProfileHeader(this.user, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: themeColor,
+      padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () => context.goto(UserProfileDetailScreen(user)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleImage(url: user.avatar, size: 48),
+                const SizedBox(width: 8),
+                Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: UserFollowCountInfo(user),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -159,6 +143,45 @@ class MomentMiddleItem extends StatelessWidget {
         SvgIcon(name: iconName, color: themeColor),
         const SizedBox(height: 4),
         Text(label),
+      ],
+    );
+  }
+}
+
+class ProfileFooter extends StatelessWidget {
+  final User user;
+
+  const ProfileFooter(this.user, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: const Text("我的博客"),
+          trailing: const ListTileTrailing(),
+          onTap: () => context.goto(UserBlogListScreen(user)),
+        ),
+        ListTile(
+          title: const Text("我的收藏"),
+          trailing: const ListTileTrailing(),
+          onTap: () => context.goto(UserBookmarkListScreen(user)),
+        ),
+        ListTile(
+          title: const Text("关于"),
+          trailing: const ListTileTrailing(),
+          onTap: () => CommUtil.toBeDev(),
+        ),
+        ListTile(
+          title: const Text("联系与反馈"),
+          trailing: const ListTileTrailing(),
+          onTap: () => CommUtil.toBeDev(),
+        ),
+        ListTile(
+          title: const Text("设置"),
+          trailing: const ListTileTrailing(),
+          onTap: () => CommUtil.toBeDev(),
+        ),
       ],
     );
   }
