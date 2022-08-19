@@ -7,6 +7,11 @@ div#guide {
     display: none !important;
 }
 
+#news_main {
+    margin-top: 0px;
+    border-top: none;
+}
+
 .prevnext_block {
     display: none;
 }
@@ -15,7 +20,7 @@ div#guide {
     display: none;
 }
 
-#comment_main, #comment_tips, #comment_form_block {
+#comment_main, #comment_tips, #comment_form_block, #E5 {
     display: none;
 }
 
