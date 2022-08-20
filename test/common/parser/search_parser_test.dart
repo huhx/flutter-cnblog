@@ -95,6 +95,7 @@ void main() {
     );
   });
 
+
   test("should return search question result list", () {
     const String string = '''
     <div class="forflow">
@@ -143,6 +144,50 @@ void main() {
         commentCount: 1,
         diggCount: 1,
         postDate: "2010-10-14",
+      ),
+    );
+  });
+
+
+  test("should return search knowledge result list", () {
+    const String string = r'''
+    <div class="forflow">
+      <div class="searchItem">
+          <h3 class="searchItemTitle">
+              <a target="_blank" href="https://kb.cnblogs.com/page/131773/">几点学习Linux编程的建议</a>
+          </h3>
+          <!--end: searchItemTitle -->
+          <span class="searchCon">
+              echo "hello <strong>world</strong>" //显示文本：hello <strong>world</strong> hello <strong>world</strong> Eric@Eric-PC ~ $ echo "hello...mkdir "hello <strong>world</strong>" //在当前目录新建目录，名为hello <strong>world</strong> Eric@Eric-PC ~ $ ls 
+          </span>
+          <!--end: searchCon -->
+          <div class="searchItemInfo">
+              <span class="searchItemInfo-userName">
+              </span>
+              <span class="searchItemInfo-publishDate">2012-02-19</span>
+                  <span class="searchItemInfo-good">推荐(10)</span>
+                  <span class="searchItemInfo-views">浏览(5808)</span>
+          </div>
+          <div class="searchItemInfo">
+              <span class="searchURL">https://kb.cnblogs.com/page/131773/</span>
+          </div>
+      </div>
+    </div> 
+    ''';
+
+    final List<SearchInfo> results = SearchParser.parseSearchList(string);
+
+    expect(
+      results[0],
+      const SearchInfo(
+        title: "几点学习Linux编程的建议",
+        url: "https://kb.cnblogs.com/page/131773/",
+        summary: r'''<span class="searchCon">
+              echo "hello <strong>world</strong>" //显示文本：hello <strong>world</strong> hello <strong>world</strong> Eric@Eric-PC ~ $ echo "hello...mkdir "hello <strong>world</strong>" //在当前目录新建目录，名为hello <strong>world</strong> Eric@Eric-PC ~ $ ls 
+          </span>''',
+        viewCount: 5808,
+        diggCount: 10,
+        postDate: "2012-02-19",
       ),
     );
   });

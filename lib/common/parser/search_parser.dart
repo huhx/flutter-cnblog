@@ -16,8 +16,12 @@ class SearchParser {
     final String viewString = element.getFirstByClass("searchItemInfo-views").getText();
     final String viewCountString = viewString.replaceFirstMapped(RegExp(r"浏览\(([0-9]+)\)"), (match) => match.group(1)!);
 
-    final String commentString = element.getFirstByClass("searchItemInfo-comments").getText();
-    final String commentCountString = commentString.replaceFirstMapped(RegExp(r"评论\(([0-9]+)\)"), (match) => match.group(1)!);
+    int? commentCount;
+    final List<Element> commentElements = element.getElementsByClassName("searchItemInfo-comments");
+    if (commentElements.isNotEmpty) {
+      final String commentString = commentElements[0].getText();
+      commentCount = int.parse(commentString.replaceFirstMapped(RegExp(r"评论\(([0-9]+)\)"), (match) => match.group(1)!));
+    }
 
     String? author, homeUrl;
     final Element usernameElement = element.getFirstByClass("searchItemInfo-userName");
@@ -40,7 +44,7 @@ class SearchParser {
       author: author,
       homeUrl: homeUrl,
       viewCount: int.parse(viewCountString),
-      commentCount: int.parse(commentCountString),
+      commentCount: commentCount,
       diggCount: diggCount,
       postDate: element.getFirstByClass("searchItemInfo-publishDate").getText(),
     );
