@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/business/profile/bookmark/user_bookmark_list_screen.dart';
+import 'package:flutter_cnblog/business/search/search_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -170,7 +171,7 @@ class ProfileFooter extends StatelessWidget {
         ListTile(
           title: const Text("关于"),
           trailing: const ListTileTrailing(),
-          onTap: () => CommUtil.toBeDev(),
+          onTap: () => context.goto(const SearchScreen()),
         ),
         ListTile(
           title: const Text("联系与反馈"),
