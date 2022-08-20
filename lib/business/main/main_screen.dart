@@ -47,7 +47,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         selectedItemColor: themeColor,
         type: BottomNavigationBarType.fixed,
         onTap: (value) async {
-          if (user == null) {
+          if (user == null && value == 3) {
             await context.goto(const LoginScreen());
           }
           setState(() => pageIndex = value);
