@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class SearchInfo extends Equatable {
-  final int id;
   final String title;
   final String url;
   final String summary;
@@ -13,7 +12,6 @@ class SearchInfo extends Equatable {
   final String postDate;
 
   const SearchInfo({
-    required this.id,
     required this.title,
     required this.url,
     required this.summary,
@@ -26,7 +24,7 @@ class SearchInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, url, summary, author, homeUrl, viewCount, commentCount, diggCount, postDate];
+  List<Object?> get props => [title, url, summary, author, homeUrl, viewCount, commentCount, diggCount, postDate];
 }
 
 enum SearchType {

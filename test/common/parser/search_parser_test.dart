@@ -45,4 +45,53 @@ void main() {
       ),
     );
   });
+
+
+  test("should return search blog result list", () {
+    const String string = '''
+    <div class="forflow">
+      <div class="searchItem">
+          <h3 class="searchItemTitle">
+              <a target="_blank" href="https://www.cnblogs.com/harveyChoi/p/hello_jexus.html"><strong>Hello</strong> Jexus</a>
+          </h3>
+          <!--end: searchItemTitle -->
+          <span class="searchCon">
+              已经趋于成熟。 这是一个 <strong>Hello</strong> world。感谢Jexus作者宇内流云对吾小白的耐心指导。 
+          </span>
+          <!--end: searchCon -->
+          <div class="searchItemInfo">
+              <span class="searchItemInfo-userName">
+                      <a href="https://www.cnblogs.com/harveychoi/" target="_blank">海华</a>
+              </span>
+              <span class="searchItemInfo-publishDate">2013-07-31</span>
+                  <span class="searchItemInfo-good">推荐(11)</span>
+                  <span class="searchItemInfo-comments">评论(15)</span>
+                  <span class="searchItemInfo-views">浏览(2376)</span>
+          </div>
+          <div class="searchItemInfo">
+              <span class="searchURL">https://www.cnblogs.com/harveyChoi/p/hello_jexus.html</span>
+          </div>
+      </div>
+    </div> 
+    ''';
+
+    final List<SearchInfo> results = SearchParser.parseSearchList(string);
+
+    expect(
+      results[0],
+      const SearchInfo(
+        title: "<strong>Hello</strong> Jexus",
+        url: "https://www.cnblogs.com/harveyChoi/p/hello_jexus.html",
+        summary: '''<span class="searchCon">
+              已经趋于成熟。 这是一个 <strong>Hello</strong> world。感谢Jexus作者宇内流云对吾小白的耐心指导。 
+          </span>''',
+        viewCount: 2376,
+        author: "海华",
+        homeUrl: "https://www.cnblogs.com/harveychoi/",
+        commentCount: 15,
+        diggCount: 11,
+        postDate: "2013-07-31",
+      ),
+    );
+  });
 }
