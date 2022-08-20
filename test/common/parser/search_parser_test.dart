@@ -94,4 +94,56 @@ void main() {
       ),
     );
   });
+
+  test("should return search question result list", () {
+    const String string = '''
+    <div class="forflow">
+      <div class="searchItem">
+          <h3 class="searchItemTitle">
+              <a target="_blank" href="https://q.cnblogs.com/q/18977/">【C#】考你一个输出“Hello <strong>World</strong>”程序</a>
+          </h3>
+          <!--end: searchItemTitle -->
+          <div class="searchCon">
+              <span class="searchitem-q-header">问：</span>&nbsp; 还有一种方法？ 
+          </div>
+          <div class="searchCon">
+                  <span class="searchitem-q-header">答：</span>
+      控制台输出MS只有Write。 只要括号内的表达式为false并且可以输出hello就可以了啊。。 同意 1.if 必须为假 2.if里面必须输出Hello. 1.if 必须为假 2.if里面必须输出Hello. 同意楼上    </div>
+          <!--end: searchCon -->
+          <div class="searchItemInfo">
+              <span class="searchItemInfo-userName">
+                      <a href="https://q.cnblogs.com/u/zhuxi/" target="_blank">竹溪</a>
+              </span>
+              <span class="searchItemInfo-publishDate">2010-10-14</span>
+                  <span class="searchItemInfo-good">推荐(1)</span>
+                  <span class="searchItemInfo-comments">评论(1)</span>
+                  <span class="searchItemInfo-views">浏览(633)</span>
+      
+          </div>
+          <div class="searchItemInfo">
+              <span class="searchURL">https://q.cnblogs.com/q/18977/</span>
+          </div>
+      </div>
+    </div> 
+    ''';
+
+    final List<SearchInfo> results = SearchParser.parseSearchList(string);
+
+    expect(
+      results[0],
+      const SearchInfo(
+        title: "【C#】考你一个输出“Hello <strong>World</strong>”程序",
+        url: "https://q.cnblogs.com/q/18977/",
+        summary: '''<div class="searchCon">
+              <span class="searchitem-q-header">问：</span>&nbsp; 还有一种方法？ 
+          </div>''',
+        viewCount: 633,
+        author: "竹溪",
+        homeUrl: "https://q.cnblogs.com/u/zhuxi/",
+        commentCount: 1,
+        diggCount: 1,
+        postDate: "2010-10-14",
+      ),
+    );
+  });
 }
