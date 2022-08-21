@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
+import 'package:flutter_cnblog/common/constant/constant.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
@@ -32,7 +33,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             onPageCommitVisible: (controller, url) async {
               setState(() => isLoading = false);
               CookieManager cookieManager = CookieManager.instance();
-              Cookie? cookie = await cookieManager.getCookie(url: url!, name: ".Cnblogs.AspNetCore.Cookies");
+              Cookie? cookie = await cookieManager.getCookie(url: url!, name: Constant.authCookieName);
               AppConfig.save("cookie", cookie!.value);
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
                 logger.d('加载完成：$url');
