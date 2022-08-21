@@ -28,3 +28,16 @@ enum FollowType {
 
   const FollowType(this.label, this.url);
 }
+
+class FollowResult extends Equatable {
+  final bool isSucceed;
+
+  const FollowResult({required this.isSucceed});
+
+  factory FollowResult.fromJson(Map<String, dynamic> json) {
+    return FollowResult(isSucceed: json['IsSucceed'] as bool);
+  }
+
+  @override
+  List<Object?> get props => [isSucceed];
+}

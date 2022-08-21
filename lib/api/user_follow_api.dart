@@ -11,6 +11,26 @@ class UserFollowApi {
 
     return compute(FollowParser.parseFollowList, response.data as String);
   }
+
+  Future<FollowResult> follow(String userId, String remark) async {
+    const String url = "https://home.cnblogs.com/ajax/follow/followUser";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      data: {"userId": userId, "remark": remark},
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    return FollowResult.fromJson(response.data);
+  }
+
+  Future<FollowResult> unfollow(String userId) async {
+    const String url = "https://home.cnblogs.com/ajax/follow/RemoveFollow";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      data: {"userId": userId, "isRemoveGroup": false},
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    return FollowResult.fromJson(response.data);
+  }
 }
 
 final userFollowApi = UserFollowApi();
