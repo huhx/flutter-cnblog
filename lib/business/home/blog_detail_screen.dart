@@ -26,9 +26,14 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         leading: const AppbarBackButton(),
-        title: Text(widget.blog.title),
+        title: AppBarTitle(widget.blog),
         actions: <Widget>[
+          TextButton(
+            onPressed: () => CommUtil.toBeDev(),
+            child: const Text("关注", style: TextStyle(color: Colors.white)),
+          ),
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () => CommUtil.toBeDev(),
@@ -50,6 +55,26 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           )
         ],
       ),
+    );
+  }
+}
+
+class AppBarTitle extends StatelessWidget {
+  final BlogResp blog;
+
+  const AppBarTitle(this.blog, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        InkWell(
+          child: CircleImage(url: blog.avatar, size: 28),
+          onTap: () => CommUtil.toBeDev(),
+        ),
+        const SizedBox(width: 6),
+        Text(blog.author, style: const TextStyle(fontSize: 14)),
+      ],
     );
   }
 }
