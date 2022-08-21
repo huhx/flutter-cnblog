@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/news.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -27,16 +28,16 @@ class NewsParser {
     final List<Element> coverElements = summaryElement.getElementsByClassName("topic_img");
 
     return NewsInfo(
-      id: int.parse(element.attributes["id"]!.replaceFirst("entry_", "")),
+      id: element.attributes["id"]!.replaceFirst("entry_", "").toInt(),
       title: titleElement.getFirstChildText(),
       url: titleElement.children.first.attributes['href']!,
       summary: summaryElement.getLastNodeText(),
       cover: coverElements.isEmpty ? '' : coverElements.first.attributes['src']!,
       homeUrl: "https:${footerElement.getFirstByTag("a").attributes['href']!}",
       submitter: footerElement.getFirstByTag("a").getText().trim(),
-      commentCount: int.parse(commentString),
-      diggCount: int.parse(diggElement.getText()),
-      viewCount: int.parse(viewString),
+      commentCount: commentString.toInt(),
+      diggCount: diggElement.getText().toInt(),
+      viewCount: viewString.toInt(),
       postDate: DateTime.parse(dateString),
     );
   }

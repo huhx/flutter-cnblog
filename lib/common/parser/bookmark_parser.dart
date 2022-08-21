@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -17,10 +18,10 @@ class BookmarkParser {
     final Element bodyElement = element.getFirstByClass("link_memo");
 
     return BookmarkInfo(
-      id: int.parse(element.attributes["id"]!.replaceFirst("link_", "")),
+      id: element.attributes["id"]!.replaceFirst("link_", "").toInt(),
       title: titleElement.getText(),
       url: titleElement.attributes['href']!,
-      starCounts: int.parse(bodyElement.getFirstByClass("wz_item_count").getText()),
+      starCounts: bodyElement.getFirstByClass("wz_item_count").getText().toInt(),
       postDate: DateFormat("MM/dd/yyyy hh:mm:ss").parse((bodyElement.getFirstByClass("date").attributes['title']!)),
     );
   }

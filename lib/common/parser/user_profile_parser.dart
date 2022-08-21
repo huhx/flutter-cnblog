@@ -25,8 +25,8 @@ class UserProfileParser {
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: document.getElementById("blog_url")!.attributes['href']!,
       info: map,
-      followCounts: int.parse(document.getElementById("following_count")!.getText()),
-      followerCounts: int.parse(document.getElementById("follower_count")!.getText()),
+      followCounts: document.getElementById("following_count")!.getText().toInt(),
+      followerCounts: document.getElementById("follower_count")!.getText().toInt(),
     );
   }
 

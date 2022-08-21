@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/question.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -30,16 +31,16 @@ class QuestionParser {
     final String viewString = viewRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
 
     return QuestionInfo(
-      id: int.parse(url.split("/")[2]),
+      id: url.split("/")[2].toInt(),
       title: titleElement.getText(),
       url: url,
       summary: summary,
       avatar: avatarElement.isEmpty ? '' : "https:${avatarElement[0].children[0].attributes['src']}",
       homeUrl: submitterElement.attributes['href']!,
       submitter: submitterElement.getText().trim(),
-      answerCount: int.parse(answerString),
-      goldCount: int.parse(gold),
-      viewCount: int.parse(viewString),
+      answerCount: answerString.toInt(),
+      goldCount: gold.toInt(),
+      viewCount: viewString.toInt(),
       postDate: date.startsWith("解决于 ") ? null : DateTime.parse(date),
       answeredDate: date.startsWith("解决于 ") ? DateTime.parse(date.replaceAll("解决于 ", "").trim()) : null,
     );

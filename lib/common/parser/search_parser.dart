@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -20,7 +21,7 @@ class SearchParser {
     final List<Element> commentElements = element.getElementsByClassName("searchItemInfo-comments");
     if (commentElements.isNotEmpty) {
       final String commentString = commentElements[0].getText();
-      commentCount = int.parse(commentString.replaceFirstMapped(RegExp(r"评论\(([0-9]+)\)"), (match) => match.group(1)!));
+      commentCount = commentString.replaceFirstMapped(RegExp(r"评论\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
     }
 
     String? author, homeUrl;
@@ -34,7 +35,7 @@ class SearchParser {
     final List<Element> diggElements = element.getElementsByClassName("searchItemInfo-good");
     if (diggElements.isNotEmpty) {
       final String diggString = diggElements[0].getText();
-      diggCount = int.parse(diggString.replaceFirstMapped(RegExp(r"推荐\(([0-9]+)\)"), (match) => match.group(1)!));
+      diggCount = diggString.replaceFirstMapped(RegExp(r"推荐\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
     }
 
     return SearchInfo(
@@ -43,7 +44,7 @@ class SearchParser {
       summary: element.getFirstByClass("searchCon").outerHtml,
       author: author,
       homeUrl: homeUrl,
-      viewCount: int.parse(viewCountString),
+      viewCount: viewCountString.toInt(),
       commentCount: commentCount,
       diggCount: diggCount,
       postDate: element.getFirstByClass("searchItemInfo-publishDate").getText(),

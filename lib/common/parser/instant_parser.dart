@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -26,14 +27,14 @@ class InstantParser {
     final String commentCountString = firstMatch == null ? "0" : firstMatch.group(1)!;
 
     return InstantInfo(
-      id: int.parse(bodyElement.attributes['id']!.replaceFirst("feed_content_", "")),
+      id: bodyElement.attributes['id']!.replaceFirst("feed_content_", "").toInt(),
       content: contentElement.outerHtml,
       url: "https://ing.cnblogs.com${urlElement.attributes['href']}",
       submitter: authorElement.getText(),
       avatar: avatarString.startsWith("http") ? avatarString : "https:$avatarString",
       homeUrl: "https:${authorElement.attributes['href']}",
       postDate: urlElement.getText(),
-      commentCounts: int.parse(commentCountString),
+      commentCounts: commentCountString.toInt(),
       comments: const [],
     );
   }

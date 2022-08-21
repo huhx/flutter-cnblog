@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -31,15 +32,15 @@ class KnowledgeParser {
     final List<String> tags = footerElement.getFirstByClass("tag").getElementsByClassName("catalink").map((e) => e.getText()).toList();
 
     return KnowledgeInfo(
-      id: int.parse(url.split("/")[2]),
+      id: url.split("/")[2].toInt(),
       title: titleElement.getText(),
       url: "https://kb.cnblogs.com$url",
       summary: summaryElement.getFirstChildText(),
       category: categoryElement.getText(),
       tags: tags,
       postDate: DateTime.parse(footerElement.getLastChildText()),
-      viewCount: int.parse(viewCount),
-      diggCount: int.parse(diggCount),
+      viewCount: viewCount.toInt(),
+      diggCount: diggCount.toInt(),
     );
   }
 }

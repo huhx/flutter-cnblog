@@ -14,20 +14,20 @@ class MySearchParser {
 
   static SearchInfo _parseSearchInfo(Element element) {
     final Element titleElement = element.getFirstByClass("result-title").children.first;
-    final int viewCount = int.parse(element.getFirstByClass("icon-liulan").parentNode!.nodes.last.toString().trimQuotation().trim());
+    final int viewCount = element.getFirstByClass("icon-liulan").parentNode!.nodes.last.toString().trimQuotation().trim().toInt();
 
     int? commentCount;
     final List<Element> commentElements = element.getElementsByClassName("icon-pinglun");
     if (commentElements.isNotEmpty) {
       final String commentString = commentElements[0].parentNode!.nodes.last.toString().trimQuotation().trim();
-      commentCount = int.parse(commentString);
+      commentCount = commentString.toInt();
     }
 
     int? diggCount;
     final List<Element> diggElements = element.getElementsByClassName("icon-dianzan");
     if (diggElements.isNotEmpty) {
       final String diggString = diggElements[0].parentNode!.nodes.last.toString().trimQuotation().trim();
-      diggCount = int.parse(diggString);
+      diggCount = diggString.toInt();
     }
 
     return SearchInfo(

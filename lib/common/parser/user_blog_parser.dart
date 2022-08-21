@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
@@ -52,13 +53,13 @@ class UserBlogParser {
     final String diggString = diggRegex.firstMatch(diggElement.outerHtml)!.group(1)!;
 
     return UserBlog(
-      id: int.parse(summaryElement.attributes["id"]!.replaceFirst("postlist_description_", "")),
+      id: summaryElement.attributes["id"]!.replaceFirst("postlist_description_", "").toInt(),
       title: titleElement.getFirstByTag("span").getLastNodeText(),
       url: titleElement.attributes['href']!,
       summary: summaryElement.getFirstNodeText().replaceFirst("摘要：", "").trim(),
-      commentCount: int.parse(commentString),
-      diggCount: int.parse(diggString),
-      viewCount: int.parse(viewString),
+      commentCount: commentString.toInt(),
+      diggCount: diggString.toInt(),
+      viewCount: viewString.toInt(),
       postDate: DateTime.parse(postDateString),
       dayTitle: dayTitle,
       isPinned: isPinned,
