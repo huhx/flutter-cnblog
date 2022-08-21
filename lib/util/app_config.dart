@@ -45,7 +45,11 @@ class AppConfig {
     appConfig.putIfAbsent(key, () => value);
   }
 
-  static void remove(List<String> keys) {
+  static void remove(String key) {
+    appConfig.remove(key);
+  }
+
+  static void removeAll(List<String> keys) {
     for (final String key in keys) {
       appConfig.remove(key);
     }

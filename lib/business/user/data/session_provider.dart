@@ -31,4 +31,12 @@ class SessionModel extends StateNotifier<User?> {
     AppConfig.save("user", user);
     AppConfig.save("userId", user.userId);
   }
+
+  Future<void> logout() async {
+    state = null;
+
+    AppConfig.remove("user");
+    AppConfig.remove("userId");
+    AppConfig.remove("cookie");
+  }
 }
