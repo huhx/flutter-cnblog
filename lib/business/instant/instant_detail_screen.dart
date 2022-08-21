@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/api/instant_comment_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:flutter_cnblog/model/instant_comment.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -29,7 +29,7 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
         actions: [
           IconButton(
             onPressed: () => CommUtil.toBeDev(),
-            icon: const SvgIcon(name: "like", color: Colors.white, size: 20),
+            icon: const SvgActionIcon(name: "like"),
           )
         ],
       ),
@@ -125,9 +125,7 @@ class _InstantCommentItemState extends State<InstantCommentItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(widget.instantComment.userDisplayName),
-                  Text(
-                    timeago.format(widget.instantComment.dateAdded),
-                  )
+                  Text(timeago.format(widget.instantComment.dateAdded)),
                 ],
               ),
             ],

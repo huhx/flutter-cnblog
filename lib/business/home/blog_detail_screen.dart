@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
@@ -29,7 +30,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
         title: Text(widget.blog.title),
         actions: <Widget>[
           IconButton(
-            icon: const SvgIcon(name: "more_hor", color: Colors.white),
+            icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () => CommUtil.toBeDev(),
           )
         ],

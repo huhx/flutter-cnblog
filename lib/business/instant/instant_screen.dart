@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/instant/my_instant_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 
 import 'instant_list_screen.dart';
@@ -31,7 +31,7 @@ class InstantScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () => context.goto(const MyInstantScreen()),
-                icon: const SvgIcon(name: "my_instant", color: Colors.white, size: 20),
+                icon: const SvgActionIcon(name: "my_instant"),
               )
             ],
           ),

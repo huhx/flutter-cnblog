@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'svg_icon.dart';
 
 class SvgActionIcon extends StatelessWidget {
-  final String iconName;
+  final String name;
 
-  const SvgActionIcon(this.iconName, {super.key});
+  const SvgActionIcon({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
-    return SvgIcon(name: iconName, color: Colors.white, size: 20);
+    return SvgIcon(name: name, color: Colors.white, size: 20);
   }
 }

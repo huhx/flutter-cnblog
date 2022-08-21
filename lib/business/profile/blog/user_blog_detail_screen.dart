@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -27,7 +27,7 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
         title: Text(widget.userBlog.title),
         actions: <Widget>[
           IconButton(
-            icon: const SvgIcon(name: "more_hor", color: Colors.white),
+            icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () => CommUtil.toBeDev(),
           )
         ],
