@@ -25,10 +25,10 @@ class QuestionParser {
 
     final Element footerElement = element.getFirstByClass("news_footer_user");
     final RegExp answerRegex = RegExp(r"回答\(([0-9]+)\)");
-    final String answerString = answerRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
+    final String answerString = answerRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
 
     final RegExp viewRegex = RegExp(r"浏览\(([0-9]+)\)");
-    final String viewString = viewRegex.firstMatch(footerElement.outerHtml)!.group(1)!;
+    final String viewString = viewRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
 
     return QuestionInfo(
       id: url.split("/")[2].toInt(),

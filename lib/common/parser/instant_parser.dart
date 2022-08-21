@@ -23,7 +23,7 @@ class InstantParser {
     final Element commentElement = bodyElement.getFirstByClass("ing_reply");
 
     final RegExp commentsRegex = RegExp(r"([0-9]+)回应");
-    final RegExpMatch? firstMatch = commentsRegex.firstMatch(commentElement.outerHtml);
+    final RegExpMatch? firstMatch = commentsRegex.firstMatch(commentElement.innerHtml);
     final String commentCountString = firstMatch == null ? "0" : firstMatch.group(1)!;
 
     return InstantInfo(
