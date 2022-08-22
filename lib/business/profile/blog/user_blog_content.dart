@@ -28,7 +28,7 @@ class _UserBlogContentState extends State<UserBlogContent> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<UserBlog> blogs = await userBlogApi.getUserBlogList(pageKey);
+    final List<UserBlog> blogs = await userBlogApi.getUserBlogList(widget.user.displayName, pageKey);
     final bool isLastPage = blogs.where((element) => !element.isPinned).length < pageSize;
     if (isLastPage) {
       _pagingController.appendLastPage(blogs);
