@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/follow.dart';
 
@@ -12,16 +13,17 @@ class FollowScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String string = CurrentUser.getUser().displayName == name ? "我" : "Ta";
     return DefaultTabController(
       length: 2,
       initialIndex: index,
       child: Scaffold(
         appBar: AppBar(
           leading: const AppbarBackButton(),
-          title: const TabBar(
+          title: TabBar(
             tabs: [
-              Tab(text: "我的关注"),
-              Tab(text: "我的粉丝"),
+              Tab(text: "$string的关注"),
+              Tab(text: "$string的粉丝"),
             ],
             indicatorColor: Colors.white,
             isScrollable: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
+import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
@@ -104,6 +105,7 @@ class UserHeaderInfo extends StatelessWidget {
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;
+        final String string = CurrentUser.getUser().displayName == userProfile.name ? "我" : "Ta";
         List<Widget> widgets = [];
         userProfile.info.forEach((key, value) {
           final listTile = ListTile(leading: Text(key), trailing: Text(value));
@@ -114,7 +116,7 @@ class UserHeaderInfo extends StatelessWidget {
           primary: false,
           children: [
             ListTile(
-              leading: const Text("我的博客"),
+              leading: Text("$string的博客"),
               trailing: const ListTileTrailing(),
               onTap: () => context.goto(UserBlogListScreen(user)),
             ),
