@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test("should return user profile info", () {
+  test("should return profile info of current user", () {
     const String string = '''
     <div id="user_profile_block">
         <table>
@@ -91,6 +91,86 @@ void main() {
         },
         followCounts: 3,
         followerCounts: 185,
+      ),
+    );
+  });
+
+  test("should return profile info of another user", () {
+    const String string = '''
+    <div id="user_profile_block">
+    <table>
+        <tbody>
+            <tr>
+                <td valign="top">
+                    <div class="user_avatar">
+                        <img src="//pic.cnblogs.com/avatar/simple_avatar.gif" alt="Colorful_coco的头像" class="img_avatar"><br>
+                        <table class="user_profile_nav_block">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ul class="avatar_nav_block" id="avatar_opt_nav">
+                                                <li><a href="https://msg.cnblogs.com/send?recipient=Colorful_coco" id="link_send_msg" class="link_message">发短消息</a></li>
+                                            <li><a href="/u/colorful-coco/detail/" class="link_account">个人资料</a></li>
+                                            <li><a href="//ing.cnblogs.com/u/colorful-coco/" class="link_mying">闪存主页</a></li>
+                                            <li><a href="//q.cnblogs.com/u/colorful-coco/" class="link_question">博问主页</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td valign="top">
+                    <div>
+                        <h1 class="display_name">
+                            Colorful_coco
+                        </h1>
+                            <div>
+                                <ul id="user_profile" class="user_profile">
+                                    <li id="li_remark" style="display:none"><span class="text_gray">备注名称：</span><span id="remarkId"></span></li>
+                                    <li><span class="text_gray" title="账户ID">园号：</span><span>1101002</span></li><li><span class="text_gray">园龄：</span><span title="入园时间：2017-02-04">5年6个月</span></li><li><span class="text_gray">入园：</span><span>2017-02-04</span></li><li><span class="text_gray">博客：</span><a id="blog_url" href="https://www.cnblogs.com/colorful-coco/" class="gray" target="_blank">https://www.cnblogs.com/colorful-coco/</a>&nbsp;<span class="text_gray" id="blog_subscription_wrap">[<span id="blog_subscription_text"></span><a id="blog_subscription" class="gray" data-rss="https://www.cnblogs.com/colorful-coco/rss/" href="javascript:void(0);">订阅</a>]</span></li>
+                                </ul>
+                            </div>
+                        <div class="text_gray" style="padding-top: 10px;">
+                            <div class="data_count_block" style="padding: 0px 0 15px;">
+                                <div class="data_left">
+                                    <div class="follow_count"><a id="following_count" href="/u/colorful-coco/followees/">5</a></div>
+                                    <a href="/u/colorful-coco/followees/">关注</a>
+                                </div>
+                                <div class="data_right">
+                                    <div class="follow_count"><a id="follower_count" href="/u/colorful-coco/followers/">8</a></div>
+                                    <a href="/u/colorful-coco/followers/">粉丝</a>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user_intro">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    ''';
+
+    final UserProfileInfo userProfileInfo = UserProfileParser.parseUserProfile(string);
+
+    expect(
+      userProfileInfo,
+      const UserProfileInfo(
+        name: "Colorful_coco",
+        avatar: "https://pic.cnblogs.com/avatar/simple_avatar.gif",
+        url: "https://www.cnblogs.com/Colorful_coco/",
+        info: {
+          "园号": "1101002",
+          "园龄": "5年6个月",
+          "入园": "2017-02-04",
+          "博客": "https://www.cnblogs.com/colorful-coco/",
+        },
+        followCounts: 5,
+        followerCounts: 8,
       ),
     );
   });

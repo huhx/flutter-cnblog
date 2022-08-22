@@ -10,20 +10,22 @@ class UserProfileParser {
     final Element element = document.getElementById("user_profile_block")!;
     final Element ulElement = element.getElementsByTagName("ul")[1];
     final List<Element> elements = ulElement.getElementsByTagName("li").where((element) => element.attributes.isEmpty).toList();
+    final String name = element.getFirstByClass("display_name").getText().trim();
+
     final Map<String, String> map = {};
 
     for (final Element ele in elements) {
-      final String key = ele.getFirstByClass("text_gray").getText().replaceFirst("：", "");
-      final String value = ele.nodes.last.nodes.isNotEmpty
-          ? ele.nodes.last.nodes.last.toString().trimQuotation().trim()
-          : ele.nodes.last.toString().trimQuotation().trim();
+      final Element keyElement = ele.getFirstByClass("text_gray");
+      final String key = keyElement.getText().replaceFirst("：", "");
+      final Element? nextElement = keyElement.nextElementSibling;
+      final String value = nextElement == null ? ele.getLastNodeText() : nextElement.innerHtml;
       map[key] = value;
     }
 
     return UserProfileInfo(
-      name: element.getFirstByClass("display_name").getText().trim(),
+      name: name,
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
-      url: document.getElementById("blog_url")!.attributes['href']!,
+      url: "https://www.cnblogs.com/$name/",
       info: map,
       followCounts: document.getElementById("following_count")!.getText().toInt(),
       followerCounts: document.getElementById("follower_count")!.getText().toInt(),
