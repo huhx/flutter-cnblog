@@ -13,7 +13,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'user_bookmark_detail_screen.dart';
 
 class UserBookmarkContent extends StatefulWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBookmarkContent(this.user, {Key? key}) : super(key: key);
 

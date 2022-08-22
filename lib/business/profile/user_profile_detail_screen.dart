@@ -17,7 +17,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'user_follow_count_info.dart';
 
 class UserProfileDetailScreen extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserProfileDetailScreen(this.user, {Key? key}) : super(key: key);
 
@@ -41,7 +41,7 @@ class UserProfileDetailScreen extends StatelessWidget {
                   ),
                 ),
                 body: TabBarView(
-                  children: [UserInfo(user), UserMoment(user)],
+                  children: [UserHeaderInfo(user), UserMoment(user)],
                 ),
               ),
             ),
@@ -53,7 +53,7 @@ class UserProfileDetailScreen extends StatelessWidget {
 }
 
 class UserProfileHeader extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserProfileHeader(this.user, {Key? key}) : super(key: key);
 
@@ -92,10 +92,10 @@ class UserProfileHeader extends StatelessWidget {
   }
 }
 
-class UserInfo extends StatelessWidget {
-  final User user;
+class UserHeaderInfo extends StatelessWidget {
+  final UserInfo user;
 
-  const UserInfo(this.user, {Key? key}) : super(key: key);
+  const UserHeaderInfo(this.user, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class UserInfo extends StatelessWidget {
 }
 
 class UserMoment extends StatefulWidget {
-  final User user;
+  final UserInfo user;
 
   const UserMoment(this.user, {Key? key}) : super(key: key);
 

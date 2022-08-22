@@ -25,4 +25,20 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  UserInfo toInfo() {
+    return UserInfo(userId: userId, displayName: displayName, avatar: avatar);
+  }
+}
+
+class UserInfo {
+  final String userId;
+  final String displayName;
+  final String avatar;
+
+  UserInfo({
+    required this.userId,
+    required this.displayName,
+    required this.avatar,
+  });
 }

@@ -9,7 +9,7 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'user_blog_content.dart';
 
 class UserBlogListScreen extends StatefulWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBlogListScreen(this.user, {Key? key}) : super(key: key);
 
@@ -33,7 +33,7 @@ class _UserBlogListScreenState extends State<UserBlogListScreen> {
 }
 
 class UserBlogHeader extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBlogHeader(this.user, {Key? key}) : super(key: key);
 

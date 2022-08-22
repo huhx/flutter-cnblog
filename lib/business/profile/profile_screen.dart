@@ -53,16 +53,16 @@ class MyProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProfileHeader(user),
+        ProfileHeader(user.toInfo()),
         const ProfileMiddle(),
-        ProfileFooter(user),
+        ProfileFooter(user.toInfo()),
       ],
     );
   }
 }
 
 class ProfileHeader extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const ProfileHeader(this.user, {Key? key}) : super(key: key);
 
@@ -152,7 +152,7 @@ class MomentMiddleItem extends StatelessWidget {
 }
 
 class ProfileFooter extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const ProfileFooter(this.user, {Key? key}) : super(key: key);
 

@@ -6,7 +6,7 @@ import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 
 class UserBlogDataInfo extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBlogDataInfo(this.user, {Key? key}) : super(key: key);
 

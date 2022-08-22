@@ -9,7 +9,7 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'user_bookmark_content.dart';
 
 class UserBookmarkListScreen extends StatefulWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBookmarkListScreen(this.user, {Key? key}) : super(key: key);
 
@@ -33,7 +33,7 @@ class _UserBookmarkListScreenState extends State<UserBookmarkListScreen> {
 }
 
 class UserBookmarkHeader extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBookmarkHeader(this.user, {Key? key}) : super(key: key);
 

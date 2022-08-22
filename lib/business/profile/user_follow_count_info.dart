@@ -8,7 +8,7 @@ import 'package:flutter_cnblog/model/user_profile.dart';
 import 'follow/follow_screen.dart';
 
 class UserFollowCountInfo extends StatelessWidget {
-  final User user;
+  final UserInfo user;
 
   const UserFollowCountInfo(this.user, {Key? key}) : super(key: key);
 

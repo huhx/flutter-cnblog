@@ -8,7 +8,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UserBlogContent extends StatefulWidget {
-  final User user;
+  final UserInfo user;
 
   const UserBlogContent(this.user, {Key? key}) : super(key: key);
 
