@@ -32,7 +32,7 @@ class _FollowListScreenState extends State<FollowListScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<FollowInfo> blogs = await userFollowApi.getUserFollowList(widget.type, pageKey);
+    final List<FollowInfo> blogs = await userFollowApi.getUserFollowList(widget.name, widget.type, pageKey);
     _pagingController.fetch(blogs, pageKey, pageSize: pageSize);
   }
 

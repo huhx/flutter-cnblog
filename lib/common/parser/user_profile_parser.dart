@@ -10,8 +10,8 @@ class UserProfileParser {
     final Element element = document.getElementById("user_profile_block")!;
     final Element ulElement = element.getElementsByTagName("ul")[1];
     final List<Element> elements = ulElement.getElementsByTagName("li").where((element) => element.attributes.isEmpty).toList();
-    final String name = element.getFirstByClass("display_name").getText().trim();
-
+    final String displayName = element.getFirstByClass("display_name").getText().trim();
+    final String name = element.getFirstByClass("link_account").attributes['href']!.split("/")[2];
     final Map<String, String> map = {};
 
     for (final Element ele in elements) {
@@ -24,6 +24,7 @@ class UserProfileParser {
 
     return UserProfileInfo(
       name: name,
+      displayName: displayName,
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: "https://www.cnblogs.com/$name/",
       info: map,

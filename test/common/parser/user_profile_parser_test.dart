@@ -76,6 +76,7 @@ void main() {
       userProfileInfo,
       const UserProfileInfo(
         name: "huhx",
+        displayName: "huhx",
         avatar: "https://pic.cnblogs.com/avatar/849920/20170517210033.png",
         url: "https://www.cnblogs.com/huhx/",
         info: {
@@ -160,9 +161,10 @@ void main() {
     expect(
       userProfileInfo,
       const UserProfileInfo(
-        name: "Colorful_coco",
+        name: "colorful-coco",
+        displayName: "Colorful_coco",
         avatar: "https://pic.cnblogs.com/avatar/simple_avatar.gif",
-        url: "https://www.cnblogs.com/Colorful_coco/",
+        url: "https://www.cnblogs.com/colorful-coco/",
         info: {
           "园号": "1101002",
           "园龄": "5年6个月",
