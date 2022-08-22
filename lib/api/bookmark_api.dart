@@ -21,6 +21,13 @@ abstract class BookmarkApi {
     return FollowResult.fromJson(response.data);
   }
 
+  Future<bool> isMark(String bookmarkUrl) async {
+    final String url = "https://wz.cnblogs.com/create?u=${Uri.decodeFull(bookmarkUrl)}";
+    final Response response = await RestClient.withCookie().get(url);
+
+    return (response.data as String).contains("该内容已收藏过！");
+  }
+
   Future<FollowResult> update(BookmarkRequest request) async {
     const String url = "https://wz.cnblogs.com/api/wz";
     final Response response = await RestClient.withCookie().put(url, data: request);

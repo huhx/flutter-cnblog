@@ -22,6 +22,13 @@ class UserFollowApi {
     return FollowResult.fromJson(response.data);
   }
 
+  Future<bool> isFollow(String userId) async {
+    final String url = "https://www.cnblogs.com/huhx/ajax/Follow/GetFollowStatus.aspx?blogUserGuid=$userId";
+    final Response response = await RestClient.withCookie().get(url);
+
+    return !(response.data as String).contains("unfollow");
+  }
+
   Future<FollowResult> unfollow(String userId) async {
     const String url = "https://home.cnblogs.com/ajax/follow/RemoveFollow";
     final Response response = await RestClient.withCookie().post(
