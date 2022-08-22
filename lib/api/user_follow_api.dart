@@ -26,7 +26,7 @@ class UserFollowApi {
     final String url = "https://www.cnblogs.com/huhx/ajax/Follow/GetFollowStatus.aspx?blogUserGuid=$userId";
     final Response response = await RestClient.withCookie().get(url);
 
-    return !(response.data as String).contains("unfollow");
+    return (response.data as String).contains("unfollow");
   }
 
   Future<FollowResult> unfollow(String userId) async {
