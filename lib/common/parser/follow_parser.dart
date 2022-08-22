@@ -20,6 +20,7 @@ class FollowParser {
     final String titleString = linkElement.attributes["title"]!;
 
     return FollowInfo(
+      userId: element.attributes["id"]!,
       name: linkString.replaceFirst("/u/", ""),
       displayName: displayNameElement.getText().trim(),
       url: "https://home.cnblogs.com$linkString",

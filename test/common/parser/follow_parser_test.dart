@@ -41,6 +41,7 @@ void main() {
     expect(
       follows[0],
       FollowInfo(
+        userId: "1ab2cf73-e521-e411-8d02-90b11c0b17d6",
         name: "opensmarty",
         displayName: "opensmarty",
         url: "https://home.cnblogs.com/u/opensmarty",
@@ -51,6 +52,7 @@ void main() {
     expect(
       follows[1],
       FollowInfo(
+        userId: "61981ca8-2897-e611-845c-ac853d9f53ac",
         name: "1046875",
         displayName: "装逼的路上",
         url: "https://home.cnblogs.com/u/1046875",
