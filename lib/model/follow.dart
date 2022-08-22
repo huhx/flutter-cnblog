@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/model/user.dart';
 
 class FollowInfo extends Equatable {
+  final String userId;
   final String name;
   final String displayName;
   final String url;
@@ -8,6 +10,7 @@ class FollowInfo extends Equatable {
   final DateTime followDate;
 
   const FollowInfo({
+    required this.userId,
     required this.name,
     required this.displayName,
     required this.url,
@@ -16,7 +19,11 @@ class FollowInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props => [name, displayName, url, avatar, followDate];
+  List<Object?> get props => [userId, name, displayName, url, avatar, followDate];
+
+  UserInfo toUserInfo() {
+    return UserInfo(userId: userId, avatar: avatar, displayName: name);
+  }
 }
 
 enum FollowType {

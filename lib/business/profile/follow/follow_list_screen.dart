@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_follow_api.dart';
+import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/comm_extension.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/follow.dart';
-import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -75,20 +76,13 @@ class FollowItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       child: Card(
         child: ListTile(
-          leading: CircleImage(url: followInfo.avatar, size: 48),
+          leading: InkWell(
+            child: CircleImage(url: followInfo.avatar, size: 48),
+            onTap: () => context.goto(UserProfileDetailScreen(followInfo.toUserInfo())),
+          ),
           title: Text(followInfo.name),
           subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
-          trailing: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(0, 0),
-              primary: themeColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-              textStyle: const TextStyle(color: Colors.white, fontSize: 12),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-            ),
-            onPressed: () => CommUtil.toBeDev(),
-            child: const Text("取消关注"),
-          ),
+          trailing: const ListTileTrailing(),
         ),
       ),
     );
