@@ -84,10 +84,7 @@ class UserProfileHeader extends StatelessWidget {
             ],
           ),
         ),
-        const Positioned(
-          top: 40,
-          child: AppbarBackButton(),
-        )
+        const Positioned(top: 40, child: AppbarBackButton())
       ],
     );
   }

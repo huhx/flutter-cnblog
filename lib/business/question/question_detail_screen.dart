@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/question.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class QuestionDetailScreen extends StatefulWidget {
@@ -23,6 +25,12 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
       appBar: AppBar(
         title: Text(widget.question.title),
         leading: const AppbarBackButton(),
+        actions: [
+          IconButton(
+            icon: const SvgActionIcon(name: "more_hor"),
+            onPressed: () => CommUtil.toBeDev(),
+          )
+        ],
       ),
       body: Stack(
         children: [

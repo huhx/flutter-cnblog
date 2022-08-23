@@ -39,9 +39,10 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               bool isMark = snap.data as bool;
               return StatefulBuilder(
                 builder: (context, setter) {
-                  return Visibility(
-                    visible: !isMark,
-                    child: TextButton(
+                  if (isMark) {
+                    return const Center(child: Text("已收藏"));
+                  } else {
+                    return TextButton(
                       onPressed: () async {
                         final BookmarkRequest request = BookmarkRequest(
                           wzLinkId: widget.blog.id,
@@ -53,8 +54,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                         CommUtil.toast(message: "收藏成功！");
                       },
                       child: const Text("收藏", style: TextStyle(color: Colors.white)),
-                    ),
-                  );
+                    );
+                  }
                 },
               );
             },

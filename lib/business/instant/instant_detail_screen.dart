@@ -28,8 +28,8 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
         title: const Text("闪存详情"),
         actions: [
           IconButton(
+            icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () => CommUtil.toBeDev(),
-            icon: const SvgActionIcon(name: "like"),
           )
         ],
       ),

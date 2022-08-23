@@ -4,7 +4,9 @@ import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
+import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -39,6 +41,12 @@ class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
       appBar: AppBar(
         leading: const AppbarBackButton(),
         title: const Text("知识库"),
+        actions: [
+          IconButton(
+            icon: const SvgActionIcon(name: "bookmark"),
+            onPressed: () => CommUtil.toBeDev(),
+          )
+        ],
       ),
       body: SmartRefresher(
         controller: refreshController,
