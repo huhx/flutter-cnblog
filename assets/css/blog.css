@@ -3,7 +3,12 @@
 }
 
 div#main {
-  padding-top: 6px !important;
+  padding-top: 0px !important;
+  padding-right: 0px !important;
+}
+
+#mainContent .forFlow {
+   margin-left: 0px !important;
 }
 
 #navigator {
@@ -48,4 +53,18 @@ div#main {
 
 #page_begin_html {
  display: none;
+}
+
+/*another blogs*/
+div#main {
+    margin: 0px !important;
+}
+
+#home {
+    margin-top: 0px !important;
+    padding: 0px !important;
+}
+
+#centercontent {
+    padding: 0px !important;
 }
