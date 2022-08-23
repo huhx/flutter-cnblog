@@ -7,10 +7,14 @@ import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
+import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'blog_share_screen.dart';
 
 class BlogDetailScreen extends StatefulWidget {
   final BlogResp blog;
@@ -62,7 +66,13 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
           ),
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
-            onPressed: () => CommUtil.toBeDev(),
+            onPressed: () => showMaterialModalBottomSheet(
+              context: context,
+              backgroundColor: const Color.fromRGBO(247, 248, 250, 1),
+              duration: const Duration(milliseconds: 200),
+              shape: bottomSheetBorder,
+              builder: (_) => BlogShareScreen(widget.blog),
+            ),
           )
         ],
       ),
