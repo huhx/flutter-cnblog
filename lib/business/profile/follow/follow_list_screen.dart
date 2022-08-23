@@ -74,15 +74,15 @@ class FollowItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-      child: Card(
-        child: ListTile(
-          leading: InkWell(
-            child: CircleImage(url: followInfo.avatar, size: 48),
-            onTap: () => context.goto(UserProfileDetailScreen(followInfo.toUserInfo())),
+      child: InkWell(
+        onTap: () => context.goto(UserProfileDetailScreen(followInfo.toUserInfo())),
+        child: Card(
+          child: ListTile(
+            leading: CircleImage(url: followInfo.avatar, size: 48),
+            title: Text(followInfo.name),
+            subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+            trailing: const ListTileTrailing(),
           ),
-          title: Text(followInfo.name),
-          subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
-          trailing: const ListTileTrailing(),
         ),
       ),
     );

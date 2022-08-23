@@ -25,4 +25,9 @@ class BookmarkParser {
       postDate: DateFormat("MM/dd/yyyy hh:mm:ss").parse((bodyElement.getFirstByClass("date").attributes['title']!)),
     );
   }
+
+  static bool isMark(String string) {
+    final Document document = parse(string);
+    return document.getElementById("panel_add") == null;
+  }
 }

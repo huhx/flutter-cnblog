@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -30,9 +32,32 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
         leading: const AppbarBackButton(),
         title: AppBarTitle(widget.blog),
         actions: <Widget>[
-          TextButton(
-            onPressed: () => CommUtil.toBeDev(),
-            child: const Text("关注", style: TextStyle(color: Colors.white)),
+          FutureBuilder(
+            future: bookmarkApi.isMark(widget.blog.httpsUrl().toString()),
+            builder: (context, snap) {
+              if (!snap.hasData) return const SizedBox();
+              bool isMark = snap.data as bool;
+              return StatefulBuilder(
+                builder: (context, setter) {
+                  return Visibility(
+                    visible: !isMark,
+                    child: TextButton(
+                      onPressed: () async {
+                        final BookmarkRequest request = BookmarkRequest(
+                          wzLinkId: widget.blog.id,
+                          url: widget.blog.url,
+                          title: widget.blog.title,
+                        );
+                        await bookmarkApi.add(request);
+                        setter(() => isMark = !isMark);
+                        CommUtil.toast(message: "收藏成功！");
+                      },
+                      child: const Text("收藏", style: TextStyle(color: Colors.white)),
+                    ),
+                  );
+                },
+              );
+            },
           ),
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
