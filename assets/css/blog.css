@@ -3,12 +3,12 @@
 }
 
 div#main {
-  padding-top: 0px !important;
-  padding-right: 0px !important;
+  padding-top: 0 !important;
+  padding-right: 0 !important;
 }
 
 #mainContent .forFlow {
-   margin-left: 0px !important;
+  margin-left: 0 !important;
 }
 
 #navigator {
@@ -32,7 +32,7 @@ div#main {
 }
 
 #mytopmenu {
-    display: none;
+  display: none;
 }
 
 .postDesc {
@@ -47,24 +47,24 @@ div#main {
   display: none;
 }
 
-#cnblogs_ch, #cnblogs_c1, cnblogs_c2 {
+#cnblogs_ch, #cnblogs_c1, #cnblogs_c2 {
   display: none;
 }
 
 #page_begin_html {
- display: none;
+  display: none;
 }
 
 /*another blogs*/
 div#main {
-    margin: 0px !important;
+  margin: 0 !important;
 }
 
 #home {
-    margin-top: 0px !important;
-    padding: 0px !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
 }
 
 #centercontent {
-    padding: 0px !important;
+  padding: 0 !important;
 }

@@ -1,18 +1,18 @@
 /* mobile */
 #hd_top, #header, #footer {
-    display: none;
+  display: none;
 }
 
 #app_bar, #right_sidebar {
-    display: none;
+  display: none;
 }
 
 div.main_nav {
-    display: none;
+  display: none;
 }
 
 #lnk_inbox, #lnk_outbox, #lnk_unread {
-    display: none !important;
+  display: none !important;
 }
 
 /* ipad */

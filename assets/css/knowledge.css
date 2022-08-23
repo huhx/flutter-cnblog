@@ -3,15 +3,15 @@
 }
 
 #wrapper {
-    margin-top: 0px !important;
+  margin-top: 0 !important;
 }
 
 #main_content {
-    margin-top: 0px !important;
+  margin-top: 0 !important;
 }
 
 #left_content {
-    border: none;
+  border: none;
 }
 
 #header, #nav_zone, #guide_detail, #guide_de {

@@ -1,27 +1,27 @@
 /* mobile */
 #article_A4area, #e4, #news_more_info {
-    display: none;
+  display: none;
 }
 
 div#guide {
-    display: none !important;
+  display: none !important;
 }
 
 #news_main {
-    margin-top: 0px;
-    border-top: none;
+  margin-top: 0;
+  border-top: none;
 }
 
 .prevnext_block {
-    display: none;
+  display: none;
 }
 
 #footer {
-    display: none;
+  display: none;
 }
 
 #comment_main, #comment_tips, #comment_form_block, #E5 {
-    display: none;
+  display: none;
 }
 
 /* ipad */

@@ -1,12 +1,11 @@
 #header {
-    display: none;
+  display: none;
 }
 
 #second_nav, #right_sidebar, #footer {
-    display: none;
+  display: none;
 }
 
 .main_nav {
-    display: none;
+  display: none;
 }
-
