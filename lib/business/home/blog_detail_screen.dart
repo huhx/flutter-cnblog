@@ -40,7 +40,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               return StatefulBuilder(
                 builder: (context, setter) {
                   if (isMark) {
-                    return const Center(child: Text("已收藏"));
+                    return const SvgIcon(name: "done", color: Colors.white, size: 20);
                   } else {
                     return TextButton(
                       onPressed: () async {

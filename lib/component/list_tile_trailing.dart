@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/component/svg_icon.dart';
 
 class ListTileTrailing extends StatelessWidget {
   const ListTileTrailing({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class ListTileTrailing extends StatelessWidget {
   Widget build(BuildContext context) {
     return const IconTheme(
       data: IconThemeData(color: Colors.grey),
-      child: Icon(Icons.keyboard_arrow_right),
+      child: SvgIcon(name: "right", size: 14),
     );
   }
 }
