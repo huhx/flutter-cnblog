@@ -65,10 +65,10 @@ class ShareItem extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(12),
           color: Colors.white,
           alignment: Alignment.center,
-          child: SvgIcon(name: icon),
+          child: SvgIcon(name: icon, size: 28),
         ),
         const SizedBox(height: 8),
         Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey))
