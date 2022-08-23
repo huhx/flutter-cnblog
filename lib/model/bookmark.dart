@@ -15,6 +15,10 @@ class BookmarkInfo extends Equatable {
     required this.postDate,
   });
 
+  bool isNews() {
+    return Uri.parse(url).host.startsWith("news");
+  }
+
   @override
   List<Object?> get props => [id, title, url, starCounts, postDate];
 }

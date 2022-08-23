@@ -74,7 +74,7 @@ class UserBookmarkItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(UserBookmarkDetailScreen(bookmark.url)),
+      onTap: () => context.goto(UserBookmarkDetailScreen(bookmark)),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
