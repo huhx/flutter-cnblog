@@ -14,6 +14,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'business/main/main_screen.dart';
+import 'component/custom_load_footer.dart';
 import 'component/custom_water_drop_header.dart';
 
 final Logger logger = Logger(printer: PrettyPrinter());
@@ -54,6 +55,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return RefreshConfiguration(
       headerBuilder: () => const CustomWaterDropHeader(),
+      footerBuilder: () => const CustomLoadFooter(),
       child: MaterialApp(
         builder: (context, child) {
           return ScrollConfiguration(
