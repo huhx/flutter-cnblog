@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchListScreen extends StatefulWidget {
@@ -19,47 +18,47 @@ class SearchListScreen extends StatefulWidget {
 }
 
 class _SearchListScreenState extends State<SearchListScreen> {
-  final PagingController<int, SearchInfo> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
-  static const int pageSize = 10;
+  final StreamList<SearchInfo> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<SearchInfo> blogs = await searchApi.getSearchContents(widget.searchType, pageKey, widget.keyword);
-    _pagingController.fetch(blogs, pageKey, pageSize: pageSize);
+    if (streamList.isOpen) {
+      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, widget.keyword);
+      streamList.fetch(searchResults, pageKey, pageSize: 10);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: refreshController,
-      onRefresh: _onRefresh,
-      child: PagedListView<int, SearchInfo>(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<SearchInfo>(
-          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-          itemBuilder: (context, item, index) => SearchItem(item),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<SearchInfo> searchList = snap.data as List<SearchInfo>;
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            itemCount: searchList.length,
+            itemBuilder: (_, index) => SearchItem(searchList[index], key: ValueKey(searchList[index].url)),
+          ),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

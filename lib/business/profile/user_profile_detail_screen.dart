@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'user_follow_count_info.dart';
@@ -135,45 +133,44 @@ class UserMoment extends StatefulWidget {
 }
 
 class _UserMomentState extends State<UserMoment> {
-  final PagingController<int, UserProfileMoment> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<UserProfileMoment> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
     final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.displayName, pageKey);
-    _pagingController.fetch(userMoments, pageKey, pageSize: 30);
+    streamList.fetch(userMoments, pageKey, pageSize: 30);
   }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: refreshController,
-      onRefresh: _onRefresh,
-      child: PagedListView<int, UserProfileMoment>(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<UserProfileMoment>(
-          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-          itemBuilder: (context, item, index) => UserMomentItem(item),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<UserProfileMoment> userMoments = snap.data as List<UserProfileMoment>;
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: userMoments.length,
+            itemBuilder: (_, index) => UserMomentItem(userMoments[index], key: ValueKey(userMoments[index].url)),
+          ),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/knowledge_api.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -21,18 +20,19 @@ class KnowledgeListScreen extends StatefulWidget {
 }
 
 class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
-  final PagingController<int, KnowledgeInfo> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<KnowledgeInfo> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<KnowledgeInfo> blogs = await knowledgeApi.getKnowledgeList(pageKey);
-    _pagingController.fetch(blogs, pageKey);
+    if (streamList.isOpen) {
+      final List<KnowledgeInfo> knowledgeList = await knowledgeApi.getKnowledgeList(pageKey);
+      streamList.fetch(knowledgeList, pageKey);
+    }
   }
 
   @override
@@ -48,30 +48,30 @@ class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
           )
         ],
       ),
-      body: SmartRefresher(
-        controller: refreshController,
-        onRefresh: _onRefresh,
-        child: PagedListView<int, KnowledgeInfo>(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<KnowledgeInfo>(
-            firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-            newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-            noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-            itemBuilder: (context, item, index) => KnowledgeItem(item),
-          ),
-        ),
+      body: StreamBuilder(
+        stream: streamList.stream,
+        builder: (context, snap) {
+          if (!snap.hasData) return const CenterProgressIndicator();
+          final List<KnowledgeInfo> knowledgeList = snap.data as List<KnowledgeInfo>;
+
+          return SmartRefresher(
+            controller: streamList.refreshController,
+            onRefresh: () => streamList.onRefresh(),
+            onLoading: () => streamList.onLoading(),
+            enablePullUp: true,
+            child: ListView.builder(
+              itemCount: knowledgeList.length,
+              itemBuilder: (_, index) => KnowledgeItem(knowledgeList[index], key: ValueKey(knowledgeList[index].id)),
+            ),
+          );
+        },
       ),
     );
   }
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
-  }
-
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

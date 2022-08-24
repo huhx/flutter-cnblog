@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_follow_api.dart';
 import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/follow.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FollowListScreen extends StatefulWidget {
@@ -21,46 +20,46 @@ class FollowListScreen extends StatefulWidget {
 }
 
 class _FollowListScreenState extends State<FollowListScreen> {
-  static const int pageSize = 45;
-  final PagingController<int, FollowInfo> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<FollowInfo> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<FollowInfo> blogs = await userFollowApi.getUserFollowList(widget.name, widget.type, pageKey);
-    _pagingController.fetch(blogs, pageKey, pageSize: pageSize);
+    if (streamList.isOpen) {
+      final List<FollowInfo> followList = await userFollowApi.getUserFollowList(widget.name, widget.type, pageKey);
+      streamList.fetch(followList, pageKey, pageSize: 45);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: refreshController,
-      onRefresh: _onRefresh,
-      child: PagedListView<int, FollowInfo>(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<FollowInfo>(
-          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-          itemBuilder: (context, item, index) => FollowItem(item),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<FollowInfo> followList = snap.data as List<FollowInfo>;
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: followList.length,
+            itemBuilder: (_, index) => FollowItem(followList[index], key: ValueKey(followList[index].userId)),
+          ),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

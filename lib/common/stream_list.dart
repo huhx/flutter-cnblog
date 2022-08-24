@@ -7,15 +7,15 @@ typedef RequestListener<int> = Future<void> Function(int pageKey);
 
 class StreamList<T> {
   final int firstKey;
-  final int pageSize;
 
-  StreamList({this.firstKey = 1, this.pageSize = 20}) {
+  StreamList({this.firstKey = 1}) {
     pageState = PageState(nextKey: firstKey);
   }
 
   final StreamController<List<T>?> _streamController = StreamController();
 
   Stream<List<T>?> get stream => _streamController.stream;
+
   bool get isOpen => !_streamController.isClosed;
 
   final RefreshController _refreshController = RefreshController();
@@ -55,7 +55,7 @@ class StreamList<T> {
     refreshController.loadComplete();
   }
 
-  void fetch(List<T> list, int pageKey) {
+  void fetch(List<T> list, int pageKey, {int pageSize = 20}) {
     final bool isLastPage = list.length < pageSize;
     if (isLastPage) {
       appendLastPage(list);

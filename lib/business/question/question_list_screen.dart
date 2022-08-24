@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/question_api.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/question.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'question_item.dart';
@@ -18,46 +17,46 @@ class QuestionListScreen extends StatefulWidget {
 }
 
 class _QuestionListScreenState extends State<QuestionListScreen> {
-  static const int pageSize = 20;
-  final PagingController<int, QuestionInfo> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<QuestionInfo> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<QuestionInfo> questions = await questionApi.getAllQuestions(widget.status, pageKey);
-    _pagingController.fetch(questions, pageKey, pageSize: pageSize);
+    if (streamList.isOpen) {
+      final List<QuestionInfo> questions = await questionApi.getAllQuestions(widget.status, pageKey);
+      streamList.fetch(questions, pageKey);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: refreshController,
-      onRefresh: _onRefresh,
-      child: PagedListView<int, QuestionInfo>(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<QuestionInfo>(
-          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-          itemBuilder: (context, item, index) => QuestionItem(question: item),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<QuestionInfo> questions = snap.data as List<QuestionInfo>;
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: questions.length,
+            itemBuilder: (_, index) => QuestionItem(question: questions[index], key: ValueKey(questions[index].id)),
+          ),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }
