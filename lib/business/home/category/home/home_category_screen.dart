@@ -26,8 +26,10 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<BlogResp> blogList = await blogApi.getHomeBlogs(pageKey, pageSize);
-    streamList.fetch(blogList, pageKey);
+    if (streamList.isOpen) {
+      final List<BlogResp> blogList = await blogApi.getHomeBlogs(pageKey, pageSize);
+      streamList.fetch(blogList, pageKey);
+    }
   }
 
   @override

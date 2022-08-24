@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/category_api.dart';
 import 'package:flutter_cnblog/business/home/blog_item.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CategoryListScreen extends StatefulWidget {
@@ -19,19 +18,19 @@ class CategoryListScreen extends StatefulWidget {
 }
 
 class _CategoryListScreenState extends State<CategoryListScreen> {
-  static const int pageSize = 20;
-  final PagingController<int, BlogResp> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<BlogResp> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<BlogResp> blogs = await categoryApi.getByCategory(pageKey, widget.categoryInfo.url);
-    _pagingController.fetch(blogs, pageKey, pageSize: pageSize);
+    if (streamList.isOpen) {
+      final List<BlogResp> blogs = await categoryApi.getByCategory(pageKey, widget.categoryInfo.url);
+      streamList.fetch(blogs, pageKey);
+    }
   }
 
   @override
@@ -41,30 +40,30 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
         leading: const AppbarBackButton(),
         title: Text(widget.categoryInfo.label),
       ),
-      body: SmartRefresher(
-        controller: refreshController,
-        onRefresh: _onRefresh,
-        child: PagedListView<int, BlogResp>(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<BlogResp>(
-            firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-            newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-            noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-            itemBuilder: (context, item, index) => BlogItem(blog: item),
-          ),
-        ),
+      body: StreamBuilder(
+        stream: streamList.stream,
+        builder: (context, snap) {
+          if (!snap.hasData) return const CenterProgressIndicator();
+          final List<BlogResp> blogs = snap.data as List<BlogResp>;
+
+          return SmartRefresher(
+            controller: streamList.refreshController,
+            onRefresh: () => streamList.onRefresh(),
+            onLoading: () => streamList.onLoading(),
+            enablePullUp: true,
+            child: ListView.builder(
+              itemCount: blogs.length,
+              itemBuilder: (_, index) => BlogItem(blog: blogs[index], key: ValueKey(blogs[index].id)),
+            ),
+          );
+        },
       ),
     );
   }
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
-  }
-
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

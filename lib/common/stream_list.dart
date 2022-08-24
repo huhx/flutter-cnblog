@@ -16,6 +16,7 @@ class StreamList<T> {
   final StreamController<List<T>?> _streamController = StreamController();
 
   Stream<List<T>?> get stream => _streamController.stream;
+  bool get isOpen => !_streamController.isClosed;
 
   final RefreshController _refreshController = RefreshController();
 

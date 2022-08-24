@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
-import 'package:flutter_cnblog/common/extension/comm_extension.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/custom_paged_builder_delegate.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -20,45 +19,46 @@ class RecommendBlogScreen extends StatefulWidget {
 }
 
 class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
-  final PagingController<int, RecommendBlogResp> _pagingController = PagingController(firstPageKey: 1);
-  final RefreshController refreshController = RefreshController();
+  final StreamList<RecommendBlogResp> streamList = StreamList();
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, pageSize);
-    _pagingController.fetch(blogs, pageKey);
+    if (streamList.isOpen) {
+      final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, pageSize);
+      streamList.fetch(blogs, pageKey);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: refreshController,
-      onRefresh: _onRefresh,
-      child: PagedListView<int, RecommendBlogResp>(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<RecommendBlogResp>(
-          firstPageProgressIndicatorBuilder: (_) => const FirstPageProgressIndicator(),
-          newPageProgressIndicatorBuilder: (_) => const NewPageProgressIndicator(),
-          noMoreItemsIndicatorBuilder: (_) => const NoMoreItemsIndicator(),
-          itemBuilder: (context, item, index) => BlogItem(index: index, blog: item),
-        ),
-      ),
-    );
-  }
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<RecommendBlogResp> blogs = snap.data as List<RecommendBlogResp>;
 
-  void _onRefresh() {
-    _pagingController.refresh();
-    refreshController.refreshCompleted();
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: blogs.length,
+            itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].blogId)),
+          ),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
+    streamList.dispose();
     super.dispose();
   }
 }

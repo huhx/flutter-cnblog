@@ -27,8 +27,10 @@ class _MostLikedBlogScreenState extends State<MostLikedBlogScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<PopularBlogResp> blogs = await blogApi.getMostLikedBlogs(pageKey, pageSize);
-    streamList.fetch(blogs, pageKey);
+    if (streamList.isOpen) {
+      final List<PopularBlogResp> blogs = await blogApi.getMostLikedBlogs(pageKey, pageSize);
+      streamList.fetch(blogs, pageKey);
+    }
   }
 
   @override
