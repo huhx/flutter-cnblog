@@ -17,7 +17,7 @@ class HomeCategoryScreen extends StatefulWidget {
 }
 
 class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
-  final StreamList<BlogResp> streamList = StreamList(firstKey: 1, pageSize: pageSize);
+  final StreamList<BlogResp> streamList = StreamList();
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
 
   Future<void> _fetchPage(int pageKey) async {
     final List<BlogResp> blogList = await blogApi.getHomeBlogs(pageKey, pageSize);
-    streamList.addAll(blogList);
+    streamList.fetch(blogList, pageKey);
   }
 
   @override
