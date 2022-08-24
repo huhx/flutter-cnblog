@@ -12,6 +12,7 @@ class CustomLoadFooter extends StatelessWidget {
         height: 25.0,
         child: CupertinoActivityIndicator(),
       ),
+      loadStyle: LoadStyle.ShowWhenLoading,
     );
   }
 }
