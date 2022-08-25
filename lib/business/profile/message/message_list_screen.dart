@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/html_css_api.dart';
+import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/message.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class MessageListScreen extends StatefulWidget {
@@ -22,9 +23,12 @@ class _MessageListScreenState extends State<MessageListScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse("https://msg.cnblogs.com/${widget.messageType.path}")),
+            onWebViewCreated: (controller) async {
+              final String url = "https://msg.cnblogs.com/${widget.messageType.path}";
+              final String string = await htmlCssApi.injectCss(url, ContentType.message);
+              await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.message.host));
+            },
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("message_css"));
               setState(() => isLoading = false);
             },
           ),

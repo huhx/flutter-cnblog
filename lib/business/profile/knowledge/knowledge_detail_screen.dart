@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/html_css_api.dart';
+import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -35,9 +36,11 @@ class _KnowledgeDetailScreenState extends State<KnowledgeDetailScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse("https://kb.cnblogs.com/page/${widget.knowledge.id}/")),
+            onWebViewCreated: (controller) async {
+              final String string = await htmlCssApi.injectCss(widget.knowledge.urlString(), ContentType.knowledge);
+              await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.knowledge.host));
+            },
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("knowledge_css"));
               setState(() => isLoading = false);
             },
           ),

@@ -36,6 +36,10 @@ class QuestionInfo extends Equatable {
   Uri httpsUrl() {
     return Uri.parse("https://q.cnblogs.com$url");
   }
+
+  String toHttps() {
+    return "https://q.cnblogs.com$url";
+  }
 }
 
 enum QuestionStatus {

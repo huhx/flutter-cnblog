@@ -35,6 +35,10 @@ class BlogResp extends Equatable {
     return Uri.parse(url).replace(scheme: "https");
   }
 
+  String toHttps() {
+    return httpsUrl().toString();
+  }
+
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
 
   @override

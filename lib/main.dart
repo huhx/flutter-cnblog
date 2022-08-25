@@ -41,14 +41,15 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
+    initResource();
+  }
 
-    Future.delayed(const Duration(milliseconds: 500), () async {
-      await initCss();
-      timeago.setLocaleMessages('zh', ZhMessages());
-      timeago.setDefaultLocale('zh');
+  void initResource() async {
+    await initCss();
+    timeago.setLocaleMessages('zh', ZhMessages());
+    timeago.setDefaultLocale('zh');
 
-      FlutterNativeSplash.remove();
-    });
+    FlutterNativeSplash.remove();
   }
 
   @override

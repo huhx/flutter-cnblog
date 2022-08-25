@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
+import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -81,9 +81,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string =
-                  await htmlCssApi.injectCss(widget.blog.httpsUrl().toString(), AppConfig.get("blog_css"), "https://www.cnblogs.com/");
-              await controller.loadData(data: string, baseUrl: Uri.parse("https://www.cnblogs.com/"));
+              final String string = await htmlCssApi.injectCss(widget.blog.toHttps(), ContentType.blog);
+              await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
             },
             onPageCommitVisible: (controller, url) async {
               setState(() => isLoading = false);

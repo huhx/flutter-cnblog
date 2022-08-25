@@ -22,7 +22,7 @@ void main() {
       #comment_form {display: none;}    
     ''';
 
-    const HtmlCss htmlCss = HtmlCss(html: html, css: css);
+    const HtmlCss htmlCss = HtmlCss(html: html, css: css, host: "https://www.cnblogs.com");
     final String htmlContent = HtmlCssInjector.inject(htmlCss);
 
     expect(

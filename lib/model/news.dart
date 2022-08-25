@@ -33,6 +33,10 @@ class NewsInfo extends Equatable {
   Uri httpsUrl() {
     return Uri.parse("https://news.cnblogs.com$url");
   }
+
+  String toHttps() {
+    return "https://news.cnblogs.com$url";
+  }
 }
 
 enum NewsCategory {

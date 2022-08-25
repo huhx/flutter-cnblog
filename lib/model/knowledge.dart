@@ -23,6 +23,10 @@ class KnowledgeInfo extends Equatable {
     required this.diggCount,
   });
 
+  String urlString() {
+    return "https://kb.cnblogs.com/page/$id";
+  }
+
   @override
   List<Object?> get props => [id, title, url, summary, category, tags, postDate, viewCount, diggCount];
 }
