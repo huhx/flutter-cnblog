@@ -40,7 +40,7 @@ class _KnowledgeDetailScreenState extends State<KnowledgeDetailScreen> {
               final String string = await htmlCssApi.injectCss(widget.knowledge.urlString(), ContentType.knowledge);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.knowledge.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

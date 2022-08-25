@@ -40,7 +40,7 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
               final String string = await htmlCssApi.injectCss(widget.userBlog.url, ContentType.blog);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

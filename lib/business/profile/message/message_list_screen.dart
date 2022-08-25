@@ -28,7 +28,7 @@ class _MessageListScreenState extends State<MessageListScreen> {
               final String string = await htmlCssApi.injectCss(url, ContentType.message);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.message.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

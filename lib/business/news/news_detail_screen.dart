@@ -69,7 +69,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               final String string = await htmlCssApi.injectCss(widget.news.toHttps(), ContentType.news);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.news.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

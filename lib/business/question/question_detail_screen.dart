@@ -40,7 +40,7 @@ class _QuestionDetailScreenState extends State<QuestionDetailScreen> {
               final String string = await htmlCssApi.injectCss(widget.question.toHttps(), ContentType.question);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.question.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

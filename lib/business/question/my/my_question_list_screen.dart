@@ -30,7 +30,7 @@ class _MyQuestionListScreenState extends State<MyQuestionListScreen> {
               final String string = await htmlCssApi.injectCss(url, ContentType.myQuestion);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.myQuestion.host));
             },
-            onPageCommitVisible: (controller, url) async {
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),
