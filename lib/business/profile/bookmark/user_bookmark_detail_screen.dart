@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
@@ -35,13 +36,13 @@ class _UserBookmarkDetailScreenState extends State<UserBookmarkDetailScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse(widget.bookmark.url)),
-            onPageCommitVisible: (controller, url) async {
-              if (widget.bookmark.isNews()) {
-                await controller.injectCSSCode(source: AppConfig.get("news_css"));
-              } else {
-                await controller.injectCSSCode(source: AppConfig.get("blog_css"));
-              }
+            onWebViewCreated: (controller) async {
+              final String css = widget.bookmark.isNews() ? AppConfig.get("news_css") : AppConfig.get("blog_css");
+              final String url = widget.bookmark.isNews() ? "https://news.cnblogs.com/": "https://www.cnblogs.com/";
+              final String string = await htmlCssApi.injectCss(widget.bookmark.url, css, url);
+              await controller.loadData(data: string, baseUrl: Uri.parse(url));
+            },
+            onPageCommitVisible: (controller, url) {
               setState(() => isLoading = false);
             },
           ),

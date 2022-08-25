@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
@@ -35,9 +36,11 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
       body: Stack(
         children: [
           InAppWebView(
-            initialUrlRequest: URLRequest(url: Uri.parse(widget.userBlog.url)),
+            onWebViewCreated: (controller) async {
+              final String string = await htmlCssApi.injectCss(widget.userBlog.url, AppConfig.get("blog_css"), "https://www.cnblogs.com/");
+              await controller.loadData(data: string, baseUrl: Uri.parse("https://www.cnblogs.com/"));
+            },
             onPageCommitVisible: (controller, url) async {
-              await controller.injectCSSCode(source: AppConfig.get("blog_css"));
               setState(() => isLoading = false);
             },
           ),
