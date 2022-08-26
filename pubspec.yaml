@@ -61,6 +61,7 @@ dependencies:
   intl: ^0.17.0
   equatable: ^2.0.3
   modal_bottom_sheet: ^2.1.0
+  flutter_hooks: ^0.18.5+1
 
 dependency_overrides:
   pull_to_refresh:

@@ -6,26 +6,22 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class UserBlogDetailScreen extends StatefulWidget {
+class UserBlogDetailScreen extends HookWidget {
   final UserBlog userBlog;
 
-  const UserBlogDetailScreen(this.userBlog, {Key? key}) : super(key: key);
-
-  @override
-  State<UserBlogDetailScreen> createState() => _UserBlogDetailScreenState();
-}
-
-class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
-  bool isLoading = true;
+  const UserBlogDetailScreen(this.userBlog, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = useState(true);
+
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
-        title: Text(widget.userBlog.title),
+        title: Text(userBlog.title),
         actions: <Widget>[
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
@@ -37,17 +33,12 @@ class _UserBlogDetailScreenState extends State<UserBlogDetailScreen> {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(widget.userBlog.url, ContentType.blog);
+              final String string = await htmlCssApi.injectCss(userBlog.url, ContentType.blog);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
             },
-            onPageCommitVisible: (controller, url) {
-              setState(() => isLoading = false);
-            },
+            onPageCommitVisible: (controller, url) => isLoading.value = false,
           ),
-          Visibility(
-            visible: isLoading,
-            child: const CenterProgressIndicator(),
-          )
+          Visibility(visible: isLoading.value, child: const CenterProgressIndicator())
         ],
       ),
     );
