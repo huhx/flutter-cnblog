@@ -8,24 +8,19 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 
 import 'user_bookmark_content.dart';
 
-class UserBookmarkListScreen extends StatefulWidget {
+class UserBookmarkListScreen extends StatelessWidget {
   final UserInfo user;
 
   const UserBookmarkListScreen(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<UserBookmarkListScreen> createState() => _UserBookmarkListScreenState();
-}
-
-class _UserBookmarkListScreenState extends State<UserBookmarkListScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          UserBookmarkHeader(widget.user),
+          UserBookmarkHeader(user),
           const Divider(thickness: 8, color: momentBgColor),
-          Expanded(child: UserBookmarkContent(widget.user)),
+          Expanded(child: UserBookmarkContent(user)),
         ],
       ),
     );

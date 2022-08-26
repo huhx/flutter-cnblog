@@ -25,8 +25,7 @@ class HtmlCssInjector {
     });
 
     // inject css
-    final Element cssElement = Element.tag("style");
-    cssElement.innerHtml = htmlCss.css;
+    final Element cssElement = Element.tag("style")..innerHtml = htmlCss.css;
     headElement.nodes.insert(0, cssElement);
 
     return document.outerHtml;

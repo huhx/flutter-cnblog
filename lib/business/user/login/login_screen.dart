@@ -6,21 +6,17 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends HookConsumerWidget {
+  const LoginScreen({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = useState(true);
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  bool isLoading = true;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
@@ -31,7 +27,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
             onPageCommitVisible: (controller, url) async {
-              setState(() => isLoading = false);
+              isLoading.value = false;
               CookieManager cookieManager = CookieManager.instance();
               Cookie? cookie = await cookieManager.getCookie(url: url!, name: Constant.authCookieName);
               AppConfig.save("cookie", cookie!.value);
@@ -40,16 +36,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 final String code = AuthRequest.getCodeFromUrl(url.toString());
                 await ref.watch(sessionProvider.notifier).login(code);
 
-                if (mounted) {
-                  Navigator.pop(context);
-                }
+                Navigator.pop(context);
               }
             },
           ),
-          Visibility(
-            visible: isLoading,
-            child: const CenterProgressIndicator(),
-          )
+          Visibility(visible: isLoading.value, child: const CenterProgressIndicator())
         ],
       ),
     );
