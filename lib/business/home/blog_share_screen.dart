@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/bottom_sheet_item.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
-import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 
 class BlogShareScreen extends StatelessWidget {
-  final BlogResp blog;
+  final BlogShare blog;
 
   const BlogShareScreen(this.blog, {Key? key}) : super(key: key);
 

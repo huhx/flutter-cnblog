@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'blog_share.dart';
+
 class UserBlog extends Equatable {
   final int id;
   final String dayTitle;
@@ -29,6 +31,10 @@ class UserBlog extends Equatable {
 
   @override
   List<Object?> get props => [id, dayTitle, title, url, isPinned, summary, name, commentCount, diggCount, viewCount, postDate];
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: title, url: url, name: name);
+  }
 }
 
 class BlogDataInfo extends Equatable {

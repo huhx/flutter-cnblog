@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'blog_share.dart';
+
 part 'blog_resp.g.dart';
 
 @JsonSerializable(createToJson: false, fieldRename: FieldRename.pascal)
@@ -43,4 +45,8 @@ class BlogResp extends Equatable {
 
   @override
   List<Object?> get props => [id, title, url, description, author, blogApp, avatar, postDate, viewCount, commentCount, diggCount];
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: title, url: url, name: author);
+  }
 }
