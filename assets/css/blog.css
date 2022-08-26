@@ -9,6 +9,11 @@ div#main {
 
 #mainContent div.forFlow {
   margin-left: 0 !important;
+  border-right: none !important;
+}
+
+#mainContent {
+  margin: 0 !important;
 }
 
 #navigator {
@@ -71,4 +76,12 @@ div#main {
 
 #centercontent {
   padding: 0 !important;
+}
+
+#leftcontent {
+  display: none;
+}
+
+div.footer {
+  display: none;
 }
