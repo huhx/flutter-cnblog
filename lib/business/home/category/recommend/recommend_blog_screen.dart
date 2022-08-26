@@ -20,7 +20,7 @@ class RecommendBlogScreen extends ConsumerStatefulWidget {
   ConsumerState<RecommendBlogScreen> createState() => _RecommendBlogScreenState();
 }
 
-class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> {
+class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<RecommendBlogResp> streamList = StreamList();
 
   @override
@@ -38,6 +38,7 @@ class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -64,6 +65,9 @@ class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class BlogItem extends StatelessWidget {

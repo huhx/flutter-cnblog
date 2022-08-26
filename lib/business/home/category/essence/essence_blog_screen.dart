@@ -16,7 +16,7 @@ class EssenceBlogScreen extends ConsumerStatefulWidget {
   ConsumerState<EssenceBlogScreen> createState() => _EssenceBlogScreenState();
 }
 
-class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> {
+class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<BlogResp> streamList = StreamList();
 
   @override
@@ -34,6 +34,7 @@ class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -60,4 +61,7 @@ class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

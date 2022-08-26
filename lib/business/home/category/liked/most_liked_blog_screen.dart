@@ -19,7 +19,7 @@ class MostLikedBlogScreen extends ConsumerStatefulWidget {
   ConsumerState<MostLikedBlogScreen> createState() => _MostLikedBlogScreenState();
 }
 
-class _MostLikedBlogScreenState extends ConsumerState<MostLikedBlogScreen> {
+class _MostLikedBlogScreenState extends ConsumerState<MostLikedBlogScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<PopularBlogResp> streamList = StreamList();
 
   @override
@@ -37,6 +37,7 @@ class _MostLikedBlogScreenState extends ConsumerState<MostLikedBlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -63,6 +64,9 @@ class _MostLikedBlogScreenState extends ConsumerState<MostLikedBlogScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class BlogItem extends StatelessWidget {

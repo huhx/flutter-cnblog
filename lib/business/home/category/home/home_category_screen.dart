@@ -18,7 +18,7 @@ class HomeCategoryScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeCategoryScreen> createState() => _HomeCategoryScreenState();
 }
 
-class _HomeCategoryScreenState extends ConsumerState<HomeCategoryScreen> {
+class _HomeCategoryScreenState extends ConsumerState<HomeCategoryScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<BlogResp> streamList = StreamList();
 
   @override
@@ -36,6 +36,7 @@ class _HomeCategoryScreenState extends ConsumerState<HomeCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -62,4 +63,7 @@ class _HomeCategoryScreenState extends ConsumerState<HomeCategoryScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

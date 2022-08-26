@@ -26,7 +26,7 @@ class ScrollModel extends StateNotifier<Map<String, ScrollController>> {
 
   bool isNotTop(String type) {
     final ScrollController scrollController = state[type]!;
-    return scrollController.position.pixels != 0.0;
+    return scrollController.positions.any((element) => element.pixels != 0.0);
   }
 
   void scrollToTop(String type) {
