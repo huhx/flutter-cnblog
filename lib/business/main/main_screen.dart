@@ -31,7 +31,7 @@ class MainScreen extends HookConsumerWidget {
           if (user == null && value == NavigationItemType.instant.pageIndex) {
             await context.goto(const LoginScreen());
           }
-          if (value != NavigationItemType.profile.pageIndex) {
+          if (value != NavigationItemType.profile.pageIndex && value == pageIndex.value) {
             if (scrollModel.isNotTop(itemType.name)) {
               scrollModel.scrollToTop(itemType.name);
             }
