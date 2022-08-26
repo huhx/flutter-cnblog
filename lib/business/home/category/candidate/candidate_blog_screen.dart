@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/candidate_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_item.dart';
+import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class CandidateBlogScreen extends StatefulWidget {
+class CandidateBlogScreen extends ConsumerStatefulWidget {
   const CandidateBlogScreen({Key? key}) : super(key: key);
 
   @override
-  State<CandidateBlogScreen> createState() => _CandidateBlogScreenState();
+  ConsumerState<CandidateBlogScreen> createState() => _CandidateBlogScreenState();
 }
 
-class _CandidateBlogScreenState extends State<CandidateBlogScreen> {
+class _CandidateBlogScreenState extends ConsumerState<CandidateBlogScreen> {
   final StreamList<BlogResp> streamList = StreamList();
 
   @override
@@ -43,6 +45,7 @@ class _CandidateBlogScreenState extends State<CandidateBlogScreen> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
+            controller: ref.watch(scrollProvider.notifier).get("blog"),
             itemCount: blogs.length,
             itemBuilder: (_, index) => BlogItem(blog: blogs[index], key: ValueKey(blogs[index].id)),
           ),

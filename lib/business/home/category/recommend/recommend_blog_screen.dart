@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
@@ -8,17 +9,18 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class RecommendBlogScreen extends StatefulWidget {
+class RecommendBlogScreen extends ConsumerStatefulWidget {
   const RecommendBlogScreen({Key? key}) : super(key: key);
 
   @override
-  State<RecommendBlogScreen> createState() => _RecommendBlogScreenState();
+  ConsumerState<RecommendBlogScreen> createState() => _RecommendBlogScreenState();
 }
 
-class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
+class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> {
   final StreamList<RecommendBlogResp> streamList = StreamList();
 
   @override
@@ -48,6 +50,7 @@ class _RecommendBlogScreenState extends State<RecommendBlogScreen> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
+            controller: ref.watch(scrollProvider.notifier).get("blog"),
             itemCount: blogs.length,
             itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].blogId)),
           ),

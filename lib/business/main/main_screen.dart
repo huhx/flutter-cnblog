@@ -19,8 +19,9 @@ class MainScreen extends HookConsumerWidget {
     final User? user = ref.watch(sessionProvider);
     final ScrollModel scrollModel = ref.watch(scrollProvider.notifier);
 
+    final NavigationItemType itemType = NavigationItemType.getByIndex(pageIndex.value);
     return Scaffold(
-      body: NavigationItemType.getByIndex(pageIndex.value),
+      body: itemType.screen,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex.value,
         items: NavigationItemType.toNavigationBarItems(),
@@ -29,6 +30,11 @@ class MainScreen extends HookConsumerWidget {
         onTap: (value) async {
           if (user == null && value == NavigationItemType.instant.pageIndex) {
             await context.goto(const LoginScreen());
+          }
+          if (value != NavigationItemType.profile.pageIndex) {
+            if (scrollModel.isNotTop(itemType.name)) {
+              scrollModel.scrollToTop(itemType.name);
+            }
           }
           pageIndex.value = value;
         },

@@ -3,20 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_item.dart';
+import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomeCategoryScreen extends StatefulWidget {
+class HomeCategoryScreen extends ConsumerStatefulWidget {
   const HomeCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeCategoryScreen> createState() => _HomeCategoryScreenState();
+  ConsumerState<HomeCategoryScreen> createState() => _HomeCategoryScreenState();
 }
 
-class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
+class _HomeCategoryScreenState extends ConsumerState<HomeCategoryScreen> {
   final StreamList<BlogResp> streamList = StreamList();
 
   @override
@@ -46,6 +48,7 @@ class _HomeCategoryScreenState extends State<HomeCategoryScreen> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
+            controller: ref.watch(scrollProvider.notifier).get("blog"),
             itemCount: blogs.length,
             itemBuilder: (_, index) => BlogItem(blog: blogs[index], key: ValueKey(blogs[index].id)),
           ),

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class MostLikedBlogScreen extends StatefulWidget {
+class MostLikedBlogScreen extends ConsumerStatefulWidget {
   const MostLikedBlogScreen({Key? key}) : super(key: key);
 
   @override
-  State<MostLikedBlogScreen> createState() => _MostLikedBlogScreenState();
+  ConsumerState<MostLikedBlogScreen> createState() => _MostLikedBlogScreenState();
 }
 
-class _MostLikedBlogScreenState extends State<MostLikedBlogScreen> {
+class _MostLikedBlogScreenState extends ConsumerState<MostLikedBlogScreen> {
   final StreamList<PopularBlogResp> streamList = StreamList();
 
   @override
@@ -47,6 +49,7 @@ class _MostLikedBlogScreenState extends State<MostLikedBlogScreen> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
+            controller: ref.watch(scrollProvider.notifier).get("blog"),
             itemCount: blogs.length,
             itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].id)),
           ),

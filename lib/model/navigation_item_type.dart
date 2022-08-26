@@ -18,9 +18,9 @@ enum NavigationItemType {
   final int pageIndex;
   final Widget screen;
 
-  static Widget getByIndex(int pageIndex) {
+  static NavigationItemType getByIndex(int pageIndex) {
     return NavigationItemType.values
-        .firstWhere((element) => element.pageIndex == pageIndex).screen;
+        .firstWhere((element) => element.pageIndex == pageIndex);
   }
 
   static List<BottomNavigationBarItem> toNavigationBarItems() {

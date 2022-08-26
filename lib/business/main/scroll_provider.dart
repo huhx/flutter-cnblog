@@ -24,9 +24,9 @@ class ScrollModel extends StateNotifier<Map<String, ScrollController>> {
     return state[type]!;
   }
 
-  bool isTop(String type) {
+  bool isNotTop(String type) {
     final ScrollController scrollController = state[type]!;
-    return scrollController.position.pixels == 0.0;
+    return scrollController.position.pixels != 0.0;
   }
 
   void scrollToTop(String type) {
