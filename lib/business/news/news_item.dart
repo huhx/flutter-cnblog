@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
+import 'package:flutter_cnblog/business/user/data/session_provider.dart';
+import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/news.dart';
+import 'package:flutter_cnblog/model/user.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class NewsItem extends StatelessWidget {
+class NewsItem extends ConsumerWidget {
   final NewsInfo news;
 
   const NewsItem({required this.news, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User? user = ref.watch(sessionProvider);
+
     return InkWell(
-      onTap: () => context.goto(NewsDetailScreen(news)),
+      onTap: () async {
+        if (user == null) {
+          await context.goto(const LoginScreen());
+        }
+        context.goto(NewsDetailScreen(news));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
