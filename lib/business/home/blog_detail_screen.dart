@@ -11,34 +11,30 @@ import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'blog_share_screen.dart';
 
-class BlogDetailScreen extends StatefulWidget {
+class BlogDetailScreen extends HookWidget {
   final BlogResp blog;
 
-  const BlogDetailScreen({Key? key, required this.blog}) : super(key: key);
-
-  @override
-  State<BlogDetailScreen> createState() => _BlogDetailScreenState();
-}
-
-class _BlogDetailScreenState extends State<BlogDetailScreen> {
-  bool isLoading = true;
+  const BlogDetailScreen({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = useState(true);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         leading: const AppbarBackButton(),
-        title: AppBarTitle(widget.blog),
+        title: AppBarTitle(blog),
         actions: <Widget>[
           FutureBuilder(
-            future: bookmarkApi.isMark(widget.blog.httpsUrl().toString()),
+            future: bookmarkApi.isMark(blog.httpsUrl().toString()),
             builder: (context, snap) {
               if (!snap.hasData) return const SizedBox();
               bool isMark = snap.data as bool;
@@ -50,9 +46,9 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     return TextButton(
                       onPressed: () async {
                         final BookmarkRequest request = BookmarkRequest(
-                          wzLinkId: widget.blog.id,
-                          url: widget.blog.url,
-                          title: widget.blog.title,
+                          wzLinkId: blog.id,
+                          url: blog.url,
+                          title: blog.title,
                         );
                         await bookmarkApi.add(request);
                         setter(() => isMark = !isMark);
@@ -72,7 +68,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               backgroundColor: const Color.fromRGBO(247, 248, 250, 1),
               duration: const Duration(milliseconds: 200),
               shape: bottomSheetBorder,
-              builder: (_) => BlogShareScreen(widget.blog),
+              builder: (_) => BlogShareScreen(blog),
             ),
           )
         ],
@@ -81,14 +77,12 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(widget.blog.toHttps(), ContentType.blog);
+              final String string = await htmlCssApi.injectCss(blog.toHttps(), ContentType.blog);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
             },
-            onPageCommitVisible: (controller, url) {
-              setState(() => isLoading = false);
-            },
+            onPageCommitVisible: (controller, url) => isLoading.value = false,
           ),
-          Visibility(visible: isLoading, child: const CenterProgressIndicator())
+          Visibility(visible: isLoading.value, child: const CenterProgressIndicator())
         ],
       ),
     );

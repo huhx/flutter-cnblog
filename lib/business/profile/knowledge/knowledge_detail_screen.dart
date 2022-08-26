@@ -6,26 +6,22 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class KnowledgeDetailScreen extends StatefulWidget {
+class KnowledgeDetailScreen extends HookWidget {
   final KnowledgeInfo knowledge;
 
-  const KnowledgeDetailScreen(this.knowledge, {Key? key}) : super(key: key);
-
-  @override
-  State<KnowledgeDetailScreen> createState() => _KnowledgeDetailScreenState();
-}
-
-class _KnowledgeDetailScreenState extends State<KnowledgeDetailScreen> {
-  bool isLoading = true;
+  const KnowledgeDetailScreen(this.knowledge, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = useState(true);
+
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
-        title: Text(widget.knowledge.title, style: const TextStyle(fontSize: 15)),
+        title: Text(knowledge.title, style: const TextStyle(fontSize: 15)),
         actions: [
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
@@ -37,17 +33,12 @@ class _KnowledgeDetailScreenState extends State<KnowledgeDetailScreen> {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(widget.knowledge.urlString(), ContentType.knowledge);
+              final String string = await htmlCssApi.injectCss(knowledge.urlString(), ContentType.knowledge);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.knowledge.host));
             },
-            onPageCommitVisible: (controller, url) {
-              setState(() => isLoading = false);
-            },
+            onPageCommitVisible: (controller, url) => isLoading.value = false,
           ),
-          Visibility(
-            visible: isLoading,
-            child: const CenterProgressIndicator(),
-          )
+          Visibility(visible: isLoading.value, child: const CenterProgressIndicator())
         ],
       ),
     );

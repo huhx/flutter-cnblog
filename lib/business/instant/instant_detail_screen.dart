@@ -10,16 +10,11 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class InstantDetailScreen extends StatefulWidget {
+class InstantDetailScreen extends StatelessWidget {
   final InstantInfo instant;
 
-  const InstantDetailScreen(this.instant, {Key? key}) : super(key: key);
+  const InstantDetailScreen(this.instant, {super.key});
 
-  @override
-  State<InstantDetailScreen> createState() => _InstantDetailScreenState();
-}
-
-class _InstantDetailScreenState extends State<InstantDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,15 +41,15 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
                   children: [
                     Row(
                       children: [
-                        CircleImage(url: widget.instant.avatar, size: 36),
+                        CircleImage(url: instant.avatar, size: 36),
                         const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(widget.instant.submitter), Text(widget.instant.postDate)],
+                          children: [Text(instant.submitter), Text(instant.postDate)],
                         ),
                       ],
                     ),
-                    Html(data: widget.instant.content)
+                    Html(data: instant.content)
                   ],
                 ),
               ),
@@ -65,9 +60,9 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("所有回复 (${widget.instant.commentCounts})"),
+                    Text("所有回复 (${instant.commentCounts})"),
                     FutureBuilder<List<InstantComment>>(
-                      future: instantCommentApi.getInstantComments(widget.instant.id),
+                      future: instantCommentApi.getInstantComments(instant.id),
                       builder: (context, snap) {
                         if (!snap.hasData) return const CenterProgressIndicator();
                         List<InstantComment> comments = snap.data as List<InstantComment>;
@@ -99,16 +94,11 @@ class _InstantDetailScreenState extends State<InstantDetailScreen> {
   }
 }
 
-class InstantCommentItem extends StatefulWidget {
+class InstantCommentItem extends StatelessWidget {
   final InstantComment instantComment;
 
-  const InstantCommentItem(this.instantComment, {Key? key}) : super(key: key);
+  const InstantCommentItem(this.instantComment, {super.key});
 
-  @override
-  State<InstantCommentItem> createState() => _InstantCommentItemState();
-}
-
-class _InstantCommentItemState extends State<InstantCommentItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -119,18 +109,18 @@ class _InstantCommentItemState extends State<InstantCommentItem> {
         children: [
           Row(
             children: [
-              CircleImage(url: widget.instantComment.userIconUrl, size: 36),
+              CircleImage(url: instantComment.userIconUrl, size: 36),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.instantComment.userDisplayName),
-                  Text(timeago.format(widget.instantComment.dateAdded)),
+                  Text(instantComment.userDisplayName),
+                  Text(timeago.format(instantComment.dateAdded)),
                 ],
               ),
             ],
           ),
-          Html(data: widget.instantComment.content)
+          Html(data: instantComment.content)
         ],
       ),
     );
