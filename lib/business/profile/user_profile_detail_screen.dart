@@ -88,15 +88,21 @@ class UserProfileHeader extends StatelessWidget {
   }
 }
 
-class UserHeaderInfo extends StatelessWidget {
+class UserHeaderInfo extends StatefulWidget {
   final UserInfo user;
 
   const UserHeaderInfo(this.user, {Key? key}) : super(key: key);
 
   @override
+  State<UserHeaderInfo> createState() => _UserHeaderInfoState();
+}
+
+class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder<UserProfileInfo>(
-      future: userProfileApi.getUserProfile(user.displayName),
+      future: userProfileApi.getUserProfile(widget.user.displayName),
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;
@@ -113,7 +119,7 @@ class UserHeaderInfo extends StatelessWidget {
             ListTile(
               leading: Text("$string的博客"),
               trailing: const ListTileTrailing(),
-              onTap: () => context.goto(UserBlogListScreen(user)),
+              onTap: () => context.goto(UserBlogListScreen(widget.user)),
             ),
             ...widgets
           ],
@@ -121,6 +127,9 @@ class UserHeaderInfo extends StatelessWidget {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class UserMoment extends StatefulWidget {
@@ -132,7 +141,7 @@ class UserMoment extends StatefulWidget {
   State<UserMoment> createState() => _UserMomentState();
 }
 
-class _UserMomentState extends State<UserMoment> {
+class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMixin {
   final StreamList<UserProfileMoment> streamList = StreamList();
 
   @override
@@ -148,6 +157,7 @@ class _UserMomentState extends State<UserMoment> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -173,6 +183,9 @@ class _UserMomentState extends State<UserMoment> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class UserMomentItem extends StatelessWidget {

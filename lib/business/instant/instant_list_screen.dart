@@ -18,7 +18,7 @@ class InstantListScreen extends ConsumerStatefulWidget {
   ConsumerState<InstantListScreen> createState() => _InstantListScreenState();
 }
 
-class _InstantListScreenState extends ConsumerState<InstantListScreen> {
+class _InstantListScreenState extends ConsumerState<InstantListScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<InstantInfo> streamList = StreamList();
 
   @override
@@ -36,6 +36,7 @@ class _InstantListScreenState extends ConsumerState<InstantListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -62,4 +63,7 @@ class _InstantListScreenState extends ConsumerState<InstantListScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

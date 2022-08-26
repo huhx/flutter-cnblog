@@ -18,7 +18,7 @@ class QuestionListScreen extends ConsumerStatefulWidget {
   ConsumerState<QuestionListScreen> createState() => _QuestionListScreenState();
 }
 
-class _QuestionListScreenState extends ConsumerState<QuestionListScreen> {
+class _QuestionListScreenState extends ConsumerState<QuestionListScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<QuestionInfo> streamList = StreamList();
 
   @override
@@ -36,6 +36,7 @@ class _QuestionListScreenState extends ConsumerState<QuestionListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -62,4 +63,7 @@ class _QuestionListScreenState extends ConsumerState<QuestionListScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

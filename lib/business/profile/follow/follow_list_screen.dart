@@ -19,7 +19,7 @@ class FollowListScreen extends StatefulWidget {
   State<FollowListScreen> createState() => _FollowListScreenState();
 }
 
-class _FollowListScreenState extends State<FollowListScreen> {
+class _FollowListScreenState extends State<FollowListScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<FollowInfo> streamList = StreamList();
 
   @override
@@ -37,6 +37,7 @@ class _FollowListScreenState extends State<FollowListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
@@ -62,6 +63,9 @@ class _FollowListScreenState extends State<FollowListScreen> {
     streamList.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class FollowItem extends StatelessWidget {
