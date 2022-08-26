@@ -10,8 +10,8 @@
   margin-top: 0 !important;
 }
 
-#left_content {
-  border: none;
+div#left_content {
+  border: none !important;
 }
 
 #header, #nav_zone, #guide_detail, #guide_de {

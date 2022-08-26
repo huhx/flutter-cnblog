@@ -7,7 +7,7 @@ div#guide {
   display: none !important;
 }
 
-#news_main {
+div#news_main {
   margin-top: 0;
   border-top: none;
 }
