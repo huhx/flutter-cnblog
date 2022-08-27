@@ -30,14 +30,14 @@ void main() async {
   );
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  ConsumerState<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends ConsumerState<MainApp> {
   @override
   void initState() {
     super.initState();
@@ -69,6 +69,8 @@ class _MainAppState extends State<MainApp> {
           child: const MainScreen(),
         ),
         theme: appThemeData[AppTheme.light],
+        darkTheme: appThemeData[AppTheme.dark],
+        themeMode: ThemeMode.system,
       ),
     );
   }

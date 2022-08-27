@@ -7,15 +7,16 @@ import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class BlogShareScreen extends HookWidget {
+class BlogShareScreen extends HookConsumerWidget {
   final BlogShare blog;
   final BlogShareSetting shareSetting;
 
   const BlogShareScreen({required this.blog, required this.shareSetting, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isMark = useState(shareSetting.isMark);
 
     return Container(
