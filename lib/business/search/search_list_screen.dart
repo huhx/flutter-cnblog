@@ -11,7 +11,7 @@ class SearchListScreen extends StatefulWidget {
   final SearchType searchType;
   final String keyword;
 
-  const SearchListScreen(this.searchType, this.keyword, {Key? key}) : super(key: key);
+  const SearchListScreen(this.searchType, this.keyword, {super.key});
 
   @override
   State<SearchListScreen> createState() => _SearchListScreenState();

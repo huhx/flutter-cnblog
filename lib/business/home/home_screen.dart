@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/home/category/home_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/blog_search.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 
@@ -17,31 +18,40 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Flexible(
-                child: TabBar(
-                  tabs: [
-                    Tab(text: "首页"),
-                    Tab(text: "阅读榜"),
-                    Tab(text: "推荐榜"),
-                    Tab(text: "精华博客"),
-                    Tab(text: "候选区"),
-                    Tab(text: "编辑推荐"),
-                  ],
-                  indicatorColor: Colors.white,
-                  isScrollable: true,
-                  indicatorWeight: 1,
-                ),
-              ),
-              InkWell(
-                onTap: () => context.goto(const CategoryScreen()),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: SvgIcon(name: "category_more", color: Colors.white, size: 20),
-                ),
-              ),
+            children: const [
+              Text("博客园"),
+              Flexible(child: ChatSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
             ],
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(36),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Flexible(
+                  child: TabBar(
+                    tabs: [
+                      Tab(text: "首页"),
+                      Tab(text: "阅读榜"),
+                      Tab(text: "推荐榜"),
+                      Tab(text: "精华博客"),
+                      Tab(text: "候选区"),
+                      Tab(text: "编辑推荐"),
+                    ],
+                    indicatorColor: Colors.white,
+                    isScrollable: true,
+                    indicatorWeight: 1,
+                  ),
+                ),
+                InkWell(
+                  onTap: () => context.goto(const CategoryScreen()),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: SvgIcon(name: "category_more", color: Colors.white, size: 20),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         body: const TabBarView(

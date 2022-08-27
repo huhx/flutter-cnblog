@@ -6,3 +6,8 @@ const bottomSheetBorder = RoundedRectangleBorder(
     topRight: Radius.circular(10),
   ),
 );
+
+const outlineInputBorder = OutlineInputBorder(
+  borderRadius: BorderRadius.all(Radius.circular(20)),
+  borderSide: BorderSide.none,
+);

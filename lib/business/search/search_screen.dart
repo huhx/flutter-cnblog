@@ -6,7 +6,7 @@ import 'package:flutter_cnblog/util/comm_util.dart';
 import 'search_list_screen.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

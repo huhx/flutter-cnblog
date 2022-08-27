@@ -22,30 +22,25 @@ class UserProfileDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          UserProfileHeader(user),
-          Expanded(
-            child: DefaultTabController(
-              length: 2,
-              child: Scaffold(
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  title: const TabBar(
-                    tabs: [Tab(text: "资料"), Tab(text: "动态")],
-                    indicatorColor: Colors.white,
-                    isScrollable: true,
-                    indicatorWeight: 1,
-                  ),
-                ),
-                body: TabBarView(
-                  children: [UserHeaderInfo(user), UserMoment(user)],
-                ),
-              ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(170),
+          child: AppBar(
+            leading: const AppbarBackButton(),
+            flexibleSpace: UserProfileHeader(user),
+            bottom: const TabBar(
+              tabs: [Tab(text: "资料"), Tab(text: "动态")],
+              indicatorColor: Colors.white,
+              isScrollable: true,
+              indicatorWeight: 1,
             ),
           ),
-        ],
+        ),
+        body: TabBarView(
+          children: [UserHeaderInfo(user), UserMoment(user)],
+        ),
       ),
     );
   }
@@ -58,32 +53,27 @@ class UserProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: themeColor,
-          padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+    return Container(
+      color: themeColor,
+      padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleImage(url: user.avatar, size: 48),
-                  const SizedBox(width: 8),
-                  Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: UserFollowCountInfo(user),
-              ),
+              CircleImage(url: user.avatar, size: 48),
+              const SizedBox(width: 8),
+              Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
             ],
           ),
-        ),
-        const Positioned(top: 40, child: AppbarBackButton())
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: UserFollowCountInfo(user),
+          ),
+        ],
+      ),
     );
   }
 }
