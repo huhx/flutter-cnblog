@@ -92,7 +92,7 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder<UserProfileInfo>(
-      future: userProfileApi.getUserProfile(widget.user.displayName),
+      future: userProfileApi.getUserProfile(widget.user.blogName),
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;
@@ -143,7 +143,7 @@ class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMi
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.displayName, pageKey);
+    final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.blogName, pageKey);
     streamList.fetch(userMoments, pageKey, pageSize: 30);
   }
 

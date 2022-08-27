@@ -17,7 +17,7 @@ class UserFollowCountInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserProfileInfo>(
-      future: userProfileApi.getUserProfile(user.displayName),
+      future: userProfileApi.getUserProfile(user.blogName),
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;

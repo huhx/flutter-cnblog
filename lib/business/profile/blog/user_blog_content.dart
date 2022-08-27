@@ -27,7 +27,7 @@ class _UserBlogContentState extends State<UserBlogContent> {
 
   Future<void> _fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<UserBlog> blogs = await userBlogApi.getUserBlogList(widget.user.displayName, pageKey);
+      final List<UserBlog> blogs = await userBlogApi.getUserBlogList(widget.user.blogName, pageKey);
       final bool isLastPage = blogs.where((element) => !element.isPinned).length < 10;
       if (isLastPage) {
         streamList.appendLastPage(blogs);

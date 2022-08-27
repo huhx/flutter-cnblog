@@ -13,7 +13,7 @@ class UserBlogDataInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<BlogDataInfo>(
-      future: userBlogDataApi.getBlogDataInfo(user.displayName),
+      future: userBlogDataApi.getBlogDataInfo(user.blogName),
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final BlogDataInfo blogData = snap.data as BlogDataInfo;

@@ -22,7 +22,7 @@ class FollowInfo extends Equatable {
   List<Object?> get props => [userId, name, displayName, url, avatar, followDate];
 
   UserInfo toUserInfo() {
-    return UserInfo(userId: userId, avatar: avatar, displayName: name);
+    return UserInfo(userId: userId, avatar: avatar, displayName: displayName, blogName: name);
   }
 }
 

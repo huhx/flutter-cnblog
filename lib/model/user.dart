@@ -27,7 +27,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   UserInfo toInfo() {
-    return UserInfo(userId: userId, displayName: displayName, avatar: avatar);
+    return UserInfo(userId: userId, displayName: displayName, avatar: avatar, blogName: blogApp);
   }
 }
 
@@ -35,10 +35,12 @@ class UserInfo {
   final String userId;
   final String displayName;
   final String avatar;
+  final String blogName;
 
   UserInfo({
     required this.userId,
     required this.displayName,
     required this.avatar,
+    required this.blogName,
   });
 }
