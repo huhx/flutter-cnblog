@@ -20,4 +20,27 @@ void main() {
       const BlogDataInfo(blogCount: 267, articleCount: 11, commentCount: 138, viewCount: 679035),
     );
   });
+
+  test("should return blog data info when another style", () {
+    const String string = '''
+    <body>随笔 -
+    102&nbsp;
+    文章 -
+    0&nbsp;
+    评论 -
+    47&nbsp;
+    阅读 - 
+    
+    <span title="总阅读数: 52852">
+    52852</span>
+    </body>
+  ''';
+
+    final BlogDataInfo blogDataInfo = BlogDataParser.parseBlogDataList(string);
+
+    expect(
+      blogDataInfo,
+      const BlogDataInfo(blogCount: 102, articleCount: 0, commentCount: 47, viewCount: 52852),
+    );
+  });
 }

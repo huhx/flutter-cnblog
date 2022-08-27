@@ -36,7 +36,7 @@ class UserBlogParser {
   static UserBlog _parseUserBlog(String dayTitle, Element titleElement, Element summaryElement, Element postInfoElement) {
     final bool isPinned = titleElement.attributes['class']!.contains("pinned-post");
 
-    final String postInfoString = postInfoElement.getText().replaceFirst("posted @ ", "");
+    final String postInfoString = postInfoElement.getText().replaceFirst("posted @ ", "").trim();
     final String postDateString = postInfoString.split("\n")[0];
     final String name = postInfoString.split("\n")[1];
 

@@ -112,15 +112,17 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
           final listTile = ListTile(leading: Text(key), trailing: Text(value));
           widgets.add(listTile);
         });
+        final bool hasBlog = userProfile.info.keys.contains("博客");
         return ListView(
           shrinkWrap: true,
           primary: false,
           children: [
-            ListTile(
-              leading: Text("$string的博客"),
-              trailing: const ListTileTrailing(),
-              onTap: () => context.goto(UserBlogListScreen(widget.user)),
-            ),
+            if (hasBlog)
+              ListTile(
+                leading: Text("$string的博客"),
+                trailing: const ListTileTrailing(),
+                onTap: () => context.goto(UserBlogListScreen(widget.user)),
+              ),
             ...widgets
           ],
         );

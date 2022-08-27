@@ -12,7 +12,6 @@ import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,7 +31,7 @@ class ProfileScreen extends ConsumerWidget {
       body: Container(
         alignment: Alignment.center,
         child: user != null
-            ? MyProfileScreen(AppConfig.get("user"))
+            ? MyProfileScreen(user)
             : InkWell(
                 child: TextButton(
                   onPressed: () => context.goto(const LoginScreen()),
@@ -47,7 +46,7 @@ class ProfileScreen extends ConsumerWidget {
 class MyProfileScreen extends StatelessWidget {
   final User user;
 
-  const MyProfileScreen(this.user, {Key? key}) : super(key: key);
+  const MyProfileScreen(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
