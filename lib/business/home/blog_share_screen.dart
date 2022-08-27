@@ -8,6 +8,7 @@ import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BlogShareScreen extends HookConsumerWidget {
   final BlogShare blog;
@@ -29,11 +30,46 @@ class BlogShareScreen extends HookConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ShareItem(icon: 'share_moment', label: '朋友圈', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_wechat', label: '微信', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_qq_zone', label: '空间', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_qq', label: 'QQ', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_weibo', label: '微博', callback: () => CommUtil.toBeDev()),
+              ShareItem(
+                icon: 'share_moment',
+                label: '朋友圈',
+                callback: () async {
+                  await share(context);
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_wechat',
+                label: '微信',
+                callback: () async {
+                  await share(context);
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_qq_zone',
+                label: '空间',
+                callback: () async {
+                  await share(context);
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_qq',
+                label: 'QQ',
+                callback: () async {
+                  await share(context);
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_weibo',
+                label: '微博',
+                callback: () async {
+                  await share(context);
+                  context.pop();
+                },
+              ),
             ],
           ),
           const Divider(),
@@ -95,6 +131,16 @@ class BlogShareScreen extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  Future<void> share(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final ShareResult shareResult = await Share.shareWithResult(
+      blog.url,
+      subject: blog.title,
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+    context.showSnackBar("status = ${shareResult.status.toString()}");
   }
 }
 
