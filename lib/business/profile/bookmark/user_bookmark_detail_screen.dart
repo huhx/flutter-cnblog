@@ -36,7 +36,7 @@ class UserBookmarkDetailScreen extends HookConsumerWidget {
                 backgroundColor: const Color.fromRGBO(247, 248, 250, 1),
                 duration: const Duration(milliseconds: 200),
                 shape: bottomSheetBorder,
-                builder: (_) => BlogShareScreen(blog: bookmark.toBlogShare(), setting: setting),
+                builder: (_) => BlogShareScreen(blog: bookmark.toBlogShare(), shareSetting: setting),
               );
             },
           )

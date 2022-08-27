@@ -6,20 +6,18 @@ import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class BlogShareScreen extends StatefulWidget {
+class BlogShareScreen extends HookWidget {
   final BlogShare blog;
-  final BlogShareSetting setting;
+  final BlogShareSetting shareSetting;
 
-  const BlogShareScreen({required this.blog, required this.setting, super.key});
+  const BlogShareScreen({required this.blog, required this.shareSetting, super.key});
 
-  @override
-  State<BlogShareScreen> createState() => _BlogShareScreenState();
-}
-
-class _BlogShareScreenState extends State<BlogShareScreen> {
   @override
   Widget build(BuildContext context) {
+    final isMark = useState(shareSetting.isMark);
+
     return Container(
       padding: const EdgeInsets.only(top: 24),
       alignment: Alignment.bottomCenter,
@@ -44,13 +42,14 @@ class _BlogShareScreenState extends State<BlogShareScreen> {
             children: [
               ShareItem(
                 icon: 'share_bookmark',
-                label: widget.setting.isMark ? "取消收藏" : "收藏",
-                color: widget.setting.isMark ? Colors.blueAccent : null,
+                label: isMark.value ? "取消收藏" : "收藏",
+                color: isMark.value ? Colors.blueAccent : null,
                 callback: () async {
-                  if (widget.setting.isMark) {
+                  if (isMark.value) {
                     CommUtil.toBeDev();
                   } else {
-                    await bookmarkApi.add(BookmarkRequest(wzLinkId: widget.blog.id, url: widget.blog.url, title: widget.blog.title));
+                    isMark.value = true;
+                    await bookmarkApi.add(BookmarkRequest(wzLinkId: blog.id, url: blog.url, title: blog.title));
                   }
                   context.pop();
                 },
