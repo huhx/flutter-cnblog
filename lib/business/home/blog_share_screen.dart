@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
+import 'package:flutter_cnblog/business/main/theme_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/bottom_sheet_item.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
@@ -19,61 +20,15 @@ class BlogShareScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isMark = useState(shareSetting.isMark);
+    final isDarkMode = useState(ref.read(themeProvider).themeMode == ThemeMode.dark);
 
     return Container(
       padding: const EdgeInsets.only(top: 24),
       alignment: Alignment.bottomCenter,
-      height: 300,
+      height: 180,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ShareItem(
-                icon: 'share_moment',
-                label: '朋友圈',
-                callback: () async {
-                  await share(context);
-                  context.pop();
-                },
-              ),
-              ShareItem(
-                icon: 'share_wechat',
-                label: '微信',
-                callback: () async {
-                  await share(context);
-                  context.pop();
-                },
-              ),
-              ShareItem(
-                icon: 'share_qq_zone',
-                label: '空间',
-                callback: () async {
-                  await share(context);
-                  context.pop();
-                },
-              ),
-              ShareItem(
-                icon: 'share_qq',
-                label: 'QQ',
-                callback: () async {
-                  await share(context);
-                  context.pop();
-                },
-              ),
-              ShareItem(
-                icon: 'share_weibo',
-                label: '微博',
-                callback: () async {
-                  await share(context);
-                  context.pop();
-                },
-              ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -92,18 +47,24 @@ class BlogShareScreen extends HookConsumerWidget {
                 },
               ),
               ShareItem(
-                icon: 'share_font_size',
-                label: '字号设置',
-                callback: () {
-                  CommUtil.toBeDev();
+                icon: 'blog_share',
+                label: '分享',
+                callback: () async {
+                  await share(context);
                   context.pop();
                 },
               ),
               ShareItem(
-                icon: 'share_dark_mode',
-                label: '深色模式',
+                icon: isDarkMode.value ? "share_light_mode" : "share_dark_mode",
+                label: isDarkMode.value ? "浅色模式" : "深色模式",
                 callback: () {
-                  CommUtil.toBeDev();
+                  if (isDarkMode.value) {
+                    isDarkMode.value = false;
+                    ref.read(themeProvider).setDark(false);
+                  } else {
+                    isDarkMode.value = true;
+                    ref.read(themeProvider).setDark(true);
+                  }
                   context.pop();
                 },
               ),
@@ -114,14 +75,6 @@ class BlogShareScreen extends HookConsumerWidget {
                   await CommUtil.copyText(blog.url);
                   context.pop();
                   context.showSnackBar('已复制');
-                },
-              ),
-              ShareItem(
-                icon: 'share_more',
-                label: '更多',
-                callback: () {
-                  CommUtil.toBeDev();
-                  context.pop();
                 },
               ),
             ],
@@ -135,12 +88,11 @@ class BlogShareScreen extends HookConsumerWidget {
 
   Future<void> share(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
-    final ShareResult shareResult = await Share.shareWithResult(
+    await Share.share(
       blog.url,
       subject: blog.title,
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
-    context.showSnackBar("status = ${shareResult.status.toString()}");
   }
 }
 
@@ -166,7 +118,10 @@ class ShareItem extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
             alignment: Alignment.center,
             child: SvgIcon(name: icon, size: 28, color: color),
           ),

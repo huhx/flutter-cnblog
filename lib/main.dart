@@ -2,6 +2,7 @@ import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cnblog/business/main/theme_provider.dart';
 import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
@@ -70,7 +71,7 @@ class _MainAppState extends ConsumerState<MainApp> {
         ),
         theme: appThemeData[AppTheme.light],
         darkTheme: appThemeData[AppTheme.dark],
-        themeMode: ThemeMode.system,
+        themeMode: ref.watch(themeProvider).themeMode,
       ),
     );
   }

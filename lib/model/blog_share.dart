@@ -19,9 +19,10 @@ class BlogShare extends Equatable {
 
 class BlogShareSetting extends Equatable {
   final bool isMark;
+  final bool isDarkMode;
 
-  const BlogShareSetting({required this.isMark});
+  const BlogShareSetting({required this.isMark, required this.isDarkMode});
 
   @override
-  List<Object?> get props => [isMark];
+  List<Object?> get props => [isMark, isDarkMode];
 }

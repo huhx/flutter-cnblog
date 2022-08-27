@@ -46,11 +46,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                 await context.goto(const LoginScreen());
               }
               final bool isMark = await bookmarkApi.isMark(blog.httpsUrl().toString());
-              final BlogShareSetting setting = BlogShareSetting(isMark: isMark);
+              final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
                 context: context,
-                backgroundColor: const Color.fromRGBO(247, 248, 250, 1),
                 duration: const Duration(milliseconds: 200),
                 shape: bottomSheetBorder,
                 builder: (_) => BlogShareScreen(blog: blog.toBlogShare(), shareSetting: setting),

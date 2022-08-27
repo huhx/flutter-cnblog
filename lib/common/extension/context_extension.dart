@@ -13,6 +13,10 @@ extension ContextExtensions on BuildContext {
     Navigator.pop<T>(this, result);
   }
 
+  bool isDarkMode() {
+    return MediaQuery.of(this).platformBrightness == Brightness.dark;
+  }
+
   void showSnackBar(String content, {duration = 1}) {
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(

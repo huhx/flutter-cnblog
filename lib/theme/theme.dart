@@ -20,6 +20,7 @@ final appThemeData = {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
     ),
+    bottomSheetTheme: const BottomSheetThemeData(modalBackgroundColor: Color.fromRGBO(247, 248, 250, 1)),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
         TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -39,6 +40,7 @@ final appThemeData = {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
     ),
+    bottomSheetTheme: const BottomSheetThemeData(modalBackgroundColor: Colors.black54),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
         TargetPlatform.android: CupertinoPageTransitionsBuilder(),
