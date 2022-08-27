@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/business/home/category/candidate/candidate_blog_screen.dart';
+import 'package:flutter_cnblog/business/home/category/home_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/model/blog_resp.dart';
 
 import 'category/category/category_screen.dart';
-import 'category/essence/essence_blog_screen.dart';
-import 'category/home/home_category_screen.dart';
-import 'category/liked/most_liked_blog_screen.dart';
-import 'category/read/most_read_blog_screen.dart';
 import 'category/recommend/recommend_blog_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,9 +25,9 @@ class HomeScreen extends StatelessWidget {
                     Tab(text: "首页"),
                     Tab(text: "阅读榜"),
                     Tab(text: "推荐榜"),
-                    Tab(text: "编辑推荐"),
                     Tab(text: "精华博客"),
                     Tab(text: "候选区"),
+                    Tab(text: "编辑推荐"),
                   ],
                   indicatorColor: Colors.white,
                   isScrollable: true,
@@ -49,12 +46,12 @@ class HomeScreen extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            HomeCategoryScreen(),
-            MostReadBlogScreen(),
-            MostLikedBlogScreen(),
+            HomeBlogListScreen(BlogCategory.home),
+            HomeBlogListScreen(BlogCategory.read),
+            HomeBlogListScreen(BlogCategory.like),
+            HomeBlogListScreen(BlogCategory.essence),
+            HomeBlogListScreen(BlogCategory.candidate),
             RecommendBlogScreen(),
-            EssenceBlogScreen(),
-            CandidateBlogScreen(),
           ],
         ),
       ),

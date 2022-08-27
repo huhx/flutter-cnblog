@@ -1,22 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_item.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
-import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class EssenceBlogScreen extends ConsumerStatefulWidget {
-  const EssenceBlogScreen({Key? key}) : super(key: key);
+class HomeBlogListScreen extends ConsumerStatefulWidget {
+  final BlogCategory category;
+
+  const HomeBlogListScreen(this.category, {super.key});
 
   @override
-  ConsumerState<EssenceBlogScreen> createState() => _EssenceBlogScreenState();
+  ConsumerState<HomeBlogListScreen> createState() => _HomeBlogListScreenState();
 }
 
-class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> with AutomaticKeepAliveClientMixin {
+class _HomeBlogListScreenState extends ConsumerState<HomeBlogListScreen> with AutomaticKeepAliveClientMixin {
   final StreamList<BlogResp> streamList = StreamList();
 
   @override
@@ -27,8 +30,8 @@ class _EssenceBlogScreenState extends ConsumerState<EssenceBlogScreen> with Auto
 
   Future<void> _fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<BlogResp> blogs = await blogApi.getEssenceBlogs(pageKey, pageSize);
-      streamList.fetch(blogs, pageKey);
+      final List<BlogResp> blogList = await userBlogApi.getBlogs(widget.category, pageKey);
+      streamList.fetch(blogList, pageKey);
     }
   }
 

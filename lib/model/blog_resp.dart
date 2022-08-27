@@ -50,3 +50,15 @@ class BlogResp extends Equatable {
     return BlogShare(id: id, title: title, url: url, name: author);
   }
 }
+
+enum BlogCategory {
+  home(""),
+  read(""),
+  like(""),
+  essence(""),
+  candidate("");
+
+  final String url;
+
+  const BlogCategory(this.url);
+}
