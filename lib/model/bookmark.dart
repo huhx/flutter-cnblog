@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/model/blog_share.dart';
 
 class BookmarkInfo extends Equatable {
   final int id;
@@ -17,6 +18,10 @@ class BookmarkInfo extends Equatable {
 
   bool isNews() {
     return Uri.parse(url).host.startsWith("news");
+  }
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: title, url: url);
   }
 
   @override
