@@ -17,6 +17,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'business/main/main_screen.dart';
 import 'component/custom_load_footer.dart';
 import 'component/custom_water_drop_header.dart';
+import 'util/prefs_util.dart';
 
 final Logger logger = Logger(printer: PrettyPrinter());
 
@@ -24,6 +25,7 @@ void main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  await PrefsUtil.init();
   await dotenv.load(fileName: ".env");
 
   runApp(
