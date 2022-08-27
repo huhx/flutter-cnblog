@@ -54,10 +54,39 @@ class BlogShareScreen extends HookWidget {
                   context.pop();
                 },
               ),
-              ShareItem(icon: 'share_font_size', label: '字号设置', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_dark_mode', label: '深色模式', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_copy_link', label: '复制链接', callback: () => CommUtil.toBeDev()),
-              ShareItem(icon: 'share_more', label: '更多', callback: () => CommUtil.toBeDev()),
+              ShareItem(
+                icon: 'share_font_size',
+                label: '字号设置',
+                callback: () {
+                  CommUtil.toBeDev();
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_dark_mode',
+                label: '深色模式',
+                callback: () {
+                  CommUtil.toBeDev();
+                  context.pop();
+                },
+              ),
+              ShareItem(
+                icon: 'share_copy_link',
+                label: '复制链接',
+                callback: () async {
+                  await CommUtil.copyText(blog.url);
+                  context.pop();
+                  context.showSnackBar('已复制');
+                },
+              ),
+              ShareItem(
+                icon: 'share_more',
+                label: '更多',
+                callback: () {
+                  CommUtil.toBeDev();
+                  context.pop();
+                },
+              ),
             ],
           ),
           const SizedBox(height: 24),
