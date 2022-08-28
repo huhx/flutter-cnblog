@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
+import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class MySearchListScreen extends StatefulWidget {
+class MySearchListScreen extends ConsumerStatefulWidget {
   final MySearchType searchType;
-  final String keyword;
 
-  const MySearchListScreen(this.searchType, this.keyword, {Key? key}) : super(key: key);
+  const MySearchListScreen(this.searchType, {super.key});
 
   @override
-  State<MySearchListScreen> createState() => _MySearchListScreenState();
+  ConsumerState<MySearchListScreen> createState() => _MySearchListScreenState();
 }
 
-class _MySearchListScreenState extends State<MySearchListScreen> {
+class _MySearchListScreenState extends ConsumerState<MySearchListScreen> {
   final StreamList<SearchInfo> streamList = StreamList();
 
   @override
@@ -28,7 +29,7 @@ class _MySearchListScreenState extends State<MySearchListScreen> {
 
   Future<void> _fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<SearchInfo> searchResults = await searchApi.getMySearchContents(widget.searchType, pageKey, widget.keyword);
+      final List<SearchInfo> searchResults = await searchApi.getMySearchContents(widget.searchType, pageKey, ref.read(searchProvider));
       streamList.fetch(searchResults, pageKey, pageSize: 10);
     }
   }

@@ -1,30 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/search.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_cnblog/theme/shape.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'my_search_list_screen.dart';
 
-class MySearchScreen extends StatefulWidget {
-  const MySearchScreen({Key? key}) : super(key: key);
+class MySearchScreen extends ConsumerWidget {
+  const MySearchScreen({super.key});
 
   @override
-  State<MySearchScreen> createState() => _MySearchScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    String query = ref.watch(searchProvider);
+    final searchModel = ref.watch(searchProvider.notifier);
 
-class _MySearchScreenState extends State<MySearchScreen> {
-  String query = "android";
-
-  @override
-  Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           leading: const AppbarBackButton(),
-          title: const Text("MySearch"),
+          title: TextFormField(
+            initialValue: query,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.search,
+            onFieldSubmitted: (value) => searchModel.update(value),
+            onChanged: (value) => query = value,
+            decoration: const InputDecoration(
+              hintText: "Search",
+              isDense: true,
+              filled: true,
+              fillColor: Color.fromRGBO(249, 249, 249, 1),
+              contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              border: outlineInputBorder,
+              focusedBorder: outlineInputBorder,
+              enabledBorder: outlineInputBorder,
+            ),
+            style: const TextStyle(color: Colors.black, fontSize: 16),
+          ),
           actions: [
-            TextButton(onPressed: () => CommUtil.toBeDev(), child: const Text("搜索")),
+            TextButton(
+              onPressed: () => searchModel.update(query),
+              child: const Text("搜索"),
+            ),
           ],
           bottom: const TabBar(
             tabs: [
@@ -37,11 +55,11 @@ class _MySearchScreenState extends State<MySearchScreen> {
             indicatorWeight: 1,
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            MySearchListScreen(MySearchType.blog, query),
-            MySearchListScreen(MySearchType.question, query),
-            MySearchListScreen(MySearchType.instant, query),
+            MySearchListScreen(MySearchType.blog),
+            MySearchListScreen(MySearchType.question),
+            MySearchListScreen(MySearchType.instant),
           ],
         ),
       ),
