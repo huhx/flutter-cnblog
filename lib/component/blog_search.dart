@@ -27,7 +27,7 @@ class BlogSearch extends ConsumerWidget {
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
           color: fillColor,
           borderRadius: const BorderRadius.all(Radius.circular(16)),

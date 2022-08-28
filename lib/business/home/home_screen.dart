@@ -19,20 +19,23 @@ class HomeScreen extends StatelessWidget {
       length: 6,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: [
-              Shimmer.fromColors(
-                loop: 2,
-                baseColor: Colors.white,
-                period: const Duration(milliseconds: 800),
-                highlightColor: themeColor,
-                child: const Text("博客园"),
-              ),
-              const Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
-            ],
+          title: Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Row(
+              children: [
+                Shimmer.fromColors(
+                  loop: 2,
+                  baseColor: Colors.white,
+                  period: const Duration(milliseconds: 800),
+                  highlightColor: themeColor,
+                  child: const Text("博客园"),
+                ),
+                const Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
+              ],
+            ),
           ),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(26),
+            preferredSize: const Size.fromHeight(28),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
