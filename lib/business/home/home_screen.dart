@@ -4,6 +4,8 @@ import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/blog_search.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/theme/theme.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'category/category/category_screen.dart';
 import 'category/recommend/recommend_blog_screen.dart';
@@ -18,13 +20,19 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Row(
-            children: const [
-              Text("博客园"),
-              Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
+            children: [
+              Shimmer.fromColors(
+                loop: 2,
+                baseColor: Colors.white,
+                period: const Duration(milliseconds: 800),
+                highlightColor: themeColor,
+                child: const Text("博客园"),
+              ),
+              const Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
             ],
           ),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(36),
+            preferredSize: const Size.fromHeight(26),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -50,7 +50,7 @@ class _UserBookmarkContentState extends State<UserBookmarkContent> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
             itemCount: bookmarks.length,
             itemBuilder: (_, index) => UserBookmarkItem(bookmark: bookmarks[index], key: ValueKey(bookmarks[index].id)),
           ),
@@ -75,30 +75,32 @@ class UserBookmarkItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => context.goto(UserBookmarkDetailScreen(bookmark)),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(bookmark.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-            const SizedBox(height: 6),
-            Text(bookmark.url, style: const TextStyle(fontSize: 14, color: Colors.grey)),
-            const SizedBox(height: 6),
-            Row(
-              children: [
-                const Text("收藏于", style: TextStyle(fontSize: 13, color: Colors.grey)),
-                Text(
-                  timeago.format(bookmark.postDate),
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-                const SizedBox(width: 16),
-                const SvgIcon(name: "like", size: 14, color: Colors.grey),
-                const SizedBox(width: 6),
-                Text("${bookmark.starCounts}", style: const TextStyle(fontSize: 13, color: Colors.grey)),
-                const Text("人收藏", style: TextStyle(fontSize: 13, color: Colors.grey)),
-              ],
-            )
-          ],
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(bookmark.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              const SizedBox(height: 6),
+              Text(bookmark.url, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  const Text("收藏于", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                  Text(
+                    timeago.format(bookmark.postDate),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                  const SizedBox(width: 16),
+                  const SvgIcon(name: "star", size: 14, color: Colors.grey),
+                  const SizedBox(width: 2),
+                  Text("${bookmark.starCounts}", style: const TextStyle(fontSize: 13, color: Colors.grey)),
+                  const Text("人收藏", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

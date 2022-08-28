@@ -19,7 +19,6 @@ class UserBookmarkListScreen extends StatelessWidget {
       body: Column(
         children: [
           UserBookmarkHeader(user),
-          const Divider(thickness: 8, color: momentBgColor),
           Expanded(child: UserBookmarkContent(user)),
         ],
       ),

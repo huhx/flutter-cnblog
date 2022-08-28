@@ -24,7 +24,6 @@ class _UserBlogListScreenState extends State<UserBlogListScreen> {
       body: Column(
         children: [
           UserBlogHeader(widget.user),
-          const Divider(thickness: 8, color: momentBgColor),
           Expanded(child: UserBlogContent(widget.user)),
         ],
       ),
