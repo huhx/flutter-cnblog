@@ -50,7 +50,7 @@ class _SearchListScreenState extends ConsumerState<SearchListScreen> {
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             itemCount: searchList.length,
-            itemBuilder: (_, index) => SearchItem(searchList[index], key: ValueKey(searchList[index].url)),
+            itemBuilder: (_, index) => SearchItem(searchList[index], widget.searchType, key: ValueKey(searchList[index].url)),
           ),
         );
       },
@@ -66,8 +66,9 @@ class _SearchListScreenState extends ConsumerState<SearchListScreen> {
 
 class SearchItem extends StatelessWidget {
   final SearchInfo searchInfo;
+  final SearchType searchType;
 
-  const SearchItem(this.searchInfo, {Key? key}) : super(key: key);
+  const SearchItem(this.searchInfo, this.searchType, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +79,20 @@ class SearchItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
           child: Column(
             children: [
-              Html(data: searchInfo.title),
-              Html(data: searchInfo.summary),
+              Html(data: searchInfo.title, style: {
+                "strong": Style(
+                  color: const Color(0xFFdd4b39),
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal,
+                )
+              }),
+              Html(data: searchInfo.summary, style: {
+                "strong": Style(
+                  color: const Color(0xFFdd4b39),
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal,
+                )
+              }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

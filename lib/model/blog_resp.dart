@@ -51,6 +51,37 @@ class BlogResp extends Equatable {
   }
 }
 
+class BasicBlogInfo extends Equatable {
+  final int id;
+  final String title;
+  final String avatar;
+  final String url;
+  final String? author;
+
+  const BasicBlogInfo({
+    required this.id,
+    required this.title,
+    required this.avatar,
+    required this.url,
+    this.author,
+  });
+
+  @override
+  List<Object?> get props => [id, title, url, author, avatar];
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: title, url: url, name: author);
+  }
+
+  Uri httpsUrl() {
+    return Uri.parse(url).replace(scheme: "https");
+  }
+
+  String toHttps() {
+    return httpsUrl().toString();
+  }
+}
+
 enum BlogCategory {
   home(""),
   read(""),
