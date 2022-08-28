@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/search_api.dart';
 import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -48,7 +49,7 @@ class _SearchListScreenState extends ConsumerState<SearchListScreen> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
             itemCount: searchList.length,
             itemBuilder: (_, index) => SearchItem(searchList[index], widget.searchType, key: ValueKey(searchList[index].url)),
           ),
@@ -76,7 +77,7 @@ class SearchItem extends StatelessWidget {
       onTap: () => CommUtil.toBeDev(),
       child: Card(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
           child: Column(
             children: [
               Html(data: searchInfo.title, style: {
@@ -93,46 +94,40 @@ class SearchItem extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                 )
               }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      if (searchInfo.author != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        if (searchInfo.author != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Text(
+                              searchInfo.author!,
+                              style: const TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ),
+                        if (searchInfo.diggCount != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 6),
+                            child: TextIcon(icon: "like", counts: searchInfo.diggCount!),
+                          ),
+                        if (searchInfo.commentCount != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 6),
+                            child: TextIcon(icon: "comment", counts: searchInfo.commentCount!),
+                          ),
                         Padding(
                           padding: const EdgeInsets.only(right: 6),
-                          child: Text(
-                            searchInfo.author!,
-                            style: const TextStyle(fontSize: 13, color: Colors.grey),
-                          ),
-                        ),
-                      if (searchInfo.diggCount != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: Text(
-                            searchInfo.diggCount!.toString(),
-                            style: const TextStyle(fontSize: 13, color: Colors.grey),
-                          ),
-                        ),
-                      if (searchInfo.commentCount != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: Text(
-                            searchInfo.commentCount!.toString(),
-                            style: const TextStyle(fontSize: 13, color: Colors.grey),
-                          ),
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: Text(
-                          searchInfo.viewCount.toString(),
-                          style: const TextStyle(fontSize: 13, color: Colors.grey),
-                        ),
-                      )
-                    ],
-                  ),
-                  Text(searchInfo.postDate)
-                ],
+                          child: TextIcon(icon: "comment", counts: searchInfo.viewCount),
+                        )
+                      ],
+                    ),
+                    Text(searchInfo.postDate)
+                  ],
+                ),
               )
             ],
           ),
