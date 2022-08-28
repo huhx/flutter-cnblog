@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/user/data/session_provider.dart';
+import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/question.dart';
+import 'package:flutter_cnblog/model/user.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'my/my_question_list_screen.dart';
 import 'question_list_screen.dart';
 
-class QuestionScreen extends StatelessWidget {
-  const QuestionScreen({Key? key}) : super(key: key);
+class QuestionScreen extends ConsumerWidget {
+  const QuestionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User? user = ref.watch(sessionProvider);
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -32,7 +38,12 @@ class QuestionScreen extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => context.goto(const MyQuestionListScreen()),
+                onTap: () async {
+                  if (user == null) {
+                    await context.goto(const LoginScreen());
+                  }
+                  context.goto(const MyQuestionListScreen());
+                },
                 child: const Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: SvgIcon(name: "category_more", color: Colors.white, size: 20),

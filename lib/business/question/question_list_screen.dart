@@ -12,7 +12,7 @@ import 'question_item.dart';
 class QuestionListScreen extends ConsumerStatefulWidget {
   final QuestionStatus status;
 
-  const QuestionListScreen(this.status, {Key? key}) : super(key: key);
+  const QuestionListScreen(this.status, {super.key});
 
   @override
   ConsumerState<QuestionListScreen> createState() => _QuestionListScreenState();

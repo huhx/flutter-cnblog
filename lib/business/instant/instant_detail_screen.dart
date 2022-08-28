@@ -6,6 +6,7 @@ import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:flutter_cnblog/model/instant_comment.dart';
+import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -30,7 +31,7 @@ class InstantDetailScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.grey,
+          color: disabledColor,
           child: Column(
             children: [
               Container(
@@ -53,7 +54,7 @@ class InstantDetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(height: 16),
+              const Divider(height: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 color: Colors.white,

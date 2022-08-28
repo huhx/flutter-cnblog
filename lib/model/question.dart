@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'blog_share.dart';
+
 class QuestionInfo extends Equatable {
   final int id;
   final String title;
@@ -39,6 +41,10 @@ class QuestionInfo extends Equatable {
 
   String toHttps() {
     return "https://q.cnblogs.com$url";
+  }
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: title, url: toHttps(), name: submitter);
   }
 }
 
