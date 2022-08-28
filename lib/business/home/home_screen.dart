@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           title: Row(
             children: const [
               Text("博客园"),
-              Flexible(child: ChatSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
+              Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
             ],
           ),
           bottom: PreferredSize(

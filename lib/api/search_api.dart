@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_cnblog/common/constant/token_type.dart';
 import 'package:flutter_cnblog/common/parser/my_search_parser.dart';
 import 'package:flutter_cnblog/common/parser/search_parser.dart';
 import 'package:flutter_cnblog/model/search.dart';
@@ -11,7 +10,7 @@ class SearchApi {
   final String myUrl = "https://zzk.cnblogs.com/my/s";
 
   Future<List<SearchInfo>> getSearchContents(SearchType searchType, int pageKey, String keyword) async {
-    final Dio dio = RestClient.getInstance(tokenType: TokenType.none);
+    final Dio dio = RestClient.withCookie();
     final Response response = await dio.get(
       "$url/${searchType.url}?Keywords=$keyword&pageindex=$pageKey",
       options: Options(headers: {
