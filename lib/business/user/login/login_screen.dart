@@ -28,10 +28,11 @@ class LoginScreen extends HookConsumerWidget {
             initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
             onPageCommitVisible: (controller, url) async {
               isLoading.value = false;
-              CookieManager cookieManager = CookieManager.instance();
-              Cookie? cookie = await cookieManager.getCookie(url: url!, name: Constant.authCookieName);
-              AppConfig.save("cookie", cookie!.value);
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
+                CookieManager cookieManager = CookieManager.instance();
+                Cookie? cookie = await cookieManager.getCookie(url: url!, name: Constant.authCookieName);
+                AppConfig.save("cookie", cookie!.value);
+
                 logger.d('加载完成：$url');
                 final String code = AuthRequest.getCodeFromUrl(url.toString());
                 await ref.watch(sessionProvider.notifier).login(code);

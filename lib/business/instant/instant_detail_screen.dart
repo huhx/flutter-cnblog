@@ -3,11 +3,9 @@ import 'package:flutter_cnblog/api/instant_comment_api.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:flutter_cnblog/model/instant_comment.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -22,12 +20,6 @@ class InstantDetailScreen extends StatelessWidget {
       appBar: AppBar(
         leading: const AppbarBackButton(),
         title: const Text("闪存详情"),
-        actions: [
-          IconButton(
-            icon: const SvgActionIcon(name: "more_hor"),
-            onPressed: () => CommUtil.toBeDev(),
-          )
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
