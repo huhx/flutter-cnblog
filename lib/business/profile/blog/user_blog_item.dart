@@ -15,42 +15,44 @@ class UserBlogItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => context.goto(UserBlogDetailScreen(userBlog)),
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(userBlog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-            const SizedBox(height: 6),
-            Text(
-              userBlog.summary,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(userBlog.name, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                    const SizedBox(width: 8),
-                    TextIcon(icon: "like", counts: userBlog.diggCount),
-                    const SizedBox(width: 8),
-                    TextIcon(icon: "comment", counts: userBlog.commentCount),
-                    const SizedBox(width: 10),
-                    TextIcon(icon: "view", counts: userBlog.viewCount),
-                  ],
-                ),
-                Text(
-                  timeago.format(userBlog.postDate),
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
-                )
-              ],
-            )
-          ],
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(userBlog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              const SizedBox(height: 6),
+              Text(
+                userBlog.summary,
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 6),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(userBlog.name, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      const SizedBox(width: 16),
+                      TextIcon(icon: "like", counts: userBlog.diggCount),
+                      const SizedBox(width: 8),
+                      TextIcon(icon: "comment", counts: userBlog.commentCount),
+                      const SizedBox(width: 8),
+                      TextIcon(icon: "view", counts: userBlog.viewCount),
+                    ],
+                  ),
+                  Text(
+                    timeago.format(userBlog.postDate),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

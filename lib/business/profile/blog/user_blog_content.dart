@@ -52,7 +52,6 @@ class _UserBlogContentState extends State<UserBlogContent> {
           onLoading: () => streamList.onLoading(),
           enablePullUp: true,
           child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
             itemCount: blogs.length,
             itemBuilder: (_, index) => UserBlogItem(userBlog: blogs[index], key: ValueKey(blogs[index].id)),
           ),
