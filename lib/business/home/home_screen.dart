@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                   highlightColor: themeColor,
                   child: const Text("博客园"),
                 ),
-                const Flexible(child: BlogSearch(fillColor: Color(0xFFF5F6F9), hintColor: Color(0xFFC9CAD2))),
+                const Flexible(child: BlogSearch()),
               ],
             ),
           ),

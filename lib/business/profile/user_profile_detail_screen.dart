@@ -10,7 +10,6 @@ import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
-import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'user_follow_count_info.dart';
@@ -54,7 +53,6 @@ class UserProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: themeColor,
       padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

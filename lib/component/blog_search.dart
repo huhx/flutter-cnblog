@@ -8,10 +8,7 @@ import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BlogSearch extends ConsumerWidget {
-  final Color fillColor;
-  final Color hintColor;
-
-  const BlogSearch({super.key, required this.fillColor, required this.hintColor});
+  const BlogSearch({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,10 +26,10 @@ class BlogSearch extends ConsumerWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
-          color: fillColor,
+          color: Theme.of(context).backgroundColor.withOpacity(0.5),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
-        child: Text("搜索", style: TextStyle(fontSize: 14, color: hintColor)),
+        child: const Text("搜索", style: TextStyle(fontSize: 14)),
       ),
     );
   }
