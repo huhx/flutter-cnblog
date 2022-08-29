@@ -53,7 +53,7 @@ class UserProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
+      padding: const EdgeInsets.only(left: 16, top: 60),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -67,7 +67,7 @@ class UserProfileHeader extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: UserFollowCountInfo(user),
           ),
         ],
@@ -97,7 +97,11 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
         final String string = CurrentUser.getUser().displayName == userProfile.name ? "我" : "Ta";
         List<Widget> widgets = [];
         userProfile.info.forEach((key, value) {
-          final listTile = ListTile(leading: Text(key), trailing: Text(value));
+          final listTile = ListTile(
+            leading: Text(key),
+            minLeadingWidth: 40,
+            trailing: Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, textAlign: TextAlign.end),
+          );
           widgets.add(listTile);
         });
         final bool hasBlog = userProfile.info.keys.contains("博客");
@@ -205,16 +209,17 @@ class UserMomentItem extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 6),
           Card(
             child: Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               width: double.infinity,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(userMoment.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 8),
                   Text(
                     userMoment.summary,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
