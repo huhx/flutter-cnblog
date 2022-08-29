@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 Shimmer.fromColors(
                   loop: 2,
                   baseColor: Colors.white,
-                  period: const Duration(milliseconds: 800),
+                  period: const Duration(milliseconds: 1000),
                   highlightColor: themeColor,
                   child: const Text("博客园"),
                 ),

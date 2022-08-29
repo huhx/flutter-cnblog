@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 
 class BookmarkInfo extends Equatable {
@@ -16,8 +17,15 @@ class BookmarkInfo extends Equatable {
     required this.postDate,
   });
 
-  bool isNews() {
-    return Uri.parse(url).host.startsWith("news");
+  ContentType getType() {
+    final String hostString = Uri.parse(url).host;
+    if (hostString.startsWith("news")) {
+      return ContentType.news;
+    }
+    if (hostString.startsWith("kb")) {
+      return ContentType.knowledge;
+    }
+    return ContentType.blog;
   }
 
   BlogShare toBlogShare() {
