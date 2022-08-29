@@ -118,10 +118,11 @@ class MySearchItem extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 6),
                             child: TextIcon(icon: "comment", counts: searchInfo.commentCount!),
                           ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 6),
-                          child: TextIcon(icon: "view", counts: searchInfo.viewCount),
-                        )
+                        if (searchInfo.viewCount != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 6),
+                            child: TextIcon(icon: "view", counts: searchInfo.viewCount!),
+                          )
                       ],
                     ),
                     Text(searchInfo.postDate)

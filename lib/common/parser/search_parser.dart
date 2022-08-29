@@ -14,8 +14,13 @@ class SearchParser {
 
   static SearchInfo _parseSearchInfo(Element element) {
     final String urlString = element.getFirstByClass("searchURL").getText().trim();
-    final String viewString = element.getFirstByClass("searchItemInfo-views").getText();
-    final String viewCountString = viewString.replaceFirstMapped(RegExp(r"浏览\(([0-9]+)\)"), (match) => match.group(1)!);
+
+    int? viewCount;
+    final List<Element> viewElements = element.getElementsByClassName("searchItemInfo-views");
+    if (viewElements.isNotEmpty) {
+      final String viewString = viewElements[0].getText();
+      viewCount = viewString.replaceFirstMapped(RegExp(r"浏览\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
+    }
 
     int? commentCount;
     final List<Element> commentElements = element.getElementsByClassName("searchItemInfo-comments");
@@ -44,7 +49,7 @@ class SearchParser {
       summary: element.getFirstByClass("searchCon").outerHtml,
       author: author,
       homeUrl: homeUrl,
-      viewCount: viewCountString.toInt(),
+      viewCount: viewCount,
       commentCount: commentCount,
       diggCount: diggCount,
       postDate: element.getFirstByClass("searchItemInfo-publishDate").getText(),

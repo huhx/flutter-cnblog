@@ -6,7 +6,7 @@ class SearchInfo extends Equatable {
   final String summary;
   final String? author;
   final String? homeUrl;
-  final int viewCount;
+  final int? viewCount;
   final int? commentCount;
   final int? diggCount;
   final String postDate;
@@ -17,7 +17,7 @@ class SearchInfo extends Equatable {
     required this.summary,
     this.author,
     this.homeUrl,
-    required this.viewCount,
+    this.viewCount,
     this.commentCount,
     this.diggCount,
     required this.postDate,
