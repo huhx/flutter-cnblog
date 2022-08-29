@@ -23,6 +23,25 @@ class UserProfileInfo extends Equatable {
   List<Object?> get props => [name, displayName, avatar, url, info, followCounts, followerCounts];
 }
 
+class UserProfileData extends Equatable {
+  final String name;
+  final int follow;
+  final int follower;
+  final int comment;
+  final int view;
+
+  const UserProfileData({
+    required this.name,
+    required this.follow,
+    required this.follower,
+    required this.comment,
+    required this.view,
+  });
+
+  @override
+  List<Object?> get props => [name, follow, follower, comment, view];
+}
+
 class UserProfileMoment extends Equatable {
   final String name;
   final String avatar;

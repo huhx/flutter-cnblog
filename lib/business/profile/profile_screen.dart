@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/user_profile_api.dart';
+import 'package:flutter_cnblog/business/instant/my_instant_screen.dart';
+import 'package:flutter_cnblog/business/main/theme_provider.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/business/profile/bookmark/user_bookmark_list_screen.dart';
+import 'package:flutter_cnblog/business/profile/follow/follow_screen.dart';
 import 'package:flutter_cnblog/business/profile/setting/setting_screen.dart';
-import 'package:flutter_cnblog/business/search/my/my_search_screen.dart';
-import 'package:flutter_cnblog/business/search/search_screen.dart';
+import 'package:flutter_cnblog/business/question/my/my_question_list_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/user.dart';
+import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'knowledge/knowledge_list_screen.dart';
 import 'message/message_screen.dart';
-import 'user_follow_count_info.dart';
 import 'user_profile_detail_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -27,35 +32,90 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final User? user = ref.watch(sessionProvider);
 
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: user != null
-            ? MyProfileScreen(user)
-            : InkWell(
+    return user != null
+        ? MyProfileScreen(user)
+        : Scaffold(
+            body: Container(
+              alignment: Alignment.center,
+              child: InkWell(
                 child: TextButton(
                   onPressed: () => context.goto(const LoginScreen()),
                   child: const Text("去登录"),
                 ),
               ),
-      ),
-    );
+            ),
+          );
   }
 }
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends HookConsumerWidget {
   final User user;
 
   const MyProfileScreen(this.user, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ProfileHeader(user.toInfo()),
-        const ProfileMiddle(),
-        ProfileFooter(user.toInfo()),
-      ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = useState(ref.read(themeProvider).themeMode == ThemeMode.dark);
+
+    return FutureBuilder<UserProfileData>(
+      future: userProfileApi.getUserProfileData(user.blogApp),
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final UserProfileData userProfileData = snap.data as UserProfileData;
+
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: isDarkMode.value
+                  ? [const Color.fromRGBO(5, 5, 5, 1), const Color.fromRGBO(20, 20, 20, 1)]
+                  : [const Color.fromRGBO(250, 250, 250, 1), const Color.fromRGBO(235, 235, 235, 1)],
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    if (isDarkMode.value) {
+                      isDarkMode.value = false;
+                      ref.read(themeProvider).setDark(false);
+                    } else {
+                      isDarkMode.value = true;
+                      ref.read(themeProvider).setDark(true);
+                    }
+                  },
+                  icon: SvgIcon(name: isDarkMode.value ? "share_light_mode" : "share_dark_mode"),
+                ),
+                IconButton(
+                  onPressed: () => context.goto(const MessageScreen()),
+                  icon: const SvgIcon(name: "my_notify"),
+                ),
+                IconButton(
+                  onPressed: () => context.goto(const SettingScreen()),
+                  icon: const SvgIcon(name: "my_setting"),
+                ),
+              ],
+            ),
+            body: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                ProfileHeader(user.toInfo()),
+                const SizedBox(height: 24),
+                ProfileInfo(userProfileData),
+                const SizedBox(height: 16),
+                ProfileMiddle(user.toInfo()),
+                const SizedBox(height: 16),
+                ProfileFooter(user.toInfo()),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -67,62 +127,95 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: themeColor,
-      padding: const EdgeInsets.only(left: 16, top: 60, bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
-            onTap: () => context.goto(UserProfileDetailScreen(user)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleImage(url: user.avatar, size: 48),
-                const SizedBox(width: 8),
-                Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: UserFollowCountInfo(user),
-          ),
-        ],
-      ),
+    return ListTile(
+      onTap: () => context.goto(UserProfileDetailScreen(user)),
+      leading: CircleImage(url: user.avatar, size: 48),
+      contentPadding: EdgeInsets.zero,
+      title: Text(user.displayName, style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
+      trailing: const ListTileTrailing(),
+    );
+  }
+}
+
+class ProfileInfo extends StatelessWidget {
+  final UserProfileData userProfileData;
+
+  const ProfileInfo(this.userProfileData, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        InkWell(
+          child: ProfileInfoItem(counts: userProfileData.follow, label: "关注"),
+          onTap: () => context.goto(FollowScreen(name: userProfileData.name, index: 0)),
+        ),
+        InkWell(
+          child: ProfileInfoItem(counts: userProfileData.follower, label: "粉丝"),
+          onTap: () => context.goto(FollowScreen(name: userProfileData.name, index: 1)),
+        ),
+        ProfileInfoItem(counts: userProfileData.comment, label: "评论"),
+        ProfileInfoItem(counts: userProfileData.view, label: "阅读"),
+      ],
+    );
+  }
+}
+
+class ProfileInfoItem extends StatelessWidget {
+  final int counts;
+  final String label;
+
+  const ProfileInfoItem({super.key, required this.counts, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          counts.toString(),
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+        ),
+        const SizedBox(height: 6),
+        Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+      ],
     );
   }
 }
 
 class ProfileMiddle extends StatelessWidget {
-  const ProfileMiddle({Key? key}) : super(key: key);
+  final UserInfo userInfo;
+
+  const ProfileMiddle(this.userInfo, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            InkWell(
-              onTap: () => context.goto(const MessageScreen()),
-              child: const MomentMiddleItem(iconName: 'my_message', label: '我的消息'),
-            ),
-            InkWell(
-              onTap: () => CommUtil.toBeDev(),
-              child: const MomentMiddleItem(iconName: 'my_history', label: '阅读历史'),
-            ),
-            InkWell(
-              onTap: () => context.goto(const KnowledgeListScreen()),
-              child: const MomentMiddleItem(iconName: 'my_knowledge', label: '知识库'),
-            ),
-            InkWell(
-              onTap: () => CommUtil.toBeDev(),
-              child: const MomentMiddleItem(iconName: 'my_moment', label: '我的动态'),
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            onTap: () => context.goto(UserBlogListScreen(userInfo)),
+            child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
+          ),
+          InkWell(
+            onTap: () => context.goto(const MyQuestionListScreen()),
+            child: const MomentMiddleItem(iconName: 'profile_question', label: '我的博问'),
+          ),
+          InkWell(
+            onTap: () => context.goto(const MyInstantScreen()),
+            child: const MomentMiddleItem(iconName: 'my_message', label: '我的闪存'),
+          ),
+          InkWell(
+            onTap: () => context.goto(UserBookmarkListScreen(userInfo)),
+            child: const MomentMiddleItem(iconName: 'profile_bookmark', label: '我的收藏'),
+          ),
+        ],
       ),
     );
   }
@@ -143,8 +236,8 @@ class MomentMiddleItem extends StatelessWidget {
     return Column(
       children: <Widget>[
         SvgIcon(name: iconName, color: themeColor),
-        const SizedBox(height: 4),
-        Text(label),
+        const SizedBox(height: 6),
+        Text(label, style: const TextStyle(fontSize: 13)),
       ],
     );
   }
@@ -157,34 +250,39 @@ class ProfileFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          title: const Text("我的博客"),
-          trailing: const ListTileTrailing(),
-          onTap: () => context.goto(UserBlogListScreen(user)),
-        ),
-        ListTile(
-          title: const Text("我的收藏"),
-          trailing: const ListTileTrailing(),
-          onTap: () => context.goto(UserBookmarkListScreen(user)),
-        ),
-        ListTile(
-          title: const Text("关于"),
-          trailing: const ListTileTrailing(),
-          onTap: () => context.goto(const SearchScreen()),
-        ),
-        ListTile(
-          title: const Text("联系与反馈"),
-          trailing: const ListTileTrailing(),
-          onTap: () => context.goto(const MySearchScreen()),
-        ),
-        ListTile(
-          title: const Text("设置"),
-          trailing: const ListTileTrailing(),
-          onTap: () => context.goto(const SettingScreen()),
-        ),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("更多功能"),
+          const SizedBox(height: 16),
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 4,
+            crossAxisSpacing: 30,
+            mainAxisSpacing: 0,
+            children: [
+              InkWell(
+                onTap: () => CommUtil.toBeDev(),
+                child: const MomentMiddleItem(iconName: 'profile_feedback', label: '意见反馈'),
+              ),
+              InkWell(
+                onTap: () => CommUtil.toBeDev(),
+                child: const MomentMiddleItem(iconName: 'my_history', label: '阅读记录'),
+              ),
+              InkWell(
+                onTap: () => context.goto(const KnowledgeListScreen()),
+                child: const MomentMiddleItem(iconName: 'my_knowledge', label: '知识库'),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
