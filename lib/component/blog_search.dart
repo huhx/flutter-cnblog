@@ -19,7 +19,7 @@ class BlogSearch extends ConsumerWidget {
         if (user == null) {
           await context.goto(const LoginScreen());
         }
-        context.goto(const SearchScreen());
+        context.goto(SearchScreen());
       },
       child: Container(
         width: double.infinity,

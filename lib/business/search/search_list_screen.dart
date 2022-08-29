@@ -114,16 +114,16 @@ class SearchItem extends StatelessWidget {
                           ),
                         if (searchInfo.diggCount != null)
                           Padding(
-                            padding: const EdgeInsets.only(right: 6),
+                            padding: const EdgeInsets.only(right: 8),
                             child: TextIcon(icon: "like", counts: searchInfo.diggCount!),
                           ),
                         if (searchInfo.commentCount != null)
                           Padding(
-                            padding: const EdgeInsets.only(right: 6),
+                            padding: const EdgeInsets.only(right: 8),
                             child: TextIcon(icon: "comment", counts: searchInfo.commentCount!),
                           ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 6),
+                          padding: const EdgeInsets.only(right: 8),
                           child: TextIcon(icon: "view", counts: searchInfo.viewCount),
                         )
                       ],

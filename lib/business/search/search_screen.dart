@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,27 +9,36 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'search_list_screen.dart';
 
 class SearchScreen extends HookConsumerWidget {
-  const SearchScreen({super.key});
+  final TextEditingController textEditingController = TextEditingController();
+
+  SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final query = useState("");
-    String queryString = query.value;
-
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
           leading: const AppbarBackButton(),
           title: TextFormField(
+            controller: textEditingController,
             autofocus: true,
-            initialValue: query.value,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.search,
             onFieldSubmitted: (value) => query.value = value,
-            onChanged: (value) => queryString = value,
             decoration: InputDecoration(
               hintText: "搜索",
+              suffix: InkWell(
+                onTap: () {
+                  textEditingController.clear();
+                  query.value = "";
+                },
+                child: SizedBox.fromSize(
+                  size: const Size(18, 18),
+                  child: const SvgIcon(name: "search_clear", size: 16),
+                ),
+              ),
               hintStyle: Theme.of(context).textTheme.bodyText2!,
               isDense: true,
               filled: true,
@@ -42,7 +52,7 @@ class SearchScreen extends HookConsumerWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () => query.value = queryString,
+              onPressed: () => query.value = textEditingController.text,
               child: const Text("搜索", style: TextStyle(color: Colors.white)),
             ),
           ],
