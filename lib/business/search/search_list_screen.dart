@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
-import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
@@ -12,8 +11,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchListScreen extends ConsumerStatefulWidget {
   final SearchType searchType;
+  final String keyword;
 
-  const SearchListScreen(this.searchType, {super.key});
+  const SearchListScreen(this.searchType, this.keyword, {super.key});
 
   @override
   ConsumerState<SearchListScreen> createState() => _SearchListScreenState();
@@ -22,26 +22,29 @@ class SearchListScreen extends ConsumerStatefulWidget {
 class _SearchListScreenState extends ConsumerState<SearchListScreen> {
   final StreamList<SearchInfo> streamList = StreamList();
 
-  @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> _fetchPage(int pageKey, String keyword) async {
     if (streamList.isOpen) {
-      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, ref.read(searchProvider));
+      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, keyword);
       streamList.fetch(searchResults, pageKey, pageSize: 10);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey, widget.keyword), init: widget.keyword.isNotEmpty);
+
     return StreamBuilder(
       stream: streamList.stream,
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<SearchInfo> searchList = snap.data as List<SearchInfo>;
+
+        if (searchList.isEmpty) {
+          return Container(
+            alignment: Alignment.center,
+            child: const Text("抱歉！没有找到您搜索的相关内容。"),
+          );
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,
@@ -121,7 +124,7 @@ class SearchItem extends StatelessWidget {
                           ),
                         Padding(
                           padding: const EdgeInsets.only(right: 6),
-                          child: TextIcon(icon: "comment", counts: searchInfo.viewCount),
+                          child: TextIcon(icon: "view", counts: searchInfo.viewCount),
                         )
                       ],
                     ),

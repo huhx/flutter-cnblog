@@ -25,9 +25,9 @@ class StreamList<T> {
   late PageState<int, T> pageState;
   late RequestListener<int> _listener;
 
-  void addRequestListener(RequestListener<int> requestListener) {
+  void addRequestListener(RequestListener<int> requestListener, {bool init = true}) {
     _listener = requestListener;
-    _init();
+    init ? _init() : reset([]);
   }
 
   Future<void> _init() async {
@@ -76,6 +76,16 @@ class StreamList<T> {
     );
 
     _streamController.add(itemList);
+  }
+
+  void reset(List<T> newItems) {
+    pageState = PageState<int, T>(
+      itemList: newItems,
+      error: null,
+      nextKey: firstKey,
+    );
+
+    _streamController.add(pageState.itemList);
   }
 
   void dispose() {

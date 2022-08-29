@@ -10,4 +10,8 @@ class SearchModel extends StateNotifier<String> {
   void update(String queryString) {
     state = queryString;
   }
+
+  void reset() {
+    state = "";
+  }
 }

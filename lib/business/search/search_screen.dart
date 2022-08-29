@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'search_list_screen.dart';
 
-class SearchScreen extends ConsumerWidget {
+class SearchScreen extends HookConsumerWidget {
   const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String query = ref.watch(searchProvider);
-    final searchModel = ref.watch(searchProvider.notifier);
+    final query = useState("");
+    String queryString = query.value;
 
     return DefaultTabController(
       length: 4,
@@ -21,13 +21,15 @@ class SearchScreen extends ConsumerWidget {
         appBar: AppBar(
           leading: const AppbarBackButton(),
           title: TextFormField(
-            initialValue: query,
+            autofocus: true,
+            initialValue: query.value,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.search,
-            onFieldSubmitted: (value) => searchModel.update(value),
-            onChanged: (value) => query = value,
+            onFieldSubmitted: (value) => query.value = value,
+            onChanged: (value) => queryString = value,
             decoration: InputDecoration(
-              hintText: "Search",
+              hintText: "搜索",
+              hintStyle: Theme.of(context).textTheme.bodyText2!,
               isDense: true,
               filled: true,
               fillColor: Theme.of(context).backgroundColor.withOpacity(0.5),
@@ -40,7 +42,7 @@ class SearchScreen extends ConsumerWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () => searchModel.update(query),
+              onPressed: () => query.value = queryString,
               child: const Text("搜索", style: TextStyle(color: Colors.white)),
             ),
           ],
@@ -56,12 +58,12 @@ class SearchScreen extends ConsumerWidget {
             indicatorWeight: 1,
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            SearchListScreen(SearchType.blog),
-            SearchListScreen(SearchType.news),
-            SearchListScreen(SearchType.question),
-            SearchListScreen(SearchType.knowledge),
+            SearchListScreen(SearchType.blog, query.value),
+            SearchListScreen(SearchType.news, query.value),
+            SearchListScreen(SearchType.question, query.value),
+            SearchListScreen(SearchType.knowledge, query.value),
           ],
         ),
       ),

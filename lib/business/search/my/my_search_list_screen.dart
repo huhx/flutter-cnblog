@@ -120,7 +120,7 @@ class MySearchItem extends StatelessWidget {
                           ),
                         Padding(
                           padding: const EdgeInsets.only(right: 6),
-                          child: TextIcon(icon: "comment", counts: searchInfo.viewCount),
+                          child: TextIcon(icon: "view", counts: searchInfo.viewCount),
                         )
                       ],
                     ),
