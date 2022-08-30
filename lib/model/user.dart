@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
-@JsonSerializable(createToJson: false, fieldRename: FieldRename.pascal)
+@JsonSerializable(fieldRename: FieldRename.pascal)
 class User {
   final String userId;
   final int spaceUserID;
@@ -25,6 +25,8 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   UserInfo toInfo() {
     return UserInfo(userId: userId, displayName: displayName, avatar: avatar, blogName: blogApp);

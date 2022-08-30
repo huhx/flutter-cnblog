@@ -4,14 +4,16 @@ import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final sessionProvider = StateNotifierProvider<SessionModel, User?>((ref) {
-  return SessionModel();
+  final User? user = PrefsUtil.getUser();
+  return SessionModel(user);
 });
 
 class SessionModel extends StateNotifier<User?> {
-  SessionModel() : super(null);
+  SessionModel(User? user) : super(user);
 
   String get userId => state!.userId;
 
@@ -28,6 +30,7 @@ class SessionModel extends StateNotifier<User?> {
     state = user;
 
     logger.d("user = ${user.displayName}");
+    await PrefsUtil.saveUser(user);
     AppConfig.save("user", user);
     AppConfig.save("userId", user.userId);
   }
@@ -35,6 +38,7 @@ class SessionModel extends StateNotifier<User?> {
   Future<void> logout() async {
     state = null;
 
+    PrefsUtil.logout();
     AppConfig.remove("user");
     AppConfig.remove("userId");
     AppConfig.remove("cookie");

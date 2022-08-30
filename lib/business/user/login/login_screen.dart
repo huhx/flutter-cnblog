@@ -6,6 +6,7 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,7 +32,8 @@ class LoginScreen extends HookConsumerWidget {
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
                 CookieManager cookieManager = CookieManager.instance();
                 Cookie? cookie = await cookieManager.getCookie(url: url!, name: Constant.authCookieName);
-                AppConfig.save("cookie", cookie!.value);
+                await PrefsUtil.saveCookie(cookie!.value);
+                AppConfig.save("cookie", cookie.value);
 
                 logger.d('加载完成：$url');
                 final String code = AuthRequest.getCodeFromUrl(url.toString());

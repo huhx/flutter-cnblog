@@ -35,7 +35,7 @@ class SearchScreen extends HookConsumerWidget {
                   query.value = "";
                 },
                 child: SizedBox.fromSize(
-                  size: const Size(18, 18),
+                  size: const Size(14, 14),
                   child: const SvgIcon(name: "search_clear", size: 16),
                 ),
               ),
