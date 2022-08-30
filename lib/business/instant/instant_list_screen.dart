@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/instant_api.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -42,6 +43,10 @@ class _InstantListScreenState extends ConsumerState<InstantListScreen> with Auto
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<InstantInfo> instants = snap.data as List<InstantInfo>;
+
+        if (instants.isEmpty) {
+          return const EmptyWidget();
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,

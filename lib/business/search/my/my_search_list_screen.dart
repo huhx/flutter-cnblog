@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/search_api.dart';
 import 'package:flutter_cnblog/business/search/search_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -42,6 +43,10 @@ class _MySearchListScreenState extends ConsumerState<MySearchListScreen> {
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<SearchInfo> searchList = snap.data as List<SearchInfo>;
+
+        if (searchList.isEmpty) {
+          return const EmptyWidget();
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,

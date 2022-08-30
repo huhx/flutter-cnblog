@@ -5,6 +5,7 @@ import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -47,6 +48,10 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         builder: (context, snap) {
           if (!snap.hasData) return const CenterProgressIndicator();
           final List<BlogResp> blogs = snap.data as List<BlogResp>;
+
+          if (blogs.isEmpty) {
+            return const EmptyWidget();
+          }
 
           return SmartRefresher(
             controller: streamList.refreshController,

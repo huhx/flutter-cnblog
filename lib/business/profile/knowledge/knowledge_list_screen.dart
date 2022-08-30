@@ -4,6 +4,7 @@ import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -45,6 +46,10 @@ class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
         builder: (context, snap) {
           if (!snap.hasData) return const CenterProgressIndicator();
           final List<KnowledgeInfo> knowledgeList = snap.data as List<KnowledgeInfo>;
+
+          if (knowledgeList.isEmpty) {
+            return const EmptyWidget();
+          }
 
           return SmartRefresher(
             controller: streamList.refreshController,
