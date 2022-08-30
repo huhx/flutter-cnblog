@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/instant/instant_edit_screen.dart';
 import 'package:flutter_cnblog/business/instant/my_instant_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
@@ -42,6 +43,10 @@ class InstantScreen extends StatelessWidget {
             InstantListScreen(InstantCategory.newComment),
             InstantListScreen(InstantCategory.following),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.goto(const InstantEditScreen()),
+          child: const Icon(Icons.edit),
         ),
       ),
     );

@@ -70,7 +70,7 @@ enum InstantFlag {
   const InstantFlag(this.value);
 }
 
-class InstantReq {
+class InstantReq extends Equatable {
   final String content;
   final InstantFlag instantFlag;
 
@@ -80,11 +80,11 @@ class InstantReq {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'content': content,
-      'publicFlag': instantFlag.value,
-    };
+    return {'content': content, 'publicFlag': instantFlag.value};
   }
+
+  @override
+  List<Object?> get props => [content, instantFlag];
 }
 
 class InstantDeleteReq {

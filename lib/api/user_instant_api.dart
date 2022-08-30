@@ -1,26 +1,42 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_cnblog/model/comment.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
-import 'package:retrofit/retrofit.dart';
 
-part 'user_instant_api.g.dart';
+class UserInstantApi {
+  static const String baseUrl = "https://ing.cnblogs.com/ajax";
 
-@RestApi(baseUrl: "https://ing.cnblogs.com")
-abstract class UserInstantApi {
-  factory UserInstantApi(Dio dio) = _UserInstantApi;
+  Future<InstantResp> postInstant(InstantReq request) async {
+    const String url = "$baseUrl/ing/Publish";
+    final FormData formData = FormData.fromMap(request.toJson());
+    final Response response = await RestClient.withCookie().post(url, data: formData);
 
-  @POST("/ajax/ing/Publish")
-  Future<InstantResp> postInstant(@Body() InstantReq request);
+    return InstantResp.fromJson(response.data);
+  }
 
-  @POST("/ajax/ing/del")
-  Future<String> deleteInstant(@Body() InstantDeleteReq request);
+  Future<String> deleteInstant(InstantDeleteReq request) async {
+    const String url = "$baseUrl/ing/del";
+    final FormData formData = FormData.fromMap(request.toJson());
+    final Response response = await RestClient.withCookie().post(url, data: formData);
+
+    return response.data;
+  }
 
 
-  @POST("/ajax/ing/PostComment")
-  Future<CommentResp> postInstantComment(@Body() InstantCommentReq request);
+  Future<CommentResp> postInstantComment(InstantCommentReq request) async {
+    const String url = "$baseUrl/ing/PostComment";
+    final FormData formData = FormData.fromMap(request.toJson());
+    final Response response = await RestClient.withCookie().post(url, data: formData);
 
-  @POST("/ajax/ing/DeleteComment")
-  Future<CommentResp> deleteInstantComment(@Body() InstantCommentDeleteReq request);
+    return CommentResp.fromJson(response.data);
+  }
+
+  Future<CommentResp> deleteInstantComment(InstantCommentDeleteReq request) async {
+    const String url = "$baseUrl/ing/DeleteComment";
+    final FormData formData = FormData.fromMap(request.toJson());
+    final Response response = await RestClient.withCookie().post(url, data: formData);
+
+    return CommentResp.fromJson(response.data);
+  }
 }
 
-final userInstantApi = UserInstantApi(RestClient.withCookie());
+final userInstantApi = UserInstantApi();
