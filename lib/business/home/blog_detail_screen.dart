@@ -68,7 +68,50 @@ class BlogDetailScreen extends HookConsumerWidget {
             },
             onPageCommitVisible: (controller, url) => isLoading.value = false,
           ),
-          Visibility(visible: isLoading.value, child: const CenterProgressIndicator())
+          Visibility(visible: isLoading.value, child: const CenterProgressIndicator()),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Theme.of(context).backgroundColor,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.edit, size: 15),
+                          SizedBox(width: 6),
+                          Text("输入评论", style: TextStyle(fontSize: 14)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => CommUtil.toBeDev(),
+                    icon: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                  ),
+                  IconButton(
+                    onPressed: () => CommUtil.toBeDev(),
+                    icon: const SvgIcon(name: "like", color: Colors.grey, size: 22),
+                  ),
+                  IconButton(
+                    onPressed: () => CommUtil.toBeDev(),
+                    icon: const SvgIcon(name: "content_bookmark", color: Colors.grey, size: 22),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
