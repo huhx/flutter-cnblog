@@ -88,7 +88,7 @@ class KnowledgeItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(knowledge.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              Text(knowledge.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
               const SizedBox(height: 6),
               Text(
                 knowledge.summary,
