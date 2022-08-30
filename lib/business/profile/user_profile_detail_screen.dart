@@ -7,6 +7,7 @@ import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
@@ -157,6 +158,10 @@ class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMi
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<UserProfileMoment> userMoments = snap.data as List<UserProfileMoment>;
+
+        if (userMoments.isEmpty) {
+          return const EmptyWidget();
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,

@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/user_bookmark_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/model/user.dart';
@@ -43,6 +44,10 @@ class _UserBookmarkContentState extends State<UserBookmarkContent> {
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<BookmarkInfo> bookmarks = snap.data as List<BookmarkInfo>;
+
+        if (bookmarks.isEmpty) {
+          return const EmptyWidget();
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,

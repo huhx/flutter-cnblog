@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_item.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -46,6 +47,9 @@ class _UserBlogContentState extends State<UserBlogContent> {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<UserBlog> blogs = snap.data as List<UserBlog>;
 
+        if (blogs.isEmpty) {
+          return const EmptyWidget();
+        }
         return SmartRefresher(
           controller: streamList.refreshController,
           onRefresh: () => streamList.onRefresh(),

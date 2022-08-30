@@ -6,6 +6,7 @@ import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
@@ -44,6 +45,10 @@ class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> with 
       builder: (context, snap) {
         if (!snap.hasData) return const CenterProgressIndicator();
         final List<RecommendBlogResp> blogs = snap.data as List<RecommendBlogResp>;
+
+        if (blogs.isEmpty) {
+          return const EmptyWidget();
+        }
 
         return SmartRefresher(
           controller: streamList.refreshController,
