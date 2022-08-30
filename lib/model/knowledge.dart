@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 
 import 'blog_share.dart';
 
@@ -34,5 +35,9 @@ class KnowledgeInfo extends Equatable {
 
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: urlString());
+  }
+
+  DetailModel toDetail() {
+    return DetailModel(id: id, title: title, url: urlString());
   }
 }

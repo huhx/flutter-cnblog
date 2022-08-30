@@ -14,7 +14,7 @@ class QuestionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(QuestionDetailScreen(question: question)),
+      onTap: () => context.goto(QuestionDetailScreen(question: question.toDetail())),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

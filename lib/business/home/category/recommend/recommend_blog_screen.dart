@@ -83,7 +83,7 @@ class BlogItem extends StatelessWidget {
       onTap: () async {
         final String encodeString = Uri.encodeComponent(blog.url);
         final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
-        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp()));
+        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp().toDetail()));
       },
       child: Card(
         child: Container(

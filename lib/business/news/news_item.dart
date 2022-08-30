@@ -23,7 +23,7 @@ class NewsItem extends ConsumerWidget {
         if (user == null) {
           await context.goto(const LoginScreen());
         }
-        context.goto(NewsDetailScreen(news));
+        context.goto(NewsDetailScreen(news.toDetail()));
       },
       child: Card(
         child: Container(

@@ -3,12 +3,12 @@ import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/model/question.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class QuestionDetailScreen extends HookWidget {
-  final QuestionInfo question;
+  final DetailModel question;
 
   const QuestionDetailScreen({super.key, required this.question});
 
@@ -25,7 +25,7 @@ class QuestionDetailScreen extends HookWidget {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(question.toHttps(), ContentType.question);
+              final String string = await htmlCssApi.injectCss(question.url, ContentType.question);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.question.host));
             },
             onPageCommitVisible: (controller, url) => isLoading.value = false,

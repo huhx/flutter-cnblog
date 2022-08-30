@@ -41,7 +41,7 @@ class BlogShareScreen extends HookConsumerWidget {
                     CommUtil.toBeDev();
                   } else {
                     isMark.value = true;
-                    await bookmarkApi.add(BookmarkRequest(wzLinkId: blog.id, url: blog.url, title: blog.title));
+                    await bookmarkApi.add(BookmarkRequest(wzLinkId: blog.id ?? 1, url: blog.url, title: blog.title));
                   }
                   context.pop();
                 },

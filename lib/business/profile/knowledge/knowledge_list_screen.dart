@@ -76,7 +76,7 @@ class KnowledgeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(KnowledgeDetailScreen(knowledge)),
+      onTap: () => context.goto(KnowledgeDetailScreen(knowledge.toDetail())),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),

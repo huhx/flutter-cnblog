@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
+import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_screen.dart';
+import 'package:flutter_cnblog/business/question/question_detail_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/search.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -77,7 +82,24 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => CommUtil.toBeDev(),
+      onTap: () {
+        final DetailModel detailModel = DetailModel(title: searchInfo.title, url: searchInfo.url, name: searchInfo.author);
+
+        switch (searchType) {
+          case SearchType.news:
+            context.goto(NewsDetailScreen(detailModel));
+            break;
+          case SearchType.blog:
+            context.goto(BlogDetailScreen(blog: detailModel));
+            break;
+          case SearchType.question:
+            context.goto(QuestionDetailScreen(question: detailModel));
+            break;
+          case SearchType.knowledge:
+            context.goto(KnowledgeDetailScreen(detailModel));
+            break;
+        }
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
@@ -124,9 +146,9 @@ class SearchItem extends StatelessWidget {
                           ),
                         if (searchInfo.viewCount != null)
                           Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: TextIcon(icon: "view", counts: searchInfo.viewCount!),
-                        )
+                            padding: const EdgeInsets.only(right: 8),
+                            child: TextIcon(icon: "view", counts: searchInfo.viewCount!),
+                          )
                       ],
                     ),
                     Text(searchInfo.postDate)

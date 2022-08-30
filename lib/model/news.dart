@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_cnblog/model/blog_share.dart';
+
+import 'detail_model.dart';
 
 class NewsInfo extends Equatable {
   final int id;
@@ -39,8 +40,8 @@ class NewsInfo extends Equatable {
     return "https://news.cnblogs.com$url";
   }
 
-  BlogShare toBlogShare() {
-    return BlogShare(id: id, title: title, url: toHttps(), name: submitter);
+  DetailModel toDetail() {
+    return DetailModel(id: id, title: title, url: toHttps(), name: submitter);
   }
 }
 

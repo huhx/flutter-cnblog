@@ -12,6 +12,7 @@ import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -24,7 +25,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'blog_share_screen.dart';
 
 class BlogDetailScreen extends HookConsumerWidget {
-  final BlogResp blog;
+  final DetailModel blog;
 
   const BlogDetailScreen({super.key, required this.blog});
 
@@ -45,7 +46,7 @@ class BlogDetailScreen extends HookConsumerWidget {
               if (user == null) {
                 await context.goto(const LoginScreen());
               }
-              final bool isMark = await bookmarkApi.isMark(blog.httpsUrl().toString());
+              final bool isMark = await bookmarkApi.isMark(blog.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
@@ -62,7 +63,7 @@ class BlogDetailScreen extends HookConsumerWidget {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(blog.toHttps(), ContentType.blog);
+              final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
             },
             onPageCommitVisible: (controller, url) => isLoading.value = false,
@@ -75,7 +76,7 @@ class BlogDetailScreen extends HookConsumerWidget {
 }
 
 class AppBarTitle extends StatelessWidget {
-  final BlogResp blog;
+  final DetailModel blog;
 
   const AppBarTitle(this.blog, {Key? key}) : super(key: key);
 
@@ -84,11 +85,11 @@ class AppBarTitle extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          child: CircleImage(url: blog.avatar, size: 28),
+          child: CircleImage(url: blog.avatar ?? "", size: 28),
           onTap: () => CommUtil.toBeDev(),
         ),
         const SizedBox(width: 6),
-        Text(blog.author, style: const TextStyle(fontSize: 14)),
+        Text(blog.name!, style: const TextStyle(fontSize: 14)),
       ],
     );
   }

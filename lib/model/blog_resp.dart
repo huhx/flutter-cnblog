@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'blog_share.dart';
@@ -46,8 +47,12 @@ class BlogResp extends Equatable {
   @override
   List<Object?> get props => [id, title, url, description, author, blogApp, avatar, postDate, viewCount, commentCount, diggCount];
 
+  DetailModel toDetail() {
+    return DetailModel(id: id, title: title, url: toHttps(), name: author);
+  }
+
   BlogShare toBlogShare() {
-    return BlogShare(id: id, title: title, url: url, name: author);
+    return BlogShare(id: id, title: title, url: toHttps(), name: author);
   }
 }
 

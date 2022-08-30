@@ -8,14 +8,14 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
-import 'package:flutter_cnblog/model/knowledge.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class KnowledgeDetailScreen extends HookWidget {
-  final KnowledgeInfo knowledge;
+  final DetailModel knowledge;
 
   const KnowledgeDetailScreen(this.knowledge, {super.key});
 
@@ -31,7 +31,7 @@ class KnowledgeDetailScreen extends HookWidget {
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () async {
-              final bool isMark = await bookmarkApi.isMark(knowledge.urlString());
+              final bool isMark = await bookmarkApi.isMark(knowledge.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
@@ -48,7 +48,7 @@ class KnowledgeDetailScreen extends HookWidget {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(knowledge.urlString(), ContentType.knowledge);
+              final String string = await htmlCssApi.injectCss(knowledge.url, ContentType.knowledge);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.knowledge.host));
             },
             onPageCommitVisible: (controller, url) => isLoading.value = false,
