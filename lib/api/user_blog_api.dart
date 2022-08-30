@@ -6,12 +6,53 @@ import 'package:flutter_cnblog/common/parser/user_blog_parser.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
+import 'package:flutter_cnblog/util/dio_util.dart';
 
 class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
     final String url = "https://www.cnblogs.com/$name/default.html?page=$pageKey";
     final Response response = await Dio().get(url);
     return compute(UserBlogParser.parseUserBlogList, response.data as String);
+  }
+
+  Future<BlogDiggResp> diggBlog(String forgeryToken, String blogName, BlogDiggReq request) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/vote/blogpost";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      data: request.toJson(),
+    );
+    return BlogDiggResp.fromJson(response.data);
+  }
+
+  Future<BlogCommentResp> addComment(String forgeryToken, String blogName, BlogCommentReq request) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Add.aspx";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      data: request.toJson(),
+    );
+    return BlogCommentResp.fromJson(response.data);
+  }
+
+  Future<bool> updateComment(String forgeryToken, String blogName, BlogCommentUpdateReq request) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      data: request.toJson(),
+    );
+    return response.data as bool;
+  }
+
+  Future<BlogDiggResp> deleteComment(String forgeryToken, String blogName, BlogCommentDeleteReq request) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
+    final Response response = await RestClient.withCookie().post(
+      url,
+      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      data: request.toJson(),
+    );
+    return BlogDiggResp.fromJson(response.data);
   }
 
   Future<List<BlogResp>> getBlogs(BlogCategory category, int pageKey) async {
