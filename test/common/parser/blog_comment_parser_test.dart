@@ -95,6 +95,7 @@ void main() {
         author: "some-body",
         homeUrl: "https://home.cnblogs.com/u/797377/",
         diggCount: 2,
+        isMe: false,
         buryCount: 0,
         postDate: "2022-08-29 15:30",
       ),
@@ -109,8 +110,69 @@ void main() {
         author: "一二三。",
         homeUrl: "https://home.cnblogs.com/u/2961804/",
         diggCount: 0,
+        isMe: false,
         buryCount: 0,
         postDate: "2022-08-31 15:39",
+      ),
+    );
+  });
+
+
+  test("should return blog comment list and comment by current user", () {
+    const String string = '''
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                <span class="comment_actions">
+                    <a href="javascript:void(0);" onclick="return GetCommentBody(5096437)">
+                        修改
+                    </a>
+                    <a href="javascript:void(0);" onclick="return DelComment(5096437, this,'16640741')">
+                        删除
+                    </a>
+                </span>
+            </div>
+            <a href="#5096437" class="layer">#1楼</a>
+            <a name="5096437" id="comment_anchor_5096437"></a>
+            <span class="comment_date">2022-08-31 15:07</span>
+            <a id="a_comment_author_5096437" href="https://www.cnblogs.com/huhx/" target="_blank">huhx</a>
+            <div class="feedbackCon">
+                <div id="comment_body_5096437" data-format-type="Markdown" class="blog_comment_body cnblogs-markdown">
+                    <p>666</p>
+                </div>
+                <div class="comment_vote">
+                    <span class="comment_error" style="color: red"></span>
+                    <a href="javascript:void(0);" class="comment_digg"
+                        onclick="return voteComment(5096437, 'Digg', this.parentElement, false);">
+                        支持(0)
+                    </a>
+                    <a href="javascript:void(0);" class="comment_burry"
+                        onclick="return voteComment(5096437, 'Bury', this.parentElement, false);">
+                        反对(0)
+                    </a>
+                </div>
+                <span id="comment_5096437_avatar" style="display:none">
+                    https://pic.cnblogs.com/face/849920/20170517210033.png
+                </span>
+            </div>
+        </div>
+    </div>
+   ''';
+
+    final List<BlogComment> comments = BlogCommentParser.parseBlogCommentList(string);
+
+    expect(comments.length, 1);
+    expect(
+      comments[0],
+      const BlogComment(
+        id: 5096437,
+        content: "<p>666</p>",
+        isMe: true,
+        author: "huhx",
+        homeUrl: "https://www.cnblogs.com/huhx/",
+        diggCount: 0,
+        buryCount: 0,
+        postDate: "2022-08-31 15:07",
       ),
     );
   });

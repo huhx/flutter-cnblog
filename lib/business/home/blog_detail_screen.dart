@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
+import 'package:flutter_cnblog/business/home/blog_comment_list_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
@@ -141,7 +142,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                           : Row(
                               children: [
                                 IconButton(
-                                  onPressed: () => CommUtil.toBeDev(),
+                                  onPressed: () => context.goto(BlogCommentListScreen(blog, detailInfo.value.commentCounts)),
                                   icon: Badge(
                                     padding: const EdgeInsets.all(5),
                                     badgeContent: Text(

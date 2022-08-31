@@ -40,8 +40,9 @@ class UserBlog extends Equatable {
 class BlogComment extends Equatable {
   final int id;
   final String content;
-  final String replyToken;
+  final String? replyToken;
   final String author;
+  final bool isMe;
   final String homeUrl;
   final int diggCount;
   final int buryCount;
@@ -50,8 +51,9 @@ class BlogComment extends Equatable {
   const BlogComment({
     required this.id,
     required this.content,
-    required this.replyToken,
+    this.replyToken,
     required this.author,
+    required this.isMe,
     required this.homeUrl,
     required this.diggCount,
     required this.buryCount,
@@ -59,11 +61,7 @@ class BlogComment extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, content, replyToken, author, homeUrl, diggCount, buryCount, postDate];
-
-  BlogShare toBlogShare() {
-    return BlogShare(id: id, title: content, url: replyToken, name: author);
-  }
+  List<Object?> get props => [id, content, isMe, replyToken, author, homeUrl, diggCount, buryCount, postDate];
 }
 
 class BlogDataInfo extends Equatable {
