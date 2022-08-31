@@ -140,12 +140,12 @@ class BlogCommentDeleteReq extends Equatable {
 class BlogCommentResp extends Equatable {
   final bool isSuccess;
   final String message;
-  final String duration;
+  final String? duration;
 
   const BlogCommentResp({
     required this.isSuccess,
     required this.message,
-    required this.duration,
+    this.duration,
   });
 
   @override
@@ -153,9 +153,9 @@ class BlogCommentResp extends Equatable {
 
   factory BlogCommentResp.fromJson(Map<String, dynamic> json) {
     return BlogCommentResp(
-      isSuccess: json['IsSucceed'] as bool,
+      isSuccess: json['isSuccess'] as bool,
       message: json['message'] as String,
-      duration: json['duration'] as String,
+      duration: json['duration'] as String?,
     );
   }
 }

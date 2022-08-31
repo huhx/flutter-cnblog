@@ -7,6 +7,7 @@ class DetailModel extends Equatable {
   final String title;
   final String url;
   final String? name;
+  final String? blogName;
   final String? avatar;
 
   const DetailModel({
@@ -14,6 +15,7 @@ class DetailModel extends Equatable {
     required this.title,
     required this.url,
     this.name,
+    this.blogName,
     this.avatar,
   });
 
@@ -22,5 +24,5 @@ class DetailModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title, url, name];
+  List<Object?> get props => [id, title, url, name, blogName];
 }

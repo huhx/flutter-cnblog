@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
+import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user.dart';
+import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -27,12 +29,16 @@ import 'blog_share_screen.dart';
 class BlogDetailScreen extends HookConsumerWidget {
   final DetailModel blog;
 
-  const BlogDetailScreen({super.key, required this.blog});
+  final TextEditingController editingController = TextEditingController();
+
+  BlogDetailScreen({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
+
+    final buttonEnable = useState(false);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,34 +89,61 @@ class BlogDetailScreen extends HookConsumerWidget {
                     children: [
                       Expanded(
                         child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.2),
-                            borderRadius: const BorderRadius.all(Radius.circular(16)),
-                          ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.edit, size: 15),
-                              SizedBox(width: 6),
-                              Text("输入评论", style: TextStyle(fontSize: 14)),
-                            ],
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          child: TextFormField(
+                            controller: editingController,
+                            style: Theme.of(context).textTheme.bodyText2,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 6,
+                            minLines: 1,
+                            onChanged: (value) => buttonEnable.value = value.isNotEmpty,
+                            decoration: InputDecoration(
+                              hintText: "输入评论",
+                              hintStyle: const TextStyle(fontSize: 14),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.grey.withOpacity(0.2),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                              border: outlineInputBorder,
+                              focusedBorder: outlineInputBorder,
+                              enabledBorder: outlineInputBorder,
+                            ),
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () => CommUtil.toBeDev(),
-                        icon: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
-                      ),
-                      IconButton(
-                        onPressed: () => CommUtil.toBeDev(),
-                        icon: const SvgIcon(name: "like", color: Colors.grey, size: 22),
-                      ),
-                      IconButton(
-                        onPressed: () => CommUtil.toBeDev(),
-                        icon: const SvgIcon(name: "content_bookmark", color: Colors.grey, size: 22),
-                      ),
+                      buttonEnable.value
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                              onPressed: () async {
+                                final BlogCommentReq request =
+                                    BlogCommentReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
+                                final BlogCommentResp resp = await userBlogApi.addComment(blog.blogName!, request);
+                                if (resp.isSuccess) {
+                                  editingController.clear();
+                                  buttonEnable.value = false;
+                                  CommUtil.toast(message: "评论成功!");
+                                } else {
+                                  CommUtil.toast(message: resp.message);
+                                }
+                              },
+                              child: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('发送')),
+                            )
+                          : Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () => CommUtil.toBeDev(),
+                                  icon: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                                ),
+                                IconButton(
+                                  onPressed: () => CommUtil.toBeDev(),
+                                  icon: const SvgIcon(name: "like", color: Colors.grey, size: 22),
+                                ),
+                                IconButton(
+                                  onPressed: () => CommUtil.toBeDev(),
+                                  icon: const SvgIcon(name: "content_bookmark", color: Colors.grey, size: 22),
+                                ),
+                              ],
+                            )
                     ],
                   ),
                 ),

@@ -23,12 +23,28 @@ class PrefsUtil {
     return jsonString == null ? null : User.fromJson(json.decode(jsonString));
   }
 
+  static Future<void> saveForgeryToken(String value) async {
+    await prefs.setString("forgeryToken", value);
+  }
+
+  static String? getForgeryToken() {
+    return prefs.getString("forgeryToken");
+  }
+
   static Future<void> saveCookie(String cookie) async {
     await prefs.setString(cookieKey, cookie);
   }
 
   static String? getCookie() {
     return prefs.getString(cookieKey);
+  }
+
+  static Future<void> saveForgeryCookie(String cookie) async {
+    await prefs.setString("forgeryCookie", cookie);
+  }
+
+  static String? getForgeryCookie() {
+    return prefs.getString("forgeryCookie");
   }
 
   static void setStartTime(int timestamp) async {

@@ -7,6 +7,7 @@ import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
+import 'package:flutter_cnblog/util/prefs_util.dart';
 
 class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
@@ -15,41 +16,41 @@ class UserBlogApi {
     return compute(UserBlogParser.parseUserBlogList, response.data as String);
   }
 
-  Future<BlogDiggResp> diggBlog(String forgeryToken, String blogName, BlogDiggReq request) async {
+  Future<BlogDiggResp> diggBlog(String blogName, BlogDiggReq request) async {
     final String url = "https://www.cnblogs.com/$blogName/ajax/vote/blogpost";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
     );
     return BlogDiggResp.fromJson(response.data);
   }
 
-  Future<BlogCommentResp> addComment(String forgeryToken, String blogName, BlogCommentReq request) async {
+  Future<BlogCommentResp> addComment(String blogName, BlogCommentReq request) async {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Add.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
     );
     return BlogCommentResp.fromJson(response.data);
   }
 
-  Future<bool> updateComment(String forgeryToken, String blogName, BlogCommentUpdateReq request) async {
+  Future<bool> updateComment(String blogName, BlogCommentUpdateReq request) async {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
     );
     return response.data as bool;
   }
 
-  Future<BlogDiggResp> deleteComment(String forgeryToken, String blogName, BlogCommentDeleteReq request) async {
+  Future<BlogDiggResp> deleteComment(String blogName, BlogCommentDeleteReq request) async {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": forgeryToken}),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
     );
     return BlogDiggResp.fromJson(response.data);
