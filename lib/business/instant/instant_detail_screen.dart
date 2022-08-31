@@ -7,6 +7,7 @@ import 'package:flutter_cnblog/model/comment.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 import 'package:flutter_cnblog/model/instant_comment.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
+import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -138,8 +139,9 @@ class CommentWidget extends HookWidget {
   final int parentCommentId;
   final FocusNode focusNode;
   final String value;
+  final TextEditingController editingController = TextEditingController();
 
-  const CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, {Key? key}) : super(key: key);
+  CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +160,7 @@ class CommentWidget extends HookWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 child: TextFormField(
+                  controller: editingController,
                   focusNode: focusNode,
                   style: Theme.of(context).textTheme.bodyText2,
                   keyboardType: TextInputType.multiline,
@@ -189,7 +192,14 @@ class CommentWidget extends HookWidget {
                         ingId: instant.id,
                         parentCommentId: parentCommentId,
                       );
-                      await userInstantApi.postInstantComment(request);
+                      final CommentResp result = await userInstantApi.postInstantComment(request);
+                      if (result.isSuccess) {
+                        editingController.clear();
+                        content.value = "";
+                        CommUtil.toast(message: "发送成功！");
+                      } else {
+                        CommUtil.toast(message: result.message);
+                      }
                     },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12),
