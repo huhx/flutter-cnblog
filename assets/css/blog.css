@@ -28,8 +28,8 @@ div#main {
   display: none;
 }
 
-#footer {
-  display: none;
+div#footer {
+  display: none !important;
 }
 
 #blog_post_info_block {
@@ -84,4 +84,9 @@ div#main {
 
 div.footer {
   display: none;
+}
+
+/* xbhog */
+div#main {
+  grid-template-rows: 40px 1fr 0px;
 }
