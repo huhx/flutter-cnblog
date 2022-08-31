@@ -37,6 +37,35 @@ class UserBlog extends Equatable {
   }
 }
 
+class BlogComment extends Equatable {
+  final int id;
+  final String content;
+  final String replyToken;
+  final String author;
+  final String homeUrl;
+  final int diggCount;
+  final int buryCount;
+  final String postDate;
+
+  const BlogComment({
+    required this.id,
+    required this.content,
+    required this.replyToken,
+    required this.author,
+    required this.homeUrl,
+    required this.diggCount,
+    required this.buryCount,
+    required this.postDate,
+  });
+
+  @override
+  List<Object?> get props => [id, content, replyToken, author, homeUrl, diggCount, buryCount, postDate];
+
+  BlogShare toBlogShare() {
+    return BlogShare(id: id, title: content, url: replyToken, name: author);
+  }
+}
+
 class BlogDataInfo extends Equatable {
   final int blogCount;
   final int articleCount;
@@ -84,10 +113,31 @@ class BlogDiggReq extends Equatable {
 
 class BlogCommentReq extends Equatable {
   final int postId;
+  final int pageIndex;
+  final int anchorCommentId;
+  final bool isDesc;
+
+  const BlogCommentReq({
+    required this.postId,
+    required this.pageIndex,
+    this.anchorCommentId = 0,
+    this.isDesc = false,
+  });
+
+  @override
+  List<Object?> get props => [postId, pageIndex, anchorCommentId, isDesc];
+
+  Map<String, dynamic> toJson() {
+    return {"postId": postId, "pageIndex": pageIndex, "parentCommentId": anchorCommentId, "isDesc": isDesc};
+  }
+}
+
+class BlogCommentCreateReq extends Equatable {
+  final int postId;
   final String body;
   final int parentCommentId;
 
-  const BlogCommentReq({
+  const BlogCommentCreateReq({
     required this.postId,
     required this.body,
     required this.parentCommentId,
@@ -137,12 +187,12 @@ class BlogCommentDeleteReq extends Equatable {
   }
 }
 
-class BlogCommentResp extends Equatable {
+class BlogCommentCreateResp extends Equatable {
   final bool isSuccess;
   final String message;
   final String? duration;
 
-  const BlogCommentResp({
+  const BlogCommentCreateResp({
     required this.isSuccess,
     required this.message,
     this.duration,
@@ -151,8 +201,8 @@ class BlogCommentResp extends Equatable {
   @override
   List<Object?> get props => [isSuccess, message, duration];
 
-  factory BlogCommentResp.fromJson(Map<String, dynamic> json) {
-    return BlogCommentResp(
+  factory BlogCommentCreateResp.fromJson(Map<String, dynamic> json) {
+    return BlogCommentCreateResp(
       isSuccess: json['isSuccess'] as bool,
       message: json['message'] as String,
       duration: json['duration'] as String?,
@@ -183,5 +233,30 @@ class BlogDiggResp extends Equatable {
       message: json['message'] as String,
       data: json['data'] as String?,
     );
+  }
+}
+
+class BlogDetailInfo extends Equatable {
+  final int commentCounts;
+  final bool isFollow;
+  final bool isMark;
+  final bool isDark;
+  final bool isDigg;
+  final int diggCounts;
+
+  const BlogDetailInfo({
+    required this.commentCounts,
+    required this.isFollow,
+    required this.isMark,
+    required this.isDark,
+    required this.isDigg,
+    required this.diggCounts,
+  });
+
+  @override
+  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, diggCounts];
+
+  static BlogDetailInfo empty() {
+    return const BlogDetailInfo(isDark: false, isFollow: false, isMark: false, commentCounts: 0, isDigg: false, diggCounts: 0);
   }
 }

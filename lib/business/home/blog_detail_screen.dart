@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
+import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -35,8 +37,8 @@ class BlogDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
-
     final buttonEnable = useState(false);
+    final detailInfo = useState<BlogDetailInfo>(BlogDetailInfo.empty());
 
     return Scaffold(
       appBar: AppBar(
@@ -71,6 +73,16 @@ class BlogDetailScreen extends HookConsumerWidget {
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
+
+                    final int commentCounts = await userBlogApi.queryCommentCounts(blog.blogName!, blog.id!);
+                    detailInfo.value = BlogDetailInfo(
+                      commentCounts: commentCounts,
+                      isFollow: false,
+                      isMark: false,
+                      isDark: false,
+                      isDigg: false,
+                      diggCounts: 0,
+                    );
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
@@ -113,9 +125,9 @@ class BlogDetailScreen extends HookConsumerWidget {
                           ? ElevatedButton(
                               style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                               onPressed: () async {
-                                final BlogCommentReq request =
-                                    BlogCommentReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
-                                final BlogCommentResp resp = await userBlogApi.addComment(blog.blogName!, request);
+                                final BlogCommentCreateReq request =
+                                    BlogCommentCreateReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
+                                final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
                                 if (resp.isSuccess) {
                                   editingController.clear();
                                   buttonEnable.value = false;
@@ -130,11 +142,26 @@ class BlogDetailScreen extends HookConsumerWidget {
                               children: [
                                 IconButton(
                                   onPressed: () => CommUtil.toBeDev(),
-                                  icon: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                                  icon: Badge(
+                                    padding: const EdgeInsets.all(5),
+                                    badgeContent: Text(
+                                      "${detailInfo.value.commentCounts}",
+                                      style: const TextStyle(fontSize: 9),
+                                    ),
+                                    child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                                  ),
                                 ),
                                 IconButton(
                                   onPressed: () => CommUtil.toBeDev(),
-                                  icon: const SvgIcon(name: "like", color: Colors.grey, size: 22),
+                                  icon: Badge(
+                                    badgeColor: Colors.blueAccent,
+                                    padding: const EdgeInsets.all(5),
+                                    badgeContent: Text(
+                                      "${detailInfo.value.diggCounts}",
+                                      style: const TextStyle(fontSize: 9),
+                                    ),
+                                    child: SvgIcon(name: "like", color: detailInfo.value.isDigg ? themeColor : Colors.grey, size: 22),
+                                  ),
                                 ),
                                 IconButton(
                                   onPressed: () => CommUtil.toBeDev(),
