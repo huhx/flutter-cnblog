@@ -37,7 +37,7 @@ class InstantCommentParser {
       fromUrl: fromUrl,
       toName: toElement.getText(),
       toUrl: toElement.attributes['href']!,
-      content: contentElement.getLastNodeText(),
+      content: contentElement.innerHtml,
       postDate: timeElement.getText(),
     );
   }
