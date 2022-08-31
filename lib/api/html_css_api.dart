@@ -17,7 +17,7 @@ class HtmlCssApi {
     await PrefsUtil.saveForgeryCookie(response.headers['set-cookie']?.first ?? "");
 
     final Document document = parse(htmlCss.html);
-    final String forgeryToken = document.getElementById("antiforgery_token")!.attributes['value']!;
+    final String? forgeryToken = document.getElementById("antiforgery_token")?.attributes['value']!;
     await PrefsUtil.saveForgeryToken(forgeryToken);
 
     return compute(HtmlCssInjector.inject, htmlCss);

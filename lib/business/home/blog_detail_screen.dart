@@ -11,7 +11,6 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
-import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user.dart';
@@ -22,7 +21,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 import 'blog_share_screen.dart';
 
@@ -103,7 +101,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                               isDense: true,
                               filled: true,
                               fillColor: Colors.grey.withOpacity(0.2),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                               border: outlineInputBorder,
                               focusedBorder: outlineInputBorder,
                               enabledBorder: outlineInputBorder,
@@ -140,7 +138,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                                 ),
                                 IconButton(
                                   onPressed: () => CommUtil.toBeDev(),
-                                  icon: const SvgIcon(name: "content_bookmark", color: Colors.grey, size: 22),
+                                  icon: const SvgIcon(name: "dislike", color: Colors.grey, size: 22),
                                 ),
                               ],
                             )
@@ -173,120 +171,6 @@ class AppBarTitle extends StatelessWidget {
         const SizedBox(width: 6),
         Text(blog.name!, style: const TextStyle(fontSize: 14)),
       ],
-    );
-  }
-}
-
-class BlogHeader extends StatelessWidget {
-  final BlogResp blog;
-
-  const BlogHeader({Key? key, required this.blog}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            blog.title,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleImage(url: blog.avatar, size: 36),
-                  const SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(blog.author),
-                      const SizedBox(height: 4),
-                      Text(
-                        "${timeago.format(blog.postDate)}  阅读 ${blog.viewCount}",
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(minimumSize: const Size(30, 24)),
-                onPressed: () => CommUtil.toBeDev(),
-                icon: const SvgIcon(name: "add", color: Colors.white, size: 10),
-                label: const Text("关注", style: TextStyle(fontSize: 10)),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class BlogFooter extends StatefulWidget {
-  final BlogResp blog;
-
-  const BlogFooter({Key? key, required this.blog}) : super(key: key);
-
-  @override
-  State<BlogFooter> createState() => _BlogFooterState();
-}
-
-class _BlogFooterState extends State<BlogFooter> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 3,
-            child: TextFormField(decoration: const InputDecoration(hintText: "输入评论...")),
-          ),
-          const SizedBox(width: 20),
-          Flexible(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BlogIconButton(name: "comment", onPressed: () => CommUtil.toBeDev()),
-                BlogIconButton(name: "comment", onPressed: () => CommUtil.toBeDev()),
-                BlogIconButton(name: "like", onPressed: () => CommUtil.toBeDev()),
-                BlogIconButton(name: "star", onPressed: () => CommUtil.toBeDev())
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BlogIconButton extends StatelessWidget {
-  final String name;
-  final VoidCallback onPressed;
-
-  const BlogIconButton({super.key, required this.name, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 20,
-      width: 20,
-      child: IconButton(
-        onPressed: onPressed,
-        padding: EdgeInsets.zero,
-        icon: SvgIcon(name: name, size: 18),
-      ),
     );
   }
 }

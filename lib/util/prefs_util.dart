@@ -23,8 +23,10 @@ class PrefsUtil {
     return jsonString == null ? null : User.fromJson(json.decode(jsonString));
   }
 
-  static Future<void> saveForgeryToken(String value) async {
-    await prefs.setString("forgeryToken", value);
+  static Future<void> saveForgeryToken(String? value) async {
+    if (value != null) {
+      await prefs.setString("forgeryToken", value);
+    }
   }
 
   static String? getForgeryToken() {

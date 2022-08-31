@@ -170,7 +170,7 @@ class CommentWidget extends HookWidget {
                     isDense: true,
                     filled: true,
                     fillColor: Colors.grey.withOpacity(0.2),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                     border: outlineInputBorder,
                     focusedBorder: outlineInputBorder,
                     enabledBorder: outlineInputBorder,
