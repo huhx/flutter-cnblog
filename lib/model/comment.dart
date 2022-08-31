@@ -19,7 +19,7 @@ class CommentResp extends Equatable {
   factory CommentResp.fromJson(Map<String, dynamic> json) {
     return CommentResp(
       id: json['id'] as int,
-      isSuccess: json['IsSucceed'] as bool,
+      isSuccess: json['isSuccess'] as bool,
       message: json['message'] as String,
       data: json['data'] as String?,
     );
@@ -30,13 +30,11 @@ class InstantCommentReq {
   final String content;
   final int ingId;
   final int parentCommentId;
-  final int replyToUserId;
 
   const InstantCommentReq({
     required this.content,
     required this.ingId,
     required this.parentCommentId,
-    required this.replyToUserId,
   });
 
   Map<String, dynamic> toJson() {
@@ -44,7 +42,6 @@ class InstantCommentReq {
       'Content': content,
       'IngId': ingId,
       'ParentCommentId': parentCommentId,
-      'ReplyToUserId': replyToUserId,
     };
   }
 }
@@ -62,7 +59,7 @@ class InstantCommentDeleteReq {
 }
 
 enum InstantFlag {
-  public(0),
+  public(1),
   private(0);
 
   final int value;

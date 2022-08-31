@@ -1,28 +1,34 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'instant_comment.g.dart';
 
-@JsonSerializable(createToJson: false, fieldRename: FieldRename.pascal)
-class InstantComment {
+@JsonSerializable(createToJson: false)
+class InstantComment extends Equatable {
   final int id;
+  final int replyId;
+  final int paneId;
+  final String? fromName;
+  final String? fromUrl;
+  final String toName;
+  final String toUrl;
   final String content;
-  final int statusId;
-  final String userAlias;
-  final String userDisplayName;
-  final String userIconUrl;
-  final int userId;
-  final DateTime dateAdded;
+  final String postDate;
 
-  InstantComment({
+  const InstantComment({
     required this.id,
+    required this.replyId,
+    required this.paneId,
+    this.fromName,
+    this.fromUrl,
+    required this.toName,
+    required this.toUrl,
     required this.content,
-    required this.statusId,
-    required this.userAlias,
-    required this.userDisplayName,
-    required this.userIconUrl,
-    required this.userId,
-    required this.dateAdded,
+    required this.postDate,
   });
 
   factory InstantComment.fromJson(Map<String, dynamic> json) => _$InstantCommentFromJson(json);
+
+  @override
+  List<Object?> get props => [id, replyId, paneId, fromName, fromUrl, toName, toUrl, content, postDate];
 }

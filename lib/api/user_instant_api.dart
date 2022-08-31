@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart' hide Headers;
+import 'package:flutter/foundation.dart';
+import 'package:flutter_cnblog/common/parser/instant_comment_parser.dart';
 import 'package:flutter_cnblog/model/comment.dart';
+import 'package:flutter_cnblog/model/instant_comment.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 
 class UserInstantApi {
@@ -21,11 +24,16 @@ class UserInstantApi {
     return response.data;
   }
 
+  Future<List<InstantComment>> getInstantComments(int instantId) async {
+    final String url = "$baseUrl/ing/SingleIngComments?ingId=$instantId";
+    final Response response = await RestClient.withCookie().get(url);
+
+    return compute(InstantCommentParser.parseInstantCommentList, response.data as String);
+  }
 
   Future<CommentResp> postInstantComment(InstantCommentReq request) async {
     const String url = "$baseUrl/ing/PostComment";
-    final FormData formData = FormData.fromMap(request.toJson());
-    final Response response = await RestClient.withCookie().post(url, data: formData);
+    final Response response = await RestClient.withCookie().post(url, data: request.toJson());
 
     return CommentResp.fromJson(response.data);
   }
