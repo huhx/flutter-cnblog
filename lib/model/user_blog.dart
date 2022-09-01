@@ -240,6 +240,7 @@ class BlogDetailInfo extends Equatable {
   final bool isMark;
   final bool isDark;
   final bool isDigg;
+  final bool isBury;
   final int diggCounts;
   final int buryCounts;
 
@@ -249,12 +250,13 @@ class BlogDetailInfo extends Equatable {
     required this.isMark,
     required this.isDark,
     required this.isDigg,
+    required this.isBury,
     required this.diggCounts,
     required this.buryCounts,
   });
 
   @override
-  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, diggCounts, buryCounts];
+  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, isBury, diggCounts, buryCounts];
 
   static BlogDetailInfo empty() {
     return const BlogDetailInfo(
@@ -263,6 +265,7 @@ class BlogDetailInfo extends Equatable {
       isMark: false,
       commentCounts: 0,
       isDigg: false,
+      isBury: false,
       diggCounts: 0,
       buryCounts: 0,
     );
@@ -294,6 +297,32 @@ class BlogStat extends Equatable {
       commentCount: json['feedbackCount'] as int,
       diggCount: json['diggCount'] as int,
       buryCount: json['buryCount'] as int,
+    );
+  }
+}
+
+class BlogPostInfo extends Equatable {
+  final int followingCount;
+  final int followerCount;
+  final bool isDigg;
+  final bool isBury;
+
+  const BlogPostInfo({
+    required this.followingCount,
+    required this.followerCount,
+    required this.isDigg,
+    required this.isBury,
+  });
+
+  @override
+  List<Object?> get props => [followingCount, followerCount, isDigg, isBury];
+
+  factory BlogPostInfo.fromJson(Map<String, dynamic> json) {
+    return BlogPostInfo(
+      followingCount: json['followingCount'] as int,
+      followerCount: json['followerCount'] as int,
+      isDigg: json['isDigg'] as bool,
+      isBury: json['isBury'] as bool,
     );
   }
 }

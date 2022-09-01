@@ -78,8 +78,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
                     final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
                     final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
+                    final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
 
                     final BlogStat blogStat = await userBlogApi.getBlogPostStat(blog.blogName!, postId);
+                    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, blogId, postId, userId);
                     final bool isMark = await bookmarkApi.isMark(blog.url);
                     final bool isFollow = await userFollowApi.isFollow(userId);
 
@@ -88,7 +90,8 @@ class BlogDetailScreen extends HookConsumerWidget {
                       isFollow: isFollow,
                       isMark: isMark,
                       isDark: context.isDarkMode(),
-                      isDigg: false,
+                      isDigg: blogPostInfo.isDigg,
+                      isBury: blogPostInfo.isBury,
                       diggCounts: blogStat.diggCount,
                       buryCounts: blogStat.buryCount,
                     );
@@ -130,54 +133,63 @@ class BlogDetailScreen extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      buttonEnable.value
-                          ? ElevatedButton(
-                              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                              onPressed: () async {
-                                final BlogCommentCreateReq request =
-                                    BlogCommentCreateReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
-                                final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
-                                if (resp.isSuccess) {
-                                  editingController.clear();
-                                  buttonEnable.value = false;
-                                  CommUtil.toast(message: "评论成功!");
-                                } else {
-                                  CommUtil.toast(message: resp.message);
-                                }
-                              },
-                              child: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('发送')),
-                            )
-                          : Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () => context.goto(BlogCommentListScreen(blog, detailInfo.value.commentCounts)),
-                                  icon: Badge(
-                                    padding: const EdgeInsets.all(5),
-                                    badgeContent: Text(
-                                      "${detailInfo.value.commentCounts}",
-                                      style: const TextStyle(fontSize: 9),
-                                    ),
-                                    child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
-                                  ),
+                      if (buttonEnable.value)
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                          onPressed: () async {
+                            final BlogCommentCreateReq request =
+                                BlogCommentCreateReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
+                            final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
+                            if (resp.isSuccess) {
+                              editingController.clear();
+                              buttonEnable.value = false;
+                              CommUtil.toast(message: "评论成功!");
+                            } else {
+                              CommUtil.toast(message: resp.message);
+                            }
+                          },
+                          child: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('发送')),
+                        )
+                      else
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => context.goto(BlogCommentListScreen(blog, detailInfo.value.commentCounts)),
+                              icon: Badge(
+                                padding: const EdgeInsets.all(5),
+                                badgeContent: Text(
+                                  "${detailInfo.value.commentCounts}",
+                                  style: const TextStyle(fontSize: 9),
                                 ),
-                                IconButton(
-                                  onPressed: () => CommUtil.toBeDev(),
-                                  icon: Badge(
-                                    badgeColor: Colors.blueAccent,
-                                    padding: const EdgeInsets.all(5),
-                                    badgeContent: Text(
-                                      "${detailInfo.value.diggCounts}",
-                                      style: const TextStyle(fontSize: 9),
-                                    ),
-                                    child: SvgIcon(name: "like", color: detailInfo.value.isDigg ? themeColor : Colors.grey, size: 22),
-                                  ),
+                                child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => CommUtil.toBeDev(),
+                              icon: Badge(
+                                badgeColor: Colors.blueAccent,
+                                padding: const EdgeInsets.all(5),
+                                badgeContent: Text(
+                                  "${detailInfo.value.diggCounts}",
+                                  style: const TextStyle(fontSize: 9),
                                 ),
-                                IconButton(
-                                  onPressed: () => CommUtil.toBeDev(),
-                                  icon: const SvgIcon(name: "dislike", color: Colors.grey, size: 22),
+                                child: SvgIcon(name: "like", color: detailInfo.value.isDigg ? themeColor : Colors.grey, size: 22),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => CommUtil.toBeDev(),
+                              icon: Badge(
+                                badgeColor: Colors.pinkAccent,
+                                padding: const EdgeInsets.all(5),
+                                badgeContent: Text(
+                                  "${detailInfo.value.buryCounts}",
+                                  style: const TextStyle(fontSize: 9),
                                 ),
-                              ],
-                            )
+                                child: SvgIcon(name: "dislike", color: detailInfo.value.isBury ? themeColor : Colors.grey, size: 22),
+                              ),
+                            ),
+                          ],
+                        )
                     ],
                   ),
                 ),

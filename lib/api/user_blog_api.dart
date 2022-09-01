@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/common/parser/blog_comment_parser.dart';
+import 'package:flutter_cnblog/common/parser/blog_post_parser.dart';
 import 'package:flutter_cnblog/common/parser/candidate_parser.dart';
 import 'package:flutter_cnblog/common/parser/user_blog_parser.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
@@ -15,6 +16,7 @@ class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
     final String url = "https://www.cnblogs.com/$name/default.html?page=$pageKey";
     final Response response = await Dio().get(url);
+
     return compute(UserBlogParser.parseUserBlogList, response.data as String);
   }
 
@@ -95,6 +97,13 @@ class UserBlogApi {
     final Response response = await RestClient.withCookie().post(url, data: [postId]);
 
     return BlogStat.fromJson((response.data as List).first);
+  }
+
+  Future<BlogPostInfo> getBlogPostInfo(String blogName, int blogId, int postId, String userId) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/BlogPostInfo.aspx?blogId=$blogId&postId=$postId&blogUserGuid=$userId";
+    final Response response = await RestClient.withCookie().get(url);
+
+    return compute(BlogPostInfoParser.parseBlogPostInfo, response.data as String);
   }
 }
 
