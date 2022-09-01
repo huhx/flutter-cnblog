@@ -47,8 +47,17 @@ class BlogResp extends Equatable {
   @override
   List<Object?> get props => [id, title, url, description, author, blogApp, avatar, postDate, viewCount, commentCount, diggCount];
 
-  DetailModel toDetail() {
-    return DetailModel(id: id, title: title, url: toHttps(), name: author, blogName: blogApp, commentCount: commentCount);
+  DetailModel toDetail({String? html}) {
+    return DetailModel(
+      id: id,
+      title: title,
+      url: toHttps(),
+      name: author,
+      blogName: blogApp,
+      commentCount: commentCount,
+      diggCount: diggCount,
+      html: html
+    );
   }
 
   BlogShare toBlogShare() {

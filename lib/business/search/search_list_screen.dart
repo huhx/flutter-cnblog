@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
+import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_screen.dart';
@@ -83,15 +84,16 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        final DetailModel detailModel = DetailModel(
+      onTap: () async {
+        DetailModel detailModel = DetailModel(
           title: searchInfo.title,
           url: searchInfo.url,
           name: searchInfo.author,
           blogName: searchType == SearchType.blog ? Comm.getNameFromBlogUrl(searchInfo.url) : null,
           commentCount: searchInfo.commentCount ?? 0,
+          diggCount: searchInfo.diggCount ?? 0,
+          html: searchType == SearchType.blog ? await userBlogApi.getBlogContent(searchInfo.url) : null,
         );
-
         switch (searchType) {
           case SearchType.news:
             context.goto(NewsDetailScreen(detailModel));

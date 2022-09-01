@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
@@ -88,7 +89,8 @@ class BlogItem extends StatelessWidget {
       onTap: () async {
         final String encodeString = Uri.encodeComponent(blog.url);
         final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
-        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp().toDetail()));
+        final String html = await userBlogApi.getBlogContent(blog.url);
+        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp().toDetail(html: html)));
       },
       child: Card(
         child: Container(

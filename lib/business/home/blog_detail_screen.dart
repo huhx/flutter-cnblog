@@ -19,7 +19,6 @@ import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
-import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -40,7 +39,7 @@ class BlogDetailScreen extends HookConsumerWidget {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
     final buttonEnable = useState(false);
-    final detailInfo = useState<BlogDetailInfo>(BlogDetailInfo.empty());
+    // final detailInfo = useState<BlogDetailInfo>(BlogDetailInfo.empty());
 
     return Scaffold(
       appBar: AppBar(
@@ -74,28 +73,28 @@ class BlogDetailScreen extends HookConsumerWidget {
               Expanded(
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
-                    final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
-                    final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
-                    final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
-                    final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
-                    final BlogPostInfoReq request = BlogPostInfoReq(blogId: blogId, postId: postId, blogUserGuid: userId);
+                    final String string = await htmlCssApi.injectBlogCss(blog.html!);
+                    // final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(blog.html!)!.group(1)!.toInt();
+                    // final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
+                    // final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+                    // final BlogPostInfoReq request = BlogPostInfoReq(blogId: blogId, postId: postId, blogUserGuid: userId);
 
                     // final BlogStat blogStat = await userBlogApi.getBlogPostStat(blog.blogName!, postId);
-                    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, request);
+                    // final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, request);
                     // final bool isMark = await bookmarkApi.isMark(blog.url);
                     // final bool isFollow = await userFollowApi.isFollow(userId);
 
-                    detailInfo.value = BlogDetailInfo(
-                      commentCounts: blog.commentCount ?? 0,
-                      postId: postId,
-                      isFollow: false,
-                      isMark: false,
-                      isDark: context.isDarkMode(),
-                      isDigg: false,
-                      isBury: false,
-                      diggCounts: blogPostInfo.diggCount,
-                      buryCounts: blogPostInfo.buryCount,
-                    );
+                    // detailInfo.value = BlogDetailInfo(
+                    //   commentCounts: blog.commentCount ?? 0,
+                    //   postId: postId,
+                    //   isFollow: false,
+                    //   isMark: false,
+                    //   isDark: context.isDarkMode(),
+                    //   isDigg: false,
+                    //   isBury: false,
+                    //   diggCounts: blogPostInfo.diggCount,
+                    //   buryCounts: blogPostInfo.buryCount,
+                    // );
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
@@ -155,11 +154,11 @@ class BlogDetailScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () => context.goto(BlogCommentListScreen(blog, detailInfo.value.commentCounts)),
+                              onPressed: () => context.goto(BlogCommentListScreen(blog, blog.commentCount!)),
                               icon: Badge(
                                 padding: const EdgeInsets.all(5),
                                 badgeContent: Text(
-                                  "${detailInfo.value.commentCounts}",
+                                  "${blog.commentCount}",
                                   style: const TextStyle(fontSize: 9),
                                 ),
                                 child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
@@ -167,10 +166,12 @@ class BlogDetailScreen extends HookConsumerWidget {
                             ),
                             IconButton(
                               onPressed: () async {
+                                final int postId =
+                                    blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(blog.html!)!.group(1)!.toInt();
                                 final BlogDiggReq request = BlogDiggReq(
                                   voteType: VoteType.digg,
-                                  postId: detailInfo.value.postId,
-                                  isAbandoned: detailInfo.value.isDigg,
+                                  postId: postId,
+                                  isAbandoned: false,
                                 );
                                 final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
                                 if (result.isSuccess) {
@@ -183,34 +184,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                                 badgeColor: Colors.blueAccent,
                                 padding: const EdgeInsets.all(5),
                                 badgeContent: Text(
-                                  "${detailInfo.value.diggCounts}",
+                                  "${blog.diggCount ?? 0}",
                                   style: const TextStyle(fontSize: 9),
                                 ),
-                                child: SvgIcon(name: "like", color: detailInfo.value.isDigg ? themeColor : Colors.grey, size: 22),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                final BlogDiggReq request = BlogDiggReq(
-                                  voteType: VoteType.bury,
-                                  postId: detailInfo.value.postId,
-                                  isAbandoned: detailInfo.value.isBury,
-                                );
-                                final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
-                                if (result.isSuccess) {
-                                  CommUtil.toast(message: "成功!");
-                                } else {
-                                  CommUtil.toast(message: result.message);
-                                }
-                              },
-                              icon: Badge(
-                                badgeColor: Colors.pinkAccent,
-                                padding: const EdgeInsets.all(5),
-                                badgeContent: Text(
-                                  "${detailInfo.value.buryCounts}",
-                                  style: const TextStyle(fontSize: 9),
-                                ),
-                                child: SvgIcon(name: "dislike", color: detailInfo.value.isBury ? themeColor : Colors.grey, size: 22),
+                                child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
                               ),
                             ),
                           ],
