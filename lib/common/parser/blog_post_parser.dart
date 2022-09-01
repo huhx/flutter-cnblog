@@ -17,6 +17,8 @@ class BlogPostInfoParser {
     return BlogPostInfo(
       followingCount: profileElement.getFirstByClass("following-count").getText().toInt(),
       followerCount: profileElement.getFirstByClass("follower-count").getText().toInt(),
+      diggCount: diggElement.getFirstByClass("diggnum").getText().toInt(),
+      buryCount: diggElement.getFirstByClass("burynum").getText().toInt(),
       isDigg: isDigg,
       isBury: isBury,
     );

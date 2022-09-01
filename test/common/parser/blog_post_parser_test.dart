@@ -45,7 +45,14 @@ void main() {
 
     expect(
       blogPostInfo,
-      const BlogPostInfo(followingCount: 4, followerCount: 8, isDigg: true, isBury: false),
+      const BlogPostInfo(
+        followingCount: 4,
+        followerCount: 8,
+        diggCount: 2,
+        buryCount: 0,
+        isDigg: true,
+        isBury: false,
+      ),
     );
   });
 }

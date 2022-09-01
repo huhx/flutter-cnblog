@@ -89,6 +89,7 @@ class SearchItem extends StatelessWidget {
           url: searchInfo.url,
           name: searchInfo.author,
           blogName: searchType == SearchType.blog ? Comm.getNameFromBlogUrl(searchInfo.url) : null,
+          commentCount: searchInfo.commentCount ?? 0,
         );
 
         switch (searchType) {

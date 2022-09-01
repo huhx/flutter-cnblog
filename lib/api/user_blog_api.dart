@@ -14,9 +14,6 @@ import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 
-import 'bookmark_api.dart';
-import 'user_follow_api.dart';
-
 class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
     final String url = "https://www.cnblogs.com/$name/default.html?page=$pageKey";
@@ -114,15 +111,15 @@ class UserBlogApi {
   Future<BlogDetailInfo> getBlogDetailInfo(String blogName, int blogId, int postId, String userId, String url) async {
     final BlogStat blogStat = await userBlogApi.getBlogPostStat(blogName, postId);
     final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blogName, blogId, postId, userId);
-    final bool isMark = await bookmarkApi.isMark(url);
-    final bool isFollow = await userFollowApi.isFollow(userId);
+    // final bool isMark = await bookmarkApi.isMark(url);
+    // final bool isFollow = await userFollowApi.isFollow(userId);
 
     return BlogDetailInfo(
       isDark: false,
       commentCounts: blogStat.commentCount,
       postId: postId,
-      isFollow: isFollow,
-      isMark: isMark,
+      isFollow: false,
+      isMark: false,
       isDigg: blogPostInfo.isDigg,
       isBury: blogPostInfo.isBury,
       diggCounts: blogStat.diggCount,

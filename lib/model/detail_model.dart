@@ -10,6 +10,7 @@ class DetailModel extends Equatable {
   final String? blogName;
   final String? avatar;
   final String? html;
+  final int? commentCount;
 
   const DetailModel({
     this.id,
@@ -19,6 +20,7 @@ class DetailModel extends Equatable {
     this.blogName,
     this.avatar,
     this.html,
+    this.commentCount,
   });
 
   BlogShare toBlogShare() {
@@ -26,5 +28,5 @@ class DetailModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title, url, name, blogName, html];
+  List<Object?> get props => [id, title, url, name, blogName, html, commentCount];
 }

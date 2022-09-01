@@ -307,12 +307,16 @@ class BlogStat extends Equatable {
 class BlogPostInfo extends Equatable {
   final int followingCount;
   final int followerCount;
+  final int diggCount;
+  final int buryCount;
   final bool isDigg;
   final bool isBury;
 
   const BlogPostInfo({
     required this.followingCount,
     required this.followerCount,
+    required this.diggCount,
+    required this.buryCount,
     required this.isDigg,
     required this.isBury,
   });
@@ -324,6 +328,8 @@ class BlogPostInfo extends Equatable {
     return BlogPostInfo(
       followingCount: json['followingCount'] as int,
       followerCount: json['followerCount'] as int,
+      diggCount: json['diggCount'] as int,
+      buryCount: json['buryCount'] as int,
       isDigg: json['isDigg'] as bool,
       isBury: json['isBury'] as bool,
     );
