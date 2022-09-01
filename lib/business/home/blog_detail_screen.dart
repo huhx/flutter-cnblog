@@ -8,6 +8,7 @@ import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
@@ -74,8 +75,9 @@ class BlogDetailScreen extends HookConsumerWidget {
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
+                    final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
 
-                    final int commentCounts = await userBlogApi.queryCommentCounts(blog.blogName!, blog.id!);
+                    final int commentCounts = await userBlogApi.queryCommentCounts(blog.blogName!, postId);
                     detailInfo.value = BlogDetailInfo(
                       commentCounts: commentCounts,
                       isFollow: false,

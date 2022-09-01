@@ -48,7 +48,7 @@ class SearchScreen extends HookConsumerWidget {
               focusedBorder: outlineInputBorder,
               enabledBorder: outlineInputBorder,
             ),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16),
           ),
           actions: [
             TextButton(

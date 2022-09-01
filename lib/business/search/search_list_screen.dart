@@ -6,6 +6,7 @@ import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_scree
 import 'package:flutter_cnblog/business/question/question_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
@@ -83,7 +84,12 @@ class SearchItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        final DetailModel detailModel = DetailModel(title: searchInfo.title, url: searchInfo.url, name: searchInfo.author);
+        final DetailModel detailModel = DetailModel(
+          title: searchInfo.title,
+          url: searchInfo.url,
+          name: searchInfo.author,
+          blogName: searchType == SearchType.blog ? Comm.getNameFromBlogUrl(searchInfo.url) : null,
+        );
 
         switch (searchType) {
           case SearchType.news:
