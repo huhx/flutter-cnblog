@@ -24,6 +24,13 @@ class HtmlCssApi {
 
     return compute(HtmlCssInjector.inject, htmlCss);
   }
+
+  Future<String> injectBlogCss(String string) {
+    const ContentType type = ContentType.blog;
+    final HtmlCss htmlCss = HtmlCss(html: string, host: type.host, css: AppConfig.get(type.css));
+
+    return compute(HtmlCssInjector.inject, htmlCss);
+  }
 }
 
 final htmlCssApi = HtmlCssApi();

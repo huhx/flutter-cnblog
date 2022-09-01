@@ -11,6 +11,11 @@ import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
+import 'package:html/dom.dart';
+import 'package:html/parser.dart';
+
+import 'bookmark_api.dart';
+import 'user_follow_api.dart';
 
 class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
@@ -104,6 +109,36 @@ class UserBlogApi {
     final Response response = await RestClient.withCookie().get(url);
 
     return compute(BlogPostInfoParser.parseBlogPostInfo, response.data as String);
+  }
+
+  Future<BlogDetailInfo> getBlogDetailInfo(String blogName, int blogId, int postId, String userId, String url) async {
+    final BlogStat blogStat = await userBlogApi.getBlogPostStat(blogName, postId);
+    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blogName, blogId, postId, userId);
+    final bool isMark = await bookmarkApi.isMark(url);
+    final bool isFollow = await userFollowApi.isFollow(userId);
+
+    return BlogDetailInfo(
+      isDark: false,
+      commentCounts: blogStat.commentCount,
+      postId: postId,
+      isFollow: isFollow,
+      isMark: isMark,
+      isDigg: blogPostInfo.isDigg,
+      isBury: blogPostInfo.isBury,
+      diggCounts: blogStat.diggCount,
+      buryCounts: blogStat.buryCount,
+    );
+  }
+
+  Future<String> getBlogContent(String url) async {
+    final Response response = await RestClient.withCookie().get(url);
+
+    await PrefsUtil.saveForgeryCookie(response.headers['set-cookie']?.first ?? "");
+    final Document document = parse(response.data);
+    final String? forgeryToken = document.getElementById("antiforgery_token")?.attributes['value']!;
+    await PrefsUtil.saveForgeryToken(forgeryToken);
+
+    return response.data;
   }
 }
 
