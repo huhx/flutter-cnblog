@@ -101,23 +101,23 @@ class UserBlogApi {
     return BlogStat.fromJson((response.data as List).first);
   }
 
-  Future<BlogPostInfo> getBlogPostInfo(String blogName, int blogId, int postId, String userId) async {
-    final String url = "https://www.cnblogs.com/$blogName/ajax/BlogPostInfo.aspx?blogId=$blogId&postId=$postId&blogUserGuid=$userId";
-    final Response response = await RestClient.withCookie().get(url);
+  Future<BlogPostInfo> getBlogPostInfo(String blogName, BlogPostInfoReq request) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/BlogPostInfo.aspx";
+    final Response response = await RestClient.withCookie().get(url, queryParameters: request.toJson());
 
     return compute(BlogPostInfoParser.parseBlogPostInfo, response.data as String);
   }
 
-  Future<BlogDetailInfo> getBlogDetailInfo(String blogName, int blogId, int postId, String userId, String url) async {
-    final BlogStat blogStat = await userBlogApi.getBlogPostStat(blogName, postId);
-    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blogName, blogId, postId, userId);
+  Future<BlogDetailInfo> getBlogDetailInfo(String blogName, BlogPostInfoReq request) async {
+    final BlogStat blogStat = await userBlogApi.getBlogPostStat(blogName, request.postId);
+    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blogName, request);
     // final bool isMark = await bookmarkApi.isMark(url);
     // final bool isFollow = await userFollowApi.isFollow(userId);
 
     return BlogDetailInfo(
       isDark: false,
       commentCounts: blogStat.commentCount,
-      postId: postId,
+      postId: request.postId,
       isFollow: false,
       isMark: false,
       isDigg: blogPostInfo.isDigg,

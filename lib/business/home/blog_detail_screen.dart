@@ -78,9 +78,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                     final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
                     final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
                     final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+                    final BlogPostInfoReq request = BlogPostInfoReq(blogId: blogId, postId: postId, blogUserGuid: userId);
 
                     // final BlogStat blogStat = await userBlogApi.getBlogPostStat(blog.blogName!, postId);
-                    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, blogId, postId, userId);
+                    final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, request);
                     // final bool isMark = await bookmarkApi.isMark(blog.url);
                     // final bool isFollow = await userFollowApi.isFollow(userId);
 
@@ -90,8 +91,8 @@ class BlogDetailScreen extends HookConsumerWidget {
                       isFollow: false,
                       isMark: false,
                       isDark: context.isDarkMode(),
-                      isDigg: blogPostInfo.isDigg,
-                      isBury: blogPostInfo.isBury,
+                      isDigg: false,
+                      isBury: false,
                       diggCounts: blogPostInfo.diggCount,
                       buryCounts: blogPostInfo.buryCount,
                     );

@@ -304,6 +304,25 @@ class BlogStat extends Equatable {
   }
 }
 
+class BlogPostInfoReq extends Equatable {
+  final int blogId;
+  final int postId;
+  final String blogUserGuid;
+
+  const BlogPostInfoReq({
+    required this.blogId,
+    required this.postId,
+    required this.blogUserGuid,
+  });
+
+  @override
+  List<Object?> get props => [blogId, postId, blogUserGuid];
+
+  Map<String, dynamic> toJson() {
+    return {"blogId": blogId, "postId": postId, "blogUserGuid": blogUserGuid};
+  }
+}
+
 class BlogPostInfo extends Equatable {
   final int followingCount;
   final int followerCount;
