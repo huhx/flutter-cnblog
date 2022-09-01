@@ -227,7 +227,7 @@ class BlogDiggResp extends Equatable {
   factory BlogDiggResp.fromJson(Map<String, dynamic> json) {
     return BlogDiggResp(
       id: json['id'] as int,
-      isSuccess: json['IsSucceed'] as bool,
+      isSuccess: json['isSuccess'] as bool,
       message: json['message'] as String,
       data: json['data'] as String?,
     );
@@ -236,6 +236,7 @@ class BlogDiggResp extends Equatable {
 
 class BlogDetailInfo extends Equatable {
   final int commentCounts;
+  final int postId;
   final bool isFollow;
   final bool isMark;
   final bool isDark;
@@ -246,6 +247,7 @@ class BlogDetailInfo extends Equatable {
 
   const BlogDetailInfo({
     required this.commentCounts,
+    required this.postId,
     required this.isFollow,
     required this.isMark,
     required this.isDark,
@@ -256,11 +258,12 @@ class BlogDetailInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, isBury, diggCounts, buryCounts];
+  List<Object?> get props => [commentCounts, postId, isFollow, isMark, isDark, isDigg, isBury, diggCounts, buryCounts];
 
   static BlogDetailInfo empty() {
     return const BlogDetailInfo(
       isDark: false,
+      postId: 0,
       isFollow: false,
       isMark: false,
       commentCounts: 0,

@@ -87,6 +87,7 @@ class BlogDetailScreen extends HookConsumerWidget {
 
                     detailInfo.value = BlogDetailInfo(
                       commentCounts: blogStat.commentCount,
+                      postId: postId,
                       isFollow: isFollow,
                       isMark: isMark,
                       isDark: context.isDarkMode(),
@@ -165,7 +166,19 @@ class BlogDetailScreen extends HookConsumerWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () => CommUtil.toBeDev(),
+                              onPressed: () async {
+                                final BlogDiggReq request = BlogDiggReq(
+                                  voteType: VoteType.digg,
+                                  postId: detailInfo.value.postId,
+                                  isAbandoned: detailInfo.value.isDigg,
+                                );
+                                final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
+                                if (result.isSuccess) {
+                                  CommUtil.toast(message: "成功!");
+                                } else {
+                                  CommUtil.toast(message: result.message);
+                                }
+                              },
                               icon: Badge(
                                 badgeColor: Colors.blueAccent,
                                 padding: const EdgeInsets.all(5),
@@ -177,7 +190,19 @@ class BlogDetailScreen extends HookConsumerWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () => CommUtil.toBeDev(),
+                              onPressed: () async {
+                                final BlogDiggReq request = BlogDiggReq(
+                                  voteType: VoteType.bury,
+                                  postId: detailInfo.value.postId,
+                                  isAbandoned: detailInfo.value.isBury,
+                                );
+                                final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
+                                if (result.isSuccess) {
+                                  CommUtil.toast(message: "成功!");
+                                } else {
+                                  CommUtil.toast(message: result.message);
+                                }
+                              },
                               icon: Badge(
                                 badgeColor: Colors.pinkAccent,
                                 padding: const EdgeInsets.all(5),
