@@ -241,6 +241,7 @@ class BlogDetailInfo extends Equatable {
   final bool isDark;
   final bool isDigg;
   final int diggCounts;
+  final int buryCounts;
 
   const BlogDetailInfo({
     required this.commentCounts,
@@ -249,12 +250,50 @@ class BlogDetailInfo extends Equatable {
     required this.isDark,
     required this.isDigg,
     required this.diggCounts,
+    required this.buryCounts,
   });
 
   @override
-  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, diggCounts];
+  List<Object?> get props => [commentCounts, isFollow, isMark, isDark, isDigg, diggCounts, buryCounts];
 
   static BlogDetailInfo empty() {
-    return const BlogDetailInfo(isDark: false, isFollow: false, isMark: false, commentCounts: 0, isDigg: false, diggCounts: 0);
+    return const BlogDetailInfo(
+      isDark: false,
+      isFollow: false,
+      isMark: false,
+      commentCounts: 0,
+      isDigg: false,
+      diggCounts: 0,
+      buryCounts: 0,
+    );
+  }
+}
+
+class BlogStat extends Equatable {
+  final int postId;
+  final int viewCount;
+  final int commentCount;
+  final int diggCount;
+  final int buryCount;
+
+  const BlogStat({
+    required this.postId,
+    required this.viewCount,
+    required this.commentCount,
+    required this.diggCount,
+    required this.buryCount,
+  });
+
+  @override
+  List<Object?> get props => [postId, viewCount, commentCount, diggCount, buryCount];
+
+  factory BlogStat.fromJson(Map<String, dynamic> json) {
+    return BlogStat(
+      postId: json['postId'] as int,
+      viewCount: json['viewCount'] as int,
+      commentCount: json['feedbackCount'] as int,
+      diggCount: json['diggCount'] as int,
+      buryCount: json['buryCount'] as int,
+    );
   }
 }

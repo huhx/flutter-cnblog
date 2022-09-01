@@ -89,6 +89,13 @@ class UserBlogApi {
         return data.map((e) => e.toBlogResp()).toList();
     }
   }
+
+  Future<BlogStat> getBlogPostStat(String blogName, int postId) async {
+    final String url = "https://www.cnblogs.com/$blogName/ajax/GetPostStat";
+    final Response response = await RestClient.withCookie().post(url, data: [postId]);
+
+    return BlogStat.fromJson((response.data as List).first);
+  }
 }
 
 final userBlogApi = UserBlogApi();

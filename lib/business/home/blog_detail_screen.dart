@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
+import 'package:flutter_cnblog/api/user_follow_api.dart';
 import 'package:flutter_cnblog/business/home/blog_comment_list_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
@@ -54,7 +55,7 @@ class BlogDetailScreen extends HookConsumerWidget {
               if (user == null) {
                 await context.goto(const LoginScreen());
               }
-              final bool isMark = await bookmarkApi.isMark(blog.url);
+              final bool isMark = detailInfo.value.isMark;
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
@@ -76,15 +77,20 @@ class BlogDetailScreen extends HookConsumerWidget {
                   onWebViewCreated: (controller) async {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
                     final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+                    final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
 
-                    final int commentCounts = await userBlogApi.queryCommentCounts(blog.blogName!, postId);
+                    final BlogStat blogStat = await userBlogApi.getBlogPostStat(blog.blogName!, postId);
+                    final bool isMark = await bookmarkApi.isMark(blog.url);
+                    final bool isFollow = await userFollowApi.isFollow(userId);
+
                     detailInfo.value = BlogDetailInfo(
-                      commentCounts: commentCounts,
-                      isFollow: false,
-                      isMark: false,
-                      isDark: false,
+                      commentCounts: blogStat.commentCount,
+                      isFollow: isFollow,
+                      isMark: isMark,
+                      isDark: context.isDarkMode(),
                       isDigg: false,
-                      diggCounts: 0,
+                      diggCounts: blogStat.diggCount,
+                      buryCounts: blogStat.buryCount,
                     );
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
