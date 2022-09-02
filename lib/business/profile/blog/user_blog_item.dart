@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:timeago/timeago.dart' as timeago;
-
-import 'user_blog_detail_screen.dart';
 
 class UserBlogItem extends StatelessWidget {
   final UserBlog userBlog;
@@ -14,7 +13,7 @@ class UserBlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(UserBlogDetailScreen(userBlog)),
+      onTap: () => context.goto(BlogDetailScreen(blog: userBlog.toDetail())),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
 
 import 'blog_share.dart';
+import 'detail_model.dart';
 
 class UserBlog extends Equatable {
   final int id;
@@ -34,6 +36,19 @@ class UserBlog extends Equatable {
 
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: url, name: name);
+  }
+
+  DetailModel toDetail({String? html}) {
+    return DetailModel(
+        id: id,
+        title: title,
+        url: url,
+        name: name,
+        blogName: Comm.getNameFromBlogUrl(url),
+        commentCount: commentCount,
+        diggCount: diggCount,
+        html: html
+    );
   }
 }
 

@@ -6,6 +6,9 @@ import 'package:html/parser.dart' show parse;
 
 class BlogCommentParser {
   static List<BlogComment> parseBlogCommentList(String string) {
+    if (string.isEmpty) {
+      return [];
+    }
     final Document document = parse(string);
     final previousElement = document.getElementsByClassName("feedbackNoItems")[0];
     final String elementName = previousElement.nextElementSibling?.attributes["class"]! ?? "post";
