@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'blog_share.dart';
 
 class DetailModel extends Equatable {
-  final int? id;
+  int? id;
   final String title;
   final String url;
   final String? name;
@@ -13,7 +13,7 @@ class DetailModel extends Equatable {
   final int? commentCount;
   final int? diggCount;
 
-  const DetailModel({
+  DetailModel({
     this.id,
     required this.title,
     required this.url,

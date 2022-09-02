@@ -140,7 +140,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () => context.goto(BlogCommentListScreen(blog, commentCount.value)),
+                              onPressed: () {
+                                blog.id = postId.value;
+                                context.goto(BlogCommentListScreen(blog, commentCount.value));
+                              },
                               icon: Badge(
                                 animationDuration: const Duration(milliseconds: 200),
                                 animationType: BadgeAnimationType.scale,
