@@ -4,6 +4,7 @@ import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
@@ -55,7 +56,7 @@ class _BlogCommentListScreenState extends ConsumerState<BlogCommentListScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
-        title: Text(widget.blog.title),
+        title: Html(data: widget.blog.title),
       ),
       body: Column(
         children: [
@@ -98,13 +99,27 @@ class _BlogCommentListScreenState extends ConsumerState<BlogCommentListScreen> {
                                   children: [
                                     CircleAvatar(child: Text(comment.author.substring(0, 1))),
                                     const SizedBox(width: 10),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(comment.author),
-                                        const SizedBox(height: 6),
-                                        Text(comment.postDate),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(comment.author),
+                                              Row(
+                                                children: [
+                                                  TextIcon(icon: "like", counts: comment.diggCount),
+                                                  const SizedBox(width: 8),
+                                                  TextIcon(icon: "dislike", counts: comment.buryCount),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(height: 6),
+                                          Text(comment.postDate),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
