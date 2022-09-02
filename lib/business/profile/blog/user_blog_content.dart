@@ -31,10 +31,10 @@ class _UserBlogContentState extends State<UserBlogContent> {
       final List<UserBlog> blogs = await userBlogApi.getUserBlogList(widget.user.blogName, pageKey);
       final bool isLastPage = blogs.where((element) => !element.isPinned).length < 10;
       if (isLastPage) {
-        streamList.appendLastPage(blogs);
+        streamList.appendLastPage(false, blogs);
       } else {
         final int nextPageKey = pageKey + 1;
-        streamList.appendPage(blogs, nextPageKey);
+        streamList.appendPage(false, blogs, nextPageKey);
       }
     }
   }

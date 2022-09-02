@@ -55,20 +55,20 @@ class StreamList<T> {
     refreshController.loadComplete();
   }
 
-  void fetch(List<T> list, int pageKey, {int pageSize = 20}) {
+  void fetch(List<T> list, int pageKey, {int pageSize = 20, bool reverse = false}) {
     final bool isLastPage = list.length < pageSize;
     if (isLastPage) {
-      appendLastPage(list);
+      appendLastPage(reverse, list);
     } else {
-      appendPage(list, pageKey + 1);
+      appendPage(reverse, list, pageKey + 1);
     }
   }
 
-  void appendLastPage(List<T> newItems) => appendPage(newItems, null);
+  void appendLastPage(bool reverse, List<T> newItems) => appendPage(reverse, newItems, null);
 
-  void appendPage(List<T> newItems, int? nextPageKey) {
+  void appendPage(bool reverse, List<T> newItems, int? nextPageKey) {
     final previousItems = pageState.itemList ?? [];
-    final itemList = previousItems + newItems;
+    final itemList = reverse ? newItems + previousItems : previousItems + newItems;
     pageState = PageState<int, T>(
       itemList: itemList,
       error: null,
