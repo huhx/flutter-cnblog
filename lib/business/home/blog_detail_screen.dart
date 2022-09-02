@@ -140,7 +140,10 @@ class BlogDetailScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                if (user == null) {
+                                  await context.goto(const LoginScreen());
+                                }
                                 blog.id = postId.value;
                                 context.goto(BlogCommentListScreen(blog, commentCount.value));
                               },
@@ -157,6 +160,9 @@ class BlogDetailScreen extends HookConsumerWidget {
                             ),
                             IconButton(
                               onPressed: () async {
+                                if (user == null) {
+                                  await context.goto(const LoginScreen());
+                                }
                                 final BlogDiggReq request = BlogDiggReq(
                                   voteType: VoteType.digg,
                                   postId: postId.value!,
