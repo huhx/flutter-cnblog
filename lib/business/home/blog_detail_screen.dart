@@ -40,7 +40,8 @@ class BlogDetailScreen extends HookConsumerWidget {
     final User? user = ref.watch(sessionProvider);
     final buttonEnable = useState(false);
     final postId = useState<int?>(blog.id);
-    // final detailInfo = useState<BlogDetailInfo>(BlogDetailInfo.empty());
+    final commentCount = useState(blog.commentCount ?? 0);
+    final diggCount = useState(blog.diggCount ?? 0);
 
     return Scaffold(
       appBar: AppBar(
@@ -127,6 +128,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                             if (resp.isSuccess) {
                               editingController.clear();
                               buttonEnable.value = false;
+                              commentCount.value = commentCount.value + 1;
                               CommUtil.toast(message: "评论成功!");
                             } else {
                               CommUtil.toast(message: resp.message);
@@ -138,11 +140,13 @@ class BlogDetailScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () => context.goto(BlogCommentListScreen(blog, blog.commentCount!)),
+                              onPressed: () => context.goto(BlogCommentListScreen(blog, commentCount.value)),
                               icon: Badge(
+                                animationDuration: const Duration(milliseconds: 200),
+                                animationType: BadgeAnimationType.scale,
                                 padding: const EdgeInsets.all(5),
                                 badgeContent: Text(
-                                  "${blog.commentCount}",
+                                  "${commentCount.value}",
                                   style: const TextStyle(fontSize: 9),
                                 ),
                                 child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
@@ -158,15 +162,18 @@ class BlogDetailScreen extends HookConsumerWidget {
                                 final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
                                 if (result.isSuccess) {
                                   CommUtil.toast(message: "支持成功!");
+                                  diggCount.value = diggCount.value + 1;
                                 } else {
                                   CommUtil.toast(message: result.message);
                                 }
                               },
                               icon: Badge(
+                                animationType: BadgeAnimationType.scale,
                                 badgeColor: Colors.blueAccent,
+                                animationDuration: const Duration(milliseconds: 200),
                                 padding: const EdgeInsets.all(5),
                                 badgeContent: Text(
-                                  "${blog.diggCount ?? 0}",
+                                  "${diggCount.value}",
                                   style: const TextStyle(fontSize: 9),
                                 ),
                                 child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
