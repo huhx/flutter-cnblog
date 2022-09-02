@@ -15,7 +15,7 @@ class HtmlCssApi {
     final HtmlCss htmlCss = HtmlCss(html: response.data as String, host: type.host, css: AppConfig.get(type.css));
 
     if (type == ContentType.blog) {
-      await PrefsUtil.saveForgeryCookie(response.headers['set-cookie']?.first ?? "");
+      await PrefsUtil.saveForgeryCookie(response.headers['set-cookie']?.first);
 
       final Document document = parse(htmlCss.html);
       final String? forgeryToken = document.getElementById("antiforgery_token")?.attributes['value']!;

@@ -41,8 +41,10 @@ class PrefsUtil {
     return prefs.getString(cookieKey);
   }
 
-  static Future<void> saveForgeryCookie(String cookie) async {
-    await prefs.setString("forgeryCookie", cookie);
+  static Future<void> saveForgeryCookie(String? cookie) async {
+    if (cookie != null) {
+      await prefs.setString("forgeryCookie", cookie);
+    }
   }
 
   static String? getForgeryCookie() {

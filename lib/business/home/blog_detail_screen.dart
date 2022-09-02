@@ -39,6 +39,7 @@ class BlogDetailScreen extends HookConsumerWidget {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
     final buttonEnable = useState(false);
+    final postId = useState<int?>(blog.id);
     // final detailInfo = useState<BlogDetailInfo>(BlogDetailInfo.empty());
 
     return Scaffold(
@@ -73,8 +74,9 @@ class BlogDetailScreen extends HookConsumerWidget {
               Expanded(
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
-                    final String string = await htmlCssApi.injectBlogCss(blog.html!);
-                    // final int postId = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(blog.html!)!.group(1)!.toInt();
+                    final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
+                    postId.value = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+
                     // final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
                     // final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
                     // final BlogPostInfoReq request = BlogPostInfoReq(blogId: blogId, postId: postId, blogUserGuid: userId);
@@ -137,8 +139,11 @@ class BlogDetailScreen extends HookConsumerWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                           onPressed: () async {
-                            final BlogCommentCreateReq request =
-                                BlogCommentCreateReq(postId: blog.id!, body: editingController.text, parentCommentId: 0);
+                            final BlogCommentCreateReq request = BlogCommentCreateReq(
+                              postId: blog.id!,
+                              body: editingController.text,
+                              parentCommentId: 0,
+                            );
                             final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
                             if (resp.isSuccess) {
                               editingController.clear();
@@ -166,11 +171,9 @@ class BlogDetailScreen extends HookConsumerWidget {
                             ),
                             IconButton(
                               onPressed: () async {
-                                final int postId =
-                                    blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(blog.html!)!.group(1)!.toInt();
                                 final BlogDiggReq request = BlogDiggReq(
                                   voteType: VoteType.digg,
-                                  postId: postId,
+                                  postId: postId.value!,
                                   isAbandoned: false,
                                 );
                                 final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);

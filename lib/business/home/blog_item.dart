@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
@@ -16,10 +15,7 @@ class BlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        final String html = await userBlogApi.getBlogContent(blog.url);
-        context.goto(BlogDetailScreen(blog: blog.toDetail(html: html)));
-      },
+      onTap: () => context.goto(BlogDetailScreen(blog: blog.toDetail())),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
