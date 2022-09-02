@@ -21,6 +21,7 @@ class InstantDetailScreen extends HookWidget {
     final parentCommentId = useState(0);
     final focusNode = useState(FocusNode());
     final hintText = useState("");
+    final commentCounts = useState(instant.commentCounts);
 
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +61,7 @@ class InstantDetailScreen extends HookWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("所有回复 (${instant.commentCounts})"),
+                      Text("所有回复 (${commentCounts.value})"),
                       const SizedBox(height: 8),
                       FutureBuilder<List<InstantComment>>(
                         future: userInstantApi.getInstantComments(instant.id),
@@ -127,7 +128,13 @@ class InstantDetailScreen extends HookWidget {
               ],
             ),
           ),
-          CommentWidget(instant, parentCommentId.value, focusNode.value, hintText.value),
+          CommentWidget(
+            instant,
+            parentCommentId.value,
+            focusNode.value,
+            hintText.value,
+            () => commentCounts.value = commentCounts.value + 1,
+          ),
         ],
       ),
     );
@@ -139,9 +146,10 @@ class CommentWidget extends HookWidget {
   final int parentCommentId;
   final FocusNode focusNode;
   final String value;
+  final VoidCallback callback;
   final TextEditingController editingController = TextEditingController();
 
-  CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, {Key? key}) : super(key: key);
+  CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, this.callback, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -196,6 +204,7 @@ class CommentWidget extends HookWidget {
                       if (result.isSuccess) {
                         editingController.clear();
                         content.value = "";
+                        callback();
                         CommUtil.toast(message: "发送成功！");
                       } else {
                         CommUtil.toast(message: result.message);
