@@ -76,27 +76,6 @@ class BlogDetailScreen extends HookConsumerWidget {
                   onWebViewCreated: (controller) async {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
                     postId.value = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
-
-                    // final String userId = RegExp(r"cb_blogUserGuid = '(.+)'").firstMatch(string)!.group(1)!;
-                    // final int blogId = RegExp(r"cb_blogId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
-                    // final BlogPostInfoReq request = BlogPostInfoReq(blogId: blogId, postId: postId, blogUserGuid: userId);
-
-                    // final BlogStat blogStat = await userBlogApi.getBlogPostStat(blog.blogName!, postId);
-                    // final BlogPostInfo blogPostInfo = await userBlogApi.getBlogPostInfo(blog.blogName!, request);
-                    // final bool isMark = await bookmarkApi.isMark(blog.url);
-                    // final bool isFollow = await userFollowApi.isFollow(userId);
-
-                    // detailInfo.value = BlogDetailInfo(
-                    //   commentCounts: blog.commentCount ?? 0,
-                    //   postId: postId,
-                    //   isFollow: false,
-                    //   isMark: false,
-                    //   isDark: context.isDarkMode(),
-                    //   isDigg: false,
-                    //   isBury: false,
-                    //   diggCounts: blogPostInfo.diggCount,
-                    //   buryCounts: blogPostInfo.buryCount,
-                    // );
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
@@ -178,7 +157,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                                 );
                                 final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
                                 if (result.isSuccess) {
-                                  CommUtil.toast(message: "成功!");
+                                  CommUtil.toast(message: "支持成功!");
                                 } else {
                                   CommUtil.toast(message: result.message);
                                 }
