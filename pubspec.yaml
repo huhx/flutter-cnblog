@@ -91,6 +91,7 @@ flutter_icons:
   ios: true
   image_path: "assets/image/logo.png"
   min_sdk_android: 21
+  remove_alpha_ios: true
 
 
 # For information on the generic Dart part of this file, see the
