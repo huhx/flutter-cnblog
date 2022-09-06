@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huhx.flutter_cnblog">
+    package="com.huhx.cnblog">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -8,7 +8,7 @@
         android:icon="@mipmap/launcher_icon"
         android:label="博客园">
         <activity
-            android:name=".MainActivity"
+            android:name="com.huhx.flutter_cnblog.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
