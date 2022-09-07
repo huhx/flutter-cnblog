@@ -51,6 +51,7 @@ class BlogResp extends Equatable {
     return DetailModel(
       id: id,
       title: title,
+      avatar: avatar,
       url: toHttps(),
       name: author,
       blogName: blogApp,

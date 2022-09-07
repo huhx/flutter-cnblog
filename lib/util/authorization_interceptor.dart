@@ -17,7 +17,7 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
       return;
     }
 
-    late AccessToken? accessToken = getToken(tokenType);
+    AccessToken? accessToken = getToken(tokenType);
     if (accessToken == null) {
       if (tokenType == TokenType.user) {
         return handler.reject(DioError(requestOptions: options));
