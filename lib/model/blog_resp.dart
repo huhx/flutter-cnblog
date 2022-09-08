@@ -100,6 +100,7 @@ class BasicBlogInfo extends Equatable {
 enum BlogCategory {
   home(""),
   read(""),
+  comment(""),
   like(""),
   essence(""),
   candidate("");

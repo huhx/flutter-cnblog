@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 7,
       child: Scaffold(
         appBar: AppBar(
           title: Padding(
@@ -44,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                     tabs: [
                       Tab(text: "首页"),
                       Tab(text: "阅读榜"),
+                      Tab(text: "评论排行"),
                       Tab(text: "推荐榜"),
                       Tab(text: "精华博客"),
                       Tab(text: "候选区"),
@@ -69,6 +70,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             HomeBlogListScreen(BlogCategory.home),
             HomeBlogListScreen(BlogCategory.read),
+            HomeBlogListScreen(BlogCategory.comment),
             HomeBlogListScreen(BlogCategory.like),
             HomeBlogListScreen(BlogCategory.essence),
             HomeBlogListScreen(BlogCategory.candidate),

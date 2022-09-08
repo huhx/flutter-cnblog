@@ -91,6 +91,9 @@ class UserBlogApi {
       case BlogCategory.like:
         final List<PopularBlogResp> data = await blogApi.getMostLikedBlogs(pageKey, 20);
         return data.map((e) => e.toBlogResp()).toList();
+      case BlogCategory.comment:
+        final Response response = await Dio().get("https://www.cnblogs.com/aggsite/topcommented48h/#p$pageKey");
+        return compute(CandidateParser.parseCandidateList, response.data as String);
     }
   }
 
