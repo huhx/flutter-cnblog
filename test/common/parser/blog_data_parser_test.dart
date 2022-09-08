@@ -21,7 +21,7 @@ void main() {
     );
   });
 
-  test("should return blog data info when another style", () {
+  test("should return blog data info when another style1", () {
     const String string = '''
     <body>随笔 -
     102&nbsp;
@@ -41,6 +41,27 @@ void main() {
     expect(
       blogDataInfo,
       const BlogDataInfo(blogCount: 102, articleCount: 0, commentCount: 47, viewCount: 52852),
+    );
+  });
+
+
+  test("should return blog data info when another style2", () {
+    const String string = '''
+    <body><!--done-->
+    随笔- 109&nbsp;
+    文章- 0&nbsp;
+    评论- 620&nbsp;
+    阅读- 
+    <span title="总阅读数: 214198">
+    21万</span>&nbsp;
+    </body>
+  ''';
+
+    final BlogDataInfo blogDataInfo = BlogDataParser.parseBlogDataList(string);
+
+    expect(
+      blogDataInfo,
+      const BlogDataInfo(blogCount: 109, articleCount: 0, commentCount: 620, viewCount: 214198),
     );
   });
 }

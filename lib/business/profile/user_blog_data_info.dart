@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_blog_data_api.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
@@ -15,7 +14,7 @@ class UserBlogDataInfo extends StatelessWidget {
     return FutureBuilder<BlogDataInfo>(
       future: userBlogDataApi.getBlogDataInfo(user.blogName),
       builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
+        if (!snap.hasData) return const SizedBox();
         final BlogDataInfo blogData = snap.data as BlogDataInfo;
 
         return Row(
