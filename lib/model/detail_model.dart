@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'blog_share.dart';
+import 'user.dart';
 
 class DetailModel extends Equatable {
   int? id;
@@ -27,6 +28,10 @@ class DetailModel extends Equatable {
 
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: url, name: name);
+  }  
+  
+  UserInfo toUserInfo() {
+    return UserInfo(avatar: avatar ?? '', displayName: name!, blogName: blogName!);
   }
 
   @override

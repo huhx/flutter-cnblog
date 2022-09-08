@@ -6,6 +6,9 @@ void main() {
   test("should return profile info of current user", () {
     const String string = '''
     <div id="user_profile_block">
+      <script type="text/javascript">
+        var currentUserId = "15fa3861-d887-4a89-7851-08d70e5da434";
+      </script>        
         <table>
             <tbody>
                 <tr>
@@ -75,6 +78,7 @@ void main() {
     expect(
       userProfileInfo,
       const UserProfileInfo(
+        userId: "15fa3861-d887-4a89-7851-08d70e5da434",
         name: "huhx",
         displayName: "huhx",
         avatar: "https://pic.cnblogs.com/avatar/849920/20170517210033.png",
@@ -99,6 +103,9 @@ void main() {
   test("should return profile info of another user", () {
     const String string = '''
     <div id="user_profile_block">
+      <script type="text/javascript">
+        var currentUserId = "15fa3861-d887-4a89-7851-08d70e5da434";
+      </script>    
     <table>
         <tbody>
             <tr>
@@ -161,6 +168,7 @@ void main() {
     expect(
       userProfileInfo,
       const UserProfileInfo(
+        userId: "15fa3861-d887-4a89-7851-08d70e5da434",
         name: "colorful-coco",
         displayName: "Colorful_coco",
         avatar: "https://pic.cnblogs.com/avatar/simple_avatar.gif",
@@ -180,6 +188,9 @@ void main() {
   test("should return profile info of user with private blog", skip: true, () {
     const String string = '''
     <div id="user_profile_block">
+      <script type="text/javascript">
+        var currentUserId = "15fa3861-d887-4a89-7851-08d70e5da434";
+      </script>
     <table>
         <tbody>
             <tr>
@@ -243,6 +254,7 @@ void main() {
     expect(
       userProfileInfo,
       const UserProfileInfo(
+        userId: "15fa3861-d887-4a89-7851-08d70e5da434",
         name: "colorful-coco",
         displayName: "Colorful_coco",
         avatar: "https://pic.cnblogs.com/avatar/simple_avatar.gif",

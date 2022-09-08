@@ -5,21 +5,25 @@ import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'follow/follow_screen.dart';
 
-class UserFollowCountInfo extends StatelessWidget {
+class UserFollowCountInfo extends HookWidget {
   final UserInfo user;
 
   const UserFollowCountInfo(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userId = useState<String>("");
+
     return FutureBuilder<UserProfileInfo>(
       future: userProfileApi.getUserProfile(user.blogName),
       builder: (context, snap) {
         if (!snap.hasData) return const SizedBox();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;
+        userId.value = userProfile.userId;
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +52,7 @@ class UserFollowCountInfo extends StatelessWidget {
             const SizedBox(width: 10),
             if (user.displayName != CurrentUser.getUser().displayName)
               FutureBuilder(
-                future: userFollowApi.isFollow(user.userId),
+                future: userFollowApi.isFollow(userId.value),
                 builder: (context, snap) {
                   if (!snap.hasData) return const SizedBox();
                   bool isFollow = snap.data as bool;
@@ -60,9 +64,9 @@ class UserFollowCountInfo extends StatelessWidget {
                         child: Text(text),
                         onTap: () async {
                           if (isFollow) {
-                            await userFollowApi.unfollow(user.userId);
+                            await userFollowApi.unfollow(userId.value);
                           } else {
-                            await userFollowApi.follow(user.userId, user.displayName);
+                            await userFollowApi.follow(userId.value, user.displayName);
                           }
                           setter(() {
                             isFollow = !isFollow;

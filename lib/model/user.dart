@@ -29,18 +29,16 @@ class User {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   UserInfo toInfo() {
-    return UserInfo(userId: userId, displayName: displayName, avatar: avatar, blogName: blogApp);
+    return UserInfo(displayName: displayName, avatar: avatar, blogName: blogApp);
   }
 }
 
 class UserInfo {
-  final String userId;
   final String displayName;
   final String avatar;
   final String blogName;
 
   UserInfo({
-    required this.userId,
     required this.displayName,
     required this.avatar,
     required this.blogName,

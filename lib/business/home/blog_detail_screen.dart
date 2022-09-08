@@ -4,6 +4,7 @@ import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_comment_list_screen.dart';
+import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
@@ -214,7 +215,7 @@ class AppBarTitle extends StatelessWidget {
       children: [
         InkWell(
           child: CircleImage(url: blog.avatar ?? "", size: 28),
-          onTap: () => CommUtil.toBeDev(),
+          onTap: () => context.goto(UserProfileDetailScreen(blog.toUserInfo())),
         ),
         const SizedBox(width: 6),
         Text(blog.name!, style: const TextStyle(fontSize: 14)),

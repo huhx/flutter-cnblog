@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserProfileInfo extends Equatable {
+  final String userId;
   final String name;
   final String displayName;
   final String avatar;
@@ -10,6 +11,7 @@ class UserProfileInfo extends Equatable {
   final int followerCounts;
 
   const UserProfileInfo({
+    required this.userId,
     required this.name,
     required this.displayName,
     required this.avatar,
@@ -20,7 +22,7 @@ class UserProfileInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props => [name, displayName, avatar, url, info, followCounts, followerCounts];
+  List<Object?> get props => [userId, name, displayName, avatar, url, info, followCounts, followerCounts];
 }
 
 class UserProfileData extends Equatable {
