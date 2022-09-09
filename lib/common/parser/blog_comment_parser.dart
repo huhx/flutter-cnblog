@@ -10,7 +10,7 @@ class BlogCommentParser {
       return [];
     }
     final Document document = parse(string);
-    final previousElement = document.getElementsByClassName("feedbackNoItems")[0];
+    final Element previousElement = document.getElementsByClassName("feedbackNoItems")[0];
     final String elementName = previousElement.nextElementSibling?.attributes["class"]! ?? "post";
     final List<Element> elements = document.getElementsByClassName(elementName);
     return elements.map((e) => _parseBlogComment(e)).toList();

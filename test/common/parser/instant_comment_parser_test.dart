@@ -66,7 +66,7 @@ void main() {
         fromUrl: "https://home.cnblogs.com/u/444532/",
         toName: "huhx",
         toUrl: "https://home.cnblogs.com/u/huhx/",
-        content: "：功能部分大概完成1/2了",
+        content: '<a href="https://home.cnblogs.com/u/444532/" target="_blank">@快乐的凡人721</a>：功能部分大概完成1/2了',
         postDate: "8-17 16:20",
       ),
     );

@@ -5,6 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test("should return blog comment list", () {
     const String string = '''
+  <div>
+    <div class="feedbackNoItems">
+        <div class="feedbackNoItems"></div>
+    </div>
      <div class="feedbackItem">
         <div class="feedbackListSubtitle">
             <div class="feedbackManage">
@@ -80,6 +84,7 @@ void main() {
                 </a>
             </div>
         </div>
+      </div>
     </div>
    ''';
 
@@ -120,6 +125,10 @@ void main() {
 
   test("should return blog comment list and comment by current user", () {
     const String string = '''
+  <div>
+    <div class="feedbackNoItems">
+        <div class="feedbackNoItems"></div>
+    </div>
     <div class="feedbackItem">
         <div class="feedbackListSubtitle">
             <div class="feedbackManage">
@@ -156,6 +165,7 @@ void main() {
                 </span>
             </div>
         </div>
+      </div>
     </div>
    ''';
 
