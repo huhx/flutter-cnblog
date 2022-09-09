@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
+import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class UserBlogItem extends StatelessWidget {
   final UserBlog userBlog;
+  final UserInfo userInfo;
 
-  const UserBlogItem({Key? key, required this.userBlog}) : super(key: key);
+  const UserBlogItem({super.key, required this.userBlog, required this.userInfo});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(BlogDetailScreen(blog: userBlog.toDetail())),
+      onTap: () => context.goto(BlogDetailScreen(blog: userBlog.toDetail(userInfo.avatar))),
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

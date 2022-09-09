@@ -11,7 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class UserBlogContent extends StatefulWidget {
   final UserInfo user;
 
-  const UserBlogContent(this.user, {Key? key}) : super(key: key);
+  const UserBlogContent(this.user, {super.key});
 
   @override
   State<UserBlogContent> createState() => _UserBlogContentState();
@@ -57,7 +57,7 @@ class _UserBlogContentState extends State<UserBlogContent> {
           enablePullUp: true,
           child: ListView.builder(
             itemCount: blogs.length,
-            itemBuilder: (_, index) => UserBlogItem(userBlog: blogs[index], key: ValueKey(blogs[index].id)),
+            itemBuilder: (_, index) => UserBlogItem(userBlog: blogs[index], userInfo: widget.user, key: ValueKey(blogs[index].id)),
           ),
         );
       },

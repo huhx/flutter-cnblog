@@ -38,10 +38,11 @@ class UserBlog extends Equatable {
     return BlogShare(id: id, title: title, url: url, name: name);
   }
 
-  DetailModel toDetail({String? html}) {
+  DetailModel toDetail(String avatar, {String? html}) {
     return DetailModel(
         id: id,
         title: title,
+        avatar: avatar,
         url: url,
         name: name,
         blogName: Comm.getNameFromBlogUrl(url),
