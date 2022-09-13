@@ -55,7 +55,7 @@ class UserBlogHeader extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: const EdgeInsets.only(top: 20), child: UserBlogDataInfo(user)),
+          Padding(padding: const EdgeInsets.only(top: 26), child: UserBlogDataInfo(user)),
         ],
       ),
     );

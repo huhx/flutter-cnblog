@@ -8,13 +8,12 @@ class LogoutItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final sessionModel = ref.watch(sessionProvider.notifier);
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: () async {
-          await ref.watch(sessionProvider.notifier).logout();
-          context.pop();
-        },
+        onTap: () => _buildShowConfirmDialog(context, sessionModel),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const <Widget>[
@@ -23,6 +22,17 @@ class LogoutItem extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _buildShowConfirmDialog(BuildContext context, SessionModel sessionModel) async {
+    context.showCommDialog(
+      callback: () async {
+        await sessionModel.logout();
+        context.pop();
+      },
+      title: '退出登录',
+      content: '你确定退出登录?',
     );
   }
 }

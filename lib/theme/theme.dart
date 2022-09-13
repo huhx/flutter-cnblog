@@ -42,6 +42,10 @@ final appThemeData = {
       titleTextStyle: TextStyle(fontSize: 17),
       actionsIconTheme: IconThemeData(color: Colors.white, size: 20),
     ),
+    dialogTheme: const DialogTheme(
+      titleTextStyle: TextStyle(color: Colors.white),
+      contentTextStyle: TextStyle(color: Colors.white),
+    ),
     primaryColor: themeColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
