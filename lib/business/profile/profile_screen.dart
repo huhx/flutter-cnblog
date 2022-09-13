@@ -273,6 +273,10 @@ class ProfileFooter extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => CommUtil.toBeDev(),
+                child: const MomentMiddleItem(iconName: 'profile_official', label: '官方博客'),
+              ),
+              InkWell(
+                onTap: () => CommUtil.toBeDev(),
                 child: const MomentMiddleItem(iconName: 'my_history', label: '阅读记录'),
               ),
               InkWell(
