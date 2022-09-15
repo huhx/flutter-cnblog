@@ -192,7 +192,7 @@ void main() {
     expect(
       officialHotList[0],
       const OfficialHot(
-        id: 16657667,
+        id: "16657667",
         title: "没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！",
         url: "https://www.cnblogs.com/thisiswhy/archive/2022/09/05/16657667.html",
         name: "why技术",
@@ -203,7 +203,7 @@ void main() {
     expect(
       officialHotList[1],
       const OfficialHot(
-        id: 16669900,
+        id: "16669900",
         title: "内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档",
         url: "https://www.cnblogs.com/powertoolsteam/archive/2022/09/08/16669900.html",
         name: "葡萄城技术团队",
@@ -214,7 +214,7 @@ void main() {
     expect(
       officialHotList[2],
       const OfficialHot(
-        id: 727715,
+        id: "727715",
         title: "被赶下班车的外包人",
         url: "https://news.cnblogs.com/n/727715/",
         name: "itwriter",
@@ -224,7 +224,7 @@ void main() {
     expect(
       officialHotList[3],
       const OfficialHot(
-        id: 727978,
+        id: "727978",
         title: "微软全力拥抱 Java ！",
         url: "https://news.cnblogs.com/n/727978/",
         name: "itwriter",

@@ -95,7 +95,7 @@ class OfficialBlogParser {
   static OfficialHot _parseHotBlog(Element blogElement, Element userElement) {
     final String url = blogElement.attributes["href"]!;
     return OfficialHot(
-      id: url.split("/").last.replaceFirst(".html", "").toInt(),
+      id: url.split("/").last.replaceFirst(".html", ""),
       title: blogElement.getText(),
       url: url,
       name: userElement.getText(),
@@ -113,7 +113,7 @@ class OfficialBlogParser {
     final String url = element.attributes["href"]!;
     final List<String> urlPart = url.split("/");
     return OfficialHot(
-      id: urlPart[urlPart.length - 2].toInt(),
+      id: urlPart[urlPart.length - 2],
       title: element.getText(),
       url: url,
       name: "itwriter",

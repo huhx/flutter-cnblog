@@ -5,6 +5,7 @@ import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/official_blog.dart';
 
@@ -31,7 +32,7 @@ class OfficialBlogReviewScreen extends StatelessWidget {
         body: FutureBuilder(
           future: officialBlogApi.getHotList(blog.url),
           builder: (context, snap) {
-            if (!snap.hasData) return const SizedBox();
+            if (!snap.hasData) return const CenterProgressIndicator();
             final List<OfficialHot> data = snap.data as List<OfficialHot>;
             final List<OfficialHot> blogList = data.where((item) => item.isBlog).toList();
             final List<OfficialHot> newsList = data.where((item) => !item.isBlog).toList();

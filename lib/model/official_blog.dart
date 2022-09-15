@@ -46,7 +46,7 @@ class OfficialBlog extends Equatable {
 }
 
 class OfficialHot extends Equatable {
-  final int id;
+  final String id;
   final String title;
   final String url;
   final String name;
@@ -67,7 +67,6 @@ class OfficialHot extends Equatable {
 
   DetailModel toDetail() {
     return DetailModel(
-      id: id.toInt(),
       title: title,
       avatar: null,
       url: url,
