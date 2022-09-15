@@ -16,6 +16,20 @@ class OfficialBlogParser {
     return userBlogs;
   }
 
+  static List<OfficialHot> parseOfficialHotList(String string) {
+    final Document document = parse(string);
+    final Element rootElement = document.getElementById("cnblogs_post_body")!;
+    final List<Element> elements = rootElement.getElementsByTagName("p");
+
+    final Element blogElement = elements[1];
+    List<OfficialHot> hotBlogList = _parseHotBlogList(blogElement);
+
+    final Element newsElement = elements[3];
+    List<OfficialHot> hotNewsList = _parseHotNewsList(newsElement);
+
+    return hotBlogList + hotNewsList;
+  }
+
   static List<OfficialBlog> parseOfficialBlogs(Element element) {
     final List<Element> titleElements = element.getElementsByClassName("postTitle2");
     final List<Element> summaryElements = element.getElementsByClassName("c_b_p_desc");
@@ -55,6 +69,55 @@ class OfficialBlogParser {
       viewCount: viewCount.toInt(),
       commentCount: commentCount.toInt(),
       diggCount: diggCount.toInt(),
+    );
+  }
+
+  static List<OfficialHot> _parseHotBlogList(Element element) {
+    final List<Element> elements = element.getElementsByTagName("a");
+    final int length = elements.length;
+    List<Element> oddElements = [];
+    List<Element> evenElements = [];
+    for (int i = 0; i < length; i++) {
+      if ((i + 1) % 2 == 0) {
+        evenElements.add(elements[i]);
+      } else {
+        oddElements.add(elements[i]);
+      }
+    }
+    final int size = evenElements.length;
+    List<OfficialHot> result = [];
+    for (int j = 0; j < size; j++) {
+      result.add(_parseHotBlog(oddElements[j], evenElements[j]));
+    }
+    return result;
+  }
+
+  static OfficialHot _parseHotBlog(Element blogElement, Element userElement) {
+    final String url = blogElement.attributes["href"]!;
+    return OfficialHot(
+      id: url.split("/").last.replaceFirst(".html", "").toInt(),
+      title: blogElement.getText(),
+      url: url,
+      name: userElement.getText(),
+      homeUrl: userElement.attributes["href"],
+      isBlog: true,
+    );
+  }
+
+  static List<OfficialHot> _parseHotNewsList(Element element) {
+    final List<Element> elements = element.getElementsByTagName("a");
+    return elements.map((e) => _parseHotNews(e)).toList();
+  }
+
+  static OfficialHot _parseHotNews(Element element) {
+    final String url = element.attributes["href"]!;
+    final List<String> urlPart = url.split("/");
+    return OfficialHot(
+      id: urlPart[urlPart.length - 2].toInt(),
+      title: element.getText(),
+      url: url,
+      name: "itwriter",
+      isBlog: false,
     );
   }
 }

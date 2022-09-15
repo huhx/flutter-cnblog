@@ -48,7 +48,8 @@ void main() {
           id: "16685636",
           title: "上周热点回顾（9.5-9.11）",
           url: "https://www.cnblogs.com/cmt/p/16685636.html",
-          summary: r'''热点随笔： · 没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！ (why技术)· 内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档 (葡萄城技术团队)· 终于实现了一门属于自己的编程语言 (crossoverJie)· C#/.NET/.NET''',
+          summary:
+              r'''热点随笔： · 没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！ (why技术)· 内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档 (葡萄城技术团队)· 终于实现了一门属于自己的编程语言 (crossoverJie)· C#/.NET/.NET''',
           isReview: true,
           postDate: "2022-09-12 10:32",
           viewCount: 442,
@@ -140,7 +141,8 @@ void main() {
         id: "16647139",
         title: "云安全践行者：亚马逊云科技如何打好“安全”牌？",
         url: "https://www.cnblogs.com/cmt/p/16647139.html",
-        summary: '''云计算发展正迅疾如风，猛烈似火。为业务赋能之下，上“云”已成大势所趋！特别是在疫情持续了将近三年的背景下，云市场需求持续爆发。资本方、企业主、客户、用户等等，云正成为各方最受关注的科技领域。2022年，运营商、独立云厂商、外资云厂商纷纷登场，众多企业“卷”向云端。''',
+        summary:
+            '''云计算发展正迅疾如风，猛烈似火。为业务赋能之下，上“云”已成大势所趋！特别是在疫情持续了将近三年的背景下，云市场需求持续爆发。资本方、企业主、客户、用户等等，云正成为各方最受关注的科技领域。2022年，运营商、独立云厂商、外资云厂商纷纷登场，众多企业“卷”向云端。''',
         isReview: false,
         postDate: "2022-09-01 16:57",
         viewCount: 3620,
@@ -160,6 +162,73 @@ void main() {
         viewCount: 5597,
         commentCount: 0,
         diggCount: 0,
+      ),
+    );
+  });
+
+  test("should return official hot list", () {
+    const String string = '''
+    <div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+        <p>热点随笔：</p>
+        <p>·&nbsp;
+            <a href="https://www.cnblogs.com/thisiswhy/archive/2022/09/05/16657667.html" target="_blank"
+                rel="noopener">没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！</a>&nbsp;(<a
+                href="https://www.cnblogs.com/thisiswhy/" target="_blank" rel="noopener">why技术</a>)<br>·&nbsp;
+            <a href="https://www.cnblogs.com/powertoolsteam/archive/2022/09/08/16669900.html" target="_blank"
+                rel="noopener">内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档</a>&nbsp;(<a
+                href="https://www.cnblogs.com/powertoolsteam/" target="_blank" rel="noopener">葡萄城技术团队</a>)<br>·&nbsp;
+        </p>
+        <p>热点新闻：</p>
+        <p>·&nbsp;
+            <a href="https://news.cnblogs.com/n/727715/" target="_blank" rel="noopener">被赶下班车的外包人</a><br>·&nbsp;
+            <a href="https://news.cnblogs.com/n/727978/" target="_blank" rel="noopener">微软全力拥抱 Java ！</a><br>·&nbsp;
+        </p>
+    </div>
+  ''';
+
+    final List<OfficialHot> officialHotList = OfficialBlogParser.parseOfficialHotList(string);
+
+    expect(officialHotList.length, 4);
+    expect(
+      officialHotList[0],
+      const OfficialHot(
+        id: 16657667,
+        title: "没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！",
+        url: "https://www.cnblogs.com/thisiswhy/archive/2022/09/05/16657667.html",
+        name: "why技术",
+        homeUrl: "https://www.cnblogs.com/thisiswhy/",
+        isBlog: true,
+      ),
+    );
+    expect(
+      officialHotList[1],
+      const OfficialHot(
+        id: 16669900,
+        title: "内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档",
+        url: "https://www.cnblogs.com/powertoolsteam/archive/2022/09/08/16669900.html",
+        name: "葡萄城技术团队",
+        homeUrl: "https://www.cnblogs.com/powertoolsteam/",
+        isBlog: true,
+      ),
+    );
+    expect(
+      officialHotList[2],
+      const OfficialHot(
+        id: 727715,
+        title: "被赶下班车的外包人",
+        url: "https://news.cnblogs.com/n/727715/",
+        name: "itwriter",
+        isBlog: false,
+      ),
+    );
+    expect(
+      officialHotList[3],
+      const OfficialHot(
+        id: 727978,
+        title: "微软全力拥抱 Java ！",
+        url: "https://news.cnblogs.com/n/727978/",
+        name: "itwriter",
+        isBlog: false,
       ),
     );
   });
