@@ -145,8 +145,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                                 if (user == null) {
                                   await context.goto(const LoginScreen());
                                 }
-                                blog.id = postId.value;
-                                context.goto(BlogCommentListScreen(blog, commentCount.value));
+                                context.goto(BlogCommentListScreen(blog.copyWith(postId: postId.value!), commentCount.value));
                               },
                               icon: Badge(
                                 animationDuration: const Duration(milliseconds: 200),

@@ -4,7 +4,7 @@ import 'blog_share.dart';
 import 'user.dart';
 
 class DetailModel extends Equatable {
-  int? id;
+  final int? id;
   final String title;
   final String url;
   final String? name;
@@ -14,7 +14,7 @@ class DetailModel extends Equatable {
   final int? commentCount;
   final int? diggCount;
 
-  DetailModel({
+  const DetailModel({
     this.id,
     required this.title,
     required this.url,
@@ -28,8 +28,22 @@ class DetailModel extends Equatable {
 
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: url, name: name);
-  }  
-  
+  }
+
+  DetailModel copyWith({required int postId}) {
+    return DetailModel(
+      id: postId,
+      title: title,
+      url: url,
+      name: name,
+      blogName: blogName,
+      avatar: avatar,
+      html: html,
+      commentCount: commentCount,
+      diggCount: diggCount,
+    );
+  }
+
   UserInfo toUserInfo() {
     return UserInfo(avatar: avatar ?? '', displayName: name!, blogName: blogName!);
   }
