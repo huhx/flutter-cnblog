@@ -23,6 +23,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'knowledge/knowledge_list_screen.dart';
 import 'message/message_screen.dart';
+import 'official/official_blog_list_screen.dart';
 import 'user_profile_detail_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -272,7 +273,7 @@ class ProfileFooter extends StatelessWidget {
                 child: const MomentMiddleItem(iconName: 'profile_feedback', label: '意见反馈'),
               ),
               InkWell(
-                onTap: () => CommUtil.toBeDev(),
+                onTap: () => context.goto(const OfficialBlogListScreen()),
                 child: const MomentMiddleItem(iconName: 'profile_official', label: '官方博客'),
               ),
               InkWell(

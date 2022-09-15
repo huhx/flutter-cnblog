@@ -70,6 +70,8 @@ dependency_overrides:
     git:
       url: https://github.com/huhx/flutter_pulltorefresh
       ref: main
+  flutter_inappwebview:
+    git: https://github.com/CodeEagle/flutter_inappwebview
 
 dev_dependencies:
   flutter_test:
