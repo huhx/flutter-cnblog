@@ -7,16 +7,14 @@ import 'authorization_interceptor.dart';
 
 class RestClient {
   static Dio getInstance({TokenType tokenType = TokenType.app}) {
-    final Dio dio = Dio(BaseOptions());
-    dio.interceptors.add(HttpFormatter());
-    dio.interceptors.add(AuthorizationInterceptor(tokenType: tokenType));
-    return dio;
+    return Dio(BaseOptions())
+      ..interceptors.add(HttpFormatter())
+      ..interceptors.add(AuthorizationInterceptor(tokenType: tokenType));
   }
 
   static Dio withCookie() {
-    final Dio dio = Dio(BaseOptions());
-    dio.interceptors.add(HttpFormatter());
-    dio.interceptors.add(CookieInterceptor());
-    return dio;
+    return Dio(BaseOptions())
+      ..interceptors.add(HttpFormatter())
+      ..interceptors.add(CookieInterceptor());
   }
 }
