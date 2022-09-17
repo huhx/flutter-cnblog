@@ -27,13 +27,14 @@ class FollowInfo extends Equatable {
 }
 
 enum FollowType {
-  follow('关注', 'following'),
-  follower('粉丝', 'followers');
+  follow(0, '关注', 'following'),
+  follower(1, '粉丝', 'followers');
 
+  final int tabIndex;
   final String label;
   final String url;
 
-  const FollowType(this.label, this.url);
+  const FollowType(this.tabIndex, this.label, this.url);
 }
 
 class FollowResult extends Equatable {

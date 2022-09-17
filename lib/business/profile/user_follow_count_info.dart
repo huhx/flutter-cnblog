@@ -3,6 +3,7 @@ import 'package:flutter_cnblog/api/user_follow_api.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/model/follow.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,7 +27,7 @@ class UserFollowCountInfo extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () => context.goto(FollowScreen(name: userProfile.name, index: 0)),
+              onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follow)),
               child: Row(
                 children: [
                   Text("${userProfile.followCounts}", style: const TextStyle(color: Colors.white, fontSize: 16)),
@@ -37,7 +38,7 @@ class UserFollowCountInfo extends HookWidget {
             ),
             const SizedBox(width: 10),
             InkWell(
-              onTap: () => context.goto(FollowScreen(name: userProfile.name, index: 1)),
+              onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follower)),
               child: Row(
                 children: [
                   Text("${userProfile.followerCounts}", style: const TextStyle(color: Colors.white, fontSize: 16)),

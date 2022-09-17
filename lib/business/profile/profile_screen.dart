@@ -14,6 +14,7 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/model/follow.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
@@ -150,11 +151,11 @@ class ProfileInfo extends StatelessWidget {
       children: [
         InkWell(
           child: ProfileInfoItem(counts: userProfileData.follow, label: "关注"),
-          onTap: () => context.goto(FollowScreen(name: userProfileData.name, index: 0)),
+          onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follow)),
         ),
         InkWell(
           child: ProfileInfoItem(counts: userProfileData.follower, label: "粉丝"),
-          onTap: () => context.goto(FollowScreen(name: userProfileData.name, index: 1)),
+          onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follower)),
         ),
         ProfileInfoItem(counts: userProfileData.comment, label: "评论"),
         ProfileInfoItem(counts: userProfileData.view, label: "阅读"),

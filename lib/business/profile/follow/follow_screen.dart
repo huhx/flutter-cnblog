@@ -7,16 +7,16 @@ import 'follow_list_screen.dart';
 
 class FollowScreen extends StatelessWidget {
   final String name;
-  final int index;
+  final FollowType followType;
 
-  const FollowScreen({required this.name, required this.index, super.key});
+  const FollowScreen({required this.name, required this.followType, super.key});
 
   @override
   Widget build(BuildContext context) {
     final String string = CurrentUser.getUser().displayName == name ? "我" : "Ta";
     return DefaultTabController(
       length: 2,
-      initialIndex: index,
+      initialIndex: followType.tabIndex,
       child: Scaffold(
         appBar: AppBar(
           leading: const AppbarBackButton(),
