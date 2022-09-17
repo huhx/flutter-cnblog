@@ -39,10 +39,7 @@ class BlogDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
-    final buttonEnable = useState(false);
     final postId = useState<int?>(blog.id);
-    final commentCount = useState(blog.commentCount ?? 0);
-    final diggCount = useState(blog.diggCount ?? 0);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,117 +80,7 @@ class BlogDetailScreen extends HookConsumerWidget {
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  color: Theme.of(context).backgroundColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                          child: TextFormField(
-                            controller: editingController,
-                            style: Theme.of(context).textTheme.bodyText2,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 6,
-                            minLines: 1,
-                            onChanged: (value) => buttonEnable.value = value.isNotEmpty,
-                            decoration: InputDecoration(
-                              hintText: "输入评论",
-                              hintStyle: const TextStyle(fontSize: 14),
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey.withOpacity(0.2),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                              border: outlineInputBorder,
-                              focusedBorder: outlineInputBorder,
-                              enabledBorder: outlineInputBorder,
-                            ),
-                          ),
-                        ),
-                      ),
-                      if (buttonEnable.value)
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                          onPressed: () async {
-                            final BlogCommentCreateReq request = BlogCommentCreateReq(
-                              postId: blog.id!,
-                              body: editingController.text,
-                              parentCommentId: 0,
-                            );
-                            final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
-                            if (resp.isSuccess) {
-                              editingController.clear();
-                              buttonEnable.value = false;
-                              commentCount.value = commentCount.value + 1;
-                              CommUtil.toast(message: "评论成功!");
-                            } else {
-                              CommUtil.toast(message: resp.message);
-                            }
-                          },
-                          child: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('发送')),
-                        )
-                      else
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                if (user == null) {
-                                  await context.goto(const LoginScreen());
-                                }
-                                context.goto(BlogCommentListScreen(blog.copyWith(postId: postId.value!), commentCount.value));
-                              },
-                              icon: Badge(
-                                animationDuration: const Duration(milliseconds: 200),
-                                animationType: BadgeAnimationType.scale,
-                                padding: const EdgeInsets.all(5),
-                                badgeContent: Text(
-                                  "${commentCount.value}",
-                                  style: const TextStyle(fontSize: 9),
-                                ),
-                                child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                if (user == null) {
-                                  await context.goto(const LoginScreen());
-                                }
-                                final BlogDiggReq request = BlogDiggReq(
-                                  voteType: VoteType.digg,
-                                  postId: postId.value!,
-                                  isAbandoned: false,
-                                );
-                                final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
-                                if (result.isSuccess) {
-                                  CommUtil.toast(message: "支持成功!");
-                                  diggCount.value = diggCount.value + 1;
-                                } else {
-                                  CommUtil.toast(message: result.message);
-                                }
-                              },
-                              icon: Badge(
-                                animationType: BadgeAnimationType.scale,
-                                badgeColor: Colors.blueAccent,
-                                animationDuration: const Duration(milliseconds: 200),
-                                padding: const EdgeInsets.all(5),
-                                badgeContent: Text(
-                                  "${diggCount.value}",
-                                  style: const TextStyle(fontSize: 9),
-                                ),
-                                child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
-                              ),
-                            ),
-                          ],
-                        )
-                    ],
-                  ),
-                ),
-              )
+              Align(alignment: Alignment.bottomCenter, child: BottomComment(blog, postId.value))
             ],
           ),
           Visibility(visible: isLoading.value, child: const CenterProgressIndicator()),
@@ -219,6 +106,133 @@ class AppBarTitle extends StatelessWidget {
         const SizedBox(width: 6),
         Text(blog.name!, style: const TextStyle(fontSize: 14)),
       ],
+    );
+  }
+}
+
+class BottomComment extends HookConsumerWidget {
+  final DetailModel blog;
+  final int? postId;
+
+  BottomComment(this.blog, this.postId, {super.key});
+
+  final TextEditingController editingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User? user = ref.watch(sessionProvider);
+    final buttonEnable = useState(false);
+    final commentCount = useState(blog.commentCount ?? 0);
+    final postId = useState<int?>(blog.id);
+    final diggCount = useState(blog.diggCount ?? 0);
+
+    return Container(
+      color: Theme.of(context).backgroundColor,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: TextFormField(
+                controller: editingController,
+                style: Theme.of(context).textTheme.bodyText2,
+                keyboardType: TextInputType.multiline,
+                maxLines: 6,
+                minLines: 1,
+                onChanged: (value) => buttonEnable.value = value.isNotEmpty,
+                decoration: InputDecoration(
+                  hintText: "输入评论",
+                  hintStyle: const TextStyle(fontSize: 14),
+                  isDense: true,
+                  filled: true,
+                  fillColor: Colors.grey.withOpacity(0.2),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                  border: outlineInputBorder,
+                  focusedBorder: outlineInputBorder,
+                  enabledBorder: outlineInputBorder,
+                ),
+              ),
+            ),
+          ),
+          if (buttonEnable.value)
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+              onPressed: () async {
+                final BlogCommentCreateReq request = BlogCommentCreateReq(
+                  postId: blog.id!,
+                  body: editingController.text,
+                  parentCommentId: 0,
+                );
+                final BlogCommentCreateResp resp = await userBlogApi.addComment(blog.blogName!, request);
+                if (resp.isSuccess) {
+                  editingController.clear();
+                  buttonEnable.value = false;
+                  commentCount.value = commentCount.value + 1;
+                  CommUtil.toast(message: "评论成功!");
+                } else {
+                  CommUtil.toast(message: resp.message);
+                }
+              },
+              child: const Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('发送')),
+            )
+          else
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    if (user == null) {
+                      await context.goto(const LoginScreen());
+                    }
+                    final BlogDiggReq request = BlogDiggReq(
+                      voteType: VoteType.digg,
+                      postId: postId.value!,
+                      isAbandoned: false,
+                    );
+                    final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
+                    if (result.isSuccess) {
+                      CommUtil.toast(message: "支持成功!");
+                      diggCount.value = diggCount.value + 1;
+                    } else {
+                      CommUtil.toast(message: result.message);
+                    }
+                  },
+                  icon: Badge(
+                    animationType: BadgeAnimationType.scale,
+                    badgeColor: Colors.blueAccent,
+                    animationDuration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.all(5),
+                    badgeContent: Text(
+                      "${diggCount.value}",
+                      style: const TextStyle(fontSize: 9),
+                    ),
+                    child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    if (user == null) {
+                      await context.goto(const LoginScreen());
+                    }
+                    context.goto(BlogCommentListScreen(blog.copyWith(postId: postId.value!), commentCount.value));
+                  },
+                  icon: Badge(
+                    animationDuration: const Duration(milliseconds: 200),
+                    animationType: BadgeAnimationType.scale,
+                    padding: const EdgeInsets.all(5),
+                    badgeContent: Text(
+                      "${commentCount.value}",
+                      style: const TextStyle(fontSize: 9),
+                    ),
+                    child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
+                  ),
+                ),
+              ],
+            )
+        ],
+      ),
     );
   }
 }
