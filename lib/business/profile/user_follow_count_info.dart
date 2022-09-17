@@ -16,14 +16,11 @@ class UserFollowCountInfo extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = useState<String>("");
-
     return FutureBuilder<UserProfileInfo>(
       future: userProfileApi.getUserProfile(user.blogName),
       builder: (context, snap) {
         if (!snap.hasData) return const SizedBox();
         final UserProfileInfo userProfile = snap.data as UserProfileInfo;
-        userId.value = userProfile.userId;
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,34 +48,46 @@ class UserFollowCountInfo extends HookWidget {
             ),
             const SizedBox(width: 10),
             if (user.displayName != CurrentUser.getUser().displayName)
-              FutureBuilder(
-                future: userFollowApi.isFollow(userId.value),
-                builder: (context, snap) {
-                  if (!snap.hasData) return const SizedBox();
-                  bool isFollow = snap.data as bool;
-                  String text = isFollow ? "取消关注" : "关注";
-
-                  return StatefulBuilder(
-                    builder: (context, setter) {
-                      return InkWell(
-                        child: Text(text),
-                        onTap: () async {
-                          if (isFollow) {
-                            await userFollowApi.unfollow(userId.value);
-                          } else {
-                            await userFollowApi.follow(userId.value, user.displayName);
-                          }
-                          setter(() {
-                            isFollow = !isFollow;
-                            text = isFollow ? "取消关注" : "关注";
-                          });
-                        },
-                      );
-                    },
-                  );
-                },
-              )
+              IsFollowWidget(userId: userProfile.userId, displayName: user.displayName)
           ],
+        );
+      },
+    );
+  }
+}
+
+class IsFollowWidget extends StatelessWidget {
+  final String userId;
+  final String displayName;
+
+  const IsFollowWidget({required this.userId, required this.displayName, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: userFollowApi.isFollow(userId),
+      builder: (context, snap) {
+        if (!snap.hasData) return const SizedBox();
+        bool isFollow = snap.data as bool;
+        String text = isFollow ? "取消关注" : "关注";
+
+        return StatefulBuilder(
+          builder: (context, setter) {
+            return InkWell(
+              child: Text(text),
+              onTap: () async {
+                if (isFollow) {
+                  await userFollowApi.unfollow(userId);
+                } else {
+                  await userFollowApi.follow(userId, displayName);
+                }
+                setter(() {
+                  isFollow = !isFollow;
+                  text = isFollow ? "取消关注" : "关注";
+                });
+              },
+            );
+          },
         );
       },
     );
