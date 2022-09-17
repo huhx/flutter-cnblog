@@ -29,16 +29,17 @@ class SearchScreen extends HookConsumerWidget {
             onFieldSubmitted: (value) => query.value = value,
             decoration: InputDecoration(
               hintText: "搜索",
-              suffix: InkWell(
+              suffixIcon: InkWell(
                 onTap: () {
                   textEditingController.clear();
                   query.value = "";
                 },
-                child: SizedBox.fromSize(
-                  size: const Size(14, 14),
-                  child: const SvgIcon(name: "search_clear", size: 16),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: SvgIcon(name: "search_clear", size: 18),
                 ),
               ),
+              suffixIconConstraints: const BoxConstraints(minHeight: 20, minWidth: 20),
               hintStyle: Theme.of(context).textTheme.bodyText2!,
               isDense: true,
               filled: true,
