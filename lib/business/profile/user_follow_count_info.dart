@@ -75,7 +75,7 @@ class IsFollowWidget extends StatelessWidget {
         return StatefulBuilder(
           builder: (context, setter) {
             return InkWell(
-              child: Text(text),
+              child: Text(text, style: const TextStyle(color: Colors.white)),
               onTap: () async {
                 if (isFollow) {
                   await userFollowApi.unfollow(userId);
