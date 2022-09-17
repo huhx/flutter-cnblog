@@ -123,7 +123,6 @@ class BottomComment extends HookConsumerWidget {
     final User? user = ref.watch(sessionProvider);
     final buttonEnable = useState(false);
     final commentCount = useState(blog.commentCount ?? 0);
-    final postId = useState<int?>(blog.id);
     final diggCount = useState(blog.diggCount ?? 0);
 
     return Container(
@@ -188,7 +187,7 @@ class BottomComment extends HookConsumerWidget {
                     }
                     final BlogDiggReq request = BlogDiggReq(
                       voteType: VoteType.digg,
-                      postId: postId.value!,
+                      postId: postId!,
                       isAbandoned: false,
                     );
                     final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
@@ -216,7 +215,7 @@ class BottomComment extends HookConsumerWidget {
                     if (user == null) {
                       await context.goto(const LoginScreen());
                     }
-                    context.goto(BlogCommentListScreen(blog.copyWith(postId: postId.value!), commentCount.value));
+                    context.goto(BlogCommentListScreen(blog.copyWith(postId: postId!), commentCount.value));
                   },
                   icon: Badge(
                     animationDuration: const Duration(milliseconds: 200),
