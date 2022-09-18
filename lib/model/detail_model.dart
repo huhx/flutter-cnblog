@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'blog_share.dart';
 import 'user.dart';
 
+part 'detail_model.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.none)
 class DetailModel extends Equatable {
   final int? id;
   final String title;
@@ -25,6 +29,10 @@ class DetailModel extends Equatable {
     this.commentCount,
     this.diggCount,
   });
+
+  Map<String, dynamic> toJson() => _$DetailModelToJson(this);
+
+  factory DetailModel.fromJson(Map<String, dynamic> json) => _$DetailModelFromJson(json);
 
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: url, name: name);
