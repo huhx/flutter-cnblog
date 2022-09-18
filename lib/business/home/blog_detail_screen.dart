@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/home/blog_comment_list_screen.dart';
 import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
@@ -28,24 +30,56 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'blog_share_screen.dart';
 
-class BlogDetailScreen extends HookConsumerWidget {
+class BlogDetailScreen extends StatefulHookConsumerWidget {
   final DetailModel blog;
 
-  final TextEditingController editingController = TextEditingController();
-
-  BlogDetailScreen({super.key, required this.blog});
+  const BlogDetailScreen({super.key, required this.blog});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BlogDetailScreen> createState() => _BlogDetailScreenState();
+}
+
+class _BlogDetailScreenState extends ConsumerState<BlogDetailScreen> {
+  int? startTime, endTime;
+  final TextEditingController editingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    startTime = DateTime.now().millisecondsSinceEpoch;
+  }
+
+  @override
+  void dispose() {
+    _saveReadLog();
+    super.dispose();
+  }
+
+  Future<void> _saveReadLog() async {
+    endTime = DateTime.now().millisecondsSinceEpoch;
+    final ReadLog readLog = ReadLog(
+      type: ReadLogType.blog,
+      startTime: startTime!,
+      endTime: endTime!,
+      duration: endTime! - startTime!,
+      json: widget.blog,
+      status: ReadLogStatus.normal,
+      createTime: DateTime.now().millisecondsSinceEpoch,
+    );
+    await readLogApi.insert(readLog);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isLoading = useState(true);
     final User? user = ref.watch(sessionProvider);
-    final postId = useState<int?>(blog.id);
+    final postId = useState<int?>(widget.blog.id);
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         leading: const AppbarBackButton(),
-        title: AppBarTitle(blog),
+        title: AppBarTitle(widget.blog),
         actions: <Widget>[
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
@@ -53,14 +87,14 @@ class BlogDetailScreen extends HookConsumerWidget {
               if (user == null) {
                 await context.goto(const LoginScreen());
               }
-              final bool isMark = await bookmarkApi.isMark(blog.url);
+              final bool isMark = await bookmarkApi.isMark(widget.blog.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
                 context: context,
                 duration: const Duration(milliseconds: 200),
                 shape: bottomSheetBorder,
-                builder: (_) => BlogShareScreen(blog: blog.toBlogShare(), shareSetting: setting),
+                builder: (_) => BlogShareScreen(blog: widget.blog.toBlogShare(), shareSetting: setting),
               );
             },
           )
@@ -73,14 +107,14 @@ class BlogDetailScreen extends HookConsumerWidget {
               Expanded(
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
-                    final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
-                    postId.value = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+                    final String string = await htmlCssApi.injectCss(widget.blog.url, ContentType.blog);
+                    postId.value = widget.blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
                 ),
               ),
-              Align(alignment: Alignment.bottomCenter, child: BottomComment(blog, postId.value))
+              Align(alignment: Alignment.bottomCenter, child: BottomComment(widget.blog, postId.value))
             ],
           ),
           Visibility(visible: isLoading.value, child: const CenterProgressIndicator()),
