@@ -57,6 +57,14 @@ class ReadLog {
   }
 }
 
-enum ReadLogType { blog, news, knowledge }
+enum ReadLogType {
+  blog("博客"),
+  news("新闻"),
+  knowledge("文库");
+
+  final String label;
+
+  const ReadLogType(this.label);
+}
 
 enum ReadLogStatus { normal, delete }

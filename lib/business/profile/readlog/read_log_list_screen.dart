@@ -164,7 +164,7 @@ class ReadLogItem extends StatelessWidget {
                           color: Colors.blueAccent.withOpacity(0.7),
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         ),
-                        child: Text(readLog.type.name, style: const TextStyle(fontSize: 13)),
+                        child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
                       ),
                       const SizedBox(width: 12),
                       Flexible(
