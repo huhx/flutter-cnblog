@@ -10,6 +10,7 @@ import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
@@ -45,6 +46,20 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
       appBar: AppBar(
         leading: const AppbarBackButton(),
         title: const Text("阅读记录"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.showCommDialog(
+                callback: () async {
+                  await readLogApi.deleteAll();
+                },
+                title: '清空记录',
+                content: '你确定清空阅读记录?',
+              );
+            },
+            icon: const SvgActionIcon(name: "delete"),
+          )
+        ],
       ),
       body: StreamBuilder(
         stream: streamList.stream,
@@ -144,14 +159,14 @@ class ReadLogItem extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                         decoration: BoxDecoration(
                           color: Colors.blueAccent.withOpacity(0.7),
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         ),
-                        child: Text(readLog.type.name),
+                        child: Text(readLog.type.name, style: const TextStyle(fontSize: 13)),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 12),
                       Flexible(
                         child: Text(
                           detailModel.title,

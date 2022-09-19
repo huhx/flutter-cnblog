@@ -26,6 +26,11 @@ class ReadLogApi {
     await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', ['delete', readLog.id]);
   }
 
+  Future<void> deleteAll() async {
+    final Database db = await _getDB();
+    await db.rawUpdate('UPDATE read_log SET status = ?', ['delete']);
+  }
+
   Future<List<ReadLog>> queryReadLogs(int pageNum) async {
     final Database db = await _getDB();
     final List<Map<String, dynamic>> maps = await db.query(
