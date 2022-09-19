@@ -3,21 +3,17 @@ import 'dart:convert';
 import 'package:flutter_cnblog/model/detail_model.dart';
 
 class ReadLog {
-  final int? id;
+  final String id;
   final ReadLogType type;
-  final int startTime;
-  final int endTime;
-  final int duration;
+  final String summary;
   final DetailModel json;
   final ReadLogStatus status;
   final int createTime;
 
   ReadLog({
-    this.id,
+    required this.id,
     required this.type,
-    required this.startTime,
-    required this.endTime,
-    required this.duration,
+    required this.summary,
     required this.json,
     required this.status,
     required this.createTime,
@@ -27,23 +23,45 @@ class ReadLog {
     return {
       'id': id,
       'type': type.name,
-      'startTime': startTime,
-      'endTime': endTime,
-      'duration': duration,
+      'summary': summary,
       'json': jsonEncode(json.toJson()),
       'status': status.name,
       'createTime': createTime,
     };
   }
 
+  ReadLog copyWith({required ReadLogStatus readLogStatus}) {
+    return ReadLog(
+      id: id,
+      type: type,
+      summary: summary,
+      json: json,
+      status: readLogStatus,
+      createTime: createTime,
+    );
+  }
+
+  factory ReadLog.of({
+    required ReadLogType type,
+    required String summary,
+    required DetailModel detailModel,
+  }) {
+    return ReadLog(
+      id: detailModel.url,
+      type: type,
+      summary: summary,
+      json: detailModel,
+      status: ReadLogStatus.normal,
+      createTime: DateTime.now().millisecondsSinceEpoch,
+    );
+  }
+
   factory ReadLog.fromJson(Map<String, dynamic> json) {
     return ReadLog(
-      id: json['id'] as int?,
+      id: json['id'] as String,
       type: ReadLogType.values.byName(json['type'] as String),
-      startTime: json['startTime'] as int,
-      endTime: json['endTime'] as int,
-      duration: json['duration'] as int,
-      json: DetailModel.fromJson(json['json'] as Map<String, dynamic>),
+      summary: json['summary'] as String,
+      json: DetailModel.fromJson(jsonDecode(json['json'])),
       status: ReadLogStatus.values.byName(json['status'] as String),
       createTime: json['createTime'] as int,
     );

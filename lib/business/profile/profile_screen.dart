@@ -25,6 +25,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'knowledge/knowledge_list_screen.dart';
 import 'message/message_screen.dart';
 import 'official/official_blog_list_screen.dart';
+import 'readlog/read_log_list_screen.dart';
 import 'user_profile_detail_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -278,7 +279,7 @@ class ProfileFooter extends StatelessWidget {
                 child: const MomentMiddleItem(iconName: 'profile_official', label: '官方博客'),
               ),
               InkWell(
-                onTap: () => CommUtil.toBeDev(),
+                onTap: () => context.goto(const ReadLogListScreen()),
                 child: const MomentMiddleItem(iconName: 'my_history', label: '阅读记录'),
               ),
               InkWell(

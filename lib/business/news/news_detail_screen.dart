@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
-import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_share_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -10,71 +9,37 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
-import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class NewsDetailScreen extends StatefulHookConsumerWidget {
+class NewsDetailScreen extends HookConsumerWidget {
   final DetailModel news;
 
   const NewsDetailScreen(this.news, {super.key});
 
   @override
-  ConsumerState<NewsDetailScreen> createState() => _NewsDetailScreenState();
-}
-
-class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
-  int? startTime, endTime;
-
-  @override
-  void initState() {
-    super.initState();
-    startTime = DateTime.now().millisecondsSinceEpoch;
-  }
-
-  @override
-  void dispose() {
-    _saveReadLog();
-    super.dispose();
-  }
-
-  Future<void> _saveReadLog() async {
-    endTime = DateTime.now().millisecondsSinceEpoch;
-    final ReadLog readLog = ReadLog(
-      type: ReadLogType.news,
-      startTime: startTime!,
-      endTime: endTime!,
-      duration: endTime! - startTime!,
-      json: widget.news,
-      status: ReadLogStatus.normal,
-      createTime: DateTime.now().millisecondsSinceEpoch,
-    );
-    await readLogApi.insert(readLog);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = useState(true);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.news.name ?? "itWriter"),
+        title: Text(news.name ?? "itWriter"),
         leading: const AppbarBackButton(),
         actions: [
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () async {
-              final bool isMark = await bookmarkApi.isMark(widget.news.url);
+              final bool isMark = await bookmarkApi.isMark(news.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
 
               showMaterialModalBottomSheet(
                 context: context,
                 duration: const Duration(milliseconds: 200),
                 shape: bottomSheetBorder,
-                builder: (_) => BlogShareScreen(blog: widget.news.toBlogShare(), shareSetting: setting),
+                builder: (_) => BlogShareScreen(blog: news.toBlogShare(), shareSetting: setting),
               );
             },
           )
@@ -84,7 +49,7 @@ class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final String string = await htmlCssApi.injectCss(widget.news.url, ContentType.news);
+              final String string = await htmlCssApi.injectCss(news.url, ContentType.news);
               await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.news.host));
             },
             onPageCommitVisible: (controller, url) => isLoading.value = false,

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/knowledge_api.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -81,7 +84,11 @@ class KnowledgeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(KnowledgeDetailScreen(knowledge.toDetail())),
+      onTap: () async {
+        final DetailModel detailModel = knowledge.toDetail();
+        await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: knowledge.summary, detailModel: detailModel));
+        context.goto(KnowledgeDetailScreen(detailModel));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),

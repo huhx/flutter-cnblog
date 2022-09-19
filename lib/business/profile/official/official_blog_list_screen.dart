@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/official_blog_api.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/official/official_blog_review_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/official_blog.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OfficialBlogListScreen extends StatefulWidget {
@@ -81,11 +84,13 @@ class OfficialBlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         if (blog.isReview) {
           context.goto(OfficialBlogReviewScreen(blog));
         } else {
-          context.goto(BlogDetailScreen(blog: blog.toDetail()));
+          final DetailModel detailModel = blog.toDetail();
+          await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blog.summary, detailModel: detailModel));
+          context.goto(BlogDetailScreen(blog: detailModel));
         }
       },
       child: Card(

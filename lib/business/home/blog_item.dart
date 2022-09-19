@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'blog_detail_screen.dart';
@@ -15,7 +18,11 @@ class BlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(BlogDetailScreen(blog: blog.toDetail())),
+      onTap: () async {
+        final DetailModel detailModel = blog.toDetail();
+        await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blog.description, detailModel: detailModel));
+        context.goto(BlogDetailScreen(blog: detailModel));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

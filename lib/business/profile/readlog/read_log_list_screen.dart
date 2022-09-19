@@ -1,0 +1,140 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
+import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
+import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_screen.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/component/text_icon.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+class ReadLogListScreen extends StatefulWidget {
+  const ReadLogListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ReadLogListScreen> createState() => _ReadLogListScreenState();
+}
+
+class _ReadLogListScreenState extends State<ReadLogListScreen> {
+  final StreamList<ReadLog> streamList = StreamList();
+
+  @override
+  void initState() {
+    super.initState();
+    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    if (streamList.isOpen) {
+      final List<ReadLog> readLogs = await readLogApi.queryReadLogs(pageKey);
+      streamList.fetch(readLogs, pageKey);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: const AppbarBackButton(),
+        title: const Text("阅读记录"),
+      ),
+      body: StreamBuilder(
+        stream: streamList.stream,
+        builder: (context, snap) {
+          if (!snap.hasData) return const CenterProgressIndicator();
+          final List<ReadLog> readLogs = snap.data as List<ReadLog>;
+
+          if (readLogs.isEmpty) {
+            return const EmptyWidget();
+          }
+
+          return SmartRefresher(
+            controller: streamList.refreshController,
+            onRefresh: () => streamList.onRefresh(),
+            onLoading: () => streamList.onLoading(),
+            enablePullUp: true,
+            child: ListView.builder(
+              itemCount: readLogs.length,
+              itemBuilder: (_, index) => ReadLogItem(readLogs[index], key: ValueKey(readLogs[index].id)),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    streamList.dispose();
+    super.dispose();
+  }
+}
+
+class ReadLogItem extends StatelessWidget {
+  final ReadLog readLog;
+
+  const ReadLogItem(this.readLog, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final DetailModel detailModel = readLog.json;
+
+    return InkWell(
+      onTap: () async {
+        if (readLog.type == ReadLogType.blog) {
+          await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: readLog.summary, detailModel: detailModel));
+          context.goto(BlogDetailScreen(blog: detailModel));
+        } else if (readLog.type == ReadLogType.news) {
+          await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: readLog.summary, detailModel: detailModel));
+          context.goto(NewsDetailScreen(detailModel));
+        } else if (readLog.type == ReadLogType.knowledge) {
+          await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
+          context.goto(KnowledgeDetailScreen(detailModel));
+        }
+      },
+      child: Card(
+        child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(detailModel.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                const SizedBox(height: 6),
+                Text(
+                  readLog.summary,
+                  style: const TextStyle(fontSize: 13, color: Colors.grey),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(detailModel.name ?? "unknow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        const SizedBox(width: 16),
+                        TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
+                        const SizedBox(width: 8),
+                        TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
+                      ],
+                    ),
+                    Text(
+                      timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    )
+                  ],
+                )
+              ],
+            )),
+      ),
+    );
+  }
+}

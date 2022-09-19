@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -94,15 +96,18 @@ class SearchItem extends StatelessWidget {
         );
         switch (searchType) {
           case SearchType.news:
+            await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(NewsDetailScreen(detailModel));
             break;
           case SearchType.blog:
+            await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(BlogDetailScreen(blog: detailModel));
             break;
           case SearchType.question:
             context.goto(QuestionDetailScreen(question: detailModel));
             break;
           case SearchType.knowledge:
+            await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(KnowledgeDetailScreen(detailModel));
             break;
         }

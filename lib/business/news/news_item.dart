@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/news.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +26,9 @@ class NewsItem extends ConsumerWidget {
         if (user == null) {
           await context.goto(const LoginScreen());
         }
-        context.goto(NewsDetailScreen(news.toDetail()));
+        final DetailModel detailModel = news.toDetail();
+        await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: news.summary, detailModel: detailModel));
+        context.goto(NewsDetailScreen(detailModel));
       },
       child: Card(
         child: Container(

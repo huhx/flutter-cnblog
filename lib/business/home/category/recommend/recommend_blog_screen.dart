@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/constant/comm_constant.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/blog_content_resp.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -88,7 +91,9 @@ class BlogItem extends StatelessWidget {
       onTap: () async {
         final String encodeString = Uri.encodeComponent(blog.url);
         final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
-        context.goto(BlogDetailScreen(blog: blogContentResp.toBlogResp().toDetail()));
+        final DetailModel detailModel = blogContentResp.toBlogResp().toDetail();
+        await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blogContentResp.description, detailModel: detailModel));
+        context.goto(BlogDetailScreen(blog: detailModel));
       },
       child: Card(
         child: Container(

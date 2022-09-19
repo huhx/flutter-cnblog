@@ -7,11 +7,9 @@ class ReadLogApi {
   final dbName = 'read_log.db';
   final tableScript = '''
     CREATE TABLE read_log(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       type TEXT NOT NULL,
-      startTime INTEGER NOT NULL,
-      endTime INTEGER NOT NULL,
-      duration INTEGER,
+      summary TEXT NOT NULL,
       json TEXT NOT NULL,
       status TEXT NOT NULL,
       createTime INTEGER NOT NULL
@@ -23,12 +21,13 @@ class ReadLogApi {
     await db.insert(tableName, readLog.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<ReadLog>> queryReadLogs(int pageNum, int pageSize) async {
+  Future<List<ReadLog>> queryReadLogs(int pageNum) async {
     final Database db = await _getDB();
     final List<Map<String, dynamic>> maps = await db.query(
       tableName,
-      offset: (pageNum - 1) * pageSize,
-      limit: pageSize,
+      offset: (pageNum - 1) * 20,
+      where: 'status = "normal"',
+      limit: 20,
       orderBy: 'createTime desc',
     );
     return maps.map((json) => ReadLog.fromJson(json)).toList();
