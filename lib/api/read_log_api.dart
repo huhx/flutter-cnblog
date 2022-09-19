@@ -21,6 +21,11 @@ class ReadLogApi {
     await db.insert(tableName, readLog.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  Future<void> delete(ReadLog readLog) async {
+    final Database db = await _getDB();
+    await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', ['delete', readLog.id]);
+  }
+
   Future<List<ReadLog>> queryReadLogs(int pageNum) async {
     final Database db = await _getDB();
     final List<Map<String, dynamic>> maps = await db.query(

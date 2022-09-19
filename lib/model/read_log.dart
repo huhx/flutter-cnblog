@@ -30,17 +30,6 @@ class ReadLog {
     };
   }
 
-  ReadLog copyWith({required ReadLogStatus readLogStatus}) {
-    return ReadLog(
-      id: id,
-      type: type,
-      summary: summary,
-      json: json,
-      status: readLogStatus,
-      createTime: createTime,
-    );
-  }
-
   factory ReadLog.of({
     required ReadLogType type,
     required String summary,

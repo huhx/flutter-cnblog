@@ -125,62 +125,73 @@ class ReadLogItem extends StatelessWidget {
           context.goto(KnowledgeDetailScreen(detailModel));
         }
       },
-      child: Card(
-        child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent.withOpacity(0.7),
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      child: InkWell(
+        onLongPress: () {
+          context.showCommDialog(
+            callback: () async {
+              await readLogApi.delete(readLog);
+            },
+            title: '删除记录',
+            content: '你确定删除该条阅读记录?',
+          );
+        },
+        child: Card(
+          child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent.withOpacity(0.7),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Text(readLog.type.name),
                       ),
-                      child: Text(readLog.type.name),
-                    ),
-                    const SizedBox(width: 16),
-                    Flexible(
-                      child: Text(
-                        detailModel.title,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      const SizedBox(width: 16),
+                      Flexible(
+                        child: Text(
+                          detailModel.title,
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  readLog.summary,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                        const SizedBox(width: 16),
-                        TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
-                        const SizedBox(width: 8),
-                        TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
-                      ],
-                    ),
-                    Text(
-                      timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    )
-                  ],
-                )
-              ],
-            )),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    readLog.summary,
+                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                          const SizedBox(width: 16),
+                          TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
+                          const SizedBox(width: 8),
+                          TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
+                        ],
+                      ),
+                      Text(
+                        timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
+                        style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      )
+                    ],
+                  )
+                ],
+              )),
+        ),
       ),
     );
   }
