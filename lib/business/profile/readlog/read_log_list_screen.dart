@@ -131,7 +131,27 @@ class ReadLogItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(detailModel.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent.withOpacity(0.7),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Text(readLog.type.name),
+                    ),
+                    const SizedBox(width: 16),
+                    Flexible(
+                      child: Text(
+                        detailModel.title,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 6),
                 Text(
                   readLog.summary,
