@@ -14,6 +14,7 @@ import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
+import 'package:flutter_cnblog/util/date_util.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -91,9 +92,15 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            child: Text(key),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SimpleTextIcon(icon: "read_log", text: key),
+                                SimpleTextIcon(icon: "weekday", text: DateUtil.getWeekFromString(key)),
+                              ],
+                            ),
                           ),
                           ReadLogItem(readLogItems[index], key: ValueKey(readLogItems[index].id)),
                         ],
@@ -151,60 +158,61 @@ class ReadLogItem extends StatelessWidget {
       },
       child: Card(
         child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent.withOpacity(0.7),
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.withOpacity(0.7),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
-                    const SizedBox(width: 12),
-                    Flexible(
-                      child: Text(
-                        detailModel.title,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
+                  ),
+                  const SizedBox(width: 12),
+                  Flexible(
+                    child: Text(
+                      detailModel.title,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  readLog.summary,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                        const SizedBox(width: 16),
-                        TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
-                        const SizedBox(width: 8),
-                        TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
-                      ],
-                    ),
-                    Text(
-                      timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    )
-                  ],
-                )
-              ],
-            )),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                readLog.summary,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 6),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      const SizedBox(width: 16),
+                      TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
+                      const SizedBox(width: 8),
+                      TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
+                    ],
+                  ),
+                  Text(
+                    timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
