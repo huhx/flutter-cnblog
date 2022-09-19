@@ -25,7 +25,7 @@ class UserInstantApi {
   }
 
   Future<List<InstantComment>> getInstantComments(int instantId) async {
-    final String url = "$baseUrl/ing/SingleIngComments?ingId=$instantId";
+    final String url = "https://ing.cnblogs.com/u/lilith-lt/status/$instantId";
     final Response response = await RestClient.withCookie().get(url);
 
     return compute(InstantCommentParser.parseInstantCommentList, response.data as String);

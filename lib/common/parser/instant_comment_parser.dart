@@ -14,11 +14,12 @@ class InstantCommentParser {
   }
 
   static InstantComment _parseInstantComment(Element element) {
-    final Element idElements = element.getFirstByTag("a");
+    final Element idElements = element.getFirstByClass("gray3");
+    final Element avatarElement = element.getFirstByTag("img");
     final List<String> idStrings =
-        idElements.attributes["onclick"]!.split(";")[0].replaceFirst("commentReply(", "").replaceFirst(")", "").split(", ");
+        idElements.attributes["onclick"]!.split(";")[0].replaceFirst("commentReply(", "").replaceFirst(")", "").split(",");
 
-    final Element contentElement = element.getFirstByTag("span");
+    final Element contentElement = element.getFirstByTag("bdo");
     String? fromName, fromUrl;
     final List<Element> fromElements = contentElement.getElementsByTagName("a");
     if (fromElements.isNotEmpty) {
@@ -26,7 +27,7 @@ class InstantCommentParser {
       fromUrl = fromElements[0].attributes["href"];
     }
 
-    final Element timeElement = element.getFirstByClass("ing_comment_time");
+    final Element timeElement = element.getFirstByClass("text_green");
     final Element toElement = element.getElementsByTagName("a")[1];
 
     return InstantComment(
@@ -36,9 +37,10 @@ class InstantCommentParser {
       fromName: fromName?.substring(1),
       fromUrl: fromUrl,
       toName: toElement.getText(),
-      toUrl: toElement.attributes['href']!,
+      toUrl: "https:${toElement.attributes['href']}",
+      avatar: avatarElement.attributes["src"]!,
       content: contentElement.innerHtml,
-      postDate: timeElement.getText(),
+      postDate: timeElement.attributes["title"]!,
     );
   }
 }

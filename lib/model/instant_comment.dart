@@ -10,6 +10,7 @@ class InstantComment extends Equatable {
   final int paneId;
   final String? fromName;
   final String? fromUrl;
+  final String avatar;
   final String toName;
   final String toUrl;
   final String content;
@@ -21,6 +22,7 @@ class InstantComment extends Equatable {
     required this.paneId,
     this.fromName,
     this.fromUrl,
+    required this.avatar,
     required this.toName,
     required this.toUrl,
     required this.content,
@@ -30,5 +32,5 @@ class InstantComment extends Equatable {
   factory InstantComment.fromJson(Map<String, dynamic> json) => _$InstantCommentFromJson(json);
 
   @override
-  List<Object?> get props => [id, replyId, paneId, fromName, fromUrl, toName, toUrl, content, postDate];
+  List<Object?> get props => [id, replyId, paneId, fromName, fromUrl, avatar, toName, toUrl, content, postDate];
 }

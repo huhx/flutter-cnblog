@@ -98,7 +98,7 @@ class InstantDetailScreen extends HookWidget {
                                       children: [
                                         Row(
                                           children: [
-                                            CircleAvatar(child: Text(instantComment.toName.substring(0, 1))),
+                                            CircleImage(url: instantComment.avatar, size: 36),
                                             const SizedBox(width: 10),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
