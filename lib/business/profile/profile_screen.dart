@@ -265,6 +265,7 @@ class ProfileFooter extends StatelessWidget {
           const Text("更多功能"),
           const SizedBox(height: 16),
           GridView.count(
+            primary: false,
             shrinkWrap: true,
             crossAxisCount: 4,
             crossAxisSpacing: 30,
