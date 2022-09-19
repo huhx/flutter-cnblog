@@ -7,7 +7,6 @@ part 'instant_comment.g.dart';
 class InstantComment extends Equatable {
   final int id;
   final int replyId;
-  final int paneId;
   final String? fromName;
   final String? fromUrl;
   final String avatar;
@@ -19,7 +18,6 @@ class InstantComment extends Equatable {
   const InstantComment({
     required this.id,
     required this.replyId,
-    required this.paneId,
     this.fromName,
     this.fromUrl,
     required this.avatar,
@@ -32,5 +30,5 @@ class InstantComment extends Equatable {
   factory InstantComment.fromJson(Map<String, dynamic> json) => _$InstantCommentFromJson(json);
 
   @override
-  List<Object?> get props => [id, replyId, paneId, fromName, fromUrl, avatar, toName, toUrl, content, postDate];
+  List<Object?> get props => [id, replyId, fromName, fromUrl, avatar, toName, toUrl, content, postDate];
 }

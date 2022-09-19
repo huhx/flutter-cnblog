@@ -7,17 +7,18 @@ import 'package:html/parser.dart' show parse;
 class InstantCommentParser {
   static List<InstantComment> parseInstantCommentList(String string) {
     final Document document = parse(string);
-    final List<Element> elements =
-        document.getElementsByTagName("li").where((element) => element.attributes['id']?.startsWith("comment") ?? false).toList();
+    final Element rootElement = document.getElementsByClassName("comment_list_block")[0];
+    final Element ulElement = rootElement.getFirstByTag("ul");
+    final int instantId = ulElement.attributes['id']!.replaceFirst("comment_block_", "").toInt();
 
-    return elements.map((e) => _parseInstantComment(e)).toList();
+    final List<Element> elements = ulElement.getElementsByTagName("li");
+
+    return elements.map((e) => _parseInstantComment(e,instantId)).toList();
   }
 
-  static InstantComment _parseInstantComment(Element element) {
-    final Element idElements = element.getFirstByClass("gray3");
+  static InstantComment _parseInstantComment(Element element, int id) {
     final Element avatarElement = element.getFirstByTag("img");
-    final List<String> idStrings =
-        idElements.attributes["onclick"]!.split(";")[0].replaceFirst("commentReply(", "").replaceFirst(")", "").split(",");
+    final int replyId = element.id.replaceFirst("comment_", "").toInt();
 
     final Element contentElement = element.getFirstByTag("bdo");
     String? fromName, fromUrl;
@@ -31,9 +32,8 @@ class InstantCommentParser {
     final Element toElement = element.getElementsByTagName("a")[1];
 
     return InstantComment(
-      id: idStrings[0].toInt(),
-      replyId: idStrings[1].toInt(),
-      paneId: idStrings[2].toInt(),
+      id: id,
+      replyId: replyId,
       fromName: fromName?.substring(1),
       fromUrl: fromUrl,
       toName: toElement.getText(),
