@@ -85,7 +85,7 @@ class SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
+      onTap: () {
         DetailModel detailModel = DetailModel(
           title: searchInfo.title,
           url: searchInfo.url,
@@ -96,19 +96,19 @@ class SearchItem extends StatelessWidget {
         );
         switch (searchType) {
           case SearchType.news:
-            await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(NewsDetailScreen(detailModel));
+            readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: searchInfo.summary, detailModel: detailModel));
             break;
           case SearchType.blog:
-            await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(BlogDetailScreen(blog: detailModel));
+            readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: searchInfo.summary, detailModel: detailModel));
             break;
           case SearchType.question:
             context.goto(QuestionDetailScreen(question: detailModel));
             break;
           case SearchType.knowledge:
-            await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: searchInfo.summary, detailModel: detailModel));
             context.goto(KnowledgeDetailScreen(detailModel));
+            readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: searchInfo.summary, detailModel: detailModel));
             break;
         }
       },

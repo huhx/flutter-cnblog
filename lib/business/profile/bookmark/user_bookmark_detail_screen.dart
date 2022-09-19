@@ -31,7 +31,7 @@ class UserBookmarkDetailScreen extends HookConsumerWidget {
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () async {
-              BlogShareSetting setting = BlogShareSetting(isMark: true, isDarkMode: context.isDarkMode());
+              final BlogShareSetting setting = BlogShareSetting(isMark: true, isDarkMode: context.isDarkMode());
               return showMaterialModalBottomSheet(
                 context: context,
                 duration: const Duration(milliseconds: 200),

@@ -84,10 +84,10 @@ class KnowledgeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
+      onTap: () {
         final DetailModel detailModel = knowledge.toDetail();
-        await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: knowledge.summary, detailModel: detailModel));
         context.goto(KnowledgeDetailScreen(detailModel));
+        readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: knowledge.summary, detailModel: detailModel));
       },
       child: Card(
         child: Container(

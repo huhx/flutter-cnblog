@@ -84,13 +84,13 @@ class OfficialBlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
+      onTap: () {
         if (blog.isReview) {
           context.goto(OfficialBlogReviewScreen(blog));
         } else {
           final DetailModel detailModel = blog.toDetail();
-          await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blog.summary, detailModel: detailModel));
           context.goto(BlogDetailScreen(blog: detailModel));
+          readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blog.summary, detailModel: detailModel));
         }
       },
       child: Card(

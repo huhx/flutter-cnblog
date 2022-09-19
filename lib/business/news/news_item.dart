@@ -27,8 +27,8 @@ class NewsItem extends ConsumerWidget {
           await context.goto(const LoginScreen());
         }
         final DetailModel detailModel = news.toDetail();
-        await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: news.summary, detailModel: detailModel));
         context.goto(NewsDetailScreen(detailModel));
+        readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: news.summary, detailModel: detailModel));
       },
       child: Card(
         child: Container(

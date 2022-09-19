@@ -18,10 +18,10 @@ class UserBlogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
+      onTap: () {
         final DetailModel detailModel = userBlog.toDetail(userInfo.avatar);
-        await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: userBlog.summary, detailModel: detailModel));
         context.goto(BlogDetailScreen(blog: detailModel));
+        readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: userBlog.summary, detailModel: detailModel));
       },
       child: Card(
         child: Container(

@@ -92,8 +92,8 @@ class BlogItem extends StatelessWidget {
         final String encodeString = Uri.encodeComponent(blog.url);
         final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
         final DetailModel detailModel = blogContentResp.toBlogResp().toDetail();
-        await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blogContentResp.description, detailModel: detailModel));
         context.goto(BlogDetailScreen(blog: detailModel));
+        readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blogContentResp.description, detailModel: detailModel));
       },
       child: Card(
         child: Container(

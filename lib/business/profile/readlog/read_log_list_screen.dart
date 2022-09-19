@@ -128,16 +128,16 @@ class ReadLogItem extends StatelessWidget {
     final DetailModel detailModel = readLog.json;
 
     return InkWell(
-      onTap: () async {
+      onTap: () {
         if (readLog.type == ReadLogType.blog) {
-          await readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: readLog.summary, detailModel: detailModel));
           context.goto(BlogDetailScreen(blog: detailModel));
+          readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: readLog.summary, detailModel: detailModel));
         } else if (readLog.type == ReadLogType.news) {
-          await readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: readLog.summary, detailModel: detailModel));
           context.goto(NewsDetailScreen(detailModel));
+          readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: readLog.summary, detailModel: detailModel));
         } else if (readLog.type == ReadLogType.knowledge) {
-          await readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
           context.goto(KnowledgeDetailScreen(detailModel));
+          readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
         }
       },
       onLongPress: () {
