@@ -84,7 +84,7 @@ class InstantDetailScreen extends HookWidget {
                               final InstantComment instantComment = comments[index];
                               return InkWell(
                                 onTap: () {
-                                  parentCommentId.value = instantComment.replyId;
+                                  parentCommentId.value = instantComment.id;
                                   focusNode.value.requestFocus();
                                   hintText.value = "@${instantComment.toName}";
                                 },

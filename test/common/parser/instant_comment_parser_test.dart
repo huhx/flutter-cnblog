@@ -46,8 +46,8 @@ void main() {
     expect(
       instants[0],
       const InstantComment(
-        id: 2345451,
-        replyId: 2581796,
+        id: 2581796,
+        replyId: 2345451,
         toName: "阅尽三千",
         toUrl: "https://home.cnblogs.com/u/YueJinSanQian/",
         avatar: "https://pic.cnblogs.com/face/1320658/20180208115726.png",
@@ -58,8 +58,8 @@ void main() {
     expect(
       instants[1],
       const InstantComment(
-        id: 2345451,
-        replyId: 2581797,
+        id: 2581797,
+        replyId: 2345451,
         fromName: "阅尽三千",
         fromUrl: "https://home.cnblogs.com/u/1320658/",
         toName: "乂千",
@@ -72,8 +72,8 @@ void main() {
     expect(
       instants[2],
       const InstantComment(
-        id: 2345451,
-        replyId: 2581799,
+        id: 2581799,
+        replyId: 2345451,
         fromName: "乂千",
         fromUrl: "https://home.cnblogs.com/u/1846416/",
         toName: "大长老",
@@ -129,8 +129,8 @@ void main() {
     expect(
       instants[0],
       const InstantComment(
-        id: 2330496,
-        replyId: 2570697,
+        id: 2570697,
+        replyId: 2330496,
         fromName: "huhx",
         fromUrl: "https://home.cnblogs.com/u/849920/",
         toName: "gohuhx",
@@ -143,8 +143,8 @@ void main() {
     expect(
       instants[1],
       const InstantComment(
-        id: 2330496,
-        replyId: 2572673,
+        id: 2572673,
+        replyId: 2330496,
         toName: "huhx",
         toUrl: "https://home.cnblogs.com/u/huhx/",
         avatar: "https://pic.cnblogs.com/face/849920/20170517210033.png",
@@ -155,8 +155,8 @@ void main() {
     expect(
       instants[2],
       const InstantComment(
-        id: 2330496,
-        replyId: 2581831,
+        id: 2581831,
+        replyId: 2330496,
         fromName: "gohuhx",
         fromUrl: "https://home.cnblogs.com/u/917292/",
         toName: "huhx",

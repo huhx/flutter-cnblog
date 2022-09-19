@@ -13,12 +13,12 @@ class InstantCommentParser {
 
     final List<Element> elements = ulElement.getElementsByTagName("li");
 
-    return elements.map((e) => _parseInstantComment(e,instantId)).toList();
+    return elements.map((e) => _parseInstantComment(e, instantId)).toList();
   }
 
-  static InstantComment _parseInstantComment(Element element, int id) {
+  static InstantComment _parseInstantComment(Element element, int replyId) {
     final Element avatarElement = element.getFirstByTag("img");
-    final int replyId = element.id.replaceFirst("comment_", "").toInt();
+    final int id = element.id.replaceFirst("comment_", "").toInt();
 
     final Element contentElement = element.getFirstByTag("bdo");
     String? fromName, fromUrl;
