@@ -4,6 +4,8 @@ import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/common/extension/int_extension.dart';
+import 'package:flutter_cnblog/common/extension/list_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
@@ -53,6 +55,7 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
           if (readLogs.isEmpty) {
             return const EmptyWidget();
           }
+          final Map<String, List<ReadLog>> readLogMap = readLogs.groupBy((readLog) => readLog.createTime.toDateString());
 
           return SmartRefresher(
             controller: streamList.refreshController,
@@ -60,8 +63,32 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
             onLoading: () => streamList.onLoading(),
             enablePullUp: true,
             child: ListView.builder(
-              itemCount: readLogs.length,
-              itemBuilder: (_, index) => ReadLogItem(readLogs[index], key: ValueKey(readLogs[index].id)),
+              itemCount: readLogMap.length,
+              itemBuilder: (_, index) {
+                final String key = readLogMap.keys.elementAt(index);
+                final List<ReadLog> readLogItems = readLogMap[key]!;
+
+                return ListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                            child: Text(key),
+                          ),
+                          ReadLogItem(readLogItems[index], key: ValueKey(readLogItems[index].id)),
+                        ],
+                      );
+                    }
+                    return ReadLogItem(readLogItems[index], key: ValueKey(readLogItems[index].id));
+                  },
+                  itemCount: readLogItems.length,
+                );
+              },
             ),
           );
         },
@@ -119,7 +146,7 @@ class ReadLogItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(detailModel.name ?? "unknow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
                         const SizedBox(width: 16),
                         TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
                         const SizedBox(width: 8),
