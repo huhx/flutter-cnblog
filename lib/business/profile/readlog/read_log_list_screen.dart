@@ -85,6 +85,7 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
                 final List<ReadLog> readLogItems = readLogMap[key]!;
 
                 return ListView.builder(
+                  padding: EdgeInsets.zero,
                   primary: false,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
