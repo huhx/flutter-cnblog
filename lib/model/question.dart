@@ -49,7 +49,14 @@ class QuestionInfo extends Equatable {
   }
 
   DetailModel toDetail() {
-    return DetailModel(id: id, title: title, url: toHttps(), name: submitter);
+    return DetailModel(
+      id: id,
+      title: title,
+      url: toHttps(),
+      name: submitter,
+      commentCount: answerCount,
+      viewCount: viewCount,
+    );
   }
 }
 

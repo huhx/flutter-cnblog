@@ -17,6 +17,7 @@ class DetailModel extends Equatable {
   final String? html;
   final int? commentCount;
   final int? diggCount;
+  final int? viewCount;
 
   const DetailModel({
     this.id,
@@ -28,6 +29,7 @@ class DetailModel extends Equatable {
     this.html,
     this.commentCount,
     this.diggCount,
+    this.viewCount,
   });
 
   Map<String, dynamic> toJson() => _$DetailModelToJson(this);
@@ -49,6 +51,7 @@ class DetailModel extends Equatable {
       html: html,
       commentCount: commentCount,
       diggCount: diggCount,
+      viewCount: viewCount,
     );
   }
 

@@ -41,7 +41,15 @@ class NewsInfo extends Equatable {
   }
 
   DetailModel toDetail() {
-    return DetailModel(id: id, title: title, url: toHttps(), name: submitter);
+    return DetailModel(
+      id: id,
+      title: title,
+      url: toHttps(),
+      name: submitter,
+      commentCount: commentCount,
+      diggCount: diggCount,
+      viewCount: viewCount,
+    );
   }
 }
 

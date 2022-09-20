@@ -41,6 +41,7 @@ class OfficialBlog extends Equatable {
       blogName: Comm.getNameFromBlogUrl(url),
       commentCount: commentCount,
       diggCount: diggCount,
+      viewCount: viewCount,
     );
   }
 }

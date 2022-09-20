@@ -198,11 +198,25 @@ class ReadLogItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      const SizedBox(width: 16),
-                      TextIcon(icon: "like", counts: detailModel.diggCount ?? 0),
-                      const SizedBox(width: 8),
-                      TextIcon(icon: "comment", counts: detailModel.commentCount ?? 0),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      ),
+                      if (detailModel.diggCount != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: TextIcon(icon: "like", counts: detailModel.diggCount!),
+                        ),
+                      if (detailModel.commentCount != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: TextIcon(icon: "comment", counts: detailModel.commentCount!),
+                        ),
+                      if (detailModel.viewCount != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: TextIcon(icon: "view", counts: detailModel.viewCount!),
+                        ),
                     ],
                   ),
                   Text(

@@ -57,7 +57,8 @@ class BlogResp extends Equatable {
       blogName: blogApp,
       commentCount: commentCount,
       diggCount: diggCount,
-      html: html
+      viewCount: viewCount,
+      html: html,
     );
   }
 
