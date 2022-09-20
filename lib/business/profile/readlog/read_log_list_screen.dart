@@ -198,10 +198,11 @@ class ReadLogItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: Text(detailModel.name ?? "unKnow", style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      ),
+                      if (detailModel.name != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: Text(detailModel.name!, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        ),
                       if (detailModel.diggCount != null)
                         Padding(
                           padding: const EdgeInsets.only(right: 8),

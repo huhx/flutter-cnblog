@@ -1,6 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/blog_share.dart';
+
+import 'detail_model.dart';
+import 'read_log.dart';
 
 class BookmarkInfo extends Equatable {
   final int id;
@@ -28,8 +32,29 @@ class BookmarkInfo extends Equatable {
     return ContentType.blog;
   }
 
+  ReadLogType getReadLogType() {
+    final String hostString = Uri.parse(url).host;
+    if (hostString.startsWith("news")) {
+      return ReadLogType.news;
+    }
+    if (hostString.startsWith("kb")) {
+      return ReadLogType.knowledge;
+    }
+    return ReadLogType.blog;
+  }
+
   BlogShare toBlogShare() {
     return BlogShare(id: id, title: title, url: url);
+  }
+
+  DetailModel toDetail({String? html}) {
+    return DetailModel(
+      title: title,
+      url: url,
+      name: "来自收藏",
+      blogName: Comm.getNameFromBlogUrl(url),
+      html: html,
+    );
   }
 
   @override

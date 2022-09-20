@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/user_bookmark_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/empty_widget.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -79,7 +82,11 @@ class UserBookmarkItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.goto(UserBookmarkDetailScreen(bookmark)),
+      onTap: () {
+        context.goto(UserBookmarkDetailScreen(bookmark));
+        final DetailModel detailModel = bookmark.toDetail();
+        readLogApi.insert(ReadLog.of(type: bookmark.getReadLogType(), summary: bookmark.url, detailModel: detailModel));
+      },
       child: Card(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
