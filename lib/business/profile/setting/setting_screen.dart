@@ -17,7 +17,13 @@ class SettingScreen extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: ListView(
-          children: const [ClearCacheItem(), Divider(), CheckUpdateItem(), Divider(), LogoutItem()],
+          children: const [
+            ClearCacheItem(),
+            Divider(),
+            CheckUpdateItem(),
+            Divider(),
+            LogoutItem(),
+          ],
         ),
       ),
     );
