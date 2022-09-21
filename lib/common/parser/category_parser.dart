@@ -1,5 +1,6 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:html/dom.dart';
@@ -39,13 +40,15 @@ class CategoryParser {
     final String commentCount = metaElements[2].getLastChildText();
     final String viewCount = metaElements[3].getLastChildText();
 
+    final String url = titleElement.attributes['href']!;
+
     return BlogResp(
       id: element.attributes['data-post-id']!.toInt(),
       title: titleElement.getText(),
-      url: titleElement.attributes['href']!,
+      url: url,
       description: element.getFirstByClass("post-item-summary").getLastNodeText(),
       author: element.getFirstByClass("post-item-author").getFirstChildText(),
-      blogApp: element.getFirstByClass("post-item-author").getFirstChildText(),
+      blogApp: Comm.getNameFromBlogUrl(url),
       avatar: avatarElement.isEmpty ? '' : avatarElement[0].attributes['src'] ?? '',
       postDate: DateTime.parse(postDate),
       viewCount: viewCount.toInt(),

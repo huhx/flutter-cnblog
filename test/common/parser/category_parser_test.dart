@@ -146,7 +146,7 @@ void main() {
         description:
             "https://blog.csdn.net/panda_xingfu/article/details/9468695 如果我们需要某些代码只需要执行一次，最好的选择当然是放在 if(!this.IsPostBack){ } 里面. 如果我们不写 if(!this.IsPostBack){ } 那么， ...",
         author: "yinghualeihenmei",
-        blogApp: "yinghualeihenmei",
+        blogApp: "Dongmy",
         avatar: "",
         postDate: DateTime.parse("2022-08-18 11:33"),
         viewCount: 0,
@@ -162,7 +162,7 @@ void main() {
         url: "https://www.cnblogs.com/openharmony/p/16598114.html",
         description: "本文向大家讲述了在没有部分源代码的情况下，如何通过对map文件和asm文件的分析从而得出Hi3861芯片开发板LiteOS-M的启动流程。 ...",
         author: "OpenHarmony开发者社区",
-        blogApp: "OpenHarmony开发者社区",
+        blogApp: "openharmony",
         avatar: "https://pic.cnblogs.com/face/2824423/20220401120618.png",
         postDate: DateTime.parse("2022-08-18 11:32"),
         viewCount: 0,
