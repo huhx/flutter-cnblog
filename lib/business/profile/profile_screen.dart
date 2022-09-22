@@ -23,7 +23,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'knowledge/knowledge_list_screen.dart';
-import 'message/message_screen.dart';
 import 'official/official_blog_list_screen.dart';
 import 'readlog/read_log_list_screen.dart';
 import 'user_profile_detail_screen.dart';
@@ -94,10 +93,10 @@ class MyProfileScreen extends HookConsumerWidget {
                   },
                   icon: SvgIcon(name: isDarkMode.value ? "share_light_mode" : "share_dark_mode"),
                 ),
-                IconButton(
-                  onPressed: () => context.goto(const MessageScreen()),
-                  icon: const SvgIcon(name: "my_notify"),
-                ),
+                // IconButton(
+                //   onPressed: () => context.goto(const MessageScreen()),
+                //   icon: const SvgIcon(name: "my_notify"),
+                // ),
                 IconButton(
                   onPressed: () => context.goto(const SettingScreen()),
                   icon: const SvgIcon(name: "my_setting"),
