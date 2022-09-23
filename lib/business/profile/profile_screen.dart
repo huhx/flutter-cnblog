@@ -263,12 +263,8 @@ class ProfileFooter extends StatelessWidget {
         children: [
           const Text("更多功能"),
           const SizedBox(height: 16),
-          GridView.count(
-            primary: false,
-            shrinkWrap: true,
-            crossAxisCount: 4,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 0,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
                 onTap: () => CommUtil.toBeDev(),

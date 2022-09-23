@@ -75,6 +75,7 @@ class _MainAppState extends ConsumerState<MainApp> {
             child: child!,
           );
         },
+        debugShowCheckedModeBanner: false,
         home: DoubleBack(
           onFirstBackPress: (_) => CommUtil.toast(message: "再按一次退出"),
           child: const MainScreen(),
