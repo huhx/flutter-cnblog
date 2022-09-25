@@ -13,7 +13,7 @@ class SearchApi {
   Future<List<SearchInfo>> getSearchContents(SearchType searchType, int pageKey, String keyword) async {
     final Dio dio = RestClient.withCookie();
     final Response response = await dio.get(
-      "$url/${searchType.url}?Keywords=$keyword&pageindex=$pageKey",
+      "$url/${searchType.path}?Keywords=$keyword&pageindex=$pageKey",
       options: Options(headers: {"cookie": "NotRobot=${dotenv.env['notRobotCookie']}"}),
     );
 
@@ -23,7 +23,7 @@ class SearchApi {
   Future<List<SearchInfo>> getMySearchContents(MySearchType searchType, int pageKey, String keyword) async {
     final Dio dio = RestClient.withCookie();
     final Response response = await dio.get(
-      "$myUrl/${searchType.url}?Keywords=$keyword&pageindex=$pageKey",
+      "$myUrl/${searchType.path}?Keywords=$keyword&pageindex=$pageKey",
       options: Options(headers: {"cookie": "NotRobot=${dotenv.env['notRobotCookie']}"}),
     );
 

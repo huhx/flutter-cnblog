@@ -34,9 +34,9 @@ enum SearchType {
   knowledge('知识库', 'kb');
 
   final String label;
-  final String url;
+  final String path;
 
-  const SearchType(this.label, this.url);
+  const SearchType(this.label, this.path);
 }
 
 enum MySearchType {
@@ -45,7 +45,7 @@ enum MySearchType {
   instant('instant', 'ing-p');
 
   final String label;
-  final String url;
+  final String path;
 
-  const MySearchType(this.label, this.url);
+  const MySearchType(this.label, this.path);
 }
