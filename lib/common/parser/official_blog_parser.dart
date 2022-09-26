@@ -56,22 +56,9 @@ class OfficialBlogParser {
 
   static List<OfficialHot> _parseHotBlogList(Element element) {
     final List<Element> elements = element.getElementsByTagName("a");
-    final int length = elements.length;
-    List<Element> oddElements = [];
-    List<Element> evenElements = [];
-    for (int i = 0; i < length; i++) {
-      if ((i + 1) % 2 == 0) {
-        evenElements.add(elements[i]);
-      } else {
-        oddElements.add(elements[i]);
-      }
-    }
-    final int size = evenElements.length;
-    List<OfficialHot> result = [];
-    for (int j = 0; j < size; j++) {
-      result.add(_parseHotBlog(oddElements[j], evenElements[j]));
-    }
-    return result;
+    return Iterable.generate(elements.length ~/ 2)
+        .map((index) => _parseHotBlog(elements[index * 2], elements[index * 2 + 1]))
+        .toList();
   }
 
   static OfficialHot _parseHotBlog(Element blogElement, Element userElement) {
