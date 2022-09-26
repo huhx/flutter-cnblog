@@ -8,13 +8,8 @@ class UserBlogParser {
   static List<UserBlog> parseUserBlogList(String string) {
     final Document document = parse(string);
     final List<Element> elements = document.getElementsByClassName("day");
-    List<UserBlog> userBlogs = List.empty(growable: true);
 
-    for (final Element element in elements) {
-      final List<UserBlog> list = __parseUserBlogs(element);
-      userBlogs.addAll(list);
-    }
-    return userBlogs;
+    return elements.expand((element) => __parseUserBlogs(element)).toList();
   }
 
   static List<UserBlog> __parseUserBlogs(Element element) {

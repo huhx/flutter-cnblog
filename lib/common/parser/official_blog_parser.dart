@@ -8,12 +8,8 @@ class OfficialBlogParser {
   static List<OfficialBlog> parseOfficialBlogList(String string) {
     final Document document = parse(string);
     final List<Element> elements = document.getElementsByClassName("day");
-    List<OfficialBlog> userBlogs = List.empty(growable: true);
 
-    for (final Element element in elements) {
-      userBlogs.addAll(parseOfficialBlogs(element));
-    }
-    return userBlogs;
+    return elements.expand((element) => parseOfficialBlogs(element)).toList();
   }
 
   static List<OfficialHot> parseOfficialHotList(String string) {
