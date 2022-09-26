@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_blog_data_api.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 
 class UserBlogDataInfo extends StatelessWidget {
   final UserInfo user;
@@ -20,43 +19,34 @@ class UserBlogDataInfo extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              onTap: () => CommUtil.toBeDev(),
-              child: Row(
-                children: [
-                  Text("${blogData.blogCount}", style: const TextStyle(color: Colors.white, fontSize: 16)),
-                  const SizedBox(width: 2),
-                  const Text("随笔", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                ],
-              ),
-            ),
+            BlogInfoItem(label: "随笔", count: blogData.blogCount),
             const SizedBox(width: 10),
-            Row(
-              children: [
-                Text("${blogData.articleCount}", style: const TextStyle(color: Colors.white, fontSize: 16)),
-                const SizedBox(width: 2),
-                const Text("文章", style: TextStyle(fontSize: 12, color: Colors.white70)),
-              ],
-            ),
+            BlogInfoItem(label: "文章", count: blogData.articleCount),
             const SizedBox(width: 10),
-            Row(
-              children: [
-                Text("${blogData.commentCount}", style: const TextStyle(color: Colors.white, fontSize: 16)),
-                const SizedBox(width: 2),
-                const Text("评论", style: TextStyle(fontSize: 12, color: Colors.white70)),
-              ],
-            ),
+            BlogInfoItem(label: "评论", count: blogData.commentCount),
             const SizedBox(width: 10),
-            Row(
-              children: [
-                Text("${blogData.viewCount}", style: const TextStyle(color: Colors.white, fontSize: 16)),
-                const SizedBox(width: 2),
-                const Text("阅读", style: TextStyle(fontSize: 12, color: Colors.white70)),
-              ],
-            ),
+            BlogInfoItem(label: "阅读", count: blogData.viewCount),
           ],
         );
       },
+    );
+  }
+}
+
+class BlogInfoItem extends StatelessWidget {
+  final String label;
+  final int count;
+
+  const BlogInfoItem({super.key, required this.label, required this.count});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text("$count", style: const TextStyle(color: Colors.white, fontSize: 16)),
+        const SizedBox(width: 2),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.white70)),
+      ],
     );
   }
 }
