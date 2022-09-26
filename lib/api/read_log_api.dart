@@ -23,12 +23,12 @@ class ReadLogApi {
 
   Future<void> delete(ReadLog readLog) async {
     final Database db = await _getDB();
-    await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', ['delete', readLog.id]);
+    await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', [ReadLogStatus.delete.name, readLog.id]);
   }
 
   Future<void> deleteAll() async {
     final Database db = await _getDB();
-    await db.rawUpdate('UPDATE read_log SET status = ?', ['delete']);
+    await db.rawUpdate('UPDATE read_log SET status = ?', [ReadLogStatus.delete.name]);
   }
 
   Future<void> clear() async {
@@ -41,7 +41,7 @@ class ReadLogApi {
     final List<Map<String, dynamic>> maps = await db.query(
       tableName,
       offset: (pageNum - 1) * 20,
-      where: 'status = "normal"',
+      where: 'status = ${ReadLogStatus.normal.name}',
       limit: 20,
       orderBy: 'createTime desc',
     );
