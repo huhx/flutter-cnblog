@@ -19,13 +19,10 @@ class OfficialBlogParser {
   static List<OfficialHot> parseOfficialHotList(String string) {
     final Document document = parse(string);
     final Element rootElement = document.getElementById("cnblogs_post_body")!;
+
     final List<Element> elements = rootElement.getElementsByTagName("p");
-
-    final Element blogElement = elements[1];
-    List<OfficialHot> hotBlogList = _parseHotBlogList(blogElement);
-
-    final Element newsElement = elements[3];
-    List<OfficialHot> hotNewsList = _parseHotNewsList(newsElement);
+    List<OfficialHot> hotBlogList = _parseHotBlogList(elements[1]);
+    List<OfficialHot> hotNewsList = _parseHotNewsList(elements[3]);
 
     return hotBlogList + hotNewsList;
   }
@@ -35,12 +32,9 @@ class OfficialBlogParser {
     final List<Element> summaryElements = element.getElementsByClassName("c_b_p_desc");
     final List<Element> postInfoElements = element.getElementsByClassName("postDesc");
 
-    List<OfficialBlog> userBlogs = List.empty(growable: true);
-    for (int i = 0; i < titleElements.length; i++) {
-      final OfficialBlog userBlog = parseOfficialBlog(titleElements[i], summaryElements[i], postInfoElements[i]);
-      userBlogs.add(userBlog);
-    }
-    return userBlogs;
+    return Iterable.generate(titleElements.length)
+        .map((i) => parseOfficialBlog(titleElements[i], summaryElements[i], postInfoElements[i]))
+        .toList();
   }
 
   static OfficialBlog parseOfficialBlog(Element titleElement, Element summaryElement, Element descElement) {

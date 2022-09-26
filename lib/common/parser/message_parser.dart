@@ -26,10 +26,6 @@ class MessageParser {
       homeUrl = "https:${element.attributes["href"]}";
       author = element.getText();
     }
-    String? status;
-    if (authorElement.previousElementSibling != null) {
-      status = authorElement.previousElementSibling!.getText();
-    }
 
     return MessageInfo(
       id: element.attributes["id"]!.replaceFirst("msg_item_", "").toInt(),
@@ -38,7 +34,7 @@ class MessageParser {
       url: "https://msg.cnblogs.com${titleElement.attributes['href']}",
       postDate: textElements[1].nextElementSibling!.getText(),
       author: author.trim(),
-      status: status,
+      status: authorElement.previousElementSibling?.getText(),
     );
   }
 }

@@ -25,12 +25,9 @@ class UserBlogParser {
     final List<Element> summaryElements = element.getElementsByClassName("c_b_p_desc");
     final List<Element> postInfoElements = element.getElementsByClassName("postDesc");
 
-    List<UserBlog> userBlogs = List.empty(growable: true);
-    for (int i = 0; i < titleElements.length; i++) {
-      final UserBlog userBlog = _parseUserBlog(dayTitle, titleElements[i], summaryElements[i], postInfoElements[i]);
-      userBlogs.add(userBlog);
-    }
-    return userBlogs;
+    return Iterable.generate(titleElements.length)
+        .map((i) => _parseUserBlog(dayTitle, titleElements[i], summaryElements[i], postInfoElements[i]))
+        .toList();
   }
 
   static UserBlog _parseUserBlog(String dayTitle, Element titleElement, Element summaryElement, Element postInfoElement) {
