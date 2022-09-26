@@ -32,14 +32,8 @@ class BlogCommentParser {
     final Element authorElement = dateElement.nextElementSibling!;
 
     final Element voteElement = element.getFirstByClass("comment_vote");
-
-    final Element diggElement = voteElement.getFirstByClass("comment_digg");
-    final RegExp diggRegex = RegExp(r"支持\(([0-9]+)\)");
-    final String diggString = diggRegex.firstMatch(diggElement.getText())!.group(1)!;
-
-    final Element buryElement = voteElement.getFirstByClass("comment_burry");
-    final RegExp buryRegex = RegExp(r"反对\(([0-9]+)\)");
-    final String buryString = buryRegex.firstMatch(buryElement.getText())!.group(1)!;
+    final String diggString = voteElement.getFirstByClass("comment_digg").getRegexText(r"支持\(([0-9]+)\)");
+    final String buryString = voteElement.getFirstByClass("comment_burry").getRegexText(r"反对\(([0-9]+)\)");
 
     return BlogComment(
       id: idElement.attributes['href']!.replaceFirst("#", "").toInt(),

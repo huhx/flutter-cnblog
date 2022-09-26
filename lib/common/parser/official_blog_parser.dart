@@ -41,17 +41,9 @@ class OfficialBlogParser {
     final String id = titleElement.attributes["href"]!.split("/").last.replaceFirst(".html", "");
     final String title = titleElement.getFirstByTag("span").getText().trim();
 
-    final RegExp viewRegex = RegExp(r"阅读\(([0-9]+)\)");
-    final String viewString = descElement.getFirstByClass("post-view-count").getText();
-    final String viewCount = viewRegex.firstMatch(viewString)!.group(1)!;
-
-    final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
-    final String commentString = descElement.getFirstByClass("post-comment-count").getText();
-    final String commentCount = commentRegex.firstMatch(commentString)!.group(1)!;
-
-    final RegExp diggRegex = RegExp(r"推荐\(([0-9]+)\)");
-    final String diggString = descElement.getFirstByClass("post-digg-count").getText();
-    final String diggCount = diggRegex.firstMatch(diggString)!.group(1)!;
+    final String viewCount = descElement.getFirstByClass("post-view-count").getRegexText(r"阅读\(([0-9]+)\)");
+    final String commentCount = descElement.getFirstByClass("post-comment-count").getRegexText(r"评论\(([0-9]+)\)");
+    final String diggCount = descElement.getFirstByClass("post-digg-count").getRegexText(r"推荐\(([0-9]+)\)");
 
     return OfficialBlog(
       id: id,

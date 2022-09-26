@@ -18,16 +18,9 @@ class KnowledgeParser {
     final Element categoryElement = titleContainerElement.getFirstByClass("classify_name");
     final String url = titleElement.getAttributeValue("href")!;
 
-    final Element summaryElement = element.getFirstByClass("msg_summary");
     final Element footerElement = element.getFirstByClass("msg_tag");
-
-    final RegExp viewRegex = RegExp(r"阅读\(([0-9]+)\)");
-    final String viewString = footerElement.getFirstByClass("view").getText();
-    final String viewCount = viewRegex.firstMatch(viewString)!.group(1)!;
-
-    final RegExp diggRegex = RegExp(r"推荐\(([0-9]+)\)");
-    final String diggString = footerElement.getFirstByClass("recommend").getText();
-    final String diggCount = diggRegex.firstMatch(diggString)!.group(1)!;
+    final String viewCount = footerElement.getFirstByClass("view").getRegexText(r"阅读\(([0-9]+)\)");
+    final String diggCount = footerElement.getFirstByClass("recommend").getRegexText(r"推荐\(([0-9]+)\)");
 
     final List<String> tags = footerElement.getFirstByClass("tag").getElementsByClassName("catalink").map((e) => e.getText()).toList();
 
@@ -35,7 +28,7 @@ class KnowledgeParser {
       id: url.split("/")[2].toInt(),
       title: titleElement.getText(),
       url: "https://kb.cnblogs.com$url",
-      summary: summaryElement.getFirstChildText(),
+      summary: element.getFirstByClass("msg_summary").getFirstChildText(),
       category: categoryElement.getText(),
       tags: tags,
       postDate: DateTime.parse(footerElement.getLastChildText()),

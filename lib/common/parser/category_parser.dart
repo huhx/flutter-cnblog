@@ -15,7 +15,7 @@ class CategoryParser {
     return groupElements.map((e) {
       final List<Element> elements = e.getElementsByTagName("a");
       final CategoryInfo group = _parseCategory(elements.first);
-      final List<CategoryInfo> children = _parseCategories(elements.sublist(1));
+      final List<CategoryInfo> children = elements.sublist(1).map((e) => CategoryParser._parseCategory(e)).toList();
       return CategoryList(group: group, children: children);
     }).toList();
   }
@@ -61,9 +61,5 @@ class CategoryParser {
     final String url = element.attributes['href']!;
     final String label = element.getText();
     return CategoryInfo(url: url, label: label);
-  }
-
-  static List<CategoryInfo> _parseCategories(List<Element> element) {
-    return element.map((e) => _parseCategory(e)).toList();
   }
 }

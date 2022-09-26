@@ -38,16 +38,13 @@ class UserBlogParser {
     final String name = postInfoString.split("\n")[1];
 
     final Element viewElement = postInfoElement.getFirstByClass("post-view-count");
-    final RegExp viewRegex = RegExp(r"阅读\(([0-9]+)\)");
-    final String viewString = viewRegex.firstMatch(viewElement.innerHtml)!.group(1)!;
+    final String viewString = viewElement.getRegexText(r"阅读\(([0-9]+)\)");
 
     final Element commentElement = postInfoElement.getFirstByClass("post-comment-count");
-    final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
-    final String commentString = commentRegex.firstMatch(commentElement.innerHtml)!.group(1)!;
+    final String commentString = commentElement.getRegexText(r"评论\(([0-9]+)\)");
 
     final Element diggElement = postInfoElement.getFirstByClass("post-digg-count");
-    final RegExp diggRegex = RegExp(r"推荐\(([0-9]+)\)");
-    final String diggString = diggRegex.firstMatch(diggElement.innerHtml)!.group(1)!;
+    final String diggString = diggElement.getRegexText(r"推荐\(([0-9]+)\)");
 
     return UserBlog(
       id: summaryElement.attributes["id"]!.replaceFirst("postlist_description_", "").toInt(),

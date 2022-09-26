@@ -18,11 +18,8 @@ class NewsParser {
     final Element summaryElement = element.getFirstByClass("entry_summary");
     final Element footerElement = element.getFirstByClass("entry_footer");
 
-    final RegExp viewRegex = RegExp(r"([0-9]+) 人浏览");
-    final String viewString = viewRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
-
-    final RegExp commentRegex = RegExp(r"评论\(([0-9]+)\)");
-    final String commentString = commentRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
+    final String viewString = footerElement.getRegexText(r"([0-9]+) 人浏览");
+    final String commentString = footerElement.getRegexText(r"评论\(([0-9]+)\)");
 
     final String dateString = footerElement.getLastChildText();
     final List<Element> coverElements = summaryElement.getElementsByClassName("topic_img");

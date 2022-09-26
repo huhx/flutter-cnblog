@@ -45,4 +45,8 @@ extension ElementExtension on Element {
   Element getLastByTag(String name) {
     return getElementsByTagName(name).last;
   }
+
+  String getRegexText(String pattern, {int group = 1}) {
+    return RegExp(pattern).firstMatch(innerHtml)!.group(group)!;
+  }
 }

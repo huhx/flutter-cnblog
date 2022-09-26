@@ -24,11 +24,8 @@ class QuestionParser {
     final String date = element.getFirstByClass("date").attributes['title']!;
 
     final Element footerElement = element.getFirstByClass("news_footer_user");
-    final RegExp answerRegex = RegExp(r"回答\(([0-9]+)\)");
-    final String answerString = answerRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
-
-    final RegExp viewRegex = RegExp(r"浏览\(([0-9]+)\)");
-    final String viewString = viewRegex.firstMatch(footerElement.innerHtml)!.group(1)!;
+    final String answerString = footerElement.getRegexText(r"回答\(([0-9]+)\)");
+    final String viewString = footerElement.getRegexText(r"浏览\(([0-9]+)\)");
 
     return QuestionInfo(
       id: url.split("/")[2].toInt(),

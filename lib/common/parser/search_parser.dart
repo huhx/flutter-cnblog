@@ -18,15 +18,13 @@ class SearchParser {
     int? viewCount;
     final List<Element> viewElements = element.getElementsByClassName("searchItemInfo-views");
     if (viewElements.isNotEmpty) {
-      final String viewString = viewElements[0].getText();
-      viewCount = viewString.replaceFirstMapped(RegExp(r"浏览\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
+      viewCount = viewElements[0].getRegexText(r"浏览\(([0-9]+)\)").toInt();
     }
 
     int? commentCount;
     final List<Element> commentElements = element.getElementsByClassName("searchItemInfo-comments");
     if (commentElements.isNotEmpty) {
-      final String commentString = commentElements[0].getText();
-      commentCount = commentString.replaceFirstMapped(RegExp(r"评论\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
+      commentCount = commentElements[0].getRegexText(r"评论\(([0-9]+)\)").toInt();
     }
 
     String? author, homeUrl;
@@ -39,8 +37,7 @@ class SearchParser {
     int? diggCount;
     final List<Element> diggElements = element.getElementsByClassName("searchItemInfo-good");
     if (diggElements.isNotEmpty) {
-      final String diggString = diggElements[0].getText();
-      diggCount = diggString.replaceFirstMapped(RegExp(r"推荐\(([0-9]+)\)"), (match) => match.group(1)!).toInt();
+      diggCount = diggElements[0].getRegexText(r"推荐\(([0-9]+)\)").toInt();
     }
 
     return SearchInfo(
