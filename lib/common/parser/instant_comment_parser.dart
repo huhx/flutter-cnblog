@@ -30,6 +30,7 @@ class InstantCommentParser {
 
     final Element timeElement = element.getFirstByClass("text_green");
     final Element toElement = element.getElementsByTagName("a")[1];
+    final String avatarUrl = avatarElement.attributes["src"]!;
 
     return InstantComment(
       id: id,
@@ -38,7 +39,7 @@ class InstantCommentParser {
       fromUrl: fromUrl,
       toName: toElement.getText(),
       toUrl: "https:${toElement.attributes['href']}",
-      avatar: avatarElement.attributes["src"]!,
+      avatar: avatarUrl.startsWith("http") ? avatarUrl : "https:$avatarUrl",
       content: contentElement.innerHtml,
       postDate: timeElement.attributes["title"]!,
     );
