@@ -41,7 +41,7 @@ class ReadLogApi {
     final List<Map<String, dynamic>> maps = await db.query(
       tableName,
       offset: (pageNum - 1) * 20,
-      where: 'status = ${ReadLogStatus.normal.name}',
+      where: 'status = "${ReadLogStatus.normal.name}"',
       limit: 20,
       orderBy: 'createTime desc',
     );
