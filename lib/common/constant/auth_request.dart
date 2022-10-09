@@ -12,7 +12,7 @@ class AuthRequest {
       "response_type": "code id_token",
       "redirect_uri": callbackUrl,
       "state": "cnblog",
-      "nonce": DateTime.now().toString(),
+      "nonce": DateTime.now().millisecondsSinceEpoch.toString(),
     };
     return Uri(scheme: "https", host: "oauth.cnblogs.com", path: "connect/authorize", queryParameters: parameters);
   }

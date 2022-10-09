@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
@@ -39,6 +41,10 @@ class LoginScreen extends HookConsumerWidget {
                 await ref.watch(sessionProvider.notifier).login(code);
 
                 Navigator.pop(context);
+              } else {
+                if (Platform.isIOS) {
+                  await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/login.css");
+                }
               }
             },
           ),

@@ -88,8 +88,8 @@ class _MainAppState extends ConsumerState<MainApp> {
   }
 
   Future<void> initCss() async {
-    final String source = await rootBundle.loadString("assets/css/blog.css");
-    AppConfig.save("blog_css", source);
+    final String blogSource = await rootBundle.loadString("assets/css/blog.css");
+    AppConfig.save("blog_css", blogSource);
 
     final String newsSource = await rootBundle.loadString("assets/css/news.css");
     AppConfig.save("news_css", newsSource);

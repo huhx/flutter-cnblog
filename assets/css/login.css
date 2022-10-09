@@ -1,0 +1,15 @@
+app-external-sign-in-providers.ng-tns-c122-1 {
+  display: none;
+}
+
+mat-hint > a.ng-tns-c122-1 {
+  display: none;
+}
+
+div.footer {
+  display: none;
+}
+
+div.grecaptcha-logo {
+  display: none !important;
+}

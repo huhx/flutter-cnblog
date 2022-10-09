@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/token_api.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +30,7 @@ class LogoutItem extends ConsumerWidget {
     context.showCommDialog(
       callback: () async {
         await sessionModel.logout();
+        await tokenApi.logout();
         context.pop();
       },
       title: '退出登录',
