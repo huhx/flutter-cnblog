@@ -3,9 +3,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ReadLogApi {
-  final tableName = 'read_log';
-  final dbName = 'read_log.db';
-  final tableScript = '''
+  static const String tableName = 'read_log';
+  static const String dbName = 'read_log.db';
+  static const String tableScript = '''
     CREATE TABLE read_log(
       id TEXT PRIMARY KEY,
       type TEXT NOT NULL,
@@ -33,7 +33,7 @@ class ReadLogApi {
 
   Future<void> clear() async {
     final Database db = await _getDB();
-    await db.rawDelete("DELETE from read_log");
+    await db.delete(tableName);
   }
 
   Future<List<ReadLog>> queryReadLogs(int pageNum) async {
@@ -41,7 +41,8 @@ class ReadLogApi {
     final List<Map<String, dynamic>> maps = await db.query(
       tableName,
       offset: (pageNum - 1) * 20,
-      where: 'status = "${ReadLogStatus.normal.name}"',
+      where: 'status = ?',
+      whereArgs: [ReadLogStatus.normal.name],
       limit: 20,
       orderBy: 'createTime desc',
     );
