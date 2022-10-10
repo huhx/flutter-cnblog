@@ -33,7 +33,7 @@ class LoginScreen extends HookConsumerWidget {
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
                 CookieManager cookieManager = CookieManager.instance();
                 final List<Cookie> cookies = await cookieManager.getCookies(url: url!);
-                Cookie? cookie = cookies.firstWhere((element) => element.name == Constant.authCookieName);
+                final Cookie cookie = cookies.firstWhere((element) => element.name == Constant.authCookieName);
                 await PrefsUtil.saveCookie(cookie.value);
 
                 logger.d('加载完成：$url');

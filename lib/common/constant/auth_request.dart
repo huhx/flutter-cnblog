@@ -2,12 +2,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AuthRequest {
   static const String callbackUrl = "https://oauth.cnblogs.com/auth/callback";
-  static final String clientId = dotenv.env['clientId']!;
-  final String clientSecret = dotenv.env['clientSecret']!;
 
   static Uri getAuthorizeUrl() {
     final Map<String, String> parameters = {
-      "client_id": clientId,
+      "client_id": dotenv.env['clientId']!,
       "scope": "openid profile CnBlogsApi offline_access",
       "response_type": "code id_token",
       "redirect_uri": callbackUrl,
