@@ -97,7 +97,7 @@ class _BlogCommentListScreenState extends ConsumerState<BlogCommentListScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    CircleAvatar(child: Text(comment.author.substring(0, 1))),
+                                    CircleAvatar(child: Text(comment.author[0])),
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: Column(

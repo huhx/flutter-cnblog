@@ -85,7 +85,7 @@ class MessageItem extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.grey,
             foregroundColor: Colors.white,
-            child: Text(message.author.substring(0, 1)),
+            child: Text(message.author[0]),
           ),
           title: Text(message.author, style: Theme.of(context).textTheme.bodyText2),
           subtitle: Text(message.title, maxLines: 1),

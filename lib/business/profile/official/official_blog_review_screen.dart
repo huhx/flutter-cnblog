@@ -62,7 +62,7 @@ class HotBlogList extends StatelessWidget {
           child: Card(
             child: ListTile(
               leading: InkWell(
-                child: CircleAvatar(child: Text(blogList[index].name.substring(0, 1))),
+                child: CircleAvatar(child: Text(blogList[index].name[0])),
                 onTap: () => context.goto(UserProfileDetailScreen(blogList[index].toInfo())),
               ),
               title: Text(blogList[index].name, style: Theme.of(context).textTheme.bodyText2),
