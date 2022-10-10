@@ -17,25 +17,22 @@ class InstantScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const TabBar(
-                tabs: [
-                  Tab(text: "最新发布"),
-                  Tab(text: "最新评论"),
-                  Tab(text: "我的关注"),
-                ],
-                indicatorColor: Colors.white,
-                isScrollable: true,
-                indicatorWeight: 1,
-              ),
-              IconButton(
-                onPressed: () => context.goto(const MyInstantScreen()),
-                icon: const SvgActionIcon(name: "my_instant"),
-              )
+          title: const TabBar(
+            tabs: [
+              Tab(text: "最新发布"),
+              Tab(text: "最新评论"),
+              Tab(text: "我的关注"),
             ],
+            indicatorColor: Colors.white,
+            isScrollable: true,
+            indicatorWeight: 1,
           ),
+          actions: [
+            IconButton(
+              onPressed: () => context.goto(const MyInstantScreen()),
+              icon: const SvgActionIcon(name: "mine"),
+            )
+          ],
         ),
         body: const TabBarView(
           children: [
