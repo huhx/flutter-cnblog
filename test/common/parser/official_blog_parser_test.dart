@@ -186,49 +186,49 @@ void main() {
     </div>
   ''';
 
-    final List<OfficialHot> officialHotList = OfficialBlogParser.parseOfficialHotList(string);
+    final OfficialHotResponse hotResponse = OfficialBlogParser.parseOfficialHotList(string);
+    final List<OfficialHot> blogList = hotResponse.blogList;
+    final List<OfficialHot> newsList = hotResponse.newsList;
 
-    expect(officialHotList.length, 4);
+    expect(blogList.length, 2);
     expect(
-      officialHotList[0],
+      blogList[0],
       const OfficialHot(
         id: "16657667",
         title: "没有二十年功力，写不出Thread.sleep(0)这一行“看似无用”的代码！",
         url: "https://www.cnblogs.com/thisiswhy/archive/2022/09/05/16657667.html",
         name: "why技术",
         homeUrl: "https://www.cnblogs.com/thisiswhy/",
-        hotType: OfficialHotType.blog,
       ),
     );
     expect(
-      officialHotList[1],
+      blogList[1],
       const OfficialHot(
         id: "16669900",
         title: "内卷时代下的前端技术-使用JavaScript在浏览器中生成PDF文档",
         url: "https://www.cnblogs.com/powertoolsteam/archive/2022/09/08/16669900.html",
         name: "葡萄城技术团队",
         homeUrl: "https://www.cnblogs.com/powertoolsteam/",
-        hotType: OfficialHotType.blog,
       ),
     );
+
+    expect(newsList.length, 2);
     expect(
-      officialHotList[2],
+      newsList[0],
       const OfficialHot(
         id: "727715",
         title: "被赶下班车的外包人",
         url: "https://news.cnblogs.com/n/727715/",
         name: "itwriter",
-        hotType: OfficialHotType.news,
       ),
     );
     expect(
-      officialHotList[3],
+      newsList[1],
       const OfficialHot(
         id: "727978",
         title: "微软全力拥抱 Java ！",
         url: "https://news.cnblogs.com/n/727978/",
         name: "itwriter",
-        hotType: OfficialHotType.news,
       ),
     );
   });

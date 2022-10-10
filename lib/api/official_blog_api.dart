@@ -12,9 +12,8 @@ class OfficialBlogApi {
     return compute(OfficialBlogParser.parseOfficialBlogList, response.data as String);
   }
 
-  Future<List<OfficialHot>> getHotList(String url) async {
-    final Dio dio = RestClient.withCookie();
-    final Response response = await dio.get(url);
+  Future<OfficialHotResponse> getHotList(String url) async {
+    final Response response = await RestClient.withCookie().get(url);
 
     return compute(OfficialBlogParser.parseOfficialHotList, response.data as String);
   }

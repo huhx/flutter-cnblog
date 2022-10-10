@@ -46,13 +46,22 @@ class OfficialBlog extends Equatable {
   }
 }
 
+class OfficialHotResponse extends Equatable {
+  final List<OfficialHot> blogList;
+  final List<OfficialHot> newsList;
+
+  const OfficialHotResponse({required this.blogList, required this.newsList});
+
+  @override
+  List<Object?> get props => [blogList, newsList];
+}
+
 class OfficialHot extends Equatable {
   final String id;
   final String title;
   final String url;
   final String name;
   final String? homeUrl;
-  final OfficialHotType hotType;
 
   const OfficialHot({
     required this.id,
@@ -60,11 +69,10 @@ class OfficialHot extends Equatable {
     required this.url,
     required this.name,
     this.homeUrl,
-    required this.hotType,
   });
 
   @override
-  List<Object?> get props => [id, title, url, name, homeUrl, hotType];
+  List<Object?> get props => [id, title, url, name, homeUrl];
 
   DetailModel toDetail() {
     return DetailModel(

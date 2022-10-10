@@ -12,7 +12,7 @@ class OfficialBlogParser {
     return elements.expand((element) => parseOfficialBlogs(element)).toList();
   }
 
-  static List<OfficialHot> parseOfficialHotList(String string) {
+  static OfficialHotResponse parseOfficialHotList(String string) {
     final Document document = parse(string);
     final Element rootElement = document.getElementById("cnblogs_post_body")!;
 
@@ -20,7 +20,7 @@ class OfficialBlogParser {
     List<OfficialHot> hotBlogList = _parseHotBlogList(elements[1]);
     List<OfficialHot> hotNewsList = _parseHotNewsList(elements[3]);
 
-    return hotBlogList + hotNewsList;
+    return OfficialHotResponse(blogList: hotBlogList, newsList: hotNewsList);
   }
 
   static List<OfficialBlog> parseOfficialBlogs(Element element) {
@@ -71,7 +71,6 @@ class OfficialBlogParser {
       url: url,
       name: userElement.getText(),
       homeUrl: userElement.attributes["href"],
-      hotType: OfficialHotType.blog,
     );
   }
 
@@ -89,7 +88,6 @@ class OfficialBlogParser {
       title: element.getText(),
       url: url,
       name: "itwriter",
-      hotType: OfficialHotType.news,
     );
   }
 }

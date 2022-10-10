@@ -33,12 +33,10 @@ class OfficialBlogReviewScreen extends StatelessWidget {
           future: officialBlogApi.getHotList(blog.url),
           builder: (context, snap) {
             if (!snap.hasData) return const CenterProgressIndicator();
-            final List<OfficialHot> data = snap.data as List<OfficialHot>;
-            final List<OfficialHot> blogList = data.where((item) => item.hotType == OfficialHotType.blog).toList();
-            final List<OfficialHot> newsList = data.where((item) => item.hotType == OfficialHotType.news).toList();
+            final OfficialHotResponse data = snap.data as OfficialHotResponse;
 
             return TabBarView(
-              children: [HotBlogList(blogList), HostNewsList(newsList)],
+              children: [HotBlogList(data.blogList), HostNewsList(data.newsList)],
             );
           },
         ),
