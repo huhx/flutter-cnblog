@@ -52,7 +52,7 @@ class OfficialHot extends Equatable {
   final String url;
   final String name;
   final String? homeUrl;
-  final bool isBlog;
+  final OfficialHotType hotType;
 
   const OfficialHot({
     required this.id,
@@ -60,11 +60,11 @@ class OfficialHot extends Equatable {
     required this.url,
     required this.name,
     this.homeUrl,
-    required this.isBlog,
+    required this.hotType,
   });
 
   @override
-  List<Object?> get props => [id, title, url, name, homeUrl, isBlog];
+  List<Object?> get props => [id, title, url, name, homeUrl, hotType];
 
   DetailModel toDetail() {
     return DetailModel(
@@ -80,3 +80,5 @@ class OfficialHot extends Equatable {
     return UserInfo(displayName: name, avatar: "", blogName: Comm.getNameFromBlogUrl(url));
   }
 }
+
+enum OfficialHotType { news, blog }

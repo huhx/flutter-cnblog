@@ -197,7 +197,7 @@ void main() {
         url: "https://www.cnblogs.com/thisiswhy/archive/2022/09/05/16657667.html",
         name: "why技术",
         homeUrl: "https://www.cnblogs.com/thisiswhy/",
-        isBlog: true,
+        hotType: OfficialHotType.blog,
       ),
     );
     expect(
@@ -208,7 +208,7 @@ void main() {
         url: "https://www.cnblogs.com/powertoolsteam/archive/2022/09/08/16669900.html",
         name: "葡萄城技术团队",
         homeUrl: "https://www.cnblogs.com/powertoolsteam/",
-        isBlog: true,
+        hotType: OfficialHotType.blog,
       ),
     );
     expect(
@@ -218,7 +218,7 @@ void main() {
         title: "被赶下班车的外包人",
         url: "https://news.cnblogs.com/n/727715/",
         name: "itwriter",
-        isBlog: false,
+        hotType: OfficialHotType.news,
       ),
     );
     expect(
@@ -228,7 +228,7 @@ void main() {
         title: "微软全力拥抱 Java ！",
         url: "https://news.cnblogs.com/n/727978/",
         name: "itwriter",
-        isBlog: false,
+        hotType: OfficialHotType.news,
       ),
     );
   });

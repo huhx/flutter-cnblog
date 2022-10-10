@@ -56,6 +56,7 @@ class OfficialBlogParser {
 
   static List<OfficialHot> _parseHotBlogList(Element element) {
     final List<Element> elements = element.getElementsByTagName("a");
+
     return Iterable.generate(elements.length ~/ 2)
         .map((index) => _parseHotBlog(elements[index * 2], elements[index * 2 + 1]))
         .toList();
@@ -63,13 +64,14 @@ class OfficialBlogParser {
 
   static OfficialHot _parseHotBlog(Element blogElement, Element userElement) {
     final String url = blogElement.attributes["href"]!;
+
     return OfficialHot(
       id: url.split("/").last.replaceFirst(".html", ""),
       title: blogElement.getText(),
       url: url,
       name: userElement.getText(),
       homeUrl: userElement.attributes["href"],
-      isBlog: true,
+      hotType: OfficialHotType.blog,
     );
   }
 
@@ -81,12 +83,13 @@ class OfficialBlogParser {
   static OfficialHot _parseHotNews(Element element) {
     final String url = element.attributes["href"]!;
     final List<String> urlPart = url.split("/");
+
     return OfficialHot(
       id: urlPart[urlPart.length - 2],
       title: element.getText(),
       url: url,
       name: "itwriter",
-      isBlog: false,
+      hotType: OfficialHotType.news,
     );
   }
 }
