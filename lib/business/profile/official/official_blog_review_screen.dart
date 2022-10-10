@@ -38,10 +38,7 @@ class OfficialBlogReviewScreen extends StatelessWidget {
             final List<OfficialHot> newsList = data.where((item) => !item.isBlog).toList();
 
             return TabBarView(
-              children: [
-                HotBlogList(blogList),
-                HostNewsList(newsList),
-              ],
+              children: [HotBlogList(blogList), HostNewsList(newsList)],
             );
           },
         ),
@@ -65,9 +62,7 @@ class HotBlogList extends StatelessWidget {
           child: Card(
             child: ListTile(
               leading: InkWell(
-                child: CircleAvatar(
-                  child: Text(blogList[index].name.substring(0, 1)),
-                ),
+                child: CircleAvatar(child: Text(blogList[index].name.substring(0, 1))),
                 onTap: () => context.goto(UserProfileDetailScreen(blogList[index].toInfo())),
               ),
               title: Text(blogList[index].name, style: Theme.of(context).textTheme.bodyText2),

@@ -51,9 +51,7 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
           IconButton(
             onPressed: () {
               context.showCommDialog(
-                callback: () async {
-                  await readLogApi.deleteAll();
-                },
+                callback: () async => await readLogApi.deleteAll(),
                 title: '清空记录',
                 content: '你确定清空阅读记录?',
               );
@@ -150,9 +148,7 @@ class ReadLogItem extends StatelessWidget {
       },
       onLongPress: () {
         context.showCommDialog(
-          callback: () async {
-            await readLogApi.delete(readLog);
-          },
+          callback: () async => await readLogApi.delete(readLog),
           title: '删除记录',
           content: '你确定删除该条阅读记录?',
         );

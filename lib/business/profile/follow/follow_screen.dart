@@ -14,6 +14,7 @@ class FollowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String string = CurrentUser.getUser().displayName == name ? "我" : "Ta";
+
     return DefaultTabController(
       length: 2,
       initialIndex: followType.tabIndex,

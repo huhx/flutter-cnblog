@@ -36,7 +36,7 @@ class UserFollowCountInfo extends HookWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 16),
             InkWell(
               onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follower)),
               child: Row(

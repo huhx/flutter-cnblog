@@ -6,7 +6,7 @@ import 'package:flutter_cnblog/model/user_blog.dart';
 class UserBlogDataInfo extends StatelessWidget {
   final UserInfo user;
 
-  const UserBlogDataInfo(this.user, {Key? key}) : super(key: key);
+  const UserBlogDataInfo(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +16,12 @@ class UserBlogDataInfo extends StatelessWidget {
         if (!snap.hasData) return const SizedBox();
         final BlogDataInfo blogData = snap.data as BlogDataInfo;
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        return Wrap(
+          spacing: 16,
           children: [
             BlogInfoItem(label: "随笔", count: blogData.blogCount),
-            const SizedBox(width: 10),
             BlogInfoItem(label: "文章", count: blogData.articleCount),
-            const SizedBox(width: 10),
             BlogInfoItem(label: "评论", count: blogData.commentCount),
-            const SizedBox(width: 10),
             BlogInfoItem(label: "阅读", count: blogData.viewCount),
           ],
         );
@@ -42,6 +39,7 @@ class BlogInfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text("$count", style: const TextStyle(color: Colors.white, fontSize: 16)),
         const SizedBox(width: 2),

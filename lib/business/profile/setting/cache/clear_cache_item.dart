@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 
 class ClearCacheItem extends StatelessWidget {
-  const ClearCacheItem({Key? key}) : super(key: key);
+  const ClearCacheItem({super.key});
 
   @override
   Widget build(BuildContext context) {

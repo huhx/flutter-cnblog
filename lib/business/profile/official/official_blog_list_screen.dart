@@ -79,7 +79,7 @@ class _OfficialBlogListScreenState extends State<OfficialBlogListScreen> {
 class OfficialBlogItem extends StatelessWidget {
   final OfficialBlog blog;
 
-  const OfficialBlogItem({Key? key, required this.blog}) : super(key: key);
+  const OfficialBlogItem({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +121,7 @@ class OfficialBlogItem extends StatelessWidget {
                       TextIcon(icon: "view", counts: blog.viewCount),
                     ],
                   ),
-                  Text(
-                    blog.postDate,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  )
+                  Text(blog.postDate, style: const TextStyle(color: Colors.grey, fontSize: 12))
                 ],
               )
             ],

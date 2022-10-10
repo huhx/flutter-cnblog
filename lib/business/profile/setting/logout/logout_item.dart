@@ -5,7 +5,7 @@ import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LogoutItem extends ConsumerWidget {
-  const LogoutItem({Key? key}) : super(key: key);
+  const LogoutItem({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
