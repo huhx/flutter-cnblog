@@ -27,24 +27,29 @@ class LoginScreen extends HookConsumerWidget {
       body: Stack(
         children: [
           InAppWebView(
+            initialOptions: InAppWebViewGroupOptions(crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true)),
             initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
-            onPageCommitVisible: (controller, url) async {
-              isLoading.value = false;
+            shouldOverrideUrlLoading: (controller, navigationAction) async {
+              final Uri url = navigationAction.request.url!;
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
-                CookieManager cookieManager = CookieManager.instance();
-                final List<Cookie> cookies = await cookieManager.getCookies(url: url!);
+                final CookieManager cookieManager = CookieManager.instance();
+                final List<Cookie> cookies = await cookieManager.getCookies(url: url);
                 final Cookie cookie = cookies.firstWhere((element) => element.name == Constant.authCookieName);
                 await PrefsUtil.saveCookie(cookie.value);
 
                 logger.d('加载完成：$url');
                 final String code = AuthRequest.getCodeFromUrl(url.toString());
                 await ref.watch(sessionProvider.notifier).login(code);
-
                 Navigator.pop(context);
-              } else {
-                if (Platform.isIOS) {
-                  await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/login.css");
-                }
+
+                return NavigationActionPolicy.CANCEL;
+              }
+              return NavigationActionPolicy.ALLOW;
+            },
+            onPageCommitVisible: (controller, url) async {
+              isLoading.value = false;
+              if (Platform.isIOS) {
+                await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/login.css");
               }
             },
           ),
