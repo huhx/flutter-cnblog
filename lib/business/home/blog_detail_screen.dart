@@ -194,14 +194,7 @@ class BottomComment extends HookConsumerWidget {
                       CommUtil.toast(message: result.message);
                     }
                   },
-                  icon: Badge(
-                    animationType: BadgeAnimationType.scale,
-                    badgeColor: Colors.blueAccent,
-                    animationDuration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.all(5),
-                    badgeContent: Text("${diggCount.value}", style: const TextStyle(fontSize: 9)),
-                    child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
-                  ),
+                  icon: LikeBadge(diggCount.value),
                 ),
                 IconButton(
                   onPressed: () async {
@@ -210,18 +203,47 @@ class BottomComment extends HookConsumerWidget {
                     }
                     context.goto(BlogCommentListScreen(blog.copyWith(postId: postId!), commentCount.value));
                   },
-                  icon: Badge(
-                    animationDuration: const Duration(milliseconds: 200),
-                    animationType: BadgeAnimationType.scale,
-                    padding: const EdgeInsets.all(5),
-                    badgeContent: Text("${commentCount.value}", style: const TextStyle(fontSize: 9)),
-                    child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
-                  ),
+                  icon: CommentBadge(commentCount.value),
                 ),
               ],
             )
         ],
       ),
+    );
+  }
+}
+
+class LikeBadge extends StatelessWidget {
+  final int diggCount;
+
+  const LikeBadge(this.diggCount, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Badge(
+      animationType: BadgeAnimationType.scale,
+      badgeColor: Colors.blueAccent,
+      animationDuration: const Duration(milliseconds: 200),
+      padding: const EdgeInsets.all(5),
+      badgeContent: Text("$diggCount", style: const TextStyle(fontSize: 9)),
+      child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
+    );
+  }
+}
+
+class CommentBadge extends StatelessWidget {
+  final int commentCount;
+
+  const CommentBadge(this.commentCount, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Badge(
+      animationDuration: const Duration(milliseconds: 200),
+      animationType: BadgeAnimationType.scale,
+      padding: const EdgeInsets.all(5),
+      badgeContent: Text("$commentCount", style: const TextStyle(fontSize: 9)),
+      child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
     );
   }
 }
