@@ -17,23 +17,18 @@ class InstantCommentParser {
   }
 
   static InstantComment _parseInstantComment(Element element, int replyId) {
-    final Element avatarElement = element.getFirstByTag("img");
-    final int id = element.id.replaceFirst("comment_", "").toInt();
-
     final Element contentElement = element.getFirstByTag("bdo");
-    String? fromName, fromUrl;
-    final List<Element> fromElements = contentElement.getElementsByTagName("a");
-    if (fromElements.isNotEmpty) {
-      fromName = fromElements[0].getText();
-      fromUrl = fromElements[0].attributes["href"];
-    }
+
+    final Element? fromElement = contentElement.getFirstOrNullByTag("a");
+    final String? fromName = fromElement?.getText();
+    final String? fromUrl = fromElement?.attributes["href"];
 
     final Element timeElement = element.getFirstByClass("text_green");
     final Element toElement = element.getElementsByTagName("a")[1];
-    final String avatarUrl = avatarElement.attributes["src"]!;
+    final String avatarUrl = element.getFirstByTag("img").attributes["src"]!;
 
     return InstantComment(
-      id: id,
+      id: element.id.replaceFirst("comment_", "").toInt(),
       replyId: replyId,
       fromName: fromName?.substring(1),
       fromUrl: fromUrl,

@@ -51,6 +51,10 @@ extension ElementExtension on Element {
     return getElementsByTagName(name).first;
   }
 
+  Element? getFirstOrNullByTag(String name) {
+    return getElementsByTagName(name).firstOrNull;
+  }
+
   Element getLastByClass(String name) {
     return getElementsByClassName(name).last;
   }

@@ -22,9 +22,8 @@ class InstantParser {
     final Element authorElement = bodyElement.getFirstByClass("ing-author");
     final Element commentElement = bodyElement.getFirstByClass("ing_reply");
 
-    final RegExp commentsRegex = RegExp(r"([0-9]+)回应");
-    final RegExpMatch? firstMatch = commentsRegex.firstMatch(commentElement.innerHtml);
-    final String commentCountString = firstMatch == null ? "0" : firstMatch.group(1)!;
+    final RegExpMatch? firstMatch = RegExp(r"([0-9]+)回应").firstMatch(commentElement.innerHtml);
+    final String commentCountString = firstMatch?.group(1)! ?? '0';
 
     return InstantInfo(
       id: bodyElement.attributes['id']!.replaceFirst("feed_content_", "").toInt(),
