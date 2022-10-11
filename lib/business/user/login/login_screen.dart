@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
 import 'package:flutter_cnblog/common/constant/constant.dart';
+import 'package:flutter_cnblog/common/in_app_webview_config.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/main.dart';
@@ -27,7 +28,7 @@ class LoginScreen extends HookConsumerWidget {
       body: Stack(
         children: [
           InAppWebView(
-            initialOptions: InAppWebViewGroupOptions(crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true)),
+            initialOptions: InAppWebViewConfig(),
             initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
             shouldOverrideUrlLoading: (controller, navigationAction) async {
               final Uri url = navigationAction.request.url!;
