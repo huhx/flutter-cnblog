@@ -13,7 +13,7 @@ class UserProfileParser {
     final String displayName = element.getFirstByClass("display_name").getText().trim();
     final String name = element.getFirstByClass("link_account").attributes['href']!.split("/")[2];
     final Map<String, String> map = {};
-    final String userId = RegExp(r'var currentUserId = \"(.+)\"').firstMatch(string)!.group(1)!;
+    final String userId = RegExp(r'var currentUserId = "(.+)"').firstMatch(string)!.group(1)!;
 
     for (final Element ele in elements) {
       final Element keyElement = ele.getFirstByClass("text_gray");
@@ -30,8 +30,8 @@ class UserProfileParser {
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: "https://www.cnblogs.com/$name/",
       info: map,
-      followCounts: document.getElementById("following_count")!.getText().toInt(),
-      followerCounts: document.getElementById("follower_count")!.getText().toInt(),
+      followCounts: document.getElementById("following_count")!.getIntValue(),
+      followerCounts: document.getElementById("follower_count")!.getIntValue(),
     );
   }
 

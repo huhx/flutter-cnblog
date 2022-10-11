@@ -1,9 +1,14 @@
+import 'package:flutter_cnblog/common/extension/list_extension.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:html/dom.dart';
 
 extension ElementExtension on Element {
   String getText() {
     return firstChild!.toString().trimQuotation();
+  }
+
+  int getIntValue() {
+    return getText().toInt();
   }
 
   String getFirstChildText() {
@@ -30,8 +35,16 @@ extension ElementExtension on Element {
     return nodes.last.toString().trimQuotation().trim();
   }
 
+  String getParentLastNodeText() {
+    return parentNode!.nodes.last.toString().trimQuotation().trim();
+  }
+
   Element getFirstByClass(String name) {
     return getElementsByClassName(name).first;
+  }
+
+  Element? getFirstOrNullByClass(String name) {
+    return getElementsByClassName(name).firstOrNull;
   }
 
   Element getFirstByTag(String name) {

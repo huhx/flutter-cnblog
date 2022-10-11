@@ -31,11 +31,7 @@ class StreamList<T> {
   }
 
   Future<void> _init() async {
-    pageState = PageState<int, T>(
-      nextKey: firstKey,
-      error: null,
-      itemList: null,
-    );
+    pageState = PageState<int, T>(nextKey: firstKey, error: null, itemList: null);
     await _listener(firstKey);
   }
 
@@ -69,21 +65,13 @@ class StreamList<T> {
   void appendPage(bool reverse, List<T> newItems, int? nextPageKey) {
     final List<T> previousItems = pageState.itemList ?? [];
     final List<T> itemList = reverse ? newItems + previousItems : previousItems + newItems;
-    pageState = PageState<int, T>(
-      itemList: itemList,
-      error: null,
-      nextKey: nextPageKey,
-    );
+    pageState = PageState<int, T>(itemList: itemList, error: null, nextKey: nextPageKey);
 
     _streamController.add(itemList);
   }
 
   void reset(List<T> newItems) {
-    pageState = PageState<int, T>(
-      itemList: newItems,
-      error: null,
-      nextKey: firstKey,
-    );
+    pageState = PageState<int, T>(itemList: newItems, error: null, nextKey: firstKey);
 
     _streamController.add(pageState.itemList);
   }

@@ -13,7 +13,7 @@ class CandidateParser {
   }
 
   static BlogResp _parseCandidate(Element element) {
-    final List<Element> avatarElement = element.getElementsByClassName("avatar");
+    final String avatar = element.getFirstOrNullByClass("avatar")?.attributes['src'] ?? '';
     final List<Element> metaElements = element.getElementsByClassName("post-meta-item");
     final Element titleElement = element.getFirstByClass("post-item-title");
 
@@ -30,7 +30,7 @@ class CandidateParser {
       description: element.getFirstByClass("post-item-summary").getLastNodeText(),
       author: element.getFirstByClass("post-item-author").getFirstChildText(),
       blogApp: Comm.getNameFromBlogUrl(url),
-      avatar: avatarElement.isEmpty ? '' : avatarElement[0].attributes['src'] ?? '',
+      avatar: avatar,
       postDate: DateTime.parse(postDate),
       viewCount: viewCount.toInt(),
       commentCount: commentCount.toInt(),

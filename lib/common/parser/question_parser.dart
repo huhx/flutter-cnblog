@@ -16,10 +16,9 @@ class QuestionParser {
     final List<Element> avatarElement = element.getElementsByClassName("author");
     final Element titleElement = element.getFirstByTag("a");
     final Element submitterElement = element.getFirstByClass("news_contributor");
-    final List<Element> goldElements = element.getElementsByClassName("gold");
 
     final String url = titleElement.attributes['href']!;
-    final String gold = goldElements.isNotEmpty ? goldElements[0].getText() : "0";
+    final String gold = element.getFirstOrNullByClass("gold")?.getText() ?? "0";
     final String summary = element.getFirstByClass("news_summary").getText().trim();
     final String date = element.getFirstByClass("date").attributes['title']!;
 

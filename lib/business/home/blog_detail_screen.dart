@@ -185,11 +185,7 @@ class BottomComment extends HookConsumerWidget {
                     if (user == null) {
                       await context.goto(const LoginScreen());
                     }
-                    final BlogDiggReq request = BlogDiggReq(
-                      voteType: VoteType.digg,
-                      postId: postId!,
-                      isAbandoned: false,
-                    );
+                    final BlogDiggReq request = BlogDiggReq(voteType: VoteType.digg, postId: postId!, isAbandoned: false);
                     final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
                     if (result.isSuccess) {
                       CommUtil.toast(message: "支持成功!");
@@ -203,10 +199,7 @@ class BottomComment extends HookConsumerWidget {
                     badgeColor: Colors.blueAccent,
                     animationDuration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.all(5),
-                    badgeContent: Text(
-                      "${diggCount.value}",
-                      style: const TextStyle(fontSize: 9),
-                    ),
+                    badgeContent: Text("${diggCount.value}", style: const TextStyle(fontSize: 9)),
                     child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
                   ),
                 ),
@@ -221,10 +214,7 @@ class BottomComment extends HookConsumerWidget {
                     animationDuration: const Duration(milliseconds: 200),
                     animationType: BadgeAnimationType.scale,
                     padding: const EdgeInsets.all(5),
-                    badgeContent: Text(
-                      "${commentCount.value}",
-                      style: const TextStyle(fontSize: 9),
-                    ),
+                    badgeContent: Text("${commentCount.value}", style: const TextStyle(fontSize: 9)),
                     child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
                   ),
                 ),
