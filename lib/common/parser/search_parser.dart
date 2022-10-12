@@ -1,4 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
+import 'package:flutter_cnblog/common/extension/list_extension.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:html/dom.dart';
@@ -19,12 +20,9 @@ class SearchParser {
     int? commentCount = element.getFirstOrNullByClass("searchItemInfo-comments")?.getRegexText(r"评论\(([0-9]+)\)").toInt();
     int? diggCount = element.getFirstOrNullByClass("searchItemInfo-good")?.getRegexText(r"推荐\(([0-9]+)\)").toInt();
 
-    String? author, homeUrl;
-    final Element usernameElement = element.getFirstByClass("searchItemInfo-userName");
-    if (usernameElement.children.isNotEmpty) {
-      author = usernameElement.getFirstChildText();
-      homeUrl = usernameElement.children[0].attributes["href"];
-    }
+    final Element? usernameElement = element.getFirstByClass("searchItemInfo-userName").children.firstOrNull;
+    final String? author = usernameElement?.getText();
+    final String? homeUrl = usernameElement?.attributes["href"];
 
     return SearchInfo(
       title: element.getFirstByClass("searchItemTitle").children.first.innerHtml,

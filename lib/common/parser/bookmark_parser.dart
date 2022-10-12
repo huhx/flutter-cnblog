@@ -27,7 +27,6 @@ class BookmarkParser {
   }
 
   static bool isMark(String string) {
-    final Document document = parse(string);
-    return document.getElementById("panel_add") == null;
+    return parse(string).getElementById("panel_add") == null;
   }
 }
