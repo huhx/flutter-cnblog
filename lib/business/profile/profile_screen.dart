@@ -6,7 +6,6 @@ import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart'
 import 'package:flutter_cnblog/business/profile/bookmark/user_bookmark_list_screen.dart';
 import 'package:flutter_cnblog/business/profile/follow/follow_screen.dart';
 import 'package:flutter_cnblog/business/profile/setting/setting_screen.dart';
-import 'package:flutter_cnblog/business/question/my/my_question_list_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -18,7 +17,6 @@ import 'package:flutter_cnblog/model/follow.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -205,10 +203,10 @@ class ProfileMiddle extends StatelessWidget {
             onTap: () => context.goto(UserBlogListScreen(userInfo)),
             child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
           ),
-          InkWell(
-            onTap: () => context.goto(const MyQuestionListScreen()),
-            child: const MomentMiddleItem(iconName: 'profile_question', label: '我的博问'),
-          ),
+          // InkWell(
+          //   onTap: () => context.goto(const MyQuestionListScreen()),
+          //   child: const MomentMiddleItem(iconName: 'profile_question', label: '我的博问'),
+          // ),
           InkWell(
             onTap: () => context.goto(const MyInstantScreen()),
             child: const MomentMiddleItem(iconName: 'my_message', label: '我的闪存'),
@@ -266,10 +264,10 @@ class ProfileFooter extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                onTap: () => CommUtil.toBeDev(),
-                child: const MomentMiddleItem(iconName: 'profile_feedback', label: '意见反馈'),
-              ),
+              // InkWell(
+              //   onTap: () => CommUtil.toBeDev(),
+              //   child: const MomentMiddleItem(iconName: 'profile_feedback', label: '意见反馈'),
+              // ),
               InkWell(
                 onTap: () => context.goto(const OfficialBlogListScreen()),
                 child: const MomentMiddleItem(iconName: 'profile_official', label: '官方博客'),

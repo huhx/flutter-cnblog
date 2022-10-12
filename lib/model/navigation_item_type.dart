@@ -3,15 +3,14 @@ import 'package:flutter_cnblog/business/home/home_screen.dart';
 import 'package:flutter_cnblog/business/instant/instant_screen.dart';
 import 'package:flutter_cnblog/business/news/news_screen.dart';
 import 'package:flutter_cnblog/business/profile/profile_screen.dart';
-import 'package:flutter_cnblog/business/question/question_screen.dart';
 import 'package:flutter_cnblog/component/custom_navigation_bar_item.dart';
 
 enum NavigationItemType {
   blog("main_blog", "博客", 0, HomeScreen()),
   news("main_news", "新闻", 1, NewsScreen()),
-  question("main_question", "博问", 2, QuestionScreen()),
-  instant("main_instant", "闪存", 3, InstantScreen()),
-  profile("main_profile", "我的", 4, ProfileScreen());
+  // question("main_question", "博问", 2, QuestionScreen()),
+  instant("main_instant", "闪存", 2, InstantScreen()),
+  profile("main_profile", "我的", 3, ProfileScreen());
 
   final String iconName;
   final String label;
