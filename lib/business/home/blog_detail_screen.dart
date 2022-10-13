@@ -51,7 +51,10 @@ class BlogDetailScreen extends HookConsumerWidget {
             icon: const SvgActionIcon(name: "more_hor"),
             onPressed: () async {
               if (user == null) {
-                await context.goto(const LoginScreen());
+                final bool? isSuccess = await context.goto(const LoginScreen());
+                if (isSuccess == null) {
+                  return;
+                }
               }
               final bool isMark = await bookmarkApi.isMark(blog.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
@@ -183,7 +186,10 @@ class BottomComment extends HookConsumerWidget {
                 IconButton(
                   onPressed: () async {
                     if (user == null) {
-                      await context.goto(const LoginScreen());
+                      final bool? isSuccess = await context.goto(const LoginScreen());
+                      if (isSuccess == null) {
+                        return;
+                      }
                     }
                     final BlogDiggReq request = BlogDiggReq(voteType: VoteType.digg, postId: postId!, isAbandoned: false);
                     final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
@@ -199,7 +205,10 @@ class BottomComment extends HookConsumerWidget {
                 IconButton(
                   onPressed: () async {
                     if (user == null) {
-                      await context.goto(const LoginScreen());
+                      final bool? isSuccess = await context.goto(const LoginScreen());
+                      if (isSuccess == null) {
+                        return;
+                      }
                     }
                     context.goto(BlogCommentListScreen(blog.copyWith(postId: postId!), commentCount.value));
                   },

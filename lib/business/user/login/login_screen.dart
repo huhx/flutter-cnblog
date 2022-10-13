@@ -41,7 +41,7 @@ class LoginScreen extends HookConsumerWidget {
                 logger.d('加载完成：$url');
                 final String code = AuthRequest.getCodeFromUrl(url.toString());
                 await ref.watch(sessionProvider.notifier).login(code);
-                Navigator.pop(context);
+                Navigator.pop(context, true);
 
                 return NavigationActionPolicy.CANCEL;
               }
