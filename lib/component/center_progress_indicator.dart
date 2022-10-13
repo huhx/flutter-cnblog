@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_cnblog/theme/theme.dart';
 
 class CenterProgressIndicator extends StatelessWidget {
   final double radius;
@@ -7,6 +8,6 @@ class CenterProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: CupertinoActivityIndicator(radius: radius));
+    return Center(child: CupertinoActivityIndicator(radius: radius, color: themeColor));
   }
 }
