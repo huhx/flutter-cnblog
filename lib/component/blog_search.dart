@@ -17,7 +17,10 @@ class BlogSearch extends ConsumerWidget {
     return InkWell(
       onTap: () async {
         if (user == null) {
-          await context.goto(const LoginScreen());
+          final bool? isSuccess = await context.goto(const LoginScreen());
+          if (isSuccess == null) {
+            return;
+          }
         }
         context.goto(SearchScreen());
       },
