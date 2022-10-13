@@ -9,7 +9,6 @@ import 'package:flutter_cnblog/business/profile/setting/setting_screen.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/component/svg_icon.dart';
@@ -32,24 +31,12 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final User? user = ref.watch(sessionProvider);
 
-    return user != null
-        ? MyProfileScreen(user)
-        : Scaffold(
-            body: Container(
-              alignment: Alignment.center,
-              child: InkWell(
-                child: TextButton(
-                  onPressed: () => context.goto(const LoginScreen()),
-                  child: const Text("去登录"),
-                ),
-              ),
-            ),
-          );
+    return MyProfileScreen(user);
   }
 }
 
 class MyProfileScreen extends HookConsumerWidget {
-  final User user;
+  final User? user;
 
   const MyProfileScreen(this.user, {super.key});
 
@@ -57,65 +44,53 @@ class MyProfileScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = useState(ref.read(themeProvider).themeMode == ThemeMode.dark);
 
-    return FutureBuilder<UserProfileData>(
-      future: userProfileApi.getUserProfileData(user.blogApp),
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final UserProfileData userProfileData = snap.data as UserProfileData;
-
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: isDarkMode.value
-                  ? [const Color.fromRGBO(5, 5, 5, 1), const Color.fromRGBO(20, 20, 20, 1)]
-                  : [const Color.fromRGBO(250, 250, 250, 1), const Color.fromRGBO(235, 235, 235, 1)],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: isDarkMode.value
+              ? [const Color.fromRGBO(5, 5, 5, 1), const Color.fromRGBO(20, 20, 20, 1)]
+              : [const Color.fromRGBO(250, 250, 250, 1), const Color.fromRGBO(235, 235, 235, 1)],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              onPressed: () {
+                if (isDarkMode.value) {
+                  isDarkMode.value = false;
+                  ref.read(themeProvider).setDark(false);
+                } else {
+                  isDarkMode.value = true;
+                  ref.read(themeProvider).setDark(true);
+                }
+              },
+              icon: SvgIcon(name: isDarkMode.value ? "share_light_mode" : "share_dark_mode"),
             ),
-          ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    if (isDarkMode.value) {
-                      isDarkMode.value = false;
-                      ref.read(themeProvider).setDark(false);
-                    } else {
-                      isDarkMode.value = true;
-                      ref.read(themeProvider).setDark(true);
-                    }
-                  },
-                  icon: SvgIcon(name: isDarkMode.value ? "share_light_mode" : "share_dark_mode"),
-                ),
-                // IconButton(
-                //   onPressed: () => context.goto(const MessageScreen()),
-                //   icon: const SvgIcon(name: "my_notify"),
-                // ),
-                IconButton(
-                  onPressed: () => context.goto(const SettingScreen()),
-                  icon: const SvgIcon(name: "my_setting"),
-                ),
-              ],
+            IconButton(
+              onPressed: () => context.goto(const SettingScreen()),
+              icon: const SvgIcon(name: "my_setting"),
             ),
-            body: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                ProfileHeader(user.toInfo()),
-                const SizedBox(height: 24),
-                ProfileInfo(userProfileData),
-                const SizedBox(height: 16),
-                ProfileMiddle(user.toInfo()),
-                const SizedBox(height: 16),
-                ProfileFooter(user.toInfo()),
-              ],
-            ),
-          ),
-        );
-      },
+          ],
+        ),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            user != null ? ProfileHeader(user!.toInfo()) : const NoLoginProfileHeader(),
+            const SizedBox(height: 24),
+            user != null ? ProfileInfo(user!) : const NoLoginProfileInfo(),
+            const SizedBox(height: 16),
+            user != null ? ProfileMiddle(user!.toInfo()) : const NoLoginProfileMiddle(),
+            const SizedBox(height: 16),
+            const ProfileFooter()
+          ],
+        ),
+      ),
     );
   }
 }
@@ -137,10 +112,54 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-class ProfileInfo extends StatelessWidget {
-  final UserProfileData userProfileData;
+class NoLoginProfileHeader extends StatelessWidget {
+  const NoLoginProfileHeader({Key? key}) : super(key: key);
 
-  const ProfileInfo(this.userProfileData, {super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () => context.goto(const LoginScreen()),
+      leading: const SvgIcon(name: "no_login_user", size: 48),
+      contentPadding: EdgeInsets.zero,
+      title: Text("登录/注册", style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
+      trailing: const ListTileTrailing(),
+    );
+  }
+}
+
+class ProfileInfo extends StatelessWidget {
+  final User user;
+
+  const ProfileInfo(this.user, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<UserProfileData>(
+        future: userProfileApi.getUserProfileData(user.blogApp),
+        builder: (context, snap) {
+          if (!snap.hasData) return const SizedBox.shrink();
+          final UserProfileData userProfileData = snap.data as UserProfileData;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InkWell(
+                child: ProfileInfoItem(counts: userProfileData.follow, label: "关注"),
+                onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follow)),
+              ),
+              InkWell(
+                child: ProfileInfoItem(counts: userProfileData.follower, label: "粉丝"),
+                onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follower)),
+              ),
+              ProfileInfoItem(counts: userProfileData.comment, label: "评论"),
+              ProfileInfoItem(counts: userProfileData.view, label: "阅读"),
+            ],
+          );
+        });
+  }
+}
+
+class NoLoginProfileInfo extends StatelessWidget {
+  const NoLoginProfileInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -148,15 +167,15 @@ class ProfileInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         InkWell(
-          child: ProfileInfoItem(counts: userProfileData.follow, label: "关注"),
-          onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follow)),
+          child: const ProfileInfoItem(counts: 0, label: "关注"),
+          onTap: () => context.goto(const LoginScreen()),
         ),
         InkWell(
-          child: ProfileInfoItem(counts: userProfileData.follower, label: "粉丝"),
-          onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follower)),
+          child: const ProfileInfoItem(counts: 0, label: "粉丝"),
+          onTap: () => context.goto(const LoginScreen()),
         ),
-        ProfileInfoItem(counts: userProfileData.comment, label: "评论"),
-        ProfileInfoItem(counts: userProfileData.view, label: "阅读"),
+        const ProfileInfoItem(counts: 0, label: "评论"),
+        const ProfileInfoItem(counts: 0, label: "阅读"),
       ],
     );
   }
@@ -203,16 +222,44 @@ class ProfileMiddle extends StatelessWidget {
             onTap: () => context.goto(UserBlogListScreen(userInfo)),
             child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
           ),
-          // InkWell(
-          //   onTap: () => context.goto(const MyQuestionListScreen()),
-          //   child: const MomentMiddleItem(iconName: 'profile_question', label: '我的博问'),
-          // ),
           InkWell(
             onTap: () => context.goto(const MyInstantScreen()),
             child: const MomentMiddleItem(iconName: 'my_message', label: '我的闪存'),
           ),
           InkWell(
             onTap: () => context.goto(UserBookmarkListScreen(userInfo)),
+            child: const MomentMiddleItem(iconName: 'profile_bookmark', label: '我的收藏'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NoLoginProfileMiddle extends StatelessWidget {
+  const NoLoginProfileMiddle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            onTap: () => context.goto(const LoginScreen()),
+            child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
+          ),
+          InkWell(
+            onTap: () => context.goto(const LoginScreen()),
+            child: const MomentMiddleItem(iconName: 'my_message', label: '我的闪存'),
+          ),
+          InkWell(
+            onTap: () => context.goto(const LoginScreen()),
             child: const MomentMiddleItem(iconName: 'profile_bookmark', label: '我的收藏'),
           ),
         ],
@@ -244,9 +291,7 @@ class MomentMiddleItem extends StatelessWidget {
 }
 
 class ProfileFooter extends StatelessWidget {
-  final UserInfo user;
-
-  const ProfileFooter(this.user, {Key? key}) : super(key: key);
+  const ProfileFooter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -264,10 +309,6 @@ class ProfileFooter extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // InkWell(
-              //   onTap: () => CommUtil.toBeDev(),
-              //   child: const MomentMiddleItem(iconName: 'profile_feedback', label: '意见反馈'),
-              // ),
               InkWell(
                 onTap: () => context.goto(const OfficialBlogListScreen()),
                 child: const MomentMiddleItem(iconName: 'profile_official', label: '官方博客'),
