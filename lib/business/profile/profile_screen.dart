@@ -269,6 +269,7 @@ class MomentMiddleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SvgIcon(name: iconName, color: themeColor),
         const SizedBox(height: 6),

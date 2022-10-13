@@ -66,6 +66,13 @@ class InstantDetailScreen extends HookWidget {
                       FutureBuilder<List<InstantComment>>(
                         future: userInstantApi.getInstantComments(instant.id),
                         builder: (context, snap) {
+                          if (snap.hasError) {
+                            return Container(
+                              height: 100,
+                              alignment: Alignment.center,
+                              child: const Text("没有回复或者私密不能查看"),
+                            );
+                          }
                           if (!snap.hasData) return const CenterProgressIndicator();
                           List<InstantComment> comments = snap.data as List<InstantComment>;
                           if (comments.isEmpty) {
