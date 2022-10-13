@@ -90,3 +90,16 @@ div.footer {
 div#main {
   grid-template-rows: 40px 1fr 0px;
 }
+
+/* iPad */
+div#mainContent {
+  width: 100% !important;
+}
+
+div#mainContent .forFlow {
+  margin: 0 !important;
+}
+
+div#topics {
+  padding: 1em !important;
+}
