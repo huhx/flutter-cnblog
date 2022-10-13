@@ -127,7 +127,7 @@ class ProfileInfo extends StatelessWidget {
     return FutureBuilder<UserProfileData>(
         future: userProfileApi.getUserProfileData(user.blogApp),
         builder: (context, snap) {
-          if (!snap.hasData) return const SizedBox.shrink();
+          if (!snap.hasData) return const NoLoginProfileInfo();
           final UserProfileData userProfileData = snap.data as UserProfileData;
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
