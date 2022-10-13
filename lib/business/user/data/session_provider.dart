@@ -5,6 +5,7 @@ import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final sessionProvider = StateNotifierProvider<SessionModel, User?>((ref) {
@@ -36,6 +37,8 @@ class SessionModel extends StateNotifier<User?> {
   }
 
   Future<void> logout() async {
+    await CookieManager.instance().deleteAllCookies();
+
     state = null;
 
     PrefsUtil.logout();
