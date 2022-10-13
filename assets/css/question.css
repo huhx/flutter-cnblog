@@ -17,3 +17,17 @@
 div.main_nav {
   display: none;
 }
+
+
+/* ipad */
+div#hd_top {
+  display: none;
+}
+
+div#app_bar {
+  display: none;
+}
+
+div#google_ad_bottom {
+  display: none;
+}
