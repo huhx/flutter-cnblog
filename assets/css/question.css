@@ -18,6 +18,11 @@ div.main_nav {
   display: none;
 }
 
+a {
+  pointer-events: none;
+  text-decoration: none;
+}
+
 
 /* ipad */
 div#hd_top {
@@ -29,5 +34,9 @@ div#app_bar {
 }
 
 div#google_ad_bottom {
+  display: none;
+}
+
+div.q_close {
   display: none;
 }
