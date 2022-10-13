@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/setting/cache/clear_cache_item.dart';
 import 'package:flutter_cnblog/business/profile/setting/logout/logout_item.dart';
-import 'package:flutter_cnblog/business/profile/setting/update/check_update_item.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
+
+import 'about/app_about_item.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ class SettingScreen extends StatelessWidget {
           children: const [
             ClearCacheItem(),
             Divider(),
-            CheckUpdateItem(),
+            AppAboutItem(),
+            // CheckUpdateItem(),
             Divider(),
             LogoutItem(),
           ],
