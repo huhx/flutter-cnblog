@@ -30,9 +30,7 @@ class MainScreen extends HookConsumerWidget {
         onTap: (value) async {
           if (user == null && value == NavigationItemType.instant.pageIndex) {
             final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-            if (isSuccess == null) {
-              return;
-            }
+            if (isSuccess == null) return;
           }
           if (value != NavigationItemType.profile.pageIndex && value == pageIndex.value) {
             if (scrollModel.isNotTop(itemType.name)) {

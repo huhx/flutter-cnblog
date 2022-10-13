@@ -18,9 +18,7 @@ class BlogSearch extends ConsumerWidget {
       onTap: () async {
         if (user == null) {
           final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-          if (isSuccess == null) {
-            return;
-          }
+          if (isSuccess == null) return;
         }
         context.goto(SearchScreen());
       },

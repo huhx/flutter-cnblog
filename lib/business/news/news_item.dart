@@ -25,9 +25,7 @@ class NewsItem extends ConsumerWidget {
       onTap: () async {
         if (user == null) {
           final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-          if (isSuccess == null) {
-            return;
-          }
+          if (isSuccess == null) return;
         }
         final DetailModel detailModel = news.toDetail();
         context.goto(NewsDetailScreen(detailModel));

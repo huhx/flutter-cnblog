@@ -38,9 +38,7 @@ class QuestionScreen extends ConsumerWidget {
               onPressed: () async {
                 if (user == null) {
                   final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-                  if (isSuccess == null) {
-                    return;
-                  }
+                  if (isSuccess == null) return;
                 }
                 context.goto(const MyQuestionListScreen());
               },

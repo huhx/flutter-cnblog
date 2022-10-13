@@ -86,7 +86,7 @@ class HotBlogList extends StatelessWidget {
 class HostNewsList extends ConsumerWidget {
   final List<OfficialHot> newsList;
 
-  const HostNewsList(this.newsList, {Key? key}) : super(key: key);
+  const HostNewsList(this.newsList, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -99,9 +99,7 @@ class HostNewsList extends ConsumerWidget {
           onTap: () async {
             if (user == null) {
               final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-              if (isSuccess == null) {
-                return;
-              }
+              if (isSuccess == null) return;
             }
             context.goto(NewsDetailScreen(newsList[index].toDetail()));
           },

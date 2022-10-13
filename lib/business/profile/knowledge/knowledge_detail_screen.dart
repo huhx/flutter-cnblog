@@ -38,9 +38,7 @@ class KnowledgeDetailScreen extends HookConsumerWidget {
             onPressed: () async {
               if (user == null) {
                 final bool? isSuccess = await context.gotoLogin(const LoginScreen());
-                if (isSuccess == null) {
-                  return;
-                }
+                if (isSuccess == null) return;
               }
               final bool isMark = await bookmarkApi.isMark(knowledge.url);
               final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
