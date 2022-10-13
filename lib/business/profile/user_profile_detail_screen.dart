@@ -98,10 +98,9 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
         final String string = CurrentUser.getUser().displayName == userProfile.name ? "我" : "Ta";
         List<Widget> widgets = [];
         userProfile.info.forEach((key, value) {
-          final listTile = ListTile(
-            leading: Text(key),
-            minLeadingWidth: 40,
-            trailing: Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, textAlign: TextAlign.end),
+          final listTile = UserHeaderInfoItem(
+            left: Text(key),
+            right: Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, textAlign: TextAlign.end),
           );
           widgets.add(listTile);
         });
@@ -111,10 +110,9 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
           primary: false,
           children: [
             if (hasBlog)
-              ListTile(
-                leading: Text("$string的博客"),
-                trailing: const ListTileTrailing(),
+              InkWell(
                 onTap: () => context.goto(UserBlogListScreen(widget.user)),
+                child: UserHeaderInfoItem(left: Text("$string的博客"), right: const ListTileTrailing()),
               ),
             ...widgets
           ],
@@ -125,6 +123,27 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class UserHeaderInfoItem extends StatelessWidget {
+  final Widget left;
+  final Widget right;
+
+  const UserHeaderInfoItem({super.key, required this.left, required this.right});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ConstrainedBox(constraints: const BoxConstraints(minWidth: 40), child: left),
+          right,
+        ],
+      ),
+    );
+  }
 }
 
 class UserMoment extends StatefulWidget {
