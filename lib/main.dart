@@ -13,6 +13,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -52,15 +53,27 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   void initState() {
     super.initState();
+
     initResource();
+    initPackageInfo();
+
+    FlutterNativeSplash.remove();
   }
 
   void initResource() async {
     await initCss();
     timeago.setLocaleMessages('zh', ZhMessages());
     timeago.setDefaultLocale('zh');
+  }
 
-    FlutterNativeSplash.remove();
+  void initPackageInfo() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    final String version = packageInfo.version;
+    final String buildNumber = packageInfo.buildNumber;
+
+    AppConfig.save("version", version);
+    AppConfig.save("buildNumber", buildNumber);
   }
 
   @override
