@@ -1,9 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/component/cancel_confirm_dialog.dart';
 
 extension ContextExtensions on BuildContext {
   Future<T?> goto<T extends Object?>(Widget widget) async {
     return Navigator.push(this, MaterialPageRoute<T>(builder: (_) => widget));
+  }
+
+  Future<T?> gotoLogin<T extends Object?>(Widget widget) async {
+    return Navigator.push(this, CupertinoPageRoute<T>(builder: (_) => widget, fullscreenDialog: true));
   }
 
   Future<T?> replace<T extends Object?>(Widget widget) async {

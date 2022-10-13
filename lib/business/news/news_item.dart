@@ -24,7 +24,7 @@ class NewsItem extends ConsumerWidget {
     return InkWell(
       onTap: () async {
         if (user == null) {
-          final bool? isSuccess = await context.goto(const LoginScreen());
+          final bool? isSuccess = await context.gotoLogin(const LoginScreen());
           if (isSuccess == null) {
             return;
           }
