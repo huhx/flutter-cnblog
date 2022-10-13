@@ -51,7 +51,10 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
           IconButton(
             onPressed: () {
               context.showCommDialog(
-                callback: () async => await readLogApi.deleteAll(),
+                callback: () async {
+                  await readLogApi.deleteAll();
+                  streamList.reset([]);
+                },
                 title: '清空记录',
                 content: '你确定清空阅读记录?',
               );
@@ -67,7 +70,7 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
           final List<ReadLog> readLogs = snap.data as List<ReadLog>;
 
           if (readLogs.isEmpty) {
-            return const EmptyWidget();
+            return const EmptyWidget(message: "阅读记录为空");
           }
           final Map<String, List<ReadLog>> readLogMap = readLogs.groupBy((readLog) => readLog.createTime.toDateString());
 
