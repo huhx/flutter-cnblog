@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
 import 'package:flutter_cnblog/common/constant/constant.dart';
+import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/in_app_webview_config.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,7 +23,10 @@ class LoginScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const AppbarBackButton(),
+        leading: IconButton(
+          icon: const SvgActionIcon(name: 'close'),
+          onPressed: () => context.pop(),
+        ),
         title: const Text("博客园登录"),
       ),
       body: Stack(

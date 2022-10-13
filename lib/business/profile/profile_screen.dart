@@ -118,7 +118,7 @@ class NoLoginProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => context.goto(const LoginScreen()),
+      onTap: () => context.gotoLogin(const LoginScreen()),
       leading: const SvgIcon(name: "no_login_user", size: 48),
       contentPadding: EdgeInsets.zero,
       title: Text("登录/注册", style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
@@ -168,11 +168,11 @@ class NoLoginProfileInfo extends StatelessWidget {
       children: [
         InkWell(
           child: const ProfileInfoItem(counts: 0, label: "关注"),
-          onTap: () => context.goto(const LoginScreen()),
+          onTap: () => context.gotoLogin(const LoginScreen()),
         ),
         InkWell(
           child: const ProfileInfoItem(counts: 0, label: "粉丝"),
-          onTap: () => context.goto(const LoginScreen()),
+          onTap: () => context.gotoLogin(const LoginScreen()),
         ),
         const ProfileInfoItem(counts: 0, label: "评论"),
         const ProfileInfoItem(counts: 0, label: "阅读"),
@@ -251,15 +251,15 @@ class NoLoginProfileMiddle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           InkWell(
-            onTap: () => context.goto(const LoginScreen()),
+            onTap: () => context.gotoLogin(const LoginScreen()),
             child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
           ),
           InkWell(
-            onTap: () => context.goto(const LoginScreen()),
+            onTap: () => context.gotoLogin(const LoginScreen()),
             child: const MomentMiddleItem(iconName: 'my_message', label: '我的闪存'),
           ),
           InkWell(
-            onTap: () => context.goto(const LoginScreen()),
+            onTap: () => context.gotoLogin(const LoginScreen()),
             child: const MomentMiddleItem(iconName: 'profile_bookmark', label: '我的收藏'),
           ),
         ],

@@ -29,7 +29,7 @@ class MainScreen extends HookConsumerWidget {
         type: BottomNavigationBarType.fixed,
         onTap: (value) async {
           if (user == null && value == NavigationItemType.instant.pageIndex) {
-            final bool? isSuccess = await context.goto(const LoginScreen());
+            final bool? isSuccess = await context.gotoLogin(const LoginScreen());
             if (isSuccess == null) {
               return;
             }
