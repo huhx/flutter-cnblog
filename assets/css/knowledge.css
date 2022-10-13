@@ -33,3 +33,13 @@ div.ad_bottom {
 #footer {
   display: none;
 }
+
+
+/* iPad */
+div#left_content {
+  width: 100% !important;
+}
+
+div.contents_main {
+  width: 100% !important;
+}
