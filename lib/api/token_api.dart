@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
-import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TokenApi {
@@ -34,10 +33,6 @@ class TokenApi {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     return AccessToken.fromJson(response.data);
-  }
-
-  Future<void> logout() async {
-    await RestClient.withCookie().post("https://oauth.cnblogs.com/Users/SignOut");
   }
 }
 
