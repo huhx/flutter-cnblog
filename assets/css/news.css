@@ -25,3 +25,26 @@ div#news_main {
 }
 
 /* ipad */
+div#wrap {
+  display: none;
+}
+
+div#main_wrapper {
+  width: 100% !important;
+}
+
+div#main_header {
+  display: none;
+}
+
+div#guide {
+  display: none;
+}
+
+div#sideleft {
+  width: 100% !important;
+}
+
+div#sideright {
+  display: none;
+}
