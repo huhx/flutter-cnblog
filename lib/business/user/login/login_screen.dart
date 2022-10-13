@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/constant/auth_request.dart';
@@ -52,10 +50,8 @@ class LoginScreen extends HookConsumerWidget {
               return NavigationActionPolicy.ALLOW;
             },
             onPageCommitVisible: (controller, url) async {
+              await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/login.css");
               isLoading.value = false;
-              if (Platform.isIOS) {
-                await controller.injectCSSFileFromAsset(assetFilePath: "assets/css/login.css");
-              }
             },
           ),
           Visibility(visible: isLoading.value, child: const CenterProgressIndicator())

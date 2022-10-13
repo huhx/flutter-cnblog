@@ -12,6 +12,6 @@ div.grecaptcha-logo {
 
 
 /* hide the register tag */
-div.footer > :not(.error-message) {
+div.footer > div:not(.error-message) {
   display: none !important;
 }
