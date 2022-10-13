@@ -24,25 +24,13 @@ import 'official/official_blog_list_screen.dart';
 import 'readlog/read_log_list_screen.dart';
 import 'user_profile_detail_screen.dart';
 
-class ProfileScreen extends ConsumerWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final User? user = ref.watch(sessionProvider);
-
-    return MyProfileScreen(user);
-  }
-}
-
-class MyProfileScreen extends HookConsumerWidget {
-  final User? user;
-
-  const MyProfileScreen(this.user, {super.key});
+class ProfileScreen extends HookConsumerWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = useState(ref.read(themeProvider).themeMode == ThemeMode.dark);
+    final User? user = ref.watch(sessionProvider);
 
     return Container(
       decoration: BoxDecoration(
@@ -81,11 +69,11 @@ class MyProfileScreen extends HookConsumerWidget {
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
-            user != null ? ProfileHeader(user!.toInfo()) : const NoLoginProfileHeader(),
+            user != null ? ProfileHeader(user.toInfo()) : const NoLoginProfileHeader(),
             const SizedBox(height: 24),
-            user != null ? ProfileInfo(user!) : const NoLoginProfileInfo(),
+            user != null ? ProfileInfo(user) : const NoLoginProfileInfo(),
             const SizedBox(height: 16),
-            user != null ? ProfileMiddle(user!.toInfo()) : const NoLoginProfileMiddle(),
+            user != null ? ProfileMiddle(user.toInfo()) : const NoLoginProfileMiddle(),
             const SizedBox(height: 16),
             const ProfileFooter()
           ],
