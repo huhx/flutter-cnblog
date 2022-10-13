@@ -249,7 +249,7 @@ class NoLoginProfileMiddle extends StatelessWidget {
             child: const MomentMiddleItem(iconName: 'profile_blog', label: '我的博客'),
           ),
           InkWell(
-            onTap: () => context.goto(const MyQuestionListScreen()),
+            onTap: () => context.goto(const LoginScreen()),
             child: const MomentMiddleItem(iconName: 'profile_question', label: '我的博问'),
           ),
           InkWell(
