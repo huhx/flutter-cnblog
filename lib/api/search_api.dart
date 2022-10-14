@@ -7,8 +7,6 @@ import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SearchApi {
-  static const String url = "https://zzk.cnblogs.com/s";
-  static const String myUrl = "https://zzk.cnblogs.com/my/s";
 
   Future<List<SearchInfo>> getSearchContents(SearchType searchType, int pageKey, String keyword) async {
     final Response response = await RestClient.withCookie().get(

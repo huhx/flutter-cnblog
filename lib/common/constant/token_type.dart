@@ -1,5 +1,1 @@
-enum TokenType {
-  none,
-  app,
-  user,
-}
+enum TokenType { none, app, user }

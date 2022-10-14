@@ -3,7 +3,6 @@ import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
-import 'package:flutter_cnblog/common/constant/comm_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_list.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
@@ -35,7 +34,7 @@ class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> with 
 
   Future<void> _fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, pageSize);
+      final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, 20);
       streamList.fetch(blogs, pageKey);
     }
   }

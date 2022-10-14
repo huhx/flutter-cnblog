@@ -26,8 +26,8 @@ class UserBlogApi {
     final String url = "https://www.cnblogs.com/$blogName/ajax/vote/blogpost";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
     );
     return BlogDiggResp.fromJson(response.data);
   }
@@ -50,8 +50,8 @@ class UserBlogApi {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Add.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
     );
     return BlogCommentCreateResp.fromJson(response.data);
   }
@@ -60,8 +60,8 @@ class UserBlogApi {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
     );
     return response.data as bool;
   }
@@ -70,8 +70,8 @@ class UserBlogApi {
     final String url = "https://www.cnblogs.com/$blogName/ajax/PostComment/Update.aspx";
     final Response response = await RestClient.withCookie().post(
       url,
-      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
       data: request.toJson(),
+      options: Options(headers: {"RequestVerificationToken": PrefsUtil.getForgeryToken()}),
     );
     return BlogDiggResp.fromJson(response.data);
   }

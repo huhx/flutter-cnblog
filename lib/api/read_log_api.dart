@@ -52,7 +52,7 @@ class ReadLogApi {
   Future<Database> _getDB() async {
     return openDatabase(
       join(await getDatabasesPath(), dbName),
-      onCreate: (db, version) => db.execute(tableScript),
+      onCreate: (db, _) => db.execute(tableScript),
       version: 1,
     );
   }
