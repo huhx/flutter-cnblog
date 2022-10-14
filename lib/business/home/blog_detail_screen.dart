@@ -91,18 +91,26 @@ class BlogDetailScreen extends HookConsumerWidget {
   }
 }
 
-class AppBarTitle extends StatelessWidget {
+class AppBarTitle extends ConsumerWidget {
   final DetailModel blog;
 
   const AppBarTitle(this.blog, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User? user = ref.watch(sessionProvider);
+
     return Row(
       children: [
         InkWell(
           child: CircleImage(url: blog.avatar ?? "", size: 28),
-          onTap: () => context.goto(UserProfileDetailScreen(blog.toUserInfo())),
+          onTap: () async {
+            if (user == null) {
+              final bool? isSuccess = await context.gotoLogin(const LoginScreen());
+              if (isSuccess == null) return;
+            }
+            context.goto(UserProfileDetailScreen(blog.toUserInfo()));
+          },
         ),
         const SizedBox(width: 6),
         Text(blog.name!, style: const TextStyle(fontSize: 14)),
