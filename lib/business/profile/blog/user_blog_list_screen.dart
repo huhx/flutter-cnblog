@@ -3,7 +3,6 @@ import 'package:flutter_cnblog/business/profile/user_blog_data_info.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/model/user.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 
 import 'user_blog_content.dart';
 
@@ -44,16 +43,13 @@ class UserBlogHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InkWell(
-            onTap: () => CommUtil.toBeDev(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleImage(url: user.avatar, size: 48),
-                const SizedBox(width: 8),
-                Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleImage(url: user.avatar, size: 48),
+              const SizedBox(width: 8),
+              Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+            ],
           ),
           Padding(padding: const EdgeInsets.only(top: 26), child: UserBlogDataInfo(user)),
         ],
