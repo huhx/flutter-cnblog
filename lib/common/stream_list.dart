@@ -43,7 +43,7 @@ class StreamList<T> {
 
   Future<void> onLoading() async {
     if (pageState.nextKey == null) {
-      refreshController.loadComplete();
+      refreshController.loadNoData();
       return;
     }
     await _listener(pageState.nextKey!);
