@@ -14,6 +14,17 @@ void main() {
     expect(result, "Hello World");
   });
 
+  test("get int value from element", () {
+    const String string = '''
+    <div class="digg">33</div>
+    ''';
+    final Element element = Element.html(string);
+
+    final int result = element.getIntValue();
+
+    expect(result, 33);
+  });
+
   test("get text from first children element", () {
     const String string = '''
       <div class="dayTitle">
@@ -90,6 +101,18 @@ void main() {
     expect(result, "Hello World.");
   });
 
+  test("get text from parent last nodes", () {
+    const String string = '''
+      <span><i class="iconfont icon-dianzan" aria-hidden="true"></i>18</span>
+    ''';
+    final Element element = Element.html(string);
+    final Element spanElement = element.getFirstByClass("icon-dianzan");
+
+    final String result = spanElement.getParentLastNodeText();
+
+    expect(result, "18");
+  });
+
   test("get value by attribute name", () {
     const String string = '''
       <div class="dayTitle">
@@ -103,5 +126,38 @@ void main() {
     final String result = element.getAttributeValue("class")!;
 
     expect(result, "dayTitle");
+  });
+
+  test("return null when getFirstOrNullByClass given no elements", () {
+    const String string = '''
+      <span><i class="iconfont icon-dianzan" aria-hidden="true"></i>18</span>
+    ''';
+    final Element element = Element.html(string);
+
+    final Element? viewElement = element.getFirstOrNullByClass("icon-view");
+
+    expect(viewElement, null);
+  });
+
+  test("return null when getFirstOrNullByTag given no elements", () {
+    const String string = '''
+      <span><i class="iconfont icon-dianzan" aria-hidden="true"></i>18</span>
+    ''';
+    final Element element = Element.html(string);
+
+    final Element? divElement = element.getFirstOrNullByTag("div");
+
+    expect(divElement, null);
+  });
+
+  test("get text with pattern from text", () {
+    const String string = '''
+     <span data-post-id="16685636" class="post-view-count">阅读(442)</span> 
+    ''';
+    final Element element = Element.html(string);
+
+    final String viewCount = element.getRegexText(r"阅读\(([0-9]+)\)");
+
+    expect(viewCount, "442");
   });
 }
