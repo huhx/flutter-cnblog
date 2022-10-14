@@ -13,7 +13,7 @@ class FollowScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String string = CurrentUser.getUser().displayName == name ? "我" : "Ta";
+    final String whoString = CurrentUser.getUser().displayName == name ? "我" : "Ta";
 
     return DefaultTabController(
       length: 2,
@@ -23,8 +23,8 @@ class FollowScreen extends StatelessWidget {
           leading: const AppbarBackButton(),
           title: TabBar(
             tabs: [
-              Tab(text: "$string的关注"),
-              Tab(text: "$string的粉丝"),
+              Tab(text: "$whoString的关注"),
+              Tab(text: "$whoString的粉丝"),
             ],
             indicatorColor: Colors.white,
             isScrollable: true,

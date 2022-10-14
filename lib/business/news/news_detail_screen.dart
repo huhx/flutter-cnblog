@@ -26,7 +26,7 @@ class NewsDetailScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(news.name ?? "itWriter"),
+        title: Text(news.name ?? "itwriter"),
         leading: const AppbarBackButton(),
         actions: [
           IconButton(

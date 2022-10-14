@@ -19,7 +19,7 @@ class MessageDetailScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(message.name ?? "itWriter"),
+        title: Text(message.name ?? "itwriter"),
         leading: const AppbarBackButton(),
       ),
       body: Stack(
