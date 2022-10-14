@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/common/constant/enum_constant.dart';
 import 'package:flutter_cnblog/component/cancel_confirm_dialog.dart';
 
 extension ContextExtensions on BuildContext {
@@ -30,6 +31,20 @@ extension ContextExtensions on BuildContext {
         duration: Duration(seconds: duration),
       ),
     );
+  }
+
+  ScreenType get screenType {
+    final MediaQueryData mediaQueryData = MediaQuery.of(this);
+    final Orientation orientation = mediaQueryData.orientation;
+    final double deviceWidth = orientation == Orientation.landscape ? mediaQueryData.size.height : mediaQueryData.size.width;
+
+    if (deviceWidth > 950) {
+      return ScreenType.desktop;
+    }
+    if (deviceWidth > 600) {
+      return ScreenType.tablet;
+    }
+    return ScreenType.mobile;
   }
 
   void showCommDialog({required VoidCallback callback, title = '删除', content = '确定要删除?'}) {

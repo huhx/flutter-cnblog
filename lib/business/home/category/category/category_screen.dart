@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/category_api.dart';
 import 'package:flutter_cnblog/business/home/category/category/category_list_screen.dart';
+import 'package:flutter_cnblog/common/constant/enum_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/list_scroll_physics.dart';
-import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -23,18 +22,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         leading: const AppbarBackButton(),
         title: const Text("所有分类"),
-        actions: [
-          IconButton(
-            icon: const SvgActionIcon(name: "more_hor"),
-            onPressed: () => CommUtil.toBeDev(),
-          )
-        ],
       ),
       body: FutureBuilder<List<CategoryList>>(
         future: categoryApi.getAllCategories(),
         builder: (context, snap) {
           if (!snap.hasData) return const CenterProgressIndicator();
-          List<CategoryList> categoryList = snap.data as List<CategoryList>;
+          final List<CategoryList> categoryList = snap.data as List<CategoryList>;
           return ListView.separated(
             physics: const ListScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -66,13 +59,24 @@ class CategoryItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           childAspectRatio: 80 / 24,
           shrinkWrap: true,
-          crossAxisCount: 3,
+          crossAxisCount: _gridCount(context.screenType),
           mainAxisSpacing: 10,
           primary: false,
           children: _buildClips(categoryList.children, context),
         )
       ],
     );
+  }
+
+  int _gridCount(ScreenType screenType) {
+    switch (screenType) {
+      case ScreenType.mobile:
+        return 3;
+      case ScreenType.tablet:
+        return 5;
+      case ScreenType.desktop:
+        return 6;
+    }
   }
 
   List<Widget> _buildClips(List<CategoryInfo> children, BuildContext context) {
