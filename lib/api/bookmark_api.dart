@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cnblog/common/constant/token_type.dart';
 import 'package:flutter_cnblog/common/parser/bookmark_parser.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
@@ -30,6 +31,11 @@ class BookmarkApi {
     final Response response = await RestClient.withCookie().delete(url);
 
     return BookmarkResult.fromJson(response.data);
+  }
+
+  Future<void> deleteByUrl(String urlString) async {
+    final String url = "https://api.cnblogs.com/api/bookmarks?url=${Uri.encodeComponent(urlString)}";
+    await RestClient.getInstance(tokenType: TokenType.user).delete(url);
   }
 }
 

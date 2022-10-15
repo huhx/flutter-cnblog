@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/business/home/blog_share_screen.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
@@ -30,9 +31,11 @@ class UserBookmarkDetailScreen extends HookConsumerWidget {
         actions: [
           IconButton(
             icon: const SvgActionIcon(name: "more_hor"),
-            onPressed: () {
-              final BlogShareSetting setting = BlogShareSetting(isMark: true, isDarkMode: context.isDarkMode());
-              showMaterialModalBottomSheet(
+            onPressed: () async {
+              final bool isMark = await bookmarkApi.isMark(bookmark.url);
+              final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
+
+              await showMaterialModalBottomSheet(
                 context: context,
                 duration: const Duration(milliseconds: 200),
                 shape: bottomSheetBorder,

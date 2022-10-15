@@ -38,7 +38,8 @@ class BlogShareScreen extends HookConsumerWidget {
                 color: isMark.value ? Colors.blueAccent : null,
                 callback: () async {
                   if (isMark.value) {
-                    CommUtil.toBeDev();
+                    isMark.value = false;
+                    await bookmarkApi.deleteByUrl(blog.url);
                   } else {
                     isMark.value = true;
                     await bookmarkApi.add(BookmarkRequest(wzLinkId: blog.id ?? 1, url: blog.url, title: blog.title));
