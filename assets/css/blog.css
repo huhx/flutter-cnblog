@@ -91,6 +91,32 @@ div#main {
   grid-template-rows: 40px 1fr 0px;
 }
 
+/* https://www.cnblogs.com/jerry-fuyi/p/16794895.html */
+div#rightmenu {
+  display: none;
+}
+
+div#blog_post_info_block {
+  display: none;
+}
+
+p.postfoot {
+  display: none;
+}
+
+div#blog-comments-placeholder {
+  display: none;
+}
+
+div#comment_form {
+  display: none;
+}
+
+div#main {
+  margin-right: 0 important!;
+}
+
+
 /* iPad */
 div#mainContent {
   width: 100% !important;
