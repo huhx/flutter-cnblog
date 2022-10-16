@@ -40,8 +40,8 @@ div#footer {
   display: none;
 }
 
-.postDesc {
-  display: none;
+div.postDesc {
+  display: none !important;
 }
 
 #comment_form {
@@ -116,6 +116,10 @@ div#main {
   margin-right: 0 important!;
 }
 
+/* https://www.cnblogs.com/buguge/p/16795409.html */
+div#leftmenu {
+  display: none;
+}
 
 /* iPad */
 div#mainContent {
