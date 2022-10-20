@@ -59,11 +59,11 @@ dependencies:
   equatable: ^2.0.3
   modal_bottom_sheet: ^2.1.0
   flutter_hooks: ^0.18.5+1
-  share_plus: ^5.0.0
+  share_plus: ^6.0.0
   shared_preferences: ^2.0.15
   sqflite: ^2.0.3+1
   path: ^1.8.2
-  package_info_plus: ^2.0.0
+  package_info_plus: ^3.0.0
 
 dependency_overrides:
   pull_to_refresh:
