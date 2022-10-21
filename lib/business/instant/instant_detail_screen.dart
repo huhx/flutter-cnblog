@@ -156,7 +156,7 @@ class CommentWidget extends HookWidget {
   final VoidCallback callback;
   final TextEditingController editingController = TextEditingController();
 
-  CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, this.callback, {Key? key}) : super(key: key);
+  CommentWidget(this.instant, this.parentCommentId, this.focusNode, this.value, this.callback, {super.key});
 
   @override
   Widget build(BuildContext context) {

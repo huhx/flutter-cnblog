@@ -19,7 +19,7 @@
     },
     "editor.minimap.enabled": false,
     "editor.fontFamily": "Monaco, 'Courier New', monospace",
-    "editor.fontSize": 11.6,
+    "editor.fontSize": 12,
     "workbench.colorTheme": "Atom One Dark",
     "gitlens.mode.active": "zen",
     "dart.closingLabels": false,

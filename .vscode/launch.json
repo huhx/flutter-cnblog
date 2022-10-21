@@ -1,0 +1,28 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Current Device",
+			"request": "launch",
+			"type": "dart"
+		},
+		{
+			"name": "iPhone 14 Pro Max",
+			"request": "launch",
+			"type": "dart",
+			"deviceId": "8DBAE1FB-0CD0-42AA-8052-1020E574A34E"
+		},
+		{
+			"name": "iPad Pro (12.9-inch)",
+			"request": "launch",
+			"type": "dart",
+			"deviceId": "9D86034F-2DFB-4BC0-83EE-00841DB1504B"
+		},
+	],
+	"compounds": [
+		{
+			"name": "All Devices",
+			"configurations": ["iPhone 14 Pro Max", "iPad Pro (12.9-inch)"],
+		}
+	]
+}
