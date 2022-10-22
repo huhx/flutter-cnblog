@@ -3,20 +3,20 @@ import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:html/dom.dart';
 
 extension ElementExtension on Element {
-  String getText() {
+  String get content {
     return firstChild!.toString().trimQuotation();
   }
 
-  int getIntValue() {
-    return getText().toInt();
+  int get intContent {
+    return content.toInt();
   }
 
-  String getFirstChildText() {
-    return children.first.getText();
+  String get firstChildText {
+    return children.first.content;
   }
 
-  String getLastChildText() {
-    return children.last.getText();
+  String get lastChildText {
+    return children.last.content;
   }
 
   bool hasAttributeValue(String attributeName, String value) {
@@ -27,15 +27,15 @@ extension ElementExtension on Element {
     return attributes[attributeName];
   }
 
-  String getFirstNodeText() {
+  String get firstNodeText {
     return nodes.first.toString().trimQuotation().trim();
   }
 
-  String getLastNodeText() {
+  String get lastNodeText {
     return nodes.last.toString().trimQuotation().trim();
   }
 
-  String getParentLastNodeText() {
+  String get parentLastNodeText {
     return parentNode!.nodes.last.toString().trimQuotation().trim();
   }
 

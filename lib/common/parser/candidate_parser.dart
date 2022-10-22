@@ -17,18 +17,18 @@ class CandidateParser {
     final List<Element> metaElements = element.getElementsByClassName("post-meta-item");
     final Element titleElement = element.getFirstByClass("post-item-title");
 
-    final String postDate = metaElements[0].getLastChildText();
-    final String diggCount = metaElements[1].getLastChildText();
-    final String commentCount = metaElements[2].getLastChildText();
-    final String viewCount = metaElements[3].getLastChildText();
+    final String postDate = metaElements[0].lastChildText;
+    final String diggCount = metaElements[1].lastChildText;
+    final String commentCount = metaElements[2].lastChildText;
+    final String viewCount = metaElements[3].lastChildText;
     final String url = titleElement.getAttributeValue('href')!;
 
     return BlogResp(
       id: element.getAttributeValue("data-post-id")!.toInt(),
-      title: titleElement.getText(),
+      title: titleElement.content,
       url: titleElement.getAttributeValue('href')!,
-      description: element.getFirstByClass("post-item-summary").getLastNodeText(),
-      author: element.getFirstByClass("post-item-author").getFirstChildText(),
+      description: element.getFirstByClass("post-item-summary").lastNodeText,
+      author: element.getFirstByClass("post-item-author").firstChildText,
       blogApp: Comm.getNameFromBlogUrl(url),
       avatar: avatar,
       postDate: DateTime.parse(postDate),

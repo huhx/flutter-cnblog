@@ -19,9 +19,9 @@ class BookmarkParser {
 
     return BookmarkInfo(
       id: element.attributes["id"]!.replaceFirst("link_", "").toInt(),
-      title: titleElement.getText(),
+      title: titleElement.content,
       url: titleElement.attributes['href']!,
-      starCounts: bodyElement.getFirstByClass("wz_item_count").getIntValue(),
+      starCounts: bodyElement.getFirstByClass("wz_item_count").intContent,
       postDate: DateFormat("MM/dd/yyyy hh:mm:ss").parse((bodyElement.getFirstByClass("date").attributes['title']!)),
     );
   }

@@ -9,15 +9,15 @@ class BlogPostInfoParser {
     final Element profileElement = document.getElementById("author_profile_info")!;
     final Element diggElement = document.getElementById("div_digg")!;
 
-    final String diggWord = diggElement.getFirstByClass("diggword").getFirstNodeText();
+    final String diggWord = diggElement.getFirstByClass("diggword").firstNodeText;
     final bool isDigg = diggWord.contains("已推荐");
     final bool isBury = diggWord.contains("已反对");
 
     return BlogPostInfo(
-      followingCount: profileElement.getFirstByClass("following-count").getIntValue(),
-      followerCount: profileElement.getFirstByClass("follower-count").getIntValue(),
-      diggCount: diggElement.getFirstByClass("diggnum").getIntValue(),
-      buryCount: diggElement.getFirstByClass("burynum").getIntValue(),
+      followingCount: profileElement.getFirstByClass("following-count").intContent,
+      followerCount: profileElement.getFirstByClass("follower-count").intContent,
+      diggCount: diggElement.getFirstByClass("diggnum").intContent,
+      buryCount: diggElement.getFirstByClass("burynum").intContent,
       isDigg: isDigg,
       isBury: isBury,
     );

@@ -20,7 +20,7 @@ class InstantCommentParser {
     final Element contentElement = element.getFirstByTag("bdo");
 
     final Element? fromElement = contentElement.getFirstOrNullByTag("a");
-    final String? fromName = fromElement?.getText();
+    final String? fromName = fromElement?.content;
     final String? fromUrl = fromElement?.attributes["href"];
 
     final Element timeElement = element.getFirstByClass("text_green");
@@ -32,7 +32,7 @@ class InstantCommentParser {
       replyId: replyId,
       fromName: fromName?.substring(1),
       fromUrl: fromUrl,
-      toName: toElement.getText(),
+      toName: toElement.content,
       toUrl: "https:${toElement.attributes['href']}",
       avatar: avatarUrl.startsWith("http") ? avatarUrl : "https:$avatarUrl",
       content: contentElement.innerHtml,

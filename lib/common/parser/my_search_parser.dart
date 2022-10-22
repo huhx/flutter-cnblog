@@ -14,9 +14,9 @@ class MySearchParser {
 
   static SearchInfo _parseSearchInfo(Element element) {
     final Element titleElement = element.getFirstByClass("result-title").children.first;
-    final int viewCount = element.getFirstByClass("icon-liulan").getParentLastNodeText().toInt();
-    final int? commentCount = element.getFirstOrNullByClass("icon-pinglun")?.getParentLastNodeText().toInt();
-    final int? diggCount = element.getFirstOrNullByClass("icon-dianzan")?.getParentLastNodeText().toInt();
+    final int viewCount = element.getFirstByClass("icon-liulan").parentLastNodeText.toInt();
+    final int? commentCount = element.getFirstOrNullByClass("icon-pinglun")?.parentLastNodeText.toInt();
+    final int? diggCount = element.getFirstOrNullByClass("icon-dianzan")?.parentLastNodeText.toInt();
 
     return SearchInfo(
       title: titleElement.innerHtml.trim(),
@@ -25,7 +25,7 @@ class MySearchParser {
       viewCount: viewCount,
       commentCount: commentCount,
       diggCount: diggCount,
-      postDate: element.getFirstByClass("result-widget").children.first.getLastNodeText(),
+      postDate: element.getFirstByClass("result-widget").children.first.lastNodeText,
     );
   }
 }

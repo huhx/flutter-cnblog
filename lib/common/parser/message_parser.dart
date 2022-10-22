@@ -20,11 +20,11 @@ class MessageParser {
     String? homeUrl;
     String author;
     if (authorElement.getElementsByTagName("a").isEmpty) {
-      author = authorElement.getText();
+      author = authorElement.content;
     } else {
       final Element element = authorElement.getFirstByTag("a");
       homeUrl = "https:${element.attributes["href"]}";
-      author = element.getText();
+      author = element.content;
     }
 
     return MessageInfo(
@@ -32,9 +32,9 @@ class MessageParser {
       homeUrl: homeUrl,
       title: titleElement.innerHtml.trim(),
       url: "https://msg.cnblogs.com${titleElement.attributes['href']}",
-      postDate: textElements[1].nextElementSibling!.getText(),
+      postDate: textElements[1].nextElementSibling!.content,
       author: author.trim(),
-      status: authorElement.previousElementSibling?.getText(),
+      status: authorElement.previousElementSibling?.content,
     );
   }
 }

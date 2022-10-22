@@ -40,11 +40,11 @@ class BlogCommentParser {
       content: contentElement.innerHtml.trim(),
       isMe: isMe,
       replyToken: tokenString,
-      author: authorElement.getText(),
+      author: authorElement.content,
       homeUrl: authorElement.attributes["href"]!,
       diggCount: diggString.toInt(),
       buryCount: buryString.toInt(),
-      postDate: dateElement.getText(),
+      postDate: dateElement.content,
     );
   }
 }

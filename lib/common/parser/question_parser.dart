@@ -18,8 +18,8 @@ class QuestionParser {
     final Element submitterElement = element.getFirstByClass("news_contributor");
 
     final String url = titleElement.attributes['href']!;
-    final String gold = element.getFirstOrNullByClass("gold")?.getText() ?? "0";
-    final String summary = element.getFirstByClass("news_summary").getText().trim();
+    final String gold = element.getFirstOrNullByClass("gold")?.content ?? "0";
+    final String summary = element.getFirstByClass("news_summary").content.trim();
     final String date = element.getFirstByClass("date").attributes['title']!;
 
     final Element footerElement = element.getFirstByClass("news_footer_user");
@@ -28,12 +28,12 @@ class QuestionParser {
 
     return QuestionInfo(
       id: url.split("/")[2].toInt(),
-      title: titleElement.getText(),
+      title: titleElement.content,
       url: url,
       summary: summary,
       avatar: avatarElement.isEmpty ? '' : "https:${avatarElement[0].children[0].attributes['src']}",
       homeUrl: submitterElement.attributes['href']!,
-      submitter: submitterElement.getText().trim(),
+      submitter: submitterElement.content.trim(),
       answerCount: answerString.toInt(),
       goldCount: gold.toInt(),
       viewCount: viewString.toInt(),

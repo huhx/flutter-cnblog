@@ -22,16 +22,16 @@ class KnowledgeParser {
     final String viewCount = footerElement.getFirstByClass("view").getRegexText(r"阅读\(([0-9]+)\)");
     final String diggCount = footerElement.getFirstByClass("recommend").getRegexText(r"推荐\(([0-9]+)\)");
 
-    final List<String> tags = footerElement.getFirstByClass("tag").getElementsByClassName("catalink").map((e) => e.getText()).toList();
+    final List<String> tags = footerElement.getFirstByClass("tag").getElementsByClassName("catalink").map((e) => e.content).toList();
 
     return KnowledgeInfo(
       id: url.split("/")[2].toInt(),
-      title: titleElement.getText(),
+      title: titleElement.content,
       url: "https://kb.cnblogs.com$url",
-      summary: element.getFirstByClass("msg_summary").getFirstChildText(),
-      category: categoryElement.getText(),
+      summary: element.getFirstByClass("msg_summary").firstChildText,
+      category: categoryElement.content,
       tags: tags,
-      postDate: DateTime.parse(footerElement.getLastChildText()),
+      postDate: DateTime.parse(footerElement.lastChildText),
       viewCount: viewCount.toInt(),
       diggCount: diggCount.toInt(),
     );

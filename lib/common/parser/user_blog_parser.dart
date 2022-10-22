@@ -14,7 +14,7 @@ class UserBlogParser {
 
   static List<UserBlog> __parseUserBlogs(Element element) {
     final Element dayTitleElement = element.getFirstByClass("dayTitle");
-    final String dayTitle = dayTitleElement.getFirstChildText();
+    final String dayTitle = dayTitleElement.firstChildText;
 
     final List<Element> titleElements = element.getElementsByClassName("postTitle2");
     final List<Element> summaryElements = element.getElementsByClassName("c_b_p_desc");
@@ -28,7 +28,7 @@ class UserBlogParser {
   static UserBlog _parseUserBlog(String dayTitle, Element titleElement, Element summaryElement, Element postInfoElement) {
     final bool isPinned = titleElement.attributes['class']!.contains("pinned-post");
 
-    final String postInfoString = postInfoElement.getText().replaceFirst("posted @ ", "").trim();
+    final String postInfoString = postInfoElement.content.replaceFirst("posted @ ", "").trim();
     final String postDateString = postInfoString.split("\n")[0];
     final String name = postInfoString.split("\n")[1];
 
@@ -43,9 +43,9 @@ class UserBlogParser {
 
     return UserBlog(
       id: summaryElement.attributes["id"]!.replaceFirst("postlist_description_", "").toInt(),
-      title: titleElement.getFirstByTag("span").getLastNodeText(),
+      title: titleElement.getFirstByTag("span").lastNodeText,
       url: titleElement.attributes['href']!,
-      summary: summaryElement.getFirstNodeText().replaceFirst("摘要：", "").trim(),
+      summary: summaryElement.firstNodeText.replaceFirst("摘要：", "").trim(),
       commentCount: commentString.toInt(),
       diggCount: diggString.toInt(),
       viewCount: viewString.toInt(),

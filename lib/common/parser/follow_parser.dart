@@ -22,7 +22,7 @@ class FollowParser {
     return FollowInfo(
       userId: element.attributes["id"]!,
       name: linkString.replaceFirst("/u/", ""),
-      displayName: displayNameElement.getText().trim(),
+      displayName: displayNameElement.content.trim(),
       url: "https://home.cnblogs.com$linkString",
       avatar: "https:${avatarElement.children[0].attributes["src"]!}",
       followDate: DateTime.parse(titleString.substring(titleString.length - 10)),

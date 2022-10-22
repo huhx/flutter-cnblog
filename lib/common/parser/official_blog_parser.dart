@@ -35,7 +35,7 @@ class OfficialBlogParser {
 
   static OfficialBlog parseOfficialBlog(Element titleElement, Element summaryElement, Element descElement) {
     final String id = titleElement.attributes["href"]!.split("/").last.replaceFirst(".html", "");
-    final String title = titleElement.getFirstByTag("span").getText().trim();
+    final String title = titleElement.getFirstByTag("span").content.trim();
 
     final String viewCount = descElement.getFirstByClass("post-view-count").getRegexText(r"阅读\(([0-9]+)\)");
     final String commentCount = descElement.getFirstByClass("post-comment-count").getRegexText(r"评论\(([0-9]+)\)");
@@ -45,9 +45,9 @@ class OfficialBlogParser {
       id: id,
       title: title,
       url: titleElement.attributes["href"]!,
-      summary: summaryElement.getFirstNodeText().split("\n")[1].trim(),
+      summary: summaryElement.firstNodeText.split("\n")[1].trim(),
       isReview: title.contains("上周热点回顾"),
-      postDate: descElement.getText().split(" @ ")[1].split("\n")[0].trim(),
+      postDate: descElement.content.split(" @ ")[1].split("\n")[0].trim(),
       viewCount: viewCount.toInt(),
       commentCount: commentCount.toInt(),
       diggCount: diggCount.toInt(),
@@ -67,9 +67,9 @@ class OfficialBlogParser {
 
     return OfficialHot(
       id: url.split("/").last.replaceFirst(".html", ""),
-      title: blogElement.getText(),
+      title: blogElement.content,
       url: url,
-      name: userElement.getText(),
+      name: userElement.content,
       homeUrl: userElement.attributes["href"],
     );
   }
@@ -85,7 +85,7 @@ class OfficialBlogParser {
 
     return OfficialHot(
       id: urlPart[urlPart.length - 2],
-      title: element.getText(),
+      title: element.content,
       url: url,
       name: "itwriter",
     );

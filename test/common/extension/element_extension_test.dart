@@ -9,7 +9,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final String result = element.getText();
+    final String result = element.content;
 
     expect(result, "Hello World");
   });
@@ -20,7 +20,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final int result = element.getIntValue();
+    final int result = element.intContent;
 
     expect(result, 33);
   });
@@ -33,7 +33,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final String result = element.getFirstChildText();
+    final String result = element.firstChildText;
 
     expect(result, "2022年8月6日");
   });
@@ -47,7 +47,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final String result = element.getLastChildText();
+    final String result = element.lastChildText;
 
     expect(result, "span text");
   });
@@ -81,7 +81,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final String result = element.getFirstNodeText();
+    final String result = element.firstNodeText;
 
     expect(result, "World Hello.");
   });
@@ -96,7 +96,7 @@ void main() {
     ''';
     final Element element = Element.html(string);
 
-    final String result = element.getLastNodeText();
+    final String result = element.lastNodeText;
 
     expect(result, "Hello World.");
   });
@@ -108,7 +108,7 @@ void main() {
     final Element element = Element.html(string);
     final Element spanElement = element.getFirstByClass("icon-dianzan");
 
-    final String result = spanElement.getParentLastNodeText();
+    final String result = spanElement.parentLastNodeText;
 
     expect(result, "18");
   });

@@ -21,19 +21,19 @@ class NewsParser {
     final String viewString = footerElement.getRegexText(r"([0-9]+) 人浏览");
     final String commentString = footerElement.getRegexText(r"评论\(([0-9]+)\)");
 
-    final String dateString = footerElement.getLastChildText();
+    final String dateString = footerElement.lastChildText;
     final String coverString = summaryElement.getFirstOrNullByClass("topic_img")?.attributes['src'] ?? '';
 
     return NewsInfo(
       id: element.attributes["id"]!.replaceFirst("entry_", "").toInt(),
-      title: titleElement.getFirstChildText(),
+      title: titleElement.firstChildText,
       url: titleElement.children.first.attributes['href']!,
-      summary: summaryElement.getLastNodeText(),
+      summary: summaryElement.lastNodeText,
       cover: coverString,
       homeUrl: "https:${footerElement.getFirstByTag("a").attributes['href']!}",
-      submitter: footerElement.getFirstByTag("a").getText().trim(),
+      submitter: footerElement.getFirstByTag("a").content.trim(),
       commentCount: commentString.toInt(),
-      diggCount: diggElement.getIntValue(),
+      diggCount: diggElement.intContent,
       viewCount: viewString.toInt(),
       postDate: DateTime.parse(dateString),
     );

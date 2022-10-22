@@ -10,16 +10,16 @@ class UserProfileParser {
     final Element element = document.getElementById("user_profile_block")!;
     final Element ulElement = element.getElementsByTagName("ul")[1];
     final List<Element> elements = ulElement.getElementsByTagName("li").where((element) => element.attributes.isEmpty).toList();
-    final String displayName = element.getFirstByClass("display_name").getText().trim();
+    final String displayName = element.getFirstByClass("display_name").content.trim();
     final String name = element.getFirstByClass("link_account").attributes['href']!.split("/")[2];
     final Map<String, String> map = {};
     final String userId = RegExp(r'var currentUserId = "(.+)"').firstMatch(string)!.group(1)!;
 
     for (final Element ele in elements) {
       final Element keyElement = ele.getFirstByClass("text_gray");
-      final String key = keyElement.getText().replaceFirst("：", "");
+      final String key = keyElement.content.replaceFirst("：", "");
       final Element? nextElement = keyElement.nextElementSibling;
-      final String value = nextElement == null ? ele.getLastNodeText() : nextElement.innerHtml;
+      final String value = nextElement == null ? ele.lastNodeText : nextElement.innerHtml;
       map[key] = value;
     }
 
@@ -30,8 +30,8 @@ class UserProfileParser {
       avatar: "https:${element.getFirstByClass("img_avatar").attributes['src']}",
       url: "https://www.cnblogs.com/$name/",
       info: map,
-      followCounts: document.getElementById("following_count")!.getIntValue(),
-      followerCounts: document.getElementById("follower_count")!.getIntValue(),
+      followCounts: document.getElementById("following_count")!.intContent,
+      followerCounts: document.getElementById("follower_count")!.intContent,
     );
   }
 
@@ -52,13 +52,13 @@ class UserProfileParser {
     final String urlString = linkElement.attributes['href']!;
 
     return UserProfileMoment(
-      name: titleElement.getFirstByClass("feed_author").getText(),
+      name: titleElement.getFirstByClass("feed_author").content,
       avatar: "https:$avatarString",
       url: urlString.startsWith("http") ? urlString : "https:$urlString",
       action: titleElement.nodes[2].toString().trimQuotation().trim().replaceFirst("：", ""),
-      title: linkElement.getText(),
-      summary: descElement.getText().trim(),
-      postDate: titleElement.getFirstByClass("feed_date").getText(),
+      title: linkElement.content,
+      summary: descElement.content.trim(),
+      postDate: titleElement.getFirstByClass("feed_date").content,
     );
   }
 }

@@ -29,10 +29,10 @@ class InstantParser {
       id: bodyElement.attributes['id']!.replaceFirst("feed_content_", "").toInt(),
       content: contentElement.outerHtml,
       url: "https://ing.cnblogs.com${urlElement.attributes['href']}",
-      submitter: authorElement.getText(),
+      submitter: authorElement.content,
       avatar: avatarString.startsWith("http") ? avatarString : "https:$avatarString",
       homeUrl: "https:${authorElement.attributes['href']}",
-      postDate: urlElement.getText(),
+      postDate: urlElement.content,
       commentCounts: commentCountString.toInt(),
       comments: const [],
     );
