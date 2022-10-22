@@ -31,7 +31,7 @@ class LoginScreen extends HookConsumerWidget {
         children: [
           InAppWebView(
             initialOptions: InAppWebViewConfig(),
-            initialUrlRequest: URLRequest(url: AuthRequest.getAuthorizeUrl()),
+            initialUrlRequest: URLRequest(url: AuthRequest.authorizeUri),
             shouldOverrideUrlLoading: (controller, navigationAction) async {
               final Uri url = navigationAction.request.url!;
               if (url.toString().startsWith(AuthRequest.callbackUrl)) {
