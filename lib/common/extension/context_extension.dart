@@ -20,7 +20,7 @@ extension ContextExtensions on BuildContext {
     Navigator.pop<T>(this, result);
   }
 
-  bool isDarkMode() {
+  bool get isDarkMode {
     return MediaQuery.of(this).platformBrightness == Brightness.dark;
   }
 

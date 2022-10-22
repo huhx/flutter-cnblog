@@ -41,7 +41,7 @@ class KnowledgeDetailScreen extends HookConsumerWidget {
                 if (isSuccess == null) return;
               }
               final bool isMark = await bookmarkApi.isMark(knowledge.url);
-              final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode());
+              final BlogShareSetting setting = BlogShareSetting(isMark: isMark, isDarkMode: context.isDarkMode);
 
               showMaterialModalBottomSheet(
                 context: context,
