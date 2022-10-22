@@ -85,7 +85,7 @@ class UserBookmarkItem extends StatelessWidget {
       onTap: () {
         context.goto(UserBookmarkDetailScreen(bookmark));
         final DetailModel detailModel = bookmark.toDetail();
-        readLogApi.insert(ReadLog.of(type: bookmark.getReadLogType(), summary: bookmark.url, detailModel: detailModel));
+        readLogApi.insert(ReadLog.of(type: bookmark.readLogType, summary: bookmark.url, detailModel: detailModel));
       },
       child: Card(
         child: Container(

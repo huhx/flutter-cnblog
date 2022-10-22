@@ -34,12 +34,8 @@ class BlogResp extends Equatable {
     required this.diggCount,
   });
 
-  Uri httpsUrl() {
-    return Uri.parse(url).replace(scheme: "https");
-  }
-
   String toHttps() {
-    return httpsUrl().toString();
+    return Uri.parse(url).replace(scheme: "https").toString();
   }
 
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
@@ -89,12 +85,8 @@ class BasicBlogInfo extends Equatable {
     return BlogShare(id: id, title: title, url: url, name: author);
   }
 
-  Uri httpsUrl() {
-    return Uri.parse(url).replace(scheme: "https");
-  }
-
   String toHttps() {
-    return httpsUrl().toString();
+    return Uri.parse(url).replace(scheme: "https").toString();
   }
 }
 

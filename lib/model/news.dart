@@ -32,19 +32,11 @@ class NewsInfo extends Equatable {
   @override
   List<Object?> get props => [id, title, url, submitter, summary, cover, homeUrl, commentCount, diggCount, viewCount, postDate];
 
-  Uri httpsUrl() {
-    return Uri.parse("https://news.cnblogs.com$url");
-  }
-
-  String toHttps() {
-    return "https://news.cnblogs.com$url";
-  }
-
   DetailModel toDetail() {
     return DetailModel(
       id: id,
       title: title,
-      url: toHttps(),
+      url: "https://news.cnblogs.com$url",
       name: submitter,
       commentCount: commentCount,
       diggCount: diggCount,

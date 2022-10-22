@@ -49,7 +49,7 @@ class UserBookmarkDetailScreen extends HookConsumerWidget {
         children: [
           InAppWebView(
             onWebViewCreated: (controller) async {
-              final ContentType type = bookmark.getType();
+              final ContentType type = bookmark.type;
               final String string = await htmlCssApi.injectCss(bookmark.url, type);
 
               await controller.loadData(data: string, baseUrl: Uri.parse(type.host));

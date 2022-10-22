@@ -21,7 +21,7 @@ class BookmarkInfo extends Equatable {
     required this.postDate,
   });
 
-  ContentType getType() {
+  ContentType get type {
     final String hostString = Uri.parse(url).host;
     if (hostString.startsWith("news")) {
       return ContentType.news;
@@ -32,7 +32,7 @@ class BookmarkInfo extends Equatable {
     return ContentType.blog;
   }
 
-  ReadLogType getReadLogType() {
+  ReadLogType get readLogType {
     final String hostString = Uri.parse(url).host;
     if (hostString.startsWith("news")) {
       return ReadLogType.news;
