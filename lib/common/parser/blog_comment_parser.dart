@@ -21,11 +21,7 @@ class BlogCommentParser {
     final Element tokenElement = element.getFirstByClass("comment_actions").getFirstByTag("a");
     final bool isMe = tokenElement.attributes["onclick"]!.contains("CommentBody");
 
-    String? tokenString;
-    if (!isMe) {
-      tokenString = tokenElement.attributes["onclick"]!.split(", ")[1];
-      tokenString = tokenString.substring(1, tokenString.length - 2);
-    }
+    String? replyToken = isMe ? null : RegExp(r"'(.*)'").firstMatch(tokenElement.attributes["onclick"]!)!.group(1);
 
     final Element contentElement = element.getFirstByClass("blog_comment_body");
     final Element dateElement = element.getFirstByClass("comment_date");
@@ -39,7 +35,7 @@ class BlogCommentParser {
       id: idElement.attributes['href']!.replaceFirst("#", "").toInt(),
       content: contentElement.innerHtml.trim(),
       isMe: isMe,
-      replyToken: tokenString,
+      replyToken: replyToken,
       author: authorElement.content,
       homeUrl: authorElement.attributes["href"]!,
       diggCount: diggString.toInt(),
