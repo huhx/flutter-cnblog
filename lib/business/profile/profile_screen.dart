@@ -111,7 +111,7 @@ class NoLoginProfileHeader extends StatelessWidget {
       onTap: () => context.gotoLogin(const LoginScreen()),
       leading: const SvgIcon(name: "no_login_user", size: 48),
       contentPadding: EdgeInsets.zero,
-      title: Text("登录/注册", style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
+      title: Text("登录", style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
       trailing: const ListTileTrailing(),
     );
   }
