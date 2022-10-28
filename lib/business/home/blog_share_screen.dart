@@ -9,7 +9,6 @@ import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 
 class BlogShareScreen extends HookConsumerWidget {
   final BlogShare blog;
@@ -51,7 +50,7 @@ class BlogShareScreen extends HookConsumerWidget {
                 icon: 'blog_share',
                 label: '分享',
                 callback: () async {
-                  await share(context);
+                  await context.share(blog.url, blog.title);
                   context.pop();
                 },
               ),
@@ -84,15 +83,6 @@ class BlogShareScreen extends HookConsumerWidget {
           BottomSheetItem(text: "取消", callback: () {})
         ],
       ),
-    );
-  }
-
-  Future<void> share(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    await Share.share(
-      blog.url,
-      subject: blog.title,
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/common/constant/enum_constant.dart';
 import 'package:flutter_cnblog/component/cancel_confirm_dialog.dart';
+import 'package:share_plus/share_plus.dart';
 
 extension ContextExtensions on BuildContext {
   Future<T?> goto<T extends Object?>(Widget widget) async {
@@ -36,7 +37,8 @@ extension ContextExtensions on BuildContext {
   ScreenType get screenType {
     final MediaQueryData mediaQueryData = MediaQuery.of(this);
     final Orientation orientation = mediaQueryData.orientation;
-    final double deviceWidth = orientation == Orientation.landscape ? mediaQueryData.size.height : mediaQueryData.size.width;
+    final double deviceWidth =
+        orientation == Orientation.landscape ? mediaQueryData.size.height : mediaQueryData.size.width;
 
     if (deviceWidth > 950) {
       return ScreenType.desktop;
@@ -55,6 +57,16 @@ extension ContextExtensions on BuildContext {
         content: content,
         callback: callback,
       ),
+    );
+  }
+
+  Future<void> share(String title, String subject) async {
+    final box = findRenderObject() as RenderBox?;
+
+    await Share.share(
+      title,
+      subject: subject,
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
   }
 }
