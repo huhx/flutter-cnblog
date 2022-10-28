@@ -15,3 +15,9 @@ div.grecaptcha-logo {
 div.footer > div:not(.error-message) {
   display: none !important;
 }
+
+/* disable the login title click */
+a.mat-tooltip-trigger {
+  pointer-events: none;
+  text-decoration: none;
+}
