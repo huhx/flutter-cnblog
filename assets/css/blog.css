@@ -48,11 +48,14 @@ div.postDesc {
   display: none;
 }
 
-#sidebar_ad, #sidebar_c3 {
+#sidebar_ad,
+#sidebar_c3 {
   display: none;
 }
 
-#cnblogs_ch, #cnblogs_c1, #cnblogs_c2 {
+#cnblogs_ch,
+#cnblogs_c1,
+#cnblogs_c2 {
   display: none;
 }
 
@@ -113,7 +116,7 @@ div#comment_form {
 }
 
 div#main {
-  margin-right: 0 important!;
+  margin-right: 0 important !;
 }
 
 /* https://www.cnblogs.com/buguge/p/16795409.html */

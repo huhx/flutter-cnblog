@@ -2,7 +2,7 @@ app-external-sign-in-providers.ng-tns-c122-1 {
   display: none;
 }
 
-mat-hint > a.ng-tns-c122-1 {
+mat-hint>a.ng-tns-c122-1 {
   display: none;
 }
 
@@ -12,7 +12,7 @@ div.grecaptcha-logo {
 
 
 /* hide the register tag */
-div.footer > div:not(.error-message) {
+div.footer>div:not(.error-message) {
   display: none !important;
 }
 

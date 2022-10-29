@@ -2,7 +2,9 @@
   display: none;
 }
 
-#second_nav, #right_sidebar, #footer {
+#second_nav,
+#right_sidebar,
+#footer {
   display: none;
 }
 

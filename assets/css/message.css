@@ -1,9 +1,12 @@
 /* mobile */
-#hd_top, #header, #footer {
+#hd_top,
+#header,
+#footer {
   display: none;
 }
 
-#app_bar, #right_sidebar {
+#app_bar,
+#right_sidebar {
   display: none;
 }
 
@@ -11,7 +14,9 @@ div.main_nav {
   display: none;
 }
 
-#lnk_inbox, #lnk_outbox, #lnk_unread {
+#lnk_inbox,
+#lnk_outbox,
+#lnk_unread {
   display: none !important;
 }
 

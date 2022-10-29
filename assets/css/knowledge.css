@@ -14,7 +14,10 @@ div#left_content {
   border: none !important;
 }
 
-#header, #nav_zone, #guide_detail, #guide_de {
+#header,
+#nav_zone,
+#guide_detail,
+#guide_de {
   display: none;
 }
 
@@ -22,7 +25,9 @@ div#left_content {
   display: none;
 }
 
-#panelTags, #PreNextArtilceId, #article_A4area {
+#panelTags,
+#PreNextArtilceId,
+#article_A4area {
   display: none;
 }
 

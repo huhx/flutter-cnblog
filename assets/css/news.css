@@ -1,5 +1,7 @@
 /* mobile */
-#article_A4area, #e4, #news_more_info {
+#article_A4area,
+#e4,
+#news_more_info {
   display: none;
 }
 
@@ -20,7 +22,10 @@ div#news_main {
   display: none;
 }
 
-#comment_main, #comment_tips, #comment_form_block, #E5 {
+#comment_main,
+#comment_tips,
+#comment_form_block,
+#E5 {
   display: none;
 }
 
