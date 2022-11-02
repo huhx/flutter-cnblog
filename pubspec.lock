@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "50.0.0"
+    version: "47.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "4.7.0"
   animations:
     dependency: "direct main"
     description:
@@ -84,7 +84,7 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.0.10"
   build_runner:
     dependency: "direct dev"
     description:
@@ -232,6 +232,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  dotenv:
+    dependency: transitive
+    description:
+      name: dotenv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   double_back_to_close:
     dependency: "direct main"
     description:
@@ -239,6 +246,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  envied:
+    dependency: "direct main"
+    description:
+      name: envied
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
+  envied_generator:
+    dependency: "direct dev"
+    description:
+      name: envied_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   equatable:
     dependency: "direct main"
     description:
@@ -293,13 +314,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  flutter_dotenv:
-    dependency: "direct main"
-    description:
-      name: flutter_dotenv
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.2"
   flutter_hooks:
     dependency: "direct main"
     description:

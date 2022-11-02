@@ -9,7 +9,6 @@ import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -35,8 +34,7 @@ void main() async {
   }
 
   await PrefsUtil.init();
-  await dotenv.load(fileName: ".env");
-
+  
   runApp(
     const ProviderScope(child: MainApp()),
   );

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_cnblog/common/constant/env.dart';
 import 'package:flutter_cnblog/common/parser/my_search_parser.dart';
 import 'package:flutter_cnblog/common/parser/search_parser.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SearchApi {
 
@@ -12,7 +12,7 @@ class SearchApi {
     final Response response = await RestClient.withCookie().get(
       "https://zzk.cnblogs.com/s/${searchType.path}",
       queryParameters: {"Keywords": keyword, "pageindex": pageKey},
-      options: Options(headers: {"cookie": "NotRobot=${dotenv.env['notRobotCookie']}"}),
+      options: Options(headers: {"cookie": "NotRobot=${Env.notRobotCookie}"}),
     );
 
     return compute(SearchParser.parseSearchList, response.data as String);
@@ -22,7 +22,7 @@ class SearchApi {
     final Response response = await RestClient.withCookie().get(
       "https://zzk.cnblogs.com/my/s/${searchType.path}",
       queryParameters: {"Keywords": keyword, "pageindex": pageKey},
-      options: Options(headers: {"cookie": "NotRobot=${dotenv.env['notRobotCookie']}"}),
+      options: Options(headers: {"cookie": "NotRobot=${Env.notRobotCookie}"}),
     );
 
     return compute(MySearchParser.parseSearchList, response.data as String);
