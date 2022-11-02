@@ -60,7 +60,7 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Future<void> share(String title, String subject) async {
+  Future<void> share({required String title, required String subject}) async {
     final box = findRenderObject() as RenderBox?;
 
     await Share.share(

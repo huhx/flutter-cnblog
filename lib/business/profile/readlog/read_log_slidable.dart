@@ -35,7 +35,7 @@ class ReadLogSlidable extends ConsumerWidget {
             label: 'Delete',
           ),
           SlidableAction(
-            onPressed: (_) => context.share(readlog.id, "cnblog"),
+            onPressed: (_) => context.share(title: readlog.id, subject: "cnblog"),
             backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
             icon: Icons.share,

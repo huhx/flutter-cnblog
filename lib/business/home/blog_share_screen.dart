@@ -50,7 +50,7 @@ class BlogShareScreen extends HookConsumerWidget {
                 icon: 'blog_share',
                 label: '分享',
                 callback: () async {
-                  await context.share(blog.url, blog.title);
+                  await context.share(title: blog.url, subject: blog.title);
                   context.pop();
                 },
               ),
