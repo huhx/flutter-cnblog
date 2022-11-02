@@ -312,7 +312,7 @@ class ProfileFooter extends StatelessWidget {
                 onTap: () {
                   context.showCommDialog(
                     title: "提交意见反馈",
-                    content: "如果在使用过程中遇到问题，请联系QQ285490389，点击确定即复制",
+                    content: "如果在使用过程中遇到问题,请联系QQ: 285490389.点击确定即复制",
                     callback: () async {
                       await CommUtil.copyText("285490389");
                       context.showSnackBar('QQ已复制');

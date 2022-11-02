@@ -21,9 +21,9 @@ class ReadLogApi {
     await db.insert(tableName, readLog.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<void> delete(ReadLog readLog) async {
+  Future<void> delete(String id) async {
     final Database db = await _getDB();
-    await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', [ReadLogStatus.delete.name, readLog.id]);
+    await db.rawUpdate('UPDATE read_log SET status = ? where id = ?', [ReadLogStatus.delete.name, id]);
   }
 
   Future<void> deleteAll() async {
