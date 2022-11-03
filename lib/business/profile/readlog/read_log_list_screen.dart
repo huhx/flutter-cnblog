@@ -12,6 +12,7 @@ import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/util/date_util.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 import 'read_log_slidable.dart';
 
@@ -83,40 +84,32 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
                 final String key = readLogMap.keys.elementAt(index);
                 final List<ReadLog> readLogItems = readLogMap[key]!;
 
-                return ListView.builder(
-                  padding: EdgeInsets.zero,
-                  primary: false,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SimpleTextIcon(icon: "read_log", text: key),
-                                SimpleTextIcon(icon: "weekday", text: DateUtil.getWeekFromString(key)),
-                              ],
-                            ),
-                          ),
-                          ReadLogSlidable(
-                            readlog: readLogItems[index],
-                            key: ValueKey(readLogItems[index].id),
-                            deleteCallback: (id) => streamList.reset(readLogs.where((element) => element.id != id).toList()),
-                          ),
-                        ],
-                      );
-                    }
+                return StickyHeader(
+                  overlapHeaders: false,
+                  header: Container(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SimpleTextIcon(icon: "read_log", text: key),
+                        SimpleTextIcon(icon: "weekday", text: DateUtil.getWeekFromString(key)),
+                      ],
+                    ),
+                  ),
+                  content: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    primary: false,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
                     return ReadLogSlidable(
                       readlog: readLogItems[index],
                       key: ValueKey(readLogItems[index].id),
                       deleteCallback: (id) => streamList.reset(readLogs.where((element) => element.id != id).toList()),
                     );
-                  },
-                  itemCount: readLogItems.length,
+                    },
+                    itemCount: readLogItems.length,
+                  ),
                 );
               },
             ),
