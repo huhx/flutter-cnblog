@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color themeColor = Color(0xFFEE5F8A);
-const momentBgColor = Color(0xFFF5F6F9);
-const disabledColor = Color.fromRGBO(220, 220, 220, 1);
 
 enum AppTheme { light, dark }
 

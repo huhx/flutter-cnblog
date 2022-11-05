@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'svg_icon.dart';
 
 class CustomWaterDropHeader extends StatelessWidget {
-  const CustomWaterDropHeader({Key? key}) : super(key: key);
+  const CustomWaterDropHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
