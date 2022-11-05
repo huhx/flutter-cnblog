@@ -105,7 +105,10 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
                     return ReadLogSlidable(
                       readlog: readLogItems[index],
                       key: ValueKey(readLogItems[index].id),
-                      deleteCallback: (id) => streamList.reset(readLogs.where((element) => element.id != id).toList()),
+                      onDelete: (id) async {
+                        streamList.reset(readLogs.where((element) => element.id != id).toList());
+                        await readLogApi.delete(id);
+                      },
                     );
                     },
                     itemCount: readLogItems.length,

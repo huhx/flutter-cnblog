@@ -13,9 +13,9 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class ReadLogSlidable extends ConsumerWidget {
   final ReadLog readlog;
-  final Function(String) deleteCallback;
+  final Function(String) onDelete;
 
-  const ReadLogSlidable({required this.readlog, required this.deleteCallback, super.key});
+  const ReadLogSlidable({required this.readlog, required this.onDelete, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,10 +25,7 @@ class ReadLogSlidable extends ConsumerWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
-            onPressed: (_) async {
-              await readLogApi.delete(readlog.id);
-              deleteCallback(readlog.id);
-            },
+            onPressed: (_) => onDelete(readlog.id),
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
             icon: Icons.delete,
