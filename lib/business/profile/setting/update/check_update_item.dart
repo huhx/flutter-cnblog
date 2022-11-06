@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 
 class CheckUpdateItem extends StatelessWidget {
-  const CheckUpdateItem({Key? key}) : super(key: key);
+  const CheckUpdateItem({super.key});
 
   @override
   Widget build(BuildContext context) {

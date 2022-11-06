@@ -40,7 +40,7 @@ class BlogSearchView extends StatefulWidget {
   final Function(String) callback;
   final String query;
 
-  const BlogSearchView(this.query, this.callback, {Key? key}) : super(key: key);
+  const BlogSearchView(this.query, this.callback, {super.key});
 
   @override
   State<BlogSearchView> createState() => _BlogSearchViewState();

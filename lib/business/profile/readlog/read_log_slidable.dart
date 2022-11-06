@@ -48,7 +48,7 @@ class ReadLogSlidable extends ConsumerWidget {
 class ReadLogItem extends StatelessWidget {
   final ReadLog readLog;
 
-  const ReadLogItem(this.readLog, {Key? key}) : super(key: key);
+  const ReadLogItem(this.readLog, {super.key});
 
   @override
   Widget build(BuildContext context) {

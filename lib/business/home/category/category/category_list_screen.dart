@@ -14,7 +14,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class CategoryListScreen extends ConsumerStatefulWidget {
   final CategoryInfo categoryInfo;
 
-  const CategoryListScreen(this.categoryInfo, {Key? key}) : super(key: key);
+  const CategoryListScreen(this.categoryInfo, {super.key});
 
   @override
   ConsumerState<CategoryListScreen> createState() => _CategoryListScreenState();

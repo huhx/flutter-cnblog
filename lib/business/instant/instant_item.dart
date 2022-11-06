@@ -9,7 +9,7 @@ import 'instant_detail_screen.dart';
 class InstantItem extends StatelessWidget {
   final InstantInfo instant;
 
-  const InstantItem({Key? key, required this.instant}) : super(key: key);
+  const InstantItem({super.key, required this.instant});
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ import 'user_follow_count_info.dart';
 class UserProfileDetailScreen extends StatelessWidget {
   final UserInfo user;
 
-  const UserProfileDetailScreen(this.user, {Key? key}) : super(key: key);
+  const UserProfileDetailScreen(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class UserProfileDetailScreen extends StatelessWidget {
 class UserProfileHeader extends StatelessWidget {
   final UserInfo user;
 
-  const UserProfileHeader(this.user, {Key? key}) : super(key: key);
+  const UserProfileHeader(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class UserProfileHeader extends StatelessWidget {
 class UserHeaderInfo extends StatefulWidget {
   final UserInfo user;
 
-  const UserHeaderInfo(this.user, {Key? key}) : super(key: key);
+  const UserHeaderInfo(this.user, {super.key});
 
   @override
   State<UserHeaderInfo> createState() => _UserHeaderInfoState();
@@ -149,7 +149,7 @@ class UserHeaderInfoItem extends StatelessWidget {
 class UserMoment extends StatefulWidget {
   final UserInfo user;
 
-  const UserMoment(this.user, {Key? key}) : super(key: key);
+  const UserMoment(this.user, {super.key});
 
   @override
   State<UserMoment> createState() => _UserMomentState();
@@ -209,7 +209,7 @@ class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMi
 class UserMomentItem extends StatelessWidget {
   final UserProfileMoment userMoment;
 
-  const UserMomentItem(this.userMoment, {Key? key}) : super(key: key);
+  const UserMomentItem(this.userMoment, {super.key});
 
   @override
   Widget build(BuildContext context) {

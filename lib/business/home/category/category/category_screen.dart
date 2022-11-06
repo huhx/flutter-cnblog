@@ -9,7 +9,7 @@ import 'package:flutter_cnblog/component/list_scroll_physics.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+  const CategoryScreen({super.key});
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
@@ -44,7 +44,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 class CategoryItem extends StatelessWidget {
   final CategoryList categoryList;
 
-  const CategoryItem(this.categoryList, {Key? key}) : super(key: key);
+  const CategoryItem(this.categoryList, {super.key});
 
   @override
   Widget build(BuildContext context) {

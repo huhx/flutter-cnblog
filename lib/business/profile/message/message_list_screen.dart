@@ -12,7 +12,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class MessageListScreen extends ConsumerStatefulWidget {
   final MessageType messageType;
 
-  const MessageListScreen(this.messageType, {Key? key}) : super(key: key);
+  const MessageListScreen(this.messageType, {super.key});
 
   @override
   ConsumerState<MessageListScreen> createState() => _MessageListScreenState();
@@ -74,7 +74,7 @@ class _MessageListScreenState extends ConsumerState<MessageListScreen> with Auto
 class MessageItem extends StatelessWidget {
   final MessageInfo message;
 
-  const MessageItem({Key? key, required this.message}) : super(key: key);
+  const MessageItem({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

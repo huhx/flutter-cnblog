@@ -9,7 +9,7 @@ import 'user_blog_content.dart';
 class UserBlogListScreen extends StatefulWidget {
   final UserInfo user;
 
-  const UserBlogListScreen(this.user, {Key? key}) : super(key: key);
+  const UserBlogListScreen(this.user, {super.key});
 
   @override
   State<UserBlogListScreen> createState() => _UserBlogListScreenState();
@@ -34,7 +34,7 @@ class _UserBlogListScreenState extends State<UserBlogListScreen> {
 class UserBlogHeader extends StatelessWidget {
   final UserInfo user;
 
-  const UserBlogHeader(this.user, {Key? key}) : super(key: key);
+  const UserBlogHeader(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {

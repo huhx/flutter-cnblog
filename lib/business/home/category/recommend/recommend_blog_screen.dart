@@ -17,7 +17,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class RecommendBlogScreen extends ConsumerStatefulWidget {
-  const RecommendBlogScreen({Key? key}) : super(key: key);
+  const RecommendBlogScreen({super.key});
 
   @override
   ConsumerState<RecommendBlogScreen> createState() => _RecommendBlogScreenState();

@@ -13,7 +13,7 @@ import 'instant_item.dart';
 class InstantListScreen extends ConsumerStatefulWidget {
   final InstantCategory category;
 
-  const InstantListScreen(this.category, {Key? key}) : super(key: key);
+  const InstantListScreen(this.category, {super.key});
 
   @override
   ConsumerState<InstantListScreen> createState() => _InstantListScreenState();

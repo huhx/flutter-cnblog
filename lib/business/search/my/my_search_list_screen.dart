@@ -73,7 +73,7 @@ class _MySearchListScreenState extends ConsumerState<MySearchListScreen> {
 class MySearchItem extends StatelessWidget {
   final SearchInfo searchInfo;
 
-  const MySearchItem(this.searchInfo, {Key? key}) : super(key: key);
+  const MySearchItem(this.searchInfo, {super.key});
 
   @override
   Widget build(BuildContext context) {

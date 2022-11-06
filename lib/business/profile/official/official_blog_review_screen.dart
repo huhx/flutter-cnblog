@@ -16,7 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class OfficialBlogReviewScreen extends StatelessWidget {
   final OfficialBlog blog;
 
-  const OfficialBlogReviewScreen(this.blog, {Key? key}) : super(key: key);
+  const OfficialBlogReviewScreen(this.blog, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class OfficialBlogReviewScreen extends StatelessWidget {
 class HotBlogList extends StatelessWidget {
   final List<OfficialHot> blogList;
 
-  const HotBlogList(this.blogList, {Key? key}) : super(key: key);
+  const HotBlogList(this.blogList, {super.key});
 
   @override
   Widget build(BuildContext context) {

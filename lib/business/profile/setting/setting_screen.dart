@@ -6,7 +6,7 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'about/app_about_item.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

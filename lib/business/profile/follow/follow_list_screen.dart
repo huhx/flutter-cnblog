@@ -14,7 +14,7 @@ class FollowListScreen extends StatefulWidget {
   final String name;
   final FollowType type;
 
-  const FollowListScreen(this.name, this.type, {Key? key}) : super(key: key);
+  const FollowListScreen(this.name, this.type, {super.key});
 
   @override
   State<FollowListScreen> createState() => _FollowListScreenState();
@@ -76,7 +76,7 @@ class _FollowListScreenState extends State<FollowListScreen> with AutomaticKeepA
 class FollowItem extends StatelessWidget {
   final FollowInfo followInfo;
 
-  const FollowItem(this.followInfo, {Key? key}) : super(key: key);
+  const FollowItem(this.followInfo, {super.key});
 
   @override
   Widget build(BuildContext context) {

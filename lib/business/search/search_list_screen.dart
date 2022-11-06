@@ -80,7 +80,7 @@ class SearchItem extends StatelessWidget {
   final SearchInfo searchInfo;
   final SearchType searchType;
 
-  const SearchItem(this.searchInfo, this.searchType, {Key? key}) : super(key: key);
+  const SearchItem(this.searchInfo, this.searchType, {super.key});
 
   @override
   Widget build(BuildContext context) {

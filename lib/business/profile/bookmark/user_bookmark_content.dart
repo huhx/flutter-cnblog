@@ -18,7 +18,7 @@ import 'user_bookmark_detail_screen.dart';
 class UserBookmarkContent extends StatefulWidget {
   final UserInfo user;
 
-  const UserBookmarkContent(this.user, {Key? key}) : super(key: key);
+  const UserBookmarkContent(this.user, {super.key});
 
   @override
   State<UserBookmarkContent> createState() => _UserBookmarkContentState();
@@ -77,7 +77,7 @@ class _UserBookmarkContentState extends State<UserBookmarkContent> {
 class UserBookmarkItem extends StatelessWidget {
   final BookmarkInfo bookmark;
 
-  const UserBookmarkItem({Key? key, required this.bookmark}) : super(key: key);
+  const UserBookmarkItem({super.key, required this.bookmark});
 
   @override
   Widget build(BuildContext context) {

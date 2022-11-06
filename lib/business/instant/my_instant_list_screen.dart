@@ -11,7 +11,7 @@ import 'instant_item.dart';
 class MyInstantListScreen extends StatefulWidget {
   final MyInstantCategory category;
 
-  const MyInstantListScreen(this.category, {Key? key}) : super(key: key);
+  const MyInstantListScreen(this.category, {super.key});
 
   @override
   State<MyInstantListScreen> createState() => _MyInstantListScreenState();

@@ -94,7 +94,7 @@ class BlogDetailScreen extends HookConsumerWidget {
 class AppBarTitle extends ConsumerWidget {
   final DetailModel blog;
 
-  const AppBarTitle(this.blog, {Key? key}) : super(key: key);
+  const AppBarTitle(this.blog, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

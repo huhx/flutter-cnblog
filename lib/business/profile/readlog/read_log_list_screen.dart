@@ -17,7 +17,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'read_log_slidable.dart';
 
 class ReadLogListScreen extends StatefulWidget {
-  const ReadLogListScreen({Key? key}) : super(key: key);
+  const ReadLogListScreen({super.key});
 
   @override
   State<ReadLogListScreen> createState() => _ReadLogListScreenState();
@@ -102,14 +102,14 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
                     primary: false,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                    return ReadLogSlidable(
-                      readlog: readLogItems[index],
-                      key: ValueKey(readLogItems[index].id),
-                      onDelete: (id) async {
-                        streamList.reset(readLogs.where((element) => element.id != id).toList());
-                        await readLogApi.delete(id);
-                      },
-                    );
+                      return ReadLogSlidable(
+                        readlog: readLogItems[index],
+                        key: ValueKey(readLogItems[index].id),
+                        onDelete: (id) async {
+                          streamList.reset(readLogs.where((element) => element.id != id).toList());
+                          await readLogApi.delete(id);
+                        },
+                      );
                     },
                     itemCount: readLogItems.length,
                   ),

@@ -18,7 +18,7 @@ class BlogCommentListScreen extends StatefulHookConsumerWidget {
   final DetailModel blog;
   final int counts;
 
-  const BlogCommentListScreen(this.blog, this.counts, {Key? key}) : super(key: key);
+  const BlogCommentListScreen(this.blog, this.counts, {super.key});
 
   @override
   ConsumerState<BlogCommentListScreen> createState() => _BlogCommentListScreenState();
@@ -149,7 +149,7 @@ class CommentWidget extends HookWidget {
   final String value;
   final TextEditingController editingController = TextEditingController();
 
-  CommentWidget(this.blog, this.parentCommentId, this.focusNode, this.value, {Key? key}) : super(key: key);
+  CommentWidget(this.blog, this.parentCommentId, this.focusNode, this.value, {super.key});
 
   @override
   Widget build(BuildContext context) {

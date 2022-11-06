@@ -9,7 +9,7 @@ import 'user_bookmark_content.dart';
 class UserBookmarkListScreen extends StatelessWidget {
   final UserInfo user;
 
-  const UserBookmarkListScreen(this.user, {Key? key}) : super(key: key);
+  const UserBookmarkListScreen(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {

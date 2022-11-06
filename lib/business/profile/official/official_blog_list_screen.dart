@@ -15,7 +15,7 @@ import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OfficialBlogListScreen extends StatefulWidget {
-  const OfficialBlogListScreen({Key? key}) : super(key: key);
+  const OfficialBlogListScreen({super.key});
 
   @override
   State<OfficialBlogListScreen> createState() => _OfficialBlogListScreenState();

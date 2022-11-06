@@ -13,7 +13,7 @@ import 'news_item.dart';
 class NewsListScreen extends ConsumerStatefulWidget {
   final NewsCategory category;
 
-  const NewsListScreen(this.category, {Key? key}) : super(key: key);
+  const NewsListScreen(this.category, {super.key});
 
   @override
   ConsumerState<NewsListScreen> createState() => _NewsListScreenState();

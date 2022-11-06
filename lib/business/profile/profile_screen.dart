@@ -88,7 +88,7 @@ class ProfileScreen extends HookConsumerWidget {
 class ProfileHeader extends StatelessWidget {
   final UserInfo user;
 
-  const ProfileHeader(this.user, {Key? key}) : super(key: key);
+  const ProfileHeader(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class NoLoginProfileHeader extends StatelessWidget {
-  const NoLoginProfileHeader({Key? key}) : super(key: key);
+  const NoLoginProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,7 @@ class ProfileInfoItem extends StatelessWidget {
 class ProfileMiddle extends StatelessWidget {
   final UserInfo userInfo;
 
-  const ProfileMiddle(this.userInfo, {Key? key}) : super(key: key);
+  const ProfileMiddle(this.userInfo, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +231,7 @@ class ProfileMiddle extends StatelessWidget {
 }
 
 class NoLoginProfileMiddle extends StatelessWidget {
-  const NoLoginProfileMiddle({Key? key}) : super(key: key);
+  const NoLoginProfileMiddle({super.key});
 
   @override
   Widget build(BuildContext context) {

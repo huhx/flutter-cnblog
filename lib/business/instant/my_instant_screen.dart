@@ -5,7 +5,7 @@ import 'package:flutter_cnblog/model/instant.dart';
 import 'my_instant_list_screen.dart';
 
 class MyInstantScreen extends StatelessWidget {
-  const MyInstantScreen({Key? key}) : super(key: key);
+  const MyInstantScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

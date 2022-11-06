@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/business/profile/setting/about/app_about_screen.d
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 
 class AppAboutItem extends StatelessWidget {
-  const AppAboutItem({Key? key}) : super(key: key);
+  const AppAboutItem({super.key});
 
   @override
   Widget build(BuildContext context) {

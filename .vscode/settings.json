@@ -23,8 +23,8 @@
     "workbench.colorTheme": "JetBrains Darcula Theme",
     "gitlens.mode.active": "zen",
     "dart.closingLabels": false,
-    "dart.lineLength": 120,
-    "editor.rulers": [120],
+    "dart.lineLength": 140,
+    "editor.rulers": [140],
     "workbench.colorCustomizations": {
         "list.hoverBackground": "#44475A75",
         "list.focusBackground": "#b975c2"    

@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/util/app_config.dart';
 
 class AppAboutScreen extends StatelessWidget {
-  const AppAboutScreen({Key? key}) : super(key: key);
+  const AppAboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

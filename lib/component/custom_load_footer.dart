@@ -3,7 +3,7 @@ import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CustomLoadFooter extends StatelessWidget {
-  const CustomLoadFooter({Key? key}) : super(key: key);
+  const CustomLoadFooter({super.key});
 
   @override
   Widget build(BuildContext context) {

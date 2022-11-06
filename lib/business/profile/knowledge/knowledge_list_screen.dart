@@ -15,7 +15,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'knowledge_detail_screen.dart';
 
 class KnowledgeListScreen extends StatefulWidget {
-  const KnowledgeListScreen({Key? key}) : super(key: key);
+  const KnowledgeListScreen({super.key});
 
   @override
   State<KnowledgeListScreen> createState() => _KnowledgeListScreenState();
@@ -79,7 +79,7 @@ class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
 class KnowledgeItem extends StatelessWidget {
   final KnowledgeInfo knowledge;
 
-  const KnowledgeItem(this.knowledge, {Key? key}) : super(key: key);
+  const KnowledgeItem(this.knowledge, {super.key});
 
   @override
   Widget build(BuildContext context) {

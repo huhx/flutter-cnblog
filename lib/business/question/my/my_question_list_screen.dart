@@ -6,7 +6,7 @@ import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class MyQuestionListScreen extends StatefulWidget {
-  const MyQuestionListScreen({Key? key}) : super(key: key);
+  const MyQuestionListScreen({super.key});
 
   @override
   State<MyQuestionListScreen> createState() => _MyQuestionListScreenState();
