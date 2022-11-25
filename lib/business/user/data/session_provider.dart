@@ -41,7 +41,7 @@ class SessionModel extends StateNotifier<User?> {
 
     state = null;
 
-    PrefsUtil.logout();
+    await PrefsUtil.logout();
     AppConfig.removeAll(["user", "userId", "cookie"]);
   }
 }

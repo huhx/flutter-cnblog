@@ -20,13 +20,8 @@
     "editor.minimap.enabled": false,
     "editor.fontFamily": "Monaco, 'Courier New', monospace",
     "editor.fontSize": 12,
-    "workbench.colorTheme": "JetBrains Darcula Theme",
     "gitlens.mode.active": "zen",
     "dart.closingLabels": false,
     "dart.lineLength": 140,
     "editor.rulers": [140],
-    "workbench.colorCustomizations": {
-        "list.hoverBackground": "#44475A75",
-        "list.focusBackground": "#b975c2"    
-    }
 }
