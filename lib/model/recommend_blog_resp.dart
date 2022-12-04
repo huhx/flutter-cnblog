@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'recommend_blog_resp.g.dart';
 
-@JsonSerializable(createToJson: false, fieldRename: FieldRename.none)
+@JsonSerializable(createToJson: false)
 class RecommendBlogResp {
   final int postId;
   final int blogId;

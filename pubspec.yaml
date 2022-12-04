@@ -64,7 +64,7 @@ dependencies:
   path: ^1.8.2
   package_info_plus: ^3.0.0
   flutter_slidable: ^2.0.0
-  envied: ^0.2.3
+  envied: ^0.3.0
   sticky_headers: ^0.3.0+2
 
 dependency_overrides:
@@ -86,7 +86,7 @@ dev_dependencies:
   retrofit_generator: ^4.0.3
   json_serializable: ^6.3.1
   flutter_launcher_icons: ^0.11.0
-  envied_generator: ^0.2.3
+  envied_generator: ^0.3.0
   build_runner: ^2.3.2
 
 flutter_icons:

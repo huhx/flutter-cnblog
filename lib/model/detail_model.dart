@@ -6,7 +6,7 @@ import 'user.dart';
 
 part 'detail_model.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.none)
+@JsonSerializable()
 class DetailModel extends Equatable {
   final int? id;
   final String title;

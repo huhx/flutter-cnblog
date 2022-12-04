@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'instant_comment.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(createToJson: false, fieldRename: FieldRename.snake)
 class InstantComment extends Equatable {
   final int id;
   final int replyId;

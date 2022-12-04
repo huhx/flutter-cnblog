@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'blog_content_resp.g.dart';
 
-@JsonSerializable(createToJson: false, fieldRename: FieldRename.none)
+@JsonSerializable(createToJson: false)
 class BlogContentResp {
   final int id;
   final int blogId;
