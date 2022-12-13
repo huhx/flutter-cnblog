@@ -386,7 +386,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
   frontend_server_client:
     dependency: transitive
     description:
@@ -876,7 +876,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   sqflite_common:
     dependency: transitive
     description:
