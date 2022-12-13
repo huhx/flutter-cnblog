@@ -56,7 +56,7 @@ class _BlogCommentListScreenState extends ConsumerState<BlogCommentListScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppbarBackButton(),
-        title: Html(data: widget.blog.title),
+        title: Text(widget.blog.title),
       ),
       body: Column(
         children: [
