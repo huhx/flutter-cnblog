@@ -9,7 +9,7 @@ final appThemeData = {
   AppTheme.light: ThemeData(
     brightness: Brightness.light,
     textTheme: GoogleFonts.latoTextTheme().copyWith(
-      bodyText2: const TextStyle(fontSize: 14.0),
+      bodyMedium: const TextStyle(fontSize: 14.0),
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: themeColor,
@@ -21,7 +21,6 @@ final appThemeData = {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
     ),
-    backgroundColor: Colors.white,
     bottomSheetTheme: const BottomSheetThemeData(modalBackgroundColor: Color.fromRGBO(247, 248, 250, 1)),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
@@ -29,11 +28,14 @@ final appThemeData = {
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
+    colorScheme: const ColorScheme.light(
+      background: Colors.white,
+    ),
   ),
   AppTheme.dark: ThemeData(
     brightness: Brightness.dark,
     textTheme: GoogleFonts.latoTextTheme().copyWith(
-      bodyText2: const TextStyle(fontSize: 14.0, color: Colors.white),
+      bodyMedium: const TextStyle(fontSize: 14.0, color: Colors.white),
     ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
@@ -48,13 +50,15 @@ final appThemeData = {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: themeColor,
     ),
-    backgroundColor: const Color.fromRGBO(24, 24, 24, 1),
     bottomSheetTheme: const BottomSheetThemeData(modalBackgroundColor: Colors.black),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
         TargetPlatform.android: CupertinoPageTransitionsBuilder(),
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
+    ),
+    colorScheme: const ColorScheme.dark(
+      background: Color.fromRGBO(24, 24, 24, 1),
     ),
   )
 };

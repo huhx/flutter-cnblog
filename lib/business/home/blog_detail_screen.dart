@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_cnblog/api/bookmark_api.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
@@ -135,7 +135,7 @@ class BottomComment extends HookConsumerWidget {
     final diggCount = useState(blog.diggCount ?? 0);
 
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +146,7 @@ class BottomComment extends HookConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: TextFormField(
                 controller: editingController,
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyMedium,
                 keyboardType: TextInputType.multiline,
                 maxLines: 6,
                 minLines: 1,
@@ -232,10 +232,13 @@ class LikeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      animationType: BadgeAnimationType.scale,
-      badgeColor: Colors.blueAccent,
-      animationDuration: const Duration(milliseconds: 200),
-      padding: const EdgeInsets.all(5),
+      badgeAnimation: const BadgeAnimation.scale(
+        animationDuration: Duration(milliseconds: 200),
+      ),
+      badgeStyle: const BadgeStyle(
+        badgeColor: Colors.blueAccent,
+        padding: EdgeInsets.all(5),
+      ),
       badgeContent: Text("$diggCount", style: const TextStyle(fontSize: 9)),
       child: const SvgIcon(name: "like", color: Colors.grey, size: 22),
     );
@@ -250,9 +253,12 @@ class CommentBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      animationDuration: const Duration(milliseconds: 200),
-      animationType: BadgeAnimationType.scale,
-      padding: const EdgeInsets.all(5),
+      badgeStyle: const BadgeStyle(
+        padding: EdgeInsets.all(5),
+      ),
+      badgeAnimation: const BadgeAnimation.scale(
+        animationDuration: Duration(milliseconds: 200),
+      ),
       badgeContent: Text("$commentCount", style: const TextStyle(fontSize: 9)),
       child: const SvgIcon(name: "comment", color: Colors.grey, size: 22),
     );

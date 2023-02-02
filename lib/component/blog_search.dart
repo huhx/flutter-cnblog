@@ -27,7 +27,7 @@ class BlogSearch extends ConsumerWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor.withOpacity(0.5),
+          color: Theme.of(context).colorScheme.background.withOpacity(0.5),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: const Text("搜索", style: TextStyle(fontSize: 14)),

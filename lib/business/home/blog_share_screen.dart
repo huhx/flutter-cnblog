@@ -110,7 +110,7 @@ class ShareItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             alignment: Alignment.center,

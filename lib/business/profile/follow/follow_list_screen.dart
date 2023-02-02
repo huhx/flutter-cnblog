@@ -87,7 +87,7 @@ class FollowItem extends StatelessWidget {
         child: Card(
           child: ListTile(
             leading: CircleImage(url: followInfo.avatar, size: 48),
-            title: Text(followInfo.name, style: Theme.of(context).textTheme.bodyText2),
+            title: Text(followInfo.name, style: Theme.of(context).textTheme.bodyMedium),
             subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
             trailing: const ListTileTrailing(),
           ),

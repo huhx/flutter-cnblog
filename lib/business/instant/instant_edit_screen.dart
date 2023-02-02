@@ -45,13 +45,13 @@ class InstantEditScreen extends HookConsumerWidget {
         ],
       ),
       body: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           children: [
             TextFormField(
               showCursor: true,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
               decoration: const InputDecoration.collapsed(hintText: "发布闪存..."),
               keyboardType: TextInputType.multiline,
               onChanged: (value) => content.value = value,

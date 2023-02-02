@@ -67,7 +67,7 @@ class HotBlogList extends StatelessWidget {
                 child: CircleAvatar(child: Text(blogList[index].name[0])),
                 onTap: () => context.goto(UserProfileDetailScreen(blogList[index].toInfo())),
               ),
-              title: Text(blogList[index].name, style: Theme.of(context).textTheme.bodyText2),
+              title: Text(blogList[index].name, style: Theme.of(context).textTheme.bodyMedium),
               subtitle: Text(
                 blogList[index].title,
                 overflow: TextOverflow.ellipsis,

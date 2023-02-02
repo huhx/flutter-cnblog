@@ -90,7 +90,7 @@ class _BlogCommentListScreenState extends ConsumerState<BlogCommentListScreen> {
                         },
                         child: Card(
                           child: Container(
-                            color: Theme.of(context).backgroundColor.withOpacity(0.4),
+                            color: Theme.of(context).colorScheme.background.withOpacity(0.4),
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,7 +158,7 @@ class CommentWidget extends HookWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +170,7 @@ class CommentWidget extends HookWidget {
                 child: TextFormField(
                   controller: editingController,
                   focusNode: focusNode,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   keyboardType: TextInputType.multiline,
                   maxLines: 6,
                   minLines: 1,

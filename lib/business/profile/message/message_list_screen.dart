@@ -87,7 +87,7 @@ class MessageItem extends StatelessWidget {
             foregroundColor: Colors.white,
             child: Text(message.author[0]),
           ),
-          title: Text(message.author, style: Theme.of(context).textTheme.bodyText2),
+          title: Text(message.author, style: Theme.of(context).textTheme.bodyMedium),
           subtitle: Text(message.title, maxLines: 1),
           trailing: Text(message.postDate.substring(0, 10), style: const TextStyle(color: Colors.grey)),
         ),

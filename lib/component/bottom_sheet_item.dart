@@ -14,7 +14,7 @@ class BottomSheetItem extends StatelessWidget {
         callback();
       },
       child: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         alignment: Alignment.center,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 15),

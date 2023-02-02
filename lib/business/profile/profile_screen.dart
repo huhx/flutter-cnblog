@@ -96,7 +96,7 @@ class ProfileHeader extends StatelessWidget {
       onTap: () => context.goto(UserProfileDetailScreen(user)),
       leading: CircleImage(url: user.avatar, size: 48),
       contentPadding: EdgeInsets.zero,
-      title: Text(user.displayName, style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
+      title: Text(user.displayName, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20)),
       trailing: const ListTileTrailing(),
     );
   }
@@ -111,7 +111,7 @@ class NoLoginProfileHeader extends StatelessWidget {
       onTap: () => context.gotoLogin(const LoginScreen()),
       leading: const SvgIcon(name: "no_login_user", size: 48),
       contentPadding: EdgeInsets.zero,
-      title: Text("登录", style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20)),
+      title: Text("登录", style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20)),
       trailing: const ListTileTrailing(),
     );
   }
@@ -201,7 +201,7 @@ class ProfileMiddle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -237,7 +237,7 @@ class NoLoginProfileMiddle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -296,7 +296,7 @@ class ProfileFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
