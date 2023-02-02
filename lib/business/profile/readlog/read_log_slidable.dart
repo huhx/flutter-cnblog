@@ -20,6 +20,7 @@ class ReadLogSlidable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Slidable(
+      groupTag: "cnblog",
       key: ValueKey(readlog.id),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -64,81 +65,78 @@ class ReadLogItem extends StatelessWidget {
           readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: readLog.summary, detailModel: detailModel));
         } else if (readLog.type == ReadLogType.knowledge) {
           context.goto(KnowledgeDetailScreen(detailModel));
-          readLogApi
-              .insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
+          readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
         }
       },
-      child: Card(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.7),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent.withOpacity(0.7),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                  const SizedBox(width: 12),
-                  Flexible(
-                    child: Text(
-                      detailModel.title,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
+                ),
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Text(
+                    detailModel.title,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Text(
-                readLog.summary,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (detailModel.name != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Text(detailModel.name!, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                        ),
-                      if (detailModel.diggCount != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: TextIcon(icon: "like", counts: detailModel.diggCount!),
-                        ),
-                      if (detailModel.commentCount != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: TextIcon(icon: "comment", counts: detailModel.commentCount!),
-                        ),
-                      if (detailModel.viewCount != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: TextIcon(icon: "view", counts: detailModel.viewCount!),
-                        ),
-                    ],
-                  ),
-                  Text(
-                    timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  )
-                ],
-              )
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              readLog.summary,
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 6),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    if (detailModel.name != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Text(detailModel.name!, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      ),
+                    if (detailModel.diggCount != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: TextIcon(icon: "like", counts: detailModel.diggCount!),
+                      ),
+                    if (detailModel.commentCount != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: TextIcon(icon: "comment", counts: detailModel.commentCount!),
+                      ),
+                    if (detailModel.viewCount != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: TextIcon(icon: "view", counts: detailModel.viewCount!),
+                      ),
+                  ],
+                ),
+                Text(
+                  timeago.format(DateTime.fromMillisecondsSinceEpoch(readLog.createTime)),
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

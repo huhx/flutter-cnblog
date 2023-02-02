@@ -11,6 +11,7 @@ import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/util/date_util.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -70,51 +71,52 @@ class _ReadLogListScreenState extends State<ReadLogListScreen> {
           if (readLogs.isEmpty) {
             return const EmptyWidget(message: "阅读记录为空");
           }
-          final Map<String, List<ReadLog>> readLogMap =
-              readLogs.groupBy((readLog) => readLog.createTime.toDateString());
+          final Map<String, List<ReadLog>> readLogMap = readLogs.groupBy((readLog) => readLog.createTime.toDateString());
 
-          return SmartRefresher(
-            controller: streamList.refreshController,
-            onRefresh: () => streamList.onRefresh(),
-            onLoading: () => streamList.onLoading(),
-            enablePullUp: true,
-            child: ListView.builder(
-              itemCount: readLogMap.length,
-              itemBuilder: (_, index) {
-                final String key = readLogMap.keys.elementAt(index);
-                final List<ReadLog> readLogItems = readLogMap[key]!;
+          return SlidableAutoCloseBehavior(
+            child: SmartRefresher(
+              controller: streamList.refreshController,
+              onRefresh: () => streamList.onRefresh(),
+              onLoading: () => streamList.onLoading(),
+              enablePullUp: true,
+              child: ListView.builder(
+                itemCount: readLogMap.length,
+                itemBuilder: (_, index) {
+                  final String key = readLogMap.keys.elementAt(index);
+                  final List<ReadLog> readLogItems = readLogMap[key]!;
 
-                return StickyHeader(
-                  overlapHeaders: false,
-                  header: Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SimpleTextIcon(icon: "read_log", text: key),
-                        SimpleTextIcon(icon: "weekday", text: DateUtil.getWeekFromString(key)),
-                      ],
+                  return StickyHeader(
+                    overlapHeaders: false,
+                    header: Container(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SimpleTextIcon(icon: "read_log", text: key),
+                          SimpleTextIcon(icon: "weekday", text: DateUtil.getWeekFromString(key)),
+                        ],
+                      ),
                     ),
-                  ),
-                  content: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    primary: false,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return ReadLogSlidable(
-                        readlog: readLogItems[index],
-                        key: ValueKey(readLogItems[index].id),
-                        onDelete: (id) async {
-                          streamList.reset(readLogs.where((element) => element.id != id).toList());
-                          await readLogApi.delete(id);
-                        },
-                      );
-                    },
-                    itemCount: readLogItems.length,
-                  ),
-                );
-              },
+                    content: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      primary: false,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ReadLogSlidable(
+                          readlog: readLogItems[index],
+                          key: ValueKey(readLogItems[index].id),
+                          onDelete: (id) async {
+                            streamList.reset(readLogs.where((element) => element.id != id).toList());
+                            await readLogApi.delete(id);
+                          },
+                        );
+                      },
+                      itemCount: readLogItems.length,
+                    ),
+                  );
+                },
+              ),
             ),
           );
         },
