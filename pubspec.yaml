@@ -72,6 +72,11 @@ dependency_overrides:
     git:
       url: https://github.com/huhx/flutter_pulltorefresh
       ref: main
+  modal_bottom_sheet:
+   git:
+     url: https://github.com/eli1stark/modal_bottom_sheet.git
+     ref: main
+     path: modal_bottom_sheet
 
 dev_dependencies:
   flutter_test:
