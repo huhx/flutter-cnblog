@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/util/comm_util.dart';
 
 class CheckUpdateItem extends StatelessWidget {
@@ -14,7 +15,7 @@ class CheckUpdateItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const <Widget>[
             Text('检查版本', style: TextStyle(fontSize: 14)),
-            IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right))
+            ListTileTrailing(),
           ],
         ),
       ),

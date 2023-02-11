@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LogoutItem extends ConsumerWidget {
@@ -18,7 +19,7 @@ class LogoutItem extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const <Widget>[
             Text('退出登录', style: TextStyle(fontSize: 14)),
-            IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right))
+            ListTileTrailing(),
           ],
         ),
       ),

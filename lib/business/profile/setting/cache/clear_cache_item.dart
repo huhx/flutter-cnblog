@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
+import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 
 class ClearCacheItem extends StatelessWidget {
   const ClearCacheItem({super.key});
@@ -15,7 +16,7 @@ class ClearCacheItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const <Widget>[
             Text('清除缓存', style: TextStyle(fontSize: 14)),
-            IconTheme(data: IconThemeData(color: Colors.grey), child: Icon(Icons.keyboard_arrow_right))
+            ListTileTrailing(),
           ],
         ),
       ),
