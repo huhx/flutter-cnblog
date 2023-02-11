@@ -15,6 +15,11 @@ class SvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset("assets/svg/$name.svg", color: color, height: size, width: size);
+    return SvgPicture.asset(
+      "assets/svg/$name.svg",
+      colorFilter: color == null ? null : ColorFilter.mode(color!, BlendMode.srcIn),
+      height: size,
+      width: size,
+    );
   }
 }
