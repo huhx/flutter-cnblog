@@ -11,6 +11,9 @@ final appThemeData = {
     textTheme: GoogleFonts.latoTextTheme().copyWith(
       bodyMedium: const TextStyle(fontSize: 14.0),
     ),
+    cardTheme: const CardTheme(
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: themeColor,
       centerTitle: true,
@@ -36,6 +39,9 @@ final appThemeData = {
     brightness: Brightness.dark,
     textTheme: GoogleFonts.latoTextTheme().copyWith(
       bodyMedium: const TextStyle(fontSize: 14.0, color: Colors.white),
+    ),
+    cardTheme: const CardTheme(
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
     ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
