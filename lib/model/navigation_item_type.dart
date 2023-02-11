@@ -19,14 +19,11 @@ enum NavigationItemType {
   final Widget screen;
 
   static NavigationItemType getByIndex(int pageIndex) {
-    return NavigationItemType.values
-        .firstWhere((element) => element.pageIndex == pageIndex);
+    return NavigationItemType.values.firstWhere((element) => element.pageIndex == pageIndex);
   }
 
   static List<BottomNavigationBarItem> toNavigationBarItems() {
-    return NavigationItemType.values
-        .map((item) => CustomNavigationBarItem(iconName: item.iconName, text: item.label))
-        .toList();
+    return NavigationItemType.values.map((item) => CustomNavigationBarItem(iconName: item.iconName, text: item.label)).toList();
   }
 
   const NavigationItemType(this.iconName, this.label, this.pageIndex, this.screen);

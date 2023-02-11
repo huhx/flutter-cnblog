@@ -40,7 +40,7 @@ class BlogContentResp {
     required this.dateUpdated,
     required this.body,
     this.tags,
-    this.categories
+    this.categories,
   });
 
   factory BlogContentResp.fromJson(Map<String, dynamic> json) => _$BlogContentRespFromJson(json);

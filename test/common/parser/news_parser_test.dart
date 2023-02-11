@@ -50,7 +50,8 @@ void main() {
         title: "外媒：美国NASA登月重型火箭将于8月底首次试飞",
         url: "/n/726729/",
         submitter: "itwriter",
-        summary: '中新网 8 月 17 日电 据路透社报道，美国国家航空航天局(NASA)的“太空发射系统”(Space Launch System)重型火箭于当地时间 8 月 16 日晚间被运往发射台，并将于 8 月 29 日首次试飞。 资料图/视觉中国 报道称，该任务将开始为期 42 天的月球往返之旅。这是“阿尔',
+        summary:
+            '中新网 8 月 17 日电 据路透社报道，美国国家航空航天局(NASA)的“太空发射系统”(Space Launch System)重型火箭于当地时间 8 月 16 日晚间被运往发射台，并将于 8 月 29 日首次试飞。 资料图/视觉中国 报道称，该任务将开始为期 42 天的月球往返之旅。这是“阿尔',
         cover: "https://img2018.cnblogs.com/news_topic/20190528103402943-154105954.png",
         homeUrl: "https://home.cnblogs.com/u/itwriter/",
         commentCount: 0,

@@ -46,7 +46,6 @@ void main() {
     );
   });
 
-
   test("should return search blog result list", () {
     const String string = '''
     <div class="forflow">
@@ -94,7 +93,6 @@ void main() {
       ),
     );
   });
-
 
   test("should return search question result list", () {
     const String string = '''
@@ -147,7 +145,6 @@ void main() {
       ),
     );
   });
-
 
   test("should return search knowledge result list", () {
     const String string = r'''

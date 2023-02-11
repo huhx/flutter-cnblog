@@ -57,9 +57,7 @@ class OfficialBlogParser {
   static List<OfficialHot> _parseHotBlogList(Element element) {
     final List<Element> elements = element.getElementsByTagName("a");
 
-    return Iterable.generate(elements.length ~/ 2)
-        .map((index) => _parseHotBlog(elements[index * 2], elements[index * 2 + 1]))
-        .toList();
+    return Iterable.generate(elements.length ~/ 2).map((index) => _parseHotBlog(elements[index * 2], elements[index * 2 + 1])).toList();
   }
 
   static OfficialHot _parseHotBlog(Element blogElement, Element userElement) {

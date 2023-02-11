@@ -44,7 +44,6 @@ void main() {
     );
   });
 
-
   test("should return blog data info when another style2", () {
     const String string = '''
     <body><!--done-->

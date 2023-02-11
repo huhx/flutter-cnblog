@@ -122,7 +122,6 @@ void main() {
     );
   });
 
-
   test("should return blog comment list and comment by current user", () {
     const String string = '''
   <div>

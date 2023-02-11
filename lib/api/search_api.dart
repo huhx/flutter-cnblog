@@ -7,7 +7,6 @@ import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 
 class SearchApi {
-
   Future<List<SearchInfo>> getSearchContents(SearchType searchType, int pageKey, String keyword) async {
     final Response response = await RestClient.withCookie().get(
       "https://zzk.cnblogs.com/s/${searchType.path}",

@@ -49,7 +49,6 @@ void main() {
     );
   });
 
-
   test("should return search question result list", () {
     const String string = '''
     <div class="results">

@@ -34,7 +34,7 @@ void main() async {
   }
 
   await PrefsUtil.init();
-  
+
   runApp(
     const ProviderScope(child: MainApp()),
   );

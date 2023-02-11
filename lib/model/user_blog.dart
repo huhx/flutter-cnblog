@@ -40,16 +40,16 @@ class UserBlog extends Equatable {
 
   DetailModel toDetail(String avatar, {String? html}) {
     return DetailModel(
-        id: id,
-        title: title,
-        avatar: avatar,
-        url: url,
-        name: name,
-        blogName: Comm.getNameFromBlogUrl(url),
-        commentCount: commentCount,
-        diggCount: diggCount,
-        viewCount: viewCount,
-        html: html
+      id: id,
+      title: title,
+      avatar: avatar,
+      url: url,
+      name: name,
+      blogName: Comm.getNameFromBlogUrl(url),
+      commentCount: commentCount,
+      diggCount: diggCount,
+      viewCount: viewCount,
+      html: html,
     );
   }
 }
