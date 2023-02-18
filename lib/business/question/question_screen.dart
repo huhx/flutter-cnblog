@@ -1,8 +1,8 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/question.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,7 +34,8 @@ class QuestionScreen extends ConsumerWidget {
             indicatorWeight: 1,
           ),
           actions: [
-            IconButton(
+            SvgActionIcon(
+              name: "mine",
               onPressed: () async {
                 if (user == null) {
                   final bool? isSuccess = await context.gotoLogin(const LoginScreen());
@@ -42,7 +43,6 @@ class QuestionScreen extends ConsumerWidget {
                 }
                 context.goto(const MyQuestionListScreen());
               },
-              icon: const SvgActionIcon(name: "mine"),
             ),
           ],
         ),

@@ -1,15 +1,13 @@
+import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/category_api.dart';
 import 'package:flutter_cnblog/business/home/blog_item.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CategoryListScreen extends ConsumerStatefulWidget {
   final CategoryInfo categoryInfo;
@@ -20,16 +18,9 @@ class CategoryListScreen extends ConsumerStatefulWidget {
   ConsumerState<CategoryListScreen> createState() => _CategoryListScreenState();
 }
 
-class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
-  final StreamList<BlogResp> streamList = StreamList();
-
+class _CategoryListScreenState extends StreamConsumerState<CategoryListScreen, BlogResp> {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<BlogResp> blogs = await categoryApi.getByCategory(pageKey, widget.categoryInfo.url);
       streamList.fetch(blogs, pageKey);
@@ -43,35 +34,14 @@ class _CategoryListScreenState extends ConsumerState<CategoryListScreen> {
         leading: const AppbarBackButton(),
         title: Text(widget.categoryInfo.label),
       ),
-      body: StreamBuilder(
-        stream: streamList.stream,
-        builder: (context, snap) {
-          if (!snap.hasData) return const CenterProgressIndicator();
-          final List<BlogResp> blogs = snap.data as List<BlogResp>;
-
-          if (blogs.isEmpty) {
-            return const EmptyWidget();
-          }
-
-          return SmartRefresher(
-            controller: streamList.refreshController,
-            onRefresh: () => streamList.onRefresh(),
-            onLoading: () => streamList.onLoading(),
-            enablePullUp: true,
-            child: ListView.builder(
-              controller: ref.watch(scrollProvider.notifier).get("blog"),
-              itemCount: blogs.length,
-              itemBuilder: (_, index) => BlogItem(blog: blogs[index], key: ValueKey(blogs[index].id)),
-            ),
-          );
-        },
+      body: PagedView(
+        streamList,
+        (context, blogs) => ListView.builder(
+          controller: ref.watch(scrollProvider.notifier).get("blog"),
+          itemCount: blogs.length,
+          itemBuilder: (_, index) => BlogItem(blog: blogs[index], key: ValueKey(blogs[index].id)),
+        ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }

@@ -1,7 +1,7 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LogoutItem extends ConsumerWidget {

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
-import 'package:flutter_cnblog/common/extension/string_extension.dart';
+import 'package:app_common_flutter/extension.dart';
 import 'package:flutter_cnblog/common/parser/blog_comment_parser.dart';
 import 'package:flutter_cnblog/common/parser/blog_post_parser.dart';
 import 'package:flutter_cnblog/common/parser/candidate_parser.dart';

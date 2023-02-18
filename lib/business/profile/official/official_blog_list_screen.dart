@@ -1,18 +1,15 @@
+import 'package:app_common_flutter/pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/official_blog_api.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/official/official_blog_review_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:app_common_flutter/views.dart' hide TextIcon;
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/official_blog.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OfficialBlogListScreen extends StatefulWidget {
   const OfficialBlogListScreen({super.key});
@@ -21,16 +18,9 @@ class OfficialBlogListScreen extends StatefulWidget {
   State<OfficialBlogListScreen> createState() => _OfficialBlogListScreenState();
 }
 
-class _OfficialBlogListScreenState extends State<OfficialBlogListScreen> {
-  final StreamList<OfficialBlog> streamList = StreamList();
-
+class _OfficialBlogListScreenState extends StreamState<OfficialBlogListScreen, OfficialBlog> {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<OfficialBlog> blogList = await officialBlogApi.getOfficialBlogs(pageKey);
       streamList.fetch(blogList, pageKey, pageSize: 10);
@@ -44,35 +34,14 @@ class _OfficialBlogListScreenState extends State<OfficialBlogListScreen> {
         leading: const AppbarBackButton(),
         title: const Text("官方博客"),
       ),
-      body: StreamBuilder(
-        stream: streamList.stream,
-        builder: (context, snap) {
-          if (!snap.hasData) return const CenterProgressIndicator();
-          final List<OfficialBlog> officialBlogs = snap.data as List<OfficialBlog>;
-
-          if (officialBlogs.isEmpty) {
-            return const EmptyWidget();
-          }
-
-          return SmartRefresher(
-            controller: streamList.refreshController,
-            onRefresh: () => streamList.onRefresh(),
-            onLoading: () => streamList.onLoading(),
-            enablePullUp: true,
-            child: ListView.builder(
-              itemCount: officialBlogs.length,
-              itemBuilder: (_, index) => OfficialBlogItem(blog: officialBlogs[index], key: ValueKey(officialBlogs[index].id)),
-            ),
-          );
-        },
+      body: PagedView(
+        streamList,
+        (context, officialBlogs) => ListView.builder(
+          itemCount: officialBlogs.length,
+          itemBuilder: (_, index) => OfficialBlogItem(blog: officialBlogs[index], key: ValueKey(officialBlogs[index].id)),
+        ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }
 

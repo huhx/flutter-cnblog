@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/setting/cache/clear_cache_item.dart';
 import 'package:flutter_cnblog/business/profile/setting/logout/logout_item.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:app_common_flutter/views.dart';
 
 import 'about/app_about_item.dart';
 

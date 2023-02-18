@@ -1,8 +1,8 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/instant/instant_edit_screen.dart';
 import 'package:flutter_cnblog/business/instant/my_instant_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/svg_action_icon.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 
 import 'instant_list_screen.dart';
@@ -28,9 +28,9 @@ class InstantScreen extends StatelessWidget {
             indicatorWeight: 1,
           ),
           actions: [
-            IconButton(
+            SvgActionIcon(
+              name: "mine",
               onPressed: () => context.goto(const MyInstantScreen()),
-              icon: const SvgActionIcon(name: "mine"),
             )
           ],
         ),

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:app_common_flutter/util.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cnblog/business/main/theme_provider.dart';
 import 'package:flutter_cnblog/common/constant/timeago_message.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -17,8 +17,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'business/main/main_screen.dart';
-import 'component/custom_load_footer.dart';
-import 'component/custom_water_drop_header.dart';
 import 'util/prefs_util.dart';
 
 final Logger logger = Logger(printer: PrettyPrinter());

@@ -1,6 +1,6 @@
+import 'package:app_common_flutter/util.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/component/list_tile_trailing.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 
 class CheckUpdateItem extends StatelessWidget {
   const CheckUpdateItem({super.key});

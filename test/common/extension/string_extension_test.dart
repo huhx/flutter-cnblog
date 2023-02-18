@@ -1,3 +1,4 @@
+import 'package:app_common_flutter/extension.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_test/flutter_test.dart';
 

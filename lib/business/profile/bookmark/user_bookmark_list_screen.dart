@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/user_blog_data_info.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/model/user.dart';
 

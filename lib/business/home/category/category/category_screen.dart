@@ -1,11 +1,9 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/category_api.dart';
 import 'package:flutter_cnblog/business/home/category/category/category_list_screen.dart';
 import 'package:flutter_cnblog/common/constant/enum_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/list_scroll_physics.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 
 class CategoryScreen extends StatefulWidget {

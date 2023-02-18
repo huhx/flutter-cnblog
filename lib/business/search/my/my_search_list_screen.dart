@@ -1,15 +1,13 @@
+import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
 import 'package:flutter_cnblog/business/search/search_provider.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/search.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MySearchListScreen extends ConsumerStatefulWidget {
   final MySearchType searchType;
@@ -20,16 +18,9 @@ class MySearchListScreen extends ConsumerStatefulWidget {
   ConsumerState<MySearchListScreen> createState() => _MySearchListScreenState();
 }
 
-class _MySearchListScreenState extends ConsumerState<MySearchListScreen> {
-  final StreamList<SearchInfo> streamList = StreamList();
-
+class _MySearchListScreenState extends StreamConsumerState<MySearchListScreen, SearchInfo> {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<SearchInfo> searchResults = await searchApi.getMySearchContents(widget.searchType, pageKey, ref.read(searchProvider));
       streamList.fetch(searchResults, pageKey, pageSize: 10);
@@ -38,35 +29,14 @@ class _MySearchListScreenState extends ConsumerState<MySearchListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<SearchInfo> searchList = snap.data as List<SearchInfo>;
-
-        if (searchList.isEmpty) {
-          return const EmptyWidget();
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            itemCount: searchList.length,
-            itemBuilder: (_, index) => MySearchItem(searchList[index], key: ValueKey(searchList[index].url)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, searchList) => ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        itemCount: searchList.length,
+        itemBuilder: (_, index) => MySearchItem(searchList[index], key: ValueKey(searchList[index].url)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }
 

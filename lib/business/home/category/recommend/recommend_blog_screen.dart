@@ -1,19 +1,17 @@
+import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
+import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class RecommendBlogScreen extends ConsumerStatefulWidget {
@@ -23,16 +21,9 @@ class RecommendBlogScreen extends ConsumerStatefulWidget {
   ConsumerState<RecommendBlogScreen> createState() => _RecommendBlogScreenState();
 }
 
-class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> with AutomaticKeepAliveClientMixin {
-  final StreamList<RecommendBlogResp> streamList = StreamList();
-
+class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen, RecommendBlogResp> with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<RecommendBlogResp> blogs = await blogApi.getRecommendBlogs(pageKey, 20);
       streamList.fetch(blogs, pageKey);
@@ -42,35 +33,14 @@ class _RecommendBlogScreenState extends ConsumerState<RecommendBlogScreen> with 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<RecommendBlogResp> blogs = snap.data as List<RecommendBlogResp>;
-
-        if (blogs.isEmpty) {
-          return const EmptyWidget();
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            controller: ref.watch(scrollProvider.notifier).get("blog"),
-            itemCount: blogs.length,
-            itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].blogId)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, blogs) => ListView.builder(
+        controller: ref.watch(scrollProvider.notifier).get("blog"),
+        itemCount: blogs.length,
+        itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].blogId)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 
   @override

@@ -1,7 +1,7 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 
 class ClearCacheItem extends StatelessWidget {
   const ClearCacheItem({super.key});

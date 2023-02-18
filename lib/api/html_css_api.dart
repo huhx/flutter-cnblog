@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
 import 'package:flutter_cnblog/common/support/html_css.dart';
 import 'package:flutter_cnblog/common/support/html_css_injector.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:app_common_flutter/util.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:html/dom.dart';

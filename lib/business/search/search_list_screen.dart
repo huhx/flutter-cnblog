@@ -1,3 +1,4 @@
+import 'package:app_common_flutter/pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/search_api.dart';
@@ -6,16 +7,14 @@ import 'package:flutter_cnblog/business/news/news_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/knowledge/knowledge_detail_screen.dart';
 import 'package:flutter_cnblog/business/question/question_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
+import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/common/support/comm_parser.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
 import 'package:flutter_cnblog/component/text_icon.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SearchListScreen extends ConsumerStatefulWidget {
   final SearchType searchType;
@@ -27,52 +26,27 @@ class SearchListScreen extends ConsumerStatefulWidget {
   ConsumerState<SearchListScreen> createState() => _SearchListScreenState();
 }
 
-class _SearchListScreenState extends ConsumerState<SearchListScreen> {
-  final StreamList<SearchInfo> streamList = StreamList();
-
-  Future<void> _fetchPage(int pageKey, String keyword) async {
+class _SearchListScreenState extends StreamConsumerState<SearchListScreen, SearchInfo> {
+  @override
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, keyword);
+      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, widget.keyword);
       streamList.fetch(searchResults, pageKey, pageSize: 10);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey, widget.keyword), init: widget.keyword.isNotEmpty);
+    streamList.addRequestListener((pageKey) => fetchPage(pageKey), init: widget.keyword.isNotEmpty);
 
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<SearchInfo> searchList = snap.data as List<SearchInfo>;
-
-        if (searchList.isEmpty) {
-          return Container(
-            alignment: Alignment.center,
-            child: const Text("抱歉！没有找到您搜索的相关内容。"),
-          );
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
-            itemCount: searchList.length,
-            itemBuilder: (_, index) => SearchItem(searchList[index], widget.searchType, key: ValueKey(searchList[index].url)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, searchList) => ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+        itemCount: searchList.length,
+        itemBuilder: (_, index) => SearchItem(searchList[index], widget.searchType, key: ValueKey(searchList[index].url)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }
 

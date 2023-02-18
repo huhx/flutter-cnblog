@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:app_common_flutter/views.dart';
+import 'package:app_common_flutter/util.dart';
 
 class AppAboutScreen extends StatelessWidget {
   const AppAboutScreen({super.key});

@@ -1,5 +1,5 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/instant.dart';
 
 import 'my_instant_list_screen.dart';

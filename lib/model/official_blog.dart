@@ -1,5 +1,5 @@
+import 'package:app_common_flutter/extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/user.dart';
 

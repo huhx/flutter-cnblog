@@ -1,17 +1,13 @@
+import 'package:app_common_flutter/pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
-import 'package:flutter_cnblog/component/list_tile_trailing.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'user_follow_count_info.dart';
 
@@ -155,16 +151,9 @@ class UserMoment extends StatefulWidget {
   State<UserMoment> createState() => _UserMomentState();
 }
 
-class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMixin {
-  final StreamList<UserProfileMoment> streamList = StreamList();
-
+class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.blogName, pageKey);
     streamList.fetch(userMoments, pageKey, pageSize: 30);
   }
@@ -172,34 +161,13 @@ class _UserMomentState extends State<UserMoment> with AutomaticKeepAliveClientMi
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<UserProfileMoment> userMoments = snap.data as List<UserProfileMoment>;
-
-        if (userMoments.isEmpty) {
-          return const EmptyWidget();
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            itemCount: userMoments.length,
-            itemBuilder: (_, index) => UserMomentItem(userMoments[index], key: ValueKey(userMoments[index].url)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, userMoments) => ListView.builder(
+        itemCount: userMoments.length,
+        itemBuilder: (_, index) => UserMomentItem(userMoments[index], key: ValueKey(userMoments[index].url)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 
   @override

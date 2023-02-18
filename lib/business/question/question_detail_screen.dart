@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/html_css_api.dart';
 import 'package:flutter_cnblog/common/constant/content_type.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';

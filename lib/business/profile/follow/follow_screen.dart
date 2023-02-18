@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/model/follow.dart';
 
 import 'follow_list_screen.dart';

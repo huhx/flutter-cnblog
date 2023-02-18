@@ -1,3 +1,5 @@
+import 'package:app_common_flutter/util.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/instant/my_instant_screen.dart';
@@ -11,13 +13,10 @@ import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/business/user/login/login_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
-import 'package:flutter_cnblog/component/list_tile_trailing.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/follow.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-import 'package:flutter_cnblog/util/comm_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cnblog/common/constant/env.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
+import 'package:app_common_flutter/util.dart';
 
 class TokenApi {
   Future<AccessToken> getToken() async {

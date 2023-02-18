@@ -1,16 +1,13 @@
+import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/user_bookmark_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
-import 'package:flutter_cnblog/component/svg_icon.dart';
 import 'package:flutter_cnblog/model/bookmark.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/user.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'user_bookmark_detail_screen.dart';
@@ -24,16 +21,9 @@ class UserBookmarkContent extends StatefulWidget {
   State<UserBookmarkContent> createState() => _UserBookmarkContentState();
 }
 
-class _UserBookmarkContentState extends State<UserBookmarkContent> {
-  final StreamList<BookmarkInfo> streamList = StreamList();
-
+class _UserBookmarkContentState extends StreamState<UserBookmarkContent, BookmarkInfo> {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<BookmarkInfo> bookmarks = await userBookmarkApi.getUserBookmarkList(pageKey);
       streamList.fetch(bookmarks, pageKey);
@@ -42,35 +32,14 @@ class _UserBookmarkContentState extends State<UserBookmarkContent> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<BookmarkInfo> bookmarks = snap.data as List<BookmarkInfo>;
-
-        if (bookmarks.isEmpty) {
-          return const EmptyWidget();
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-            itemCount: bookmarks.length,
-            itemBuilder: (_, index) => UserBookmarkItem(bookmark: bookmarks[index], key: ValueKey(bookmarks[index].id)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, bookmarks) => ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+        itemCount: bookmarks.length,
+        itemBuilder: (_, index) => UserBookmarkItem(bookmark: bookmarks[index], key: ValueKey(bookmarks[index].id)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }
 

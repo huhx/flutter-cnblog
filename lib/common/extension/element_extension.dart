@@ -1,4 +1,4 @@
-import 'package:flutter_cnblog/common/extension/list_extension.dart';
+import 'package:app_common_flutter/extension.dart';
 import 'package:flutter_cnblog/common/extension/string_extension.dart';
 import 'package:html/dom.dart';
 

@@ -1,16 +1,13 @@
+import 'package:app_common_flutter/pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/knowledge_api.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:intl/intl.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'knowledge_detail_screen.dart';
 
@@ -21,16 +18,9 @@ class KnowledgeListScreen extends StatefulWidget {
   State<KnowledgeListScreen> createState() => _KnowledgeListScreenState();
 }
 
-class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
-  final StreamList<KnowledgeInfo> streamList = StreamList();
-
+class _KnowledgeListScreenState extends StreamState<KnowledgeListScreen, KnowledgeInfo> {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<KnowledgeInfo> knowledgeList = await knowledgeApi.getKnowledgeList(pageKey);
       streamList.fetch(knowledgeList, pageKey);
@@ -44,35 +34,14 @@ class _KnowledgeListScreenState extends State<KnowledgeListScreen> {
         leading: const AppbarBackButton(),
         title: const Text("知识库"),
       ),
-      body: StreamBuilder(
-        stream: streamList.stream,
-        builder: (context, snap) {
-          if (!snap.hasData) return const CenterProgressIndicator();
-          final List<KnowledgeInfo> knowledgeList = snap.data as List<KnowledgeInfo>;
-
-          if (knowledgeList.isEmpty) {
-            return const EmptyWidget();
-          }
-
-          return SmartRefresher(
-            controller: streamList.refreshController,
-            onRefresh: () => streamList.onRefresh(),
-            onLoading: () => streamList.onLoading(),
-            enablePullUp: true,
-            child: ListView.builder(
-              itemCount: knowledgeList.length,
-              itemBuilder: (_, index) => KnowledgeItem(knowledgeList[index], key: ValueKey(knowledgeList[index].id)),
-            ),
-          );
-        },
+      body: PagedView(
+        streamList,
+        (context, knowledgeList) => ListView.builder(
+          itemCount: knowledgeList.length,
+          itemBuilder: (_, index) => KnowledgeItem(knowledgeList[index], key: ValueKey(knowledgeList[index].id)),
+        ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 }
 

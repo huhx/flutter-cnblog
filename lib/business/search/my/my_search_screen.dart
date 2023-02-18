@@ -1,6 +1,6 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/search/search_provider.dart';
-import 'package:flutter_cnblog/component/appbar_back_button.dart';
 import 'package:flutter_cnblog/model/search.dart';
 import 'package:flutter_cnblog/theme/shape.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

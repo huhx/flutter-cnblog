@@ -1,7 +1,6 @@
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/theme/theme.dart';
-
-import 'svg_icon.dart';
 
 class CustomNavigationBarItem extends BottomNavigationBarItem {
   final String iconName;

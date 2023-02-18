@@ -1,13 +1,11 @@
+import 'package:app_common_flutter/pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/message_api.dart';
 import 'package:flutter_cnblog/business/profile/message/message_detail_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:flutter_cnblog/common/stream_list.dart';
-import 'package:flutter_cnblog/component/center_progress_indicator.dart';
-import 'package:flutter_cnblog/component/empty_widget.dart';
+import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/message.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MessageListScreen extends ConsumerStatefulWidget {
   final MessageType messageType;
@@ -18,16 +16,9 @@ class MessageListScreen extends ConsumerStatefulWidget {
   ConsumerState<MessageListScreen> createState() => _MessageListScreenState();
 }
 
-class _MessageListScreenState extends ConsumerState<MessageListScreen> with AutomaticKeepAliveClientMixin {
-  final StreamList<MessageInfo> streamList = StreamList();
-
+class _MessageListScreenState extends StreamConsumerState<MessageListScreen, MessageInfo> with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
-    streamList.addRequestListener((pageKey) => _fetchPage(pageKey));
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
+  Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
       final List<MessageInfo> messageList = await messageApi.getMessageList(widget.messageType, pageKey);
       streamList.fetch(messageList, pageKey);
@@ -37,34 +28,13 @@ class _MessageListScreenState extends ConsumerState<MessageListScreen> with Auto
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return StreamBuilder(
-      stream: streamList.stream,
-      builder: (context, snap) {
-        if (!snap.hasData) return const CenterProgressIndicator();
-        final List<MessageInfo> messages = snap.data as List<MessageInfo>;
-
-        if (messages.isEmpty) {
-          return const EmptyWidget();
-        }
-
-        return SmartRefresher(
-          controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
-          enablePullUp: true,
-          child: ListView.builder(
-            itemCount: messages.length,
-            itemBuilder: (_, index) => MessageItem(message: messages[index], key: ValueKey(messages[index].id)),
-          ),
-        );
-      },
+    return PagedView(
+      streamList,
+      (context, messages) => ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (_, index) => MessageItem(message: messages[index], key: ValueKey(messages[index].id)),
+      ),
     );
-  }
-
-  @override
-  void dispose() {
-    streamList.dispose();
-    super.dispose();
   }
 
   @override

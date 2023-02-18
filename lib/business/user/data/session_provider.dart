@@ -1,9 +1,9 @@
+import 'package:app_common_flutter/util.dart';
 import 'package:flutter_cnblog/api/token_api.dart';
 import 'package:flutter_cnblog/api/user_api.dart';
 import 'package:flutter_cnblog/main.dart';
 import 'package:flutter_cnblog/model/access_token.dart';
 import 'package:flutter_cnblog/model/user.dart';
-import 'package:flutter_cnblog/util/app_config.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
