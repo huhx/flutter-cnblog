@@ -34,16 +34,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  dio: ^4.0.6
   hooks_riverpod: ^2.0.0
-  retrofit: ^3.0.1+1
+  retrofit: ^4.0.1
   logger: ^1.1.0
   json_annotation: ^4.6.0
-  flutter_svg: ^2.0.0
   google_fonts: ^4.0.1
-  fluttertoast: ^8.0.9
-  pull_to_refresh: ^2.0.0
-  dio_http_formatter: ^2.1.0
   cached_network_image: ^3.2.1
   timeago: ^3.2.2
   double_back_to_close: ^2.0.0
@@ -54,11 +49,8 @@ dependencies:
   flutter_inappwebview: ^5.4.3+7
   html: ^0.15.0
   flutter_html: ^3.0.0-alpha.5
-  intl: ^0.18.0
-  equatable: ^2.0.3
   modal_bottom_sheet: ^2.1.0
   flutter_hooks: ^0.18.5+1
-  share_plus: ^6.0.0
   shared_preferences: ^2.0.15
   sqflite: ^2.0.3+1
   path: ^1.8.2
@@ -66,6 +58,10 @@ dependencies:
   flutter_slidable: ^2.0.0
   envied: ^0.3.0
   sticky_headers: ^0.3.0+2
+  app_common_flutter:
+    git:
+      url: https://github.com/huhx/app_common_flutter
+      ref: main
 
 dependency_overrides:
   pull_to_refresh:
@@ -88,7 +84,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  retrofit_generator: ^4.0.3
+  retrofit_generator: ^5.0.0
   json_serializable: ^6.3.1
   flutter_launcher_icons: ^0.11.0
   envied_generator: ^0.3.0
