@@ -81,7 +81,7 @@ class BlogShareScreen extends HookConsumerWidget {
             ],
           ),
           const SizedBox(height: 24),
-          BottomSheetItem(text: "取消", callback: () {})
+          const BottomSheetItem(text: "取消")
         ],
       ),
     );

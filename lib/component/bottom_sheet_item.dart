@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class BottomSheetItem extends StatelessWidget {
   final String text;
-  final VoidCallback callback;
+  final VoidCallback? callback;
 
-  const BottomSheetItem({required this.text, required this.callback, super.key});
+  const BottomSheetItem({required this.text, this.callback, super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
-        callback();
+        if (callback != null) callback!();
       },
       child: Container(
         color: Theme.of(context).colorScheme.background,
