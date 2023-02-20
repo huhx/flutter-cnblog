@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/setting/cache/clear_cache_item.dart';
 import 'package:flutter_cnblog/business/profile/setting/logout/logout_item.dart';
@@ -15,18 +16,18 @@ class SettingScreen extends StatelessWidget {
         leading: const AppbarBackButton(),
         title: const Text('设置'),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        child: ListView(
-          children: const [
-            ClearCacheItem(),
-            Divider(),
-            AppAboutItem(),
-            // CheckUpdateItem(),
-            Divider(),
-            LogoutItem(),
-          ],
-        ),
+      body: ListView(
+        children: [
+          CupertinoListSection.insetGrouped(
+            additionalDividerMargin: 8,
+            margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
+            children: const [
+              ClearCacheItem(),
+              AppAboutItem(),
+              LogoutItem(),
+            ],
+          ),
+        ],
       ),
     );
   }

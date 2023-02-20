@@ -1,4 +1,5 @@
 import 'package:app_common_flutter/views.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/profile/setting/about/app_about_screen.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -8,18 +9,10 @@ class AppAboutItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: InkWell(
-        onTap: () => context.goto(const AppAboutScreen()),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const <Widget>[
-            Text('关于', style: TextStyle(fontSize: 14)),
-            ListTileTrailing(),
-          ],
-        ),
-      ),
+    return CupertinoListTile(
+      title: Text('关于', style: Theme.of(context).textTheme.bodyLarge),
+      trailing: const ListTileTrailing(),
+      onTap: () => context.goto(const AppAboutScreen()),
     );
   }
 }

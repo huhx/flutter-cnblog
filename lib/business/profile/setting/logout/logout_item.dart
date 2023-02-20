@@ -1,4 +1,5 @@
 import 'package:app_common_flutter/views.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/business/user/data/session_provider.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
@@ -11,18 +12,10 @@ class LogoutItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sessionModel = ref.watch(sessionProvider.notifier);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: InkWell(
-        onTap: () => _buildShowConfirmDialog(context, sessionModel),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const <Widget>[
-            Text('退出登录', style: TextStyle(fontSize: 14)),
-            ListTileTrailing(),
-          ],
-        ),
-      ),
+    return CupertinoListTile(
+      title: Text('退出登录', style: Theme.of(context).textTheme.bodyLarge),
+      trailing: const ListTileTrailing(),
+      onTap: () => _buildShowConfirmDialog(context, sessionModel),
     );
   }
 

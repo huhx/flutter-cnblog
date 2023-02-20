@@ -7,9 +7,11 @@ enum AppTheme { light, dark }
 
 final appThemeData = {
   AppTheme.light: ThemeData(
+    scaffoldBackgroundColor: const Color.fromARGB(255, 242, 242, 247),
     brightness: Brightness.light,
     textTheme: GoogleFonts.latoTextTheme().copyWith(
       bodyMedium: const TextStyle(fontSize: 14.0),
+      bodyLarge: const TextStyle(fontSize: 16.0),
     ),
     cardTheme: const CardTheme(
       margin: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
@@ -36,9 +38,11 @@ final appThemeData = {
     ),
   ),
   AppTheme.dark: ThemeData(
+    scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
     brightness: Brightness.dark,
     textTheme: GoogleFonts.latoTextTheme().copyWith(
       bodyMedium: const TextStyle(fontSize: 14.0, color: Colors.white),
+      bodyLarge: const TextStyle(fontSize: 16.0, color: Colors.white),
     ),
     cardTheme: const CardTheme(
       margin: EdgeInsets.symmetric(horizontal: 0, vertical: 4),
