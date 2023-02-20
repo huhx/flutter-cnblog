@@ -31,8 +31,8 @@ final appThemeData = {
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
-    colorScheme: const ColorScheme.light(
-      background: Colors.white,
+    colorScheme: ColorScheme.light(
+      background: Colors.white.withOpacity(0.5),
     ),
   ),
   AppTheme.dark: ThemeData(
@@ -64,7 +64,7 @@ final appThemeData = {
       },
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromRGBO(24, 24, 24, 1),
+      background: Color.fromRGBO(30, 30, 30, 1),
     ),
   )
 };
