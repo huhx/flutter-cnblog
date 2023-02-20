@@ -14,7 +14,9 @@ class UserBlogParser {
 
   static List<UserBlog> __parseUserBlogs(Element element) {
     final Element dayTitleElement = element.getFirstByClass("dayTitle");
-    final String dayTitle = dayTitleElement.firstChildText;
+    final List<String> dayInfo = dayTitleElement.children.first.attributes['href']!.split('archive/')[1].split('.')[0].split("/");
+
+    final String dayTitle = "${dayInfo[0]}年${dayInfo[1]}月${dayInfo[2]}日";
 
     final List<Element> titleElements = element.getElementsByClassName("postTitle2");
     final List<Element> summaryElements = element.getElementsByClassName("c_b_p_desc");

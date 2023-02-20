@@ -8,7 +8,7 @@ void main() {
     <div class="forFlow">
       <div class="day" role="article" aria-describedby="postlist_description_5267805">
         <div class="dayTitle">
-          <a href="https://www.cnblogs.com/huhx/archive/2016/03/19.html">2016年3月19日</a>
+          <a href="https://www.cnblogs.com/huhx/archive/2016/03/19.html"></a>
         </div>
     
         <div class="postTitle" role="heading" aria-level="2">
@@ -48,7 +48,7 @@ void main() {
       blogs[0],
       UserBlog(
         id: 5267805,
-        dayTitle: "2016年3月19日",
+        dayTitle: "2016年03月19日",
         title: 'android高级---->AsyncTask的源码分析',
         url: "https://www.cnblogs.com/huhx/p/asynctask_theory.html",
         isPinned: true,
@@ -67,7 +67,7 @@ void main() {
     <div class="forFlow">
       <div class="day" role="article" aria-describedby="postlist_description_13406634">
         <div class="dayTitle">
-          <a href="https://www.cnblogs.com/huhx/archive/2020/07/30.html">2020年7月30日</a>
+          <a href="https://www.cnblogs.com/huhx/archive/2020/07/30.html"></a>
         </div>
     
         <div class="postTitle" role="heading" aria-level="2">
@@ -136,7 +136,7 @@ void main() {
       blogs[0],
       UserBlog(
         id: 13388984,
-        dayTitle: "2020年7月30日",
+        dayTitle: "2020年07月30日",
         title: 'android使用---->常用组件1',
         url: "https://www.cnblogs.com/huhx/p/13388984.html",
         isPinned: false,
@@ -153,7 +153,7 @@ void main() {
       blogs[1],
       UserBlog(
         id: 13406634,
-        dayTitle: "2020年7月30日",
+        dayTitle: "2020年07月30日",
         title: 'flutter feature---->quick action',
         url: "https://www.cnblogs.com/huhx/p/13406634.html",
         isPinned: false,
