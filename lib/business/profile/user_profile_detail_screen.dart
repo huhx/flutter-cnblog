@@ -1,13 +1,14 @@
 import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'user_follow_count_info.dart';
 
@@ -73,7 +74,7 @@ class UserProfileHeader extends StatelessWidget {
   }
 }
 
-class UserHeaderInfo extends StatefulWidget {
+class UserHeaderInfo extends StatefulHookWidget {
   final UserInfo user;
 
   const UserHeaderInfo(this.user, {super.key});
@@ -82,10 +83,11 @@ class UserHeaderInfo extends StatefulWidget {
   State<UserHeaderInfo> createState() => _UserHeaderInfoState();
 }
 
-class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAliveClientMixin {
+class _UserHeaderInfoState extends State<UserHeaderInfo> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return FutureBuilder<UserProfileInfo>(
       future: userProfileApi.getUserProfile(widget.user.blogName),
       builder: (context, snap) {
@@ -116,9 +118,6 @@ class _UserHeaderInfoState extends State<UserHeaderInfo> with AutomaticKeepAlive
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class UserHeaderInfoItem extends StatelessWidget {
@@ -142,7 +141,7 @@ class UserHeaderInfoItem extends StatelessWidget {
   }
 }
 
-class UserMoment extends StatefulWidget {
+class UserMoment extends StatefulHookWidget {
   final UserInfo user;
 
   const UserMoment(this.user, {super.key});
@@ -151,7 +150,7 @@ class UserMoment extends StatefulWidget {
   State<UserMoment> createState() => _UserMomentState();
 }
 
-class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> with AutomaticKeepAliveClientMixin {
+class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> {
   @override
   Future<void> fetchPage(int pageKey) async {
     final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.blogName, pageKey);
@@ -160,7 +159,8 @@ class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> with A
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+    
     return PagedView(
       streamList,
       (context, userMoments) => ListView.builder(
@@ -169,9 +169,6 @@ class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> with A
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class UserMomentItem extends StatelessWidget {

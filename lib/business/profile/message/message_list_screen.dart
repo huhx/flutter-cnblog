@@ -5,9 +5,10 @@ import 'package:flutter_cnblog/business/profile/message/message_detail_screen.da
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/message.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MessageListScreen extends ConsumerStatefulWidget {
+class MessageListScreen extends StatefulHookConsumerWidget {
   final MessageType messageType;
 
   const MessageListScreen(this.messageType, {super.key});
@@ -16,7 +17,7 @@ class MessageListScreen extends ConsumerStatefulWidget {
   ConsumerState<MessageListScreen> createState() => _MessageListScreenState();
 }
 
-class _MessageListScreenState extends StreamConsumerState<MessageListScreen, MessageInfo> with AutomaticKeepAliveClientMixin {
+class _MessageListScreenState extends StreamConsumerState<MessageListScreen, MessageInfo> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -27,7 +28,8 @@ class _MessageListScreenState extends StreamConsumerState<MessageListScreen, Mes
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, messages) => ListView.builder(
@@ -36,9 +38,6 @@ class _MessageListScreenState extends StreamConsumerState<MessageListScreen, Mes
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class MessageItem extends StatelessWidget {

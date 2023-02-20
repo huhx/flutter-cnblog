@@ -7,9 +7,10 @@ import 'package:flutter_cnblog/business/home/blog_item.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeBlogListScreen extends ConsumerStatefulWidget {
+class HomeBlogListScreen extends StatefulHookConsumerWidget {
   final BlogCategory category;
 
   const HomeBlogListScreen(this.category, {super.key});
@@ -18,7 +19,7 @@ class HomeBlogListScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeBlogListScreen> createState() => _HomeBlogListScreenState();
 }
 
-class _HomeBlogListScreenState extends StreamConsumerState<HomeBlogListScreen, BlogResp> with AutomaticKeepAliveClientMixin {
+class _HomeBlogListScreenState extends StreamConsumerState<HomeBlogListScreen, BlogResp> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -29,7 +30,8 @@ class _HomeBlogListScreenState extends StreamConsumerState<HomeBlogListScreen, B
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, blogs) => ListView.builder(
@@ -39,7 +41,4 @@ class _HomeBlogListScreenState extends StreamConsumerState<HomeBlogListScreen, B
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

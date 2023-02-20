@@ -4,11 +4,12 @@ import 'package:flutter_cnblog/api/instant_api.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/instant.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'instant_item.dart';
 
-class InstantListScreen extends ConsumerStatefulWidget {
+class InstantListScreen extends StatefulHookConsumerWidget {
   final InstantCategory category;
 
   const InstantListScreen(this.category, {super.key});
@@ -17,7 +18,7 @@ class InstantListScreen extends ConsumerStatefulWidget {
   ConsumerState<InstantListScreen> createState() => _InstantListScreenState();
 }
 
-class _InstantListScreenState extends StreamConsumerState<InstantListScreen, InstantInfo> with AutomaticKeepAliveClientMixin {
+class _InstantListScreenState extends StreamConsumerState<InstantListScreen, InstantInfo> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -28,7 +29,8 @@ class _InstantListScreenState extends StreamConsumerState<InstantListScreen, Ins
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, instants) => ListView.builder(
@@ -38,7 +40,4 @@ class _InstantListScreenState extends StreamConsumerState<InstantListScreen, Ins
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

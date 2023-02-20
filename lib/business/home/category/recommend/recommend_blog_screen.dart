@@ -11,17 +11,18 @@ import 'package:flutter_cnblog/model/blog_content_resp.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/recommend_blog_resp.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class RecommendBlogScreen extends ConsumerStatefulWidget {
+class RecommendBlogScreen extends StatefulHookConsumerWidget {
   const RecommendBlogScreen({super.key});
 
   @override
   ConsumerState<RecommendBlogScreen> createState() => _RecommendBlogScreenState();
 }
 
-class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen, RecommendBlogResp> with AutomaticKeepAliveClientMixin {
+class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen, RecommendBlogResp> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -32,7 +33,8 @@ class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen,
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, blogs) => ListView.builder(
@@ -42,9 +44,6 @@ class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen,
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class BlogItem extends StatelessWidget {

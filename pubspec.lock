@@ -30,7 +30,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "9f5592bcdaf822cd8bcc2dd3e3db6c0458a4ed8a"
+      resolved-ref: "530d54482076f43b0212635e3c87562e4851d8d7"
       url: "https://github.com/huhx/app_common_flutter"
     source: git
     version: "0.0.1"
@@ -355,10 +355,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_hooks
-      sha256: "2b202559a4ed3656bbb7aae9d8b335fb0037b23acc7ae3f377d1ba0b95c21aec"
+      sha256: "6a126f703b89499818d73305e4ce1e3de33b4ae1c5512e3b8eab4b986f46774c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.5+1"
+    version: "0.18.6"
   flutter_html:
     dependency: "direct main"
     description:
@@ -437,10 +437,10 @@ packages:
     dependency: transitive
     description:
       name: fluttertoast
-      sha256: "774fa28b07f3a82c93596bc137be33189fec578ed3447a93a5a11c93435de394"
+      sha256: dd87f28cd7525d1885ad59a9122573c2cf0dc1fc97f6e3609380da871eb11d9f
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.3"
+    version: "8.2.0"
   frontend_server_client:
     dependency: transitive
     description:

@@ -4,11 +4,12 @@ import 'package:flutter_cnblog/api/news_api.dart';
 import 'package:flutter_cnblog/business/main/scroll_provider.dart';
 import 'package:flutter_cnblog/common/stream_consumer_state.dart';
 import 'package:flutter_cnblog/model/news.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'news_item.dart';
 
-class NewsListScreen extends ConsumerStatefulWidget {
+class NewsListScreen extends StatefulHookConsumerWidget {
   final NewsCategory category;
 
   const NewsListScreen(this.category, {super.key});
@@ -17,7 +18,7 @@ class NewsListScreen extends ConsumerStatefulWidget {
   ConsumerState<NewsListScreen> createState() => _NewsListScreenState();
 }
 
-class _NewsListScreenState extends StreamConsumerState<NewsListScreen, NewsInfo> with AutomaticKeepAliveClientMixin {
+class _NewsListScreenState extends StreamConsumerState<NewsListScreen, NewsInfo> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -28,7 +29,8 @@ class _NewsListScreenState extends StreamConsumerState<NewsListScreen, NewsInfo>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, newsList) => ListView.builder(
@@ -38,7 +40,4 @@ class _NewsListScreenState extends StreamConsumerState<NewsListScreen, NewsInfo>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

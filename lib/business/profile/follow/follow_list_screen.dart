@@ -6,8 +6,9 @@ import 'package:flutter_cnblog/business/profile/user_profile_detail_screen.dart'
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
 import 'package:flutter_cnblog/model/follow.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class FollowListScreen extends StatefulWidget {
+class FollowListScreen extends StatefulHookWidget {
   final String name;
   final FollowType type;
 
@@ -17,7 +18,7 @@ class FollowListScreen extends StatefulWidget {
   State<FollowListScreen> createState() => _FollowListScreenState();
 }
 
-class _FollowListScreenState extends StreamState<FollowListScreen, FollowInfo> with AutomaticKeepAliveClientMixin {
+class _FollowListScreenState extends StreamState<FollowListScreen, FollowInfo> {
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
@@ -28,7 +29,8 @@ class _FollowListScreenState extends StreamState<FollowListScreen, FollowInfo> w
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    useAutomaticKeepAlive(wantKeepAlive: true);
+
     return PagedView(
       streamList,
       (context, followList) => ListView.builder(
@@ -37,9 +39,6 @@ class _FollowListScreenState extends StreamState<FollowListScreen, FollowInfo> w
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class FollowItem extends StatelessWidget {
