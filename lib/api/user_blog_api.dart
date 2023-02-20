@@ -1,7 +1,7 @@
+import 'package:app_common_flutter/extension.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cnblog/api/blog_api.dart';
-import 'package:app_common_flutter/extension.dart';
 import 'package:flutter_cnblog/common/parser/blog_comment_parser.dart';
 import 'package:flutter_cnblog/common/parser/blog_post_parser.dart';
 import 'package:flutter_cnblog/common/parser/candidate_parser.dart';
@@ -11,8 +11,6 @@ import 'package:flutter_cnblog/model/popular_blog_resp.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
 import 'package:flutter_cnblog/util/dio_util.dart';
 import 'package:flutter_cnblog/util/prefs_util.dart';
-import 'package:html/dom.dart';
-import 'package:html/parser.dart';
 
 class UserBlogApi {
   Future<List<UserBlog>> getUserBlogList(String name, int pageKey) async {
@@ -128,17 +126,6 @@ class UserBlogApi {
       diggCounts: blogStat.diggCount,
       buryCounts: blogStat.buryCount,
     );
-  }
-
-  Future<String> getBlogContent(String url) async {
-    final Response response = await RestClient.withCookie().get(url);
-
-    await PrefsUtil.saveForgeryCookie(response.headers['set-cookie']?.first ?? "");
-    final Document document = parse(response.data);
-    final String? forgeryToken = document.getElementById("antiforgery_token")?.attributes['value']!;
-    await PrefsUtil.saveForgeryToken(forgeryToken);
-
-    return response.data;
   }
 }
 
