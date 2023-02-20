@@ -35,7 +35,6 @@ class _UserBookmarkContentState extends StreamState<UserBookmarkContent, Bookmar
     return PagedView(
       streamList,
       (context, bookmarks) => ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
         itemCount: bookmarks.length,
         itemBuilder: (_, index) => UserBookmarkItem(bookmark: bookmarks[index], key: ValueKey(bookmarks[index].id)),
       ),
