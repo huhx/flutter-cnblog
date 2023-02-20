@@ -7,11 +7,8 @@ class CookieInterceptor extends QueuedInterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     final String? forgeryCookie = PrefsUtil.getForgeryCookie();
 
-    if (forgeryCookie != null && forgeryCookie.isNotEmpty) {
-      options.headers["Cookie"] = "${Constant.authCookieName}=${PrefsUtil.getCookie()};$forgeryCookie;";
-      options.headers["x-requested-with"] = "XMLHttpRequest";
-    }
-
+    options.headers["Cookie"] = "${Constant.authCookieName}=${PrefsUtil.getCookie()};$forgeryCookie;";
+    options.headers["x-requested-with"] = "XMLHttpRequest";
     handler.next(options);
   }
 }
