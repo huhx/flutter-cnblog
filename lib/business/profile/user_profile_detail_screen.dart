@@ -165,6 +165,7 @@ class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> {
       streamList,
       (context, userMoments) => ListView.builder(
         itemCount: userMoments.length,
+        padding: const EdgeInsets.symmetric(vertical: 8),
         itemBuilder: (_, index) => UserMomentItem(userMoments[index], key: ValueKey(userMoments[index].url)),
       ),
     );
@@ -179,7 +180,7 @@ class UserMomentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

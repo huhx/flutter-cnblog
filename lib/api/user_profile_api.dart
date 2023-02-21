@@ -16,14 +16,11 @@ class UserProfileApi {
 
   Future<List<UserProfileMoment>> getUserProfileMoment(String name, int pageKey) async {
     final String url = "https://home.cnblogs.com/ajax/feed/recent?alias=$name";
-    final requestBody = {
-      "feedListType": "me",
-      "appId": "",
-      "pageIndex": 1,
-      "pageSize": 30,
-      "groupId": "",
-    };
-    final Response response = await RestClient.withCookie().post(url, data: requestBody);
+    final Response response = await RestClient.withCookie().post(
+      url,
+      data: {"feedListType": "me", "appId": "", "pageIndex": 1, "pageSize": 30, "groupId": ""},
+      options: Options(contentType: Headers.jsonContentType),
+    );
 
     return compute(UserProfileParser.parseUserProfileMoment, response.data as String);
   }
