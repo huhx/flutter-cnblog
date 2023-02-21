@@ -1,9 +1,13 @@
+import 'package:app_common_flutter/extension.dart';
 import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/user_blog_api.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_item.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_blog.dart';
+import 'package:sticky_headers/sticky_headers.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UserBlogContent extends StatefulWidget {
   final UserInfo user;
@@ -31,12 +35,54 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedView(
-      streamList,
-      (context, blogs) => ListView.builder(
-        itemCount: blogs.length,
-        itemBuilder: (_, index) => UserBlogItem(userBlog: blogs[index], userInfo: widget.user, key: ValueKey(blogs[index].id)),
-      ),
+    return StreamBuilder(
+      stream: streamList.stream,
+      builder: (context, snap) {
+        if (!snap.hasData) return const CenterProgressIndicator();
+        final List<UserBlog> blogs = snap.data as List<UserBlog>;
+
+        if (blogs.isEmpty) {
+          return const EmptyWidget(message: "博客为空");
+        }
+        final Map<String, List<UserBlog>> blogMap = blogs.groupBy((blog) => blog.dayTitle);
+
+        return SmartRefresher(
+          controller: streamList.refreshController,
+          onRefresh: () => streamList.onRefresh(),
+          onLoading: () => streamList.onLoading(),
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: blogMap.length,
+            itemBuilder: (_, index) {
+              final String key = blogMap.keys.elementAt(index);
+              final List<UserBlog> blogItems = blogMap[key]!;
+
+              return StickyHeader(
+                overlapHeaders: false,
+                header: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [SimpleTextIcon(icon: "read_log", text: key)],
+                  ),
+                ),
+                content: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  primary: false,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => UserBlogItem(
+                    userBlog: blogs[index],
+                    userInfo: widget.user,
+                    key: ValueKey(blogs[index].id),
+                  ),
+                  itemCount: blogItems.length,
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
