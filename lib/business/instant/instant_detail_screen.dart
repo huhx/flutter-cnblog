@@ -18,7 +18,7 @@ class InstantDetailScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final parentCommentId = useState(0);
-    final focusNode = useState(FocusNode());
+    final focusNode = useFocusNode();
     final hintText = useState("");
     final commentCounts = useState(instant.commentCounts);
 
@@ -91,7 +91,7 @@ class InstantDetailScreen extends HookWidget {
                               return InkWell(
                                 onTap: () {
                                   parentCommentId.value = instantComment.id;
-                                  focusNode.value.requestFocus();
+                                  focusNode.requestFocus();
                                   hintText.value = "@${instantComment.toName}";
                                 },
                                 child: Card(
@@ -137,7 +137,7 @@ class InstantDetailScreen extends HookWidget {
           CommentWidget(
             instant,
             parentCommentId.value,
-            focusNode.value,
+            focusNode,
             hintText.value,
             () => commentCounts.value = commentCounts.value + 1,
           ),
