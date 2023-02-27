@@ -1,11 +1,10 @@
 import 'package:app_common_flutter/constant.dart';
 import 'package:app_common_flutter/extension.dart';
 import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:app_common_flutter/views.dart';
-import 'package:flutter_cnblog/common/extension/int_extension.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/util/date_util.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -62,7 +61,7 @@ class _ReadLogListScreenState extends StreamState<ReadLogListScreen, ReadLog> {
           if (readLogs.isEmpty) {
             return const EmptyWidget(message: "阅读记录为空");
           }
-          final Map<String, List<ReadLog>> readLogMap = readLogs.groupBy((readLog) => readLog.createTime.toDateString());
+          final Map<String, List<ReadLog>> readLogMap = readLogs.groupBy((readLog) => readLog.createTime.dateString);
 
           return SlidableAutoCloseBehavior(
             child: SmartRefresher(
