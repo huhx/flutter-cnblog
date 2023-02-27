@@ -70,22 +70,18 @@ class IsFollowWidget extends StatelessWidget {
       builder: (context, snap) {
         if (!snap.hasData) return const SizedBox();
         bool isFollow = snap.data as bool;
-        String text = isFollow ? "取消关注" : "关注";
 
         return StatefulBuilder(
           builder: (context, setter) {
             return InkWell(
-              child: Text(text, style: const TextStyle(color: Colors.white)),
+              child: Text(isFollow ? "取消关注" : "关注", style: const TextStyle(color: Colors.white)),
               onTap: () async {
                 if (isFollow) {
                   await userFollowApi.unfollow(userId);
                 } else {
                   await userFollowApi.follow(userId, displayName);
                 }
-                setter(() {
-                  isFollow = !isFollow;
-                  text = isFollow ? "取消关注" : "关注";
-                });
+                setter(() => isFollow = !isFollow);
               },
             );
           },
