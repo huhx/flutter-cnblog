@@ -65,11 +65,8 @@ class _MainAppState extends ConsumerState<MainApp> {
   void initPackageInfo() async {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    final String version = packageInfo.version;
-    final String buildNumber = packageInfo.buildNumber;
-
-    AppConfig.save("version", version);
-    AppConfig.save("buildNumber", buildNumber);
+    AppConfig.save("version", packageInfo.version);
+    AppConfig.save("buildNumber", packageInfo.buildNumber);
   }
 
   @override
