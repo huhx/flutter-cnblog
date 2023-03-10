@@ -12,7 +12,12 @@ class AuthRequest {
       "state": "cnblog",
       "nonce": DateTime.now().millisecondsSinceEpoch.toString(),
     };
-    return Uri(scheme: "https", host: "oauth.cnblogs.com", path: "connect/authorize", queryParameters: parameters);
+    return Uri(
+      scheme: "https",
+      host: "oauth.cnblogs.com",
+      path: "connect/authorize",
+      queryParameters: parameters,
+    );
   }
 
   static String getCodeFromUrl(String url) {

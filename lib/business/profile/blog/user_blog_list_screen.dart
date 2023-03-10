@@ -48,10 +48,16 @@ class UserBlogHeader extends StatelessWidget {
             children: [
               CircleImage(url: user.avatar, size: 48),
               const SizedBox(width: 8),
-              Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+              Text(
+                user.displayName,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ],
           ),
-          Padding(padding: const EdgeInsets.only(top: 26), child: UserBlogDataInfo(user)),
+          Padding(
+            padding: const EdgeInsets.only(top: 26),
+            child: UserBlogDataInfo(user),
+          ),
         ],
       ),
     );

@@ -36,7 +36,10 @@ class _QuestionListScreenState extends StreamConsumerState<QuestionListScreen, Q
       (context, questions) => ListView.builder(
         controller: ref.watch(scrollProvider.notifier).get("question"),
         itemCount: questions.length,
-        itemBuilder: (_, index) => QuestionItem(question: questions[index], key: ValueKey(questions[index].id)),
+        itemBuilder: (_, index) => QuestionItem(
+          question: questions[index],
+          key: ValueKey(questions[index].id),
+        ),
       ),
     );
   }

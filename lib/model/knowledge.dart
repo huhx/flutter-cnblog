@@ -38,6 +38,13 @@ class KnowledgeInfo extends Equatable {
   }
 
   DetailModel toDetail() {
-    return DetailModel(id: id, title: title, name: category, url: urlString(), viewCount: viewCount, diggCount: diggCount);
+    return DetailModel(
+      id: id,
+      title: title,
+      name: category,
+      url: urlString(),
+      viewCount: viewCount,
+      diggCount: diggCount,
+    );
   }
 }

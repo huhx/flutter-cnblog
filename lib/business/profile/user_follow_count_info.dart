@@ -30,9 +30,15 @@ class UserFollowCountInfo extends HookWidget {
               onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follow)),
               child: Row(
                 children: [
-                  Text("${userProfile.followCounts}", style: const TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "${userProfile.followCounts}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                   const SizedBox(width: 2),
-                  const Text("关注", style: TextStyle(fontSize: 12, color: Colors.white70)),
+                  const Text(
+                    "关注",
+                    style: TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
                 ],
               ),
             ),
@@ -41,9 +47,15 @@ class UserFollowCountInfo extends HookWidget {
               onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follower)),
               child: Row(
                 children: [
-                  Text("${userProfile.followerCounts}", style: const TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "${userProfile.followerCounts}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                   const SizedBox(width: 2),
-                  const Text("粉丝", style: TextStyle(fontSize: 12, color: Colors.white70)),
+                  const Text(
+                    "粉丝",
+                    style: TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
                 ],
               ),
             ),
@@ -74,7 +86,10 @@ class IsFollowWidget extends StatelessWidget {
         return StatefulBuilder(
           builder: (context, setter) {
             return InkWell(
-              child: Text(isFollow ? "取消关注" : "关注", style: const TextStyle(color: Colors.white)),
+              child: Text(
+                isFollow ? "取消关注" : "关注",
+                style: const TextStyle(color: Colors.white),
+              ),
               onTap: () async {
                 if (isFollow) {
                   await userFollowApi.unfollow(userId);

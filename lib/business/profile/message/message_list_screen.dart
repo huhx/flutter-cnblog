@@ -34,7 +34,10 @@ class _MessageListScreenState extends StreamConsumerState<MessageListScreen, Mes
       streamList,
       (context, messages) => ListView.builder(
         itemCount: messages.length,
-        itemBuilder: (_, index) => MessageItem(message: messages[index], key: ValueKey(messages[index].id)),
+        itemBuilder: (_, index) => MessageItem(
+          message: messages[index],
+          key: ValueKey(messages[index].id),
+        ),
       ),
     );
   }
@@ -56,9 +59,15 @@ class MessageItem extends StatelessWidget {
             foregroundColor: Colors.white,
             child: Text(message.author[0]),
           ),
-          title: Text(message.author, style: Theme.of(context).textTheme.bodyMedium),
+          title: Text(
+            message.author,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           subtitle: Text(message.title, maxLines: 1),
-          trailing: Text(message.postDate.substring(0, 10), style: const TextStyle(color: Colors.grey)),
+          trailing: Text(
+            message.postDate.substring(0, 10),
+            style: const TextStyle(color: Colors.grey),
+          ),
         ),
       ),
     );

@@ -61,7 +61,10 @@ class UserProfileHeader extends StatelessWidget {
             children: [
               CircleImage(url: user.avatar, size: 48),
               const SizedBox(width: 8),
-              Text(user.displayName, style: const TextStyle(color: Colors.white, fontSize: 20)),
+              Text(
+                user.displayName,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ],
           ),
           Padding(
@@ -133,7 +136,10 @@ class UserHeaderInfoItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ConstrainedBox(constraints: const BoxConstraints(minWidth: 40), child: left),
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 40),
+            child: left,
+          ),
           right,
         ],
       ),
@@ -160,13 +166,16 @@ class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> {
   @override
   Widget build(BuildContext context) {
     useAutomaticKeepAlive(wantKeepAlive: true);
-    
+
     return PagedView(
       streamList,
       (context, userMoments) => ListView.builder(
         itemCount: userMoments.length,
         padding: const EdgeInsets.symmetric(vertical: 8),
-        itemBuilder: (_, index) => UserMomentItem(userMoments[index], key: ValueKey(userMoments[index].url)),
+        itemBuilder: (_, index) => UserMomentItem(
+          userMoments[index],
+          key: ValueKey(userMoments[index].url),
+        ),
       ),
     );
   }
@@ -208,7 +217,10 @@ class UserMomentItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(userMoment.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                  Text(
+                    userMoment.title,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
                   const SizedBox(height: 8),
                   Text(
                     userMoment.summary,

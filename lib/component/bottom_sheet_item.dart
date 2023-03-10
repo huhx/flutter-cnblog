@@ -11,7 +11,7 @@ class BottomSheetItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
-        if (callback != null) callback!();
+        callback?.call();
       },
       child: Container(
         color: Theme.of(context).colorScheme.background,

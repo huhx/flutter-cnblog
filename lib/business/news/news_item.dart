@@ -37,7 +37,10 @@ class NewsItem extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(news.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                news.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 news.summary,

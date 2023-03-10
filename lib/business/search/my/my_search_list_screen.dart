@@ -22,7 +22,11 @@ class _MySearchListScreenState extends StreamConsumerState<MySearchListScreen, S
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<SearchInfo> searchResults = await searchApi.getMySearchContents(widget.searchType, pageKey, ref.read(searchProvider));
+      final List<SearchInfo> searchResults = await searchApi.getMySearchContents(
+        widget.searchType,
+        pageKey,
+        ref.read(searchProvider),
+      );
       streamList.fetch(searchResults, pageKey, pageSize: 10);
     }
   }
@@ -34,7 +38,10 @@ class _MySearchListScreenState extends StreamConsumerState<MySearchListScreen, S
       (context, searchList) => ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         itemCount: searchList.length,
-        itemBuilder: (_, index) => MySearchItem(searchList[index], key: ValueKey(searchList[index].url)),
+        itemBuilder: (_, index) => MySearchItem(
+          searchList[index],
+          key: ValueKey(searchList[index].url),
+        ),
       ),
     );
   }

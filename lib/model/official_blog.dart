@@ -85,7 +85,11 @@ class OfficialHot extends Equatable {
   }
 
   UserInfo toInfo() {
-    return UserInfo(displayName: name, avatar: "", blogName: Comm.getNameFromBlogUrl(url));
+    return UserInfo(
+      displayName: name,
+      avatar: "",
+      blogName: Comm.getNameFromBlogUrl(url),
+    );
   }
 }
 

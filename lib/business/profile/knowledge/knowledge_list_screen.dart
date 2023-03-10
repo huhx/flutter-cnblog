@@ -38,7 +38,10 @@ class _KnowledgeListScreenState extends StreamState<KnowledgeListScreen, Knowled
         streamList,
         (context, knowledgeList) => ListView.builder(
           itemCount: knowledgeList.length,
-          itemBuilder: (_, index) => KnowledgeItem(knowledgeList[index], key: ValueKey(knowledgeList[index].id)),
+          itemBuilder: (_, index) => KnowledgeItem(
+            knowledgeList[index],
+            key: ValueKey(knowledgeList[index].id),
+          ),
         ),
       ),
     );
@@ -56,7 +59,11 @@ class KnowledgeItem extends StatelessWidget {
       onTap: () {
         final DetailModel detailModel = knowledge.toDetail();
         context.goto(KnowledgeDetailScreen(detailModel));
-        readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: knowledge.summary, detailModel: detailModel));
+        readLogApi.insert(ReadLog.of(
+          type: ReadLogType.knowledge,
+          summary: knowledge.summary,
+          detailModel: detailModel,
+        ));
       },
       child: Card(
         child: Container(
@@ -64,12 +71,19 @@ class KnowledgeItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(knowledge.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                knowledge.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 knowledge.summary,
                 maxLines: 2,
-                style: const TextStyle(fontSize: 13, color: Colors.grey, overflow: TextOverflow.ellipsis),
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const SizedBox(height: 6),
               Row(
@@ -77,7 +91,10 @@ class KnowledgeItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(knowledge.category, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+                      Text(
+                        knowledge.category,
+                        style: const TextStyle(fontSize: 13, color: Colors.grey),
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         "阅读(${knowledge.viewCount})",

@@ -19,7 +19,10 @@ class LogoutItem extends ConsumerWidget {
     );
   }
 
-  Future<void> _buildShowConfirmDialog(BuildContext context, SessionModel sessionModel) async {
+  Future<void> _buildShowConfirmDialog(
+    BuildContext context,
+    SessionModel sessionModel,
+  ) async {
     context.showCommDialog(
       callback: () async {
         await sessionModel.logout();

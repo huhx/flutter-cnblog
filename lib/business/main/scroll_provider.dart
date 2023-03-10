@@ -31,6 +31,10 @@ class ScrollModel extends StateNotifier<Map<String, ScrollController>> {
 
   void scrollToTop(String type) {
     final ScrollController scrollController = state[type]!;
-    scrollController.animateTo(0.0, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+    scrollController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
   }
 }

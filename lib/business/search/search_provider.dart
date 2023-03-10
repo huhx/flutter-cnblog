@@ -11,7 +11,5 @@ class SearchModel extends StateNotifier<String> {
     state = queryString;
   }
 
-  void reset() {
-    state = "";
-  }
+  void reset() => state = "";
 }

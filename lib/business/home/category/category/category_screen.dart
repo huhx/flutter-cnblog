@@ -6,14 +6,9 @@ import 'package:flutter_cnblog/common/constant/enum_constant.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 
-class CategoryScreen extends StatefulWidget {
+class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
 
-  @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
-}
-
-class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

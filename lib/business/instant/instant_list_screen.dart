@@ -36,7 +36,10 @@ class _InstantListScreenState extends StreamConsumerState<InstantListScreen, Ins
       (context, instants) => ListView.builder(
         controller: ref.watch(scrollProvider.notifier).get("instant"),
         itemCount: instants.length,
-        itemBuilder: (_, index) => InstantItem(instant: instants[index], key: ValueKey(instants[index].id)),
+        itemBuilder: (_, index) => InstantItem(
+          instant: instants[index],
+          key: ValueKey(instants[index].id),
+        ),
       ),
     );
   }

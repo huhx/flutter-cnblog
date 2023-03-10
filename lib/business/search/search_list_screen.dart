@@ -30,7 +30,11 @@ class _SearchListScreenState extends StreamConsumerState<SearchListScreen, Searc
   @override
   Future<void> fetchPage(int pageKey) async {
     if (streamList.isOpen) {
-      final List<SearchInfo> searchResults = await searchApi.getSearchContents(widget.searchType, pageKey, widget.keyword);
+      final List<SearchInfo> searchResults = await searchApi.getSearchContents(
+        widget.searchType,
+        pageKey,
+        widget.keyword,
+      );
       streamList.fetch(searchResults, pageKey, pageSize: 10);
     }
   }
@@ -44,7 +48,11 @@ class _SearchListScreenState extends StreamConsumerState<SearchListScreen, Searc
       (context, searchList) => ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
         itemCount: searchList.length,
-        itemBuilder: (_, index) => SearchItem(searchList[index], widget.searchType, key: ValueKey(searchList[index].url)),
+        itemBuilder: (_, index) => SearchItem(
+          searchList[index],
+          widget.searchType,
+          key: ValueKey(searchList[index].url),
+        ),
       ),
     );
   }
@@ -71,18 +79,30 @@ class SearchItem extends StatelessWidget {
         switch (searchType) {
           case SearchType.news:
             context.goto(NewsDetailScreen(detailModel));
-            readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: searchInfo.summary, detailModel: detailModel));
+            readLogApi.insert(ReadLog.of(
+              type: ReadLogType.news,
+              summary: searchInfo.summary,
+              detailModel: detailModel,
+            ));
             break;
           case SearchType.blog:
             context.goto(BlogDetailScreen(blog: detailModel));
-            readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: searchInfo.summary, detailModel: detailModel));
+            readLogApi.insert(ReadLog.of(
+              type: ReadLogType.blog,
+              summary: searchInfo.summary,
+              detailModel: detailModel,
+            ));
             break;
           case SearchType.question:
             context.goto(QuestionDetailScreen(question: detailModel));
             break;
           case SearchType.knowledge:
             context.goto(KnowledgeDetailScreen(detailModel));
-            readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: searchInfo.summary, detailModel: detailModel));
+            readLogApi.insert(ReadLog.of(
+              type: ReadLogType.knowledge,
+              summary: searchInfo.summary,
+              detailModel: detailModel,
+            ));
             break;
         }
       },

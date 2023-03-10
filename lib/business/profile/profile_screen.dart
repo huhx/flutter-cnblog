@@ -95,7 +95,10 @@ class ProfileHeader extends StatelessWidget {
       onTap: () => context.goto(UserProfileDetailScreen(user)),
       leading: CircleImage(url: user.avatar, size: 48),
       contentPadding: EdgeInsets.zero,
-      title: Text(user.displayName, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20)),
+      title: Text(
+        user.displayName,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
+      ),
       trailing: const ListTileTrailing(),
     );
   }
@@ -110,7 +113,10 @@ class NoLoginProfileHeader extends StatelessWidget {
       onTap: () => context.gotoLogin(const LoginScreen()),
       leading: const SvgIcon(name: "no_login_user", size: 48),
       contentPadding: EdgeInsets.zero,
-      title: Text("登录", style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20)),
+      title: Text(
+        "登录",
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
+      ),
       trailing: const ListTileTrailing(),
     );
   }
@@ -133,11 +139,17 @@ class ProfileInfo extends StatelessWidget {
             children: [
               InkWell(
                 child: ProfileInfoItem(counts: userProfileData.follow, label: "关注"),
-                onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follow)),
+                onTap: () => context.goto(FollowScreen(
+                  name: userProfileData.name,
+                  followType: FollowType.follow,
+                )),
               ),
               InkWell(
                 child: ProfileInfoItem(counts: userProfileData.follower, label: "粉丝"),
-                onTap: () => context.goto(FollowScreen(name: userProfileData.name, followType: FollowType.follower)),
+                onTap: () => context.goto(FollowScreen(
+                  name: userProfileData.name,
+                  followType: FollowType.follower,
+                )),
               ),
               ProfileInfoItem(counts: userProfileData.comment, label: "评论"),
               ProfileInfoItem(counts: userProfileData.view, label: "阅读"),
@@ -185,7 +197,10 @@ class ProfileInfoItem extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
         ),
         const SizedBox(height: 6),
-        Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 13, color: Colors.grey),
+        ),
       ],
     );
   }

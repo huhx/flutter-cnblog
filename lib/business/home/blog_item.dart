@@ -29,7 +29,10 @@ class BlogItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(blog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                blog.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 blog.description,
@@ -46,7 +49,10 @@ class BlogItem extends StatelessWidget {
                     children: [
                       CircleImage(url: blog.avatar),
                       const SizedBox(width: 6),
-                      Text(blog.author, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text(
+                        blog.author,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                       const SizedBox(width: 16),
                       TextIcon(icon: "like", counts: blog.diggCount),
                       const SizedBox(width: 8),

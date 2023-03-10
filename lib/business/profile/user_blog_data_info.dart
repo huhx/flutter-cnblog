@@ -41,9 +41,15 @@ class BlogInfoItem extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text("$count", style: const TextStyle(color: Colors.white, fontSize: 16)),
+        Text(
+          "$count",
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+        ),
         const SizedBox(width: 2),
-        Text(label, style: const TextStyle(fontSize: 12, color: Colors.white70)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, color: Colors.white70),
+        ),
       ],
     );
   }

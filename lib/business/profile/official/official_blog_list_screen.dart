@@ -38,7 +38,10 @@ class _OfficialBlogListScreenState extends StreamState<OfficialBlogListScreen, O
         streamList,
         (context, officialBlogs) => ListView.builder(
           itemCount: officialBlogs.length,
-          itemBuilder: (_, index) => OfficialBlogItem(blog: officialBlogs[index], key: ValueKey(officialBlogs[index].id)),
+          itemBuilder: (_, index) => OfficialBlogItem(
+            blog: officialBlogs[index],
+            key: ValueKey(officialBlogs[index].id),
+          ),
         ),
       ),
     );
@@ -59,7 +62,11 @@ class OfficialBlogItem extends StatelessWidget {
         } else {
           final DetailModel detailModel = blog.toDetail();
           context.goto(BlogDetailScreen(blog: detailModel));
-          readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blog.summary, detailModel: detailModel));
+          readLogApi.insert(ReadLog.of(
+            type: ReadLogType.blog,
+            summary: blog.summary,
+            detailModel: detailModel,
+          ));
         }
       },
       child: Card(
@@ -68,7 +75,10 @@ class OfficialBlogItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(blog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                blog.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 blog.summary,
@@ -90,7 +100,10 @@ class OfficialBlogItem extends StatelessWidget {
                       TextIcon(icon: "view", counts: blog.viewCount),
                     ],
                   ),
-                  Text(blog.postDate, style: const TextStyle(color: Colors.grey, fontSize: 12))
+                  Text(
+                    blog.postDate,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  )
                 ],
               )
             ],

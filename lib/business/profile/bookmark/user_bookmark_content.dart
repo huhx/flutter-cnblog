@@ -36,7 +36,10 @@ class _UserBookmarkContentState extends StreamState<UserBookmarkContent, Bookmar
       streamList,
       (context, bookmarks) => ListView.builder(
         itemCount: bookmarks.length,
-        itemBuilder: (_, index) => UserBookmarkItem(bookmark: bookmarks[index], key: ValueKey(bookmarks[index].id)),
+        itemBuilder: (_, index) => UserBookmarkItem(
+          bookmark: bookmarks[index],
+          key: ValueKey(bookmarks[index].id),
+        ),
       ),
     );
   }
@@ -53,7 +56,11 @@ class UserBookmarkItem extends StatelessWidget {
       onTap: () {
         context.goto(UserBookmarkDetailScreen(bookmark));
         final DetailModel detailModel = bookmark.toDetail();
-        readLogApi.insert(ReadLog.of(type: bookmark.readLogType, summary: bookmark.url, detailModel: detailModel));
+        readLogApi.insert(ReadLog.of(
+          type: bookmark.readLogType,
+          summary: bookmark.url,
+          detailModel: detailModel,
+        ));
       },
       child: Card(
         child: Container(
@@ -61,13 +68,22 @@ class UserBookmarkItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(bookmark.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                bookmark.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
-              Text(bookmark.url, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+              Text(
+                bookmark.url,
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
+              ),
               const SizedBox(height: 6),
               Row(
                 children: [
-                  const Text("收藏于", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                  const Text(
+                    "收藏于",
+                    style: TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
                   Text(
                     timeago.format(bookmark.postDate),
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
@@ -75,8 +91,14 @@ class UserBookmarkItem extends StatelessWidget {
                   const SizedBox(width: 16),
                   const SvgIcon(name: "star", size: 14, color: Colors.grey),
                   const SizedBox(width: 2),
-                  Text("${bookmark.starCounts}", style: const TextStyle(fontSize: 13, color: Colors.grey)),
-                  const Text("人收藏", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                  Text(
+                    "${bookmark.starCounts}",
+                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
+                  const Text(
+                    "人收藏",
+                    style: TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
                 ],
               )
             ],

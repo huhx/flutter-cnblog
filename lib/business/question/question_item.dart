@@ -21,7 +21,10 @@ class QuestionItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(question.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                question.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 question.summary,
@@ -38,7 +41,10 @@ class QuestionItem extends StatelessWidget {
                     children: [
                       CircleImage(url: question.avatar),
                       const SizedBox(width: 6),
-                      Text(question.submitter, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text(
+                        question.submitter,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                       const SizedBox(width: 10),
                       TextIcon(icon: "view", counts: question.viewCount),
                     ],

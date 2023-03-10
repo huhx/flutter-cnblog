@@ -36,7 +36,10 @@ class _NewsListScreenState extends StreamConsumerState<NewsListScreen, NewsInfo>
       (context, newsList) => ListView.builder(
         controller: ref.watch(scrollProvider.notifier).get("news"),
         itemCount: newsList.length,
-        itemBuilder: (_, index) => NewsItem(news: newsList[index], key: ValueKey(newsList[index].id)),
+        itemBuilder: (_, index) => NewsItem(
+          news: newsList[index],
+          key: ValueKey(newsList[index].id),
+        ),
       ),
     );
   }

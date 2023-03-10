@@ -122,7 +122,11 @@ class BlogDiggReq extends Equatable {
   List<Object?> get props => [postId, isAbandoned, voteType];
 
   Map<String, dynamic> toJson() {
-    return {"postId": postId, "isAbandoned": isAbandoned, "voteType": voteType.text};
+    return {
+      "postId": postId,
+      "isAbandoned": isAbandoned,
+      "voteType": voteType.text,
+    };
   }
 }
 
@@ -143,7 +147,12 @@ class BlogCommentReq extends Equatable {
   List<Object?> get props => [postId, pageIndex, anchorCommentId, isDesc];
 
   Map<String, dynamic> toJson() {
-    return {"postId": postId, "pageIndex": pageIndex, "parentCommentId": anchorCommentId, "isDesc": isDesc};
+    return {
+      "postId": postId,
+      "pageIndex": pageIndex,
+      "parentCommentId": anchorCommentId,
+      "isDesc": isDesc,
+    };
   }
 }
 
@@ -162,7 +171,11 @@ class BlogCommentCreateReq extends Equatable {
   List<Object?> get props => [postId, body, parentCommentId];
 
   Map<String, dynamic> toJson() {
-    return {"postId": postId, "body": body, "parentCommentId": parentCommentId};
+    return {
+      "postId": postId,
+      "body": body,
+      "parentCommentId": parentCommentId,
+    };
   }
 }
 
@@ -198,7 +211,11 @@ class BlogCommentDeleteReq extends Equatable {
   List<Object?> get props => [pageIndex, parentId, commentId];
 
   Map<String, dynamic> toJson() {
-    return {"pageIndex": pageIndex, "parentId": parentId, "commentId": commentId};
+    return {
+      "pageIndex": pageIndex,
+      "parentId": parentId,
+      "commentId": commentId,
+    };
   }
 }
 
@@ -336,7 +353,11 @@ class BlogPostInfoReq extends Equatable {
   List<Object?> get props => [blogId, postId, blogUserGuid];
 
   Map<String, dynamic> toJson() {
-    return {"blogId": blogId, "postId": postId, "blogUserGuid": blogUserGuid};
+    return {
+      "blogId": blogId,
+      "postId": postId,
+      "blogUserGuid": blogUserGuid,
+    };
   }
 }
 

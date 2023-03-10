@@ -118,7 +118,10 @@ class ShareItem extends StatelessWidget {
             child: SvgIcon(name: icon, size: 28, color: color),
           ),
           const SizedBox(height: 8),
-          Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey))
+          Text(
+            label,
+            style: const TextStyle(fontSize: 13, color: Colors.grey),
+          )
         ],
       ),
     );

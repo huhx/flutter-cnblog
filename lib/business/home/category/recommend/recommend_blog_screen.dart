@@ -40,7 +40,11 @@ class _RecommendBlogScreenState extends StreamConsumerState<RecommendBlogScreen,
       (context, blogs) => ListView.builder(
         controller: ref.watch(scrollProvider.notifier).get("blog"),
         itemCount: blogs.length,
-        itemBuilder: (_, index) => BlogItem(index: index, blog: blogs[index], key: ValueKey(blogs[index].blogId)),
+        itemBuilder: (_, index) => BlogItem(
+          index: index,
+          blog: blogs[index],
+          key: ValueKey(blogs[index].blogId),
+        ),
       ),
     );
   }
@@ -61,7 +65,11 @@ class BlogItem extends StatelessWidget {
         final BlogContentResp blogContentResp = await blogApi.getBlogByUrl(encodeString);
         final DetailModel detailModel = blogContentResp.toBlogResp().toDetail();
         context.goto(BlogDetailScreen(blog: detailModel));
-        readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: blogContentResp.description, detailModel: detailModel));
+        readLogApi.insert(ReadLog.of(
+          type: ReadLogType.blog,
+          summary: blogContentResp.description,
+          detailModel: detailModel,
+        ));
       },
       child: Card(
         child: Container(
@@ -78,7 +86,10 @@ class BlogItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(blog.title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    Text(
+                      blog.title,
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

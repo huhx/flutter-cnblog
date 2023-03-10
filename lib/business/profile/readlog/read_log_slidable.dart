@@ -16,7 +16,11 @@ class ReadLogSlidable extends ConsumerWidget {
   final ReadLog readlog;
   final Function(String) onDelete;
 
-  const ReadLogSlidable({required this.readlog, required this.onDelete, super.key});
+  const ReadLogSlidable({
+    required this.readlog,
+    required this.onDelete,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,13 +64,25 @@ class ReadLogItem extends StatelessWidget {
       onTap: () {
         if (readLog.type == ReadLogType.blog) {
           context.goto(BlogDetailScreen(blog: detailModel));
-          readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: readLog.summary, detailModel: detailModel));
+          readLogApi.insert(ReadLog.of(
+            type: ReadLogType.blog,
+            summary: readLog.summary,
+            detailModel: detailModel,
+          ));
         } else if (readLog.type == ReadLogType.news) {
           context.goto(NewsDetailScreen(detailModel));
-          readLogApi.insert(ReadLog.of(type: ReadLogType.news, summary: readLog.summary, detailModel: detailModel));
+          readLogApi.insert(ReadLog.of(
+            type: ReadLogType.news,
+            summary: readLog.summary,
+            detailModel: detailModel,
+          ));
         } else if (readLog.type == ReadLogType.knowledge) {
           context.goto(KnowledgeDetailScreen(detailModel));
-          readLogApi.insert(ReadLog.of(type: ReadLogType.knowledge, summary: readLog.summary, detailModel: detailModel));
+          readLogApi.insert(ReadLog.of(
+            type: ReadLogType.knowledge,
+            summary: readLog.summary,
+            detailModel: detailModel,
+          ));
         }
       },
       child: Card(
@@ -83,7 +99,10 @@ class ReadLogItem extends StatelessWidget {
                       color: Colors.blueAccent.withOpacity(0.7),
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
-                    child: Text(readLog.type.label, style: const TextStyle(fontSize: 13)),
+                    child: Text(
+                      readLog.type.label,
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Flexible(
@@ -113,7 +132,10 @@ class ReadLogItem extends StatelessWidget {
                       if (detailModel.name != null)
                         Padding(
                           padding: const EdgeInsets.only(right: 16),
-                          child: Text(detailModel.name!, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                          child: Text(
+                            detailModel.name!,
+                            style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
                         ),
                       if (detailModel.diggCount != null)
                         Padding(

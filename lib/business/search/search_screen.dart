@@ -15,6 +15,7 @@ class SearchScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final query = useState("");
+    
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -53,7 +54,10 @@ class SearchScreen extends HookConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => query.value = textEditingController.text,
-              child: const Text("搜索", style: TextStyle(color: Colors.white)),
+              child: const Text(
+                "搜索",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
           bottom: const TabBar(

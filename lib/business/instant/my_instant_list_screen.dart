@@ -32,7 +32,10 @@ class _MyInstantListScreenState extends StreamState<MyInstantListScreen, Instant
       streamList,
       (context, instants) => ListView.builder(
         itemCount: instants.length,
-        itemBuilder: (_, index) => InstantItem(instant: instants[index], key: ValueKey(instants[index].id)),
+        itemBuilder: (_, index) => InstantItem(
+          instant: instants[index],
+          key: ValueKey(instants[index].id),
+        ),
       ),
     );
   }

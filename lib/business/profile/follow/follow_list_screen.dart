@@ -35,7 +35,10 @@ class _FollowListScreenState extends StreamState<FollowListScreen, FollowInfo> {
       streamList,
       (context, followList) => ListView.builder(
         itemCount: followList.length,
-        itemBuilder: (_, index) => FollowItem(followList[index], key: ValueKey(followList[index].userId)),
+        itemBuilder: (_, index) => FollowItem(
+          followList[index],
+          key: ValueKey(followList[index].userId),
+        ),
       ),
     );
   }
@@ -53,8 +56,14 @@ class FollowItem extends StatelessWidget {
       child: Card(
         child: ListTile(
           leading: CircleImage(url: followInfo.avatar, size: 48),
-          title: Text(followInfo.name, style: Theme.of(context).textTheme.bodyMedium),
-          subtitle: Text(followInfo.displayName, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+          title: Text(
+            followInfo.name,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          subtitle: Text(
+            followInfo.displayName,
+            style: const TextStyle(fontSize: 13, color: Colors.grey),
+          ),
           trailing: const ListTileTrailing(),
         ),
       ),

@@ -29,7 +29,10 @@ class UserBlogItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(userBlog.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Text(
+                userBlog.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
               const SizedBox(height: 6),
               Text(
                 userBlog.summary,
@@ -44,7 +47,10 @@ class UserBlogItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(userBlog.name, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text(
+                        userBlog.name,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                       const SizedBox(width: 16),
                       TextIcon(icon: "like", counts: userBlog.diggCount),
                       const SizedBox(width: 8),
