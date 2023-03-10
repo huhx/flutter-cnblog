@@ -27,7 +27,10 @@ class UserFollowCountInfo extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follow)),
+              onTap: () => context.goto(FollowScreen(
+                name: userProfile.name,
+                followType: FollowType.follow,
+              )),
               child: Row(
                 children: [
                   Text(
@@ -44,7 +47,10 @@ class UserFollowCountInfo extends HookWidget {
             ),
             const SizedBox(width: 16),
             InkWell(
-              onTap: () => context.goto(FollowScreen(name: userProfile.name, followType: FollowType.follower)),
+              onTap: () => context.goto(FollowScreen(
+                name: userProfile.name,
+                followType: FollowType.follower,
+              )),
               child: Row(
                 children: [
                   Text(
@@ -73,7 +79,11 @@ class IsFollowWidget extends StatelessWidget {
   final String userId;
   final String displayName;
 
-  const IsFollowWidget({required this.userId, required this.displayName, super.key});
+  const IsFollowWidget({
+    required this.userId,
+    required this.displayName,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

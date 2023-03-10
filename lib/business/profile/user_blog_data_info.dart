@@ -34,7 +34,11 @@ class BlogInfoItem extends StatelessWidget {
   final String label;
   final int count;
 
-  const BlogInfoItem({super.key, required this.label, required this.count});
+  const BlogInfoItem({
+    super.key,
+    required this.label,
+    required this.count,
+  });
 
   @override
   Widget build(BuildContext context) {
