@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CircleImage extends StatelessWidget {
-  final String url;
+  final String? url;
   final double size;
   final double borderWidth;
 
@@ -26,8 +26,8 @@ class CircleImage extends StatelessWidget {
     );
   }
 
-  ImageProvider buildImage(String url) {
-    if (url.isEmpty) {
+  ImageProvider buildImage(String? url) {
+    if (url == null) {
       return const AssetImage('assets/image/logo.png');
     } else {
       return CachedNetworkImageProvider(url);

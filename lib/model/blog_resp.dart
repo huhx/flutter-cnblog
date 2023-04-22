@@ -13,8 +13,8 @@ class BlogResp extends Equatable {
   final String url;
   final String description;
   final String author;
-  final String blogApp;
-  final String avatar;
+  final String? blogApp;
+  final String? avatar;
   final DateTime postDate;
   final int viewCount;
   final int commentCount;
@@ -26,8 +26,8 @@ class BlogResp extends Equatable {
     required this.url,
     required this.description,
     required this.author,
-    required this.blogApp,
-    required this.avatar,
+    this.blogApp,
+    this.avatar,
     required this.postDate,
     required this.viewCount,
     required this.commentCount,
