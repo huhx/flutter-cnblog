@@ -18,13 +18,13 @@ class MainScreen extends HookConsumerWidget {
 
     final User? user = ref.watch(sessionProvider);
     final ScrollModel scrollModel = ref.watch(scrollProvider.notifier);
-
     final NavigationItemType itemType = NavigationItemType.getByIndex(pageIndex.value);
+
     return Scaffold(
       body: itemType.screen,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex.value,
-        items: NavigationItemType.toNavigationBarItems(),
+        items: NavigationItemType.toItems(),
         selectedItemColor: themeColor,
         type: BottomNavigationBarType.fixed,
         onTap: (value) async {

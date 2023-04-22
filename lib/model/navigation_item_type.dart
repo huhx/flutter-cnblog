@@ -22,7 +22,7 @@ enum NavigationItemType {
     return NavigationItemType.values.firstWhere((element) => element.pageIndex == pageIndex);
   }
 
-  static List<BottomNavigationBarItem> toNavigationBarItems() {
+  static List<BottomNavigationBarItem> toItems() {
     return NavigationItemType.values.map((item) => CustomNavigationBarItem(iconName: item.iconName, text: item.label)).toList();
   }
 

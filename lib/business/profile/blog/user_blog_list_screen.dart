@@ -6,16 +6,10 @@ import 'package:flutter_cnblog/model/user.dart';
 
 import 'user_blog_content.dart';
 
-class UserBlogListScreen extends StatefulWidget {
+class UserBlogListScreen extends StatelessWidget {
   final UserInfo user;
 
   const UserBlogListScreen(this.user, {super.key});
-
-  @override
-  State<UserBlogListScreen> createState() => _UserBlogListScreenState();
-}
-
-class _UserBlogListScreenState extends State<UserBlogListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +17,10 @@ class _UserBlogListScreenState extends State<UserBlogListScreen> {
         preferredSize: const Size.fromHeight(140),
         child: AppBar(
           leading: const AppbarBackButton(),
-          flexibleSpace: UserBlogHeader(widget.user),
+          flexibleSpace: UserBlogHeader(user),
         ),
       ),
-      body: UserBlogContent(widget.user),
+      body: UserBlogContent(user),
     );
   }
 }
