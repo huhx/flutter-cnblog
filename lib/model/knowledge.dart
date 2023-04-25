@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:intl/intl.dart';
 
 import 'blog_share.dart';
 
@@ -25,6 +26,10 @@ class KnowledgeInfo extends Equatable {
     required this.viewCount,
     required this.diggCount,
   });
+
+  String get postDateString {
+    return DateFormat("yyyy-MM-dd hh:mm").format(postDate);
+  }
 
   String urlString() {
     return "https://kb.cnblogs.com/page/$id";

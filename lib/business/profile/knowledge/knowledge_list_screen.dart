@@ -1,13 +1,12 @@
 import 'package:app_common_flutter/pagination.dart';
+import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/knowledge_api.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
-import 'package:app_common_flutter/views.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:flutter_cnblog/model/knowledge.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
-import 'package:intl/intl.dart';
 
 import 'knowledge_detail_screen.dart';
 
@@ -108,7 +107,7 @@ class KnowledgeItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    DateFormat("yyyy-MM-dd hh:mm").format(knowledge.postDate),
+                    knowledge.postDateString,
                     style: const TextStyle(fontSize: 13, color: Colors.grey),
                   ),
                 ],
