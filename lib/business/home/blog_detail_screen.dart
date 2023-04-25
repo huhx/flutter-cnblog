@@ -28,9 +28,7 @@ import 'blog_share_screen.dart';
 class BlogDetailScreen extends HookConsumerWidget {
   final DetailModel blog;
 
-  final TextEditingController editingController = TextEditingController();
-
-  BlogDetailScreen({super.key, required this.blog});
+  const BlogDetailScreen({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,7 +98,7 @@ class AppBarTitle extends ConsumerWidget {
     return Row(
       children: [
         InkWell(
-          child: CircleImage(url: blog.avatar ?? "", size: 28),
+          child: CircleImage(url: blog.avatar, size: 28),
           onTap: () async {
             if (user == null) {
               final bool? isSuccess = await context.gotoLogin(const LoginScreen());

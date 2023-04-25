@@ -62,11 +62,12 @@ class OfficialBlogItem extends StatelessWidget {
         } else {
           final DetailModel detailModel = blog.toDetail();
           context.goto(BlogDetailScreen(blog: detailModel));
-          readLogApi.insert(ReadLog.of(
+          final ReadLog readLog = ReadLog.of(
             type: ReadLogType.blog,
             summary: blog.summary,
             detailModel: detailModel,
-          ));
+          );
+          readLogApi.insert(readLog);
         }
       },
       child: Card(

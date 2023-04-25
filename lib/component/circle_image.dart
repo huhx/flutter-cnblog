@@ -20,14 +20,14 @@ class CircleImage extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(image: buildImage(url), fit: BoxFit.cover),
+        image: DecorationImage(image: _buildImage(url), fit: BoxFit.cover),
         border: borderWidth > 0 ? Border.all(color: Colors.white, width: borderWidth) : null,
       ),
     );
   }
 
-  ImageProvider buildImage(String? url) {
-    if (url == null) {
+  ImageProvider _buildImage(String? url) {
+    if (url == null || url.isEmpty) {
       return const AssetImage('assets/image/logo.png');
     } else {
       return CachedNetworkImageProvider(url);
