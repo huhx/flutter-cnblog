@@ -44,7 +44,7 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
         if (blogs.isEmpty) {
           return const EmptyWidget(message: "博客为空");
         }
-        final Map<String, List<UserBlog>> blogMap = blogs.groupBy((blog) => blog.dayTitle);
+        final Map<String, List<UserBlog>> blogMap = blogs.where((element) => !element.isPinned).toList().groupBy((blog) => blog.dayTitle);
 
         return SmartRefresher(
           controller: streamList.refreshController,
@@ -64,7 +64,10 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
                   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [SimpleTextIcon(icon: "read_log", text: key)],
+                    children: [
+                      SimpleTextIcon(icon: "read_log", text: key),
+                      SimpleTextIcon(icon: "read_log_count", text: "${blogItems.length}篇"),
+                    ],
                   ),
                 ),
                 content: ListView.builder(
@@ -72,9 +75,9 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
                   primary: false,
                   shrinkWrap: true,
                   itemBuilder: (context, index) => UserBlogItem(
-                    userBlog: blogs[index],
+                    userBlog: blogItems[index],
                     userInfo: widget.user,
-                    key: ValueKey(blogs[index].id),
+                    key: ValueKey(blogItems[index].id),
                   ),
                   itemCount: blogItems.length,
                 ),
