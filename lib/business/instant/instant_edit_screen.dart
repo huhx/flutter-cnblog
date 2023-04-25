@@ -23,23 +23,8 @@ class InstantEditScreen extends HookConsumerWidget {
         title: const Text("发布闪存"),
         actions: [
           IconButton(
-            onPressed: content.value.isEmpty
-                ? null
-                : () async {
-                    final InstantReq instant = InstantReq(content: content.value, instantFlag: flag.value);
-                    final InstantResp result = await userInstantApi.postInstant(instant);
-                    if (result.isSuccess) {
-                      CommUtil.toast(message: "创建成功!");
-                      context.pop();
-                    } else {
-                      CommUtil.toast(message: "创建失败! ${result.responseText}");
-                    }
-                  },
-            icon: const SvgIcon(
-              name: "send",
-              size: 20,
-              color: Colors.white,
-            ),
+            onPressed: content.value.isEmpty ? null : () => send(content.value, flag.value, context),
+            icon: const SvgIcon(name: "send", size: 20, color: Colors.white),
           ),
         ],
       ),
@@ -49,6 +34,7 @@ class InstantEditScreen extends HookConsumerWidget {
         child: Column(
           children: [
             TextFormField(
+              autofocus: true,
               showCursor: true,
               style: Theme.of(context).textTheme.bodyMedium,
               decoration: const InputDecoration.collapsed(hintText: "发布闪存..."),
@@ -62,7 +48,7 @@ class InstantEditScreen extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CupertinoSwitch(
+                Switch(
                   value: flag.value == InstantFlag.public,
                   onChanged: (value) {
                     flag.value = value ? InstantFlag.public : InstantFlag.private;
@@ -75,5 +61,20 @@ class InstantEditScreen extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> send(
+    String content,
+    InstantFlag instantFlag,
+    BuildContext context,
+  ) async {
+    final InstantReq instant = InstantReq(content: content, instantFlag: instantFlag);
+    final InstantResp result = await userInstantApi.postInstant(instant);
+    if (result.isSuccess) {
+      CommUtil.toast(message: "创建成功!");
+      context.pop();
+    } else {
+      CommUtil.toast(message: "创建失败! ${result.responseText}");
+    }
   }
 }
