@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
+
+import 'detail_model.dart';
 
 class UserProfileInfo extends Equatable {
   final String userId;
@@ -62,6 +65,16 @@ class UserProfileMoment extends Equatable {
     required this.summary,
     required this.postDate,
   });
+
+  DetailModel toDetail() {
+    return DetailModel(
+      title: title,
+      url: url,
+      name: name,
+      blogName: Comm.getNameFromBlogUrl(url),
+      avatar: avatar,
+    );
+  }
 
   @override
   List<Object?> get props => [name, avatar, url, action, title, summary, postDate];

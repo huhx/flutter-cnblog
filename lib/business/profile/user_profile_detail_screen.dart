@@ -1,11 +1,15 @@
 import 'package:app_common_flutter/pagination.dart';
 import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cnblog/api/read_log_api.dart';
 import 'package:flutter_cnblog/api/user_profile_api.dart';
+import 'package:flutter_cnblog/business/home/blog_detail_screen.dart';
 import 'package:flutter_cnblog/business/profile/blog/user_blog_list_screen.dart';
 import 'package:flutter_cnblog/common/current_user.dart';
 import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/component/circle_image.dart';
+import 'package:flutter_cnblog/model/detail_model.dart';
+import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/model/user.dart';
 import 'package:flutter_cnblog/model/user_profile.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -209,28 +213,46 @@ class UserMomentItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Card(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    userMoment.title,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    userMoment.summary,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  )
-                ],
-              ),
-            ),
-          )
+          UserMomentContentItem(userMoment: userMoment)
         ],
+      ),
+    );
+  }
+}
+
+class UserMomentContentItem extends StatelessWidget {
+  const UserMomentContentItem({super.key, required this.userMoment});
+
+  final UserProfileMoment userMoment;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        final DetailModel detail = userMoment.toDetail();
+        context.goto(BlogDetailScreen(blog: detail));
+        readLogApi.insert(ReadLog.of(type: ReadLogType.blog, summary: userMoment.summary, detailModel: detail));
+      },
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                userMoment.title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                userMoment.summary,
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
