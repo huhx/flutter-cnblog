@@ -41,7 +41,7 @@ class UserBlogApi {
     final String url = "https://www.cnblogs.com/$blogName/ajax/GetComments.aspx";
     final Response response = await RestClient.withCookie().get(url, queryParameters: request.toJson());
 
-    return compute(BlogCommentParser.parseBlogCommentList, response.data as String);
+    return compute(BlogCommentParser.parseBlogCommentList, response.data as String?);
   }
 
   Future<BlogCommentCreateResp> addComment(String blogName, BlogCommentCreateReq request) async {

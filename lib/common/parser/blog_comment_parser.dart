@@ -5,8 +5,8 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
 
 class BlogCommentParser {
-  static List<BlogComment> parseBlogCommentList(String string) {
-    if (string.isEmpty) {
+  static List<BlogComment> parseBlogCommentList(String? string) {
+    if (string == null || string.isEmpty) {
       return [];
     }
     final Document document = parse(string);
