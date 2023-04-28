@@ -62,7 +62,6 @@ void main() {
         description:
             "本课程主要介绍 StoneDB-5.6 在 Ubuntu 20.04 LTS 下的手动编译，在 CentOS 和 RedHat 的编译详见官方文档。 如果想快速部署，详见官方文档 https://stonedb.io/zh/docs/getting-started/quick-deployment  ...",
         author: "来来士",
-        blogApp: "yangwilly",
         avatar: "https://pic.cnblogs.com/face/2949896/20220809132842.png",
         postDate: DateTime.parse("2022-08-17 19:09"),
         viewCount: 10,

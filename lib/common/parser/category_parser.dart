@@ -1,6 +1,5 @@
 import 'package:flutter_cnblog/common/extension/element_extension.dart';
 import 'package:app_common_flutter/extension.dart';
-import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/blog_category.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:html/dom.dart';
@@ -48,7 +47,6 @@ class CategoryParser {
       url: url,
       description: element.getFirstByClass("post-item-summary").lastNodeText,
       author: element.getFirstByClass("post-item-author").firstChildText,
-      blogApp: Comm.getNameFromBlogUrl(url),
       avatar: avatar,
       postDate: DateTime.parse(postDate),
       viewCount: viewCount.toInt(),

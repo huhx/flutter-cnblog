@@ -1,4 +1,3 @@
-import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/blog_resp.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -52,7 +51,6 @@ class BlogContentResp {
       url: url,
       description: description,
       author: author,
-      blogApp: Comm.getNameFromBlogUrl(url),
       avatar: avatar ?? '',
       postDate: dateAdded,
       viewCount: viewCount,

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_cnblog/common/support/comm_parser.dart';
 import 'package:flutter_cnblog/model/detail_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,7 +14,6 @@ class BlogResp extends Equatable {
   final String url;
   final String description;
   final String author;
-  final String? blogApp;
   final String? avatar;
   final DateTime postDate;
   final int viewCount;
@@ -26,7 +26,6 @@ class BlogResp extends Equatable {
     required this.url,
     required this.description,
     required this.author,
-    this.blogApp,
     this.avatar,
     required this.postDate,
     required this.viewCount,
@@ -41,16 +40,17 @@ class BlogResp extends Equatable {
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
 
   @override
-  List<Object?> get props => [id, title, url, description, author, blogApp, avatar, postDate, viewCount, commentCount, diggCount];
+  List<Object?> get props => [id, title, url, description, author, avatar, postDate, viewCount, commentCount, diggCount];
 
   DetailModel toDetail({String? html}) {
+    final String httpsUrl = toHttps();
     return DetailModel(
       id: id,
       title: title,
       avatar: avatar,
-      url: toHttps(),
+      url: httpsUrl,
       name: author,
-      blogName: blogApp,
+      blogName: Comm.getNameFromBlogUrl(httpsUrl),
       commentCount: commentCount,
       diggCount: diggCount,
       viewCount: viewCount,
