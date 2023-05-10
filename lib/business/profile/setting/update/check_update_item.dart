@@ -11,9 +11,9 @@ class CheckUpdateItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () => CommUtil.toBeDev(),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const <Widget>[
+          children: <Widget>[
             Text('检查版本', style: TextStyle(fontSize: 14)),
             ListTileTrailing(),
           ],
