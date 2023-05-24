@@ -52,7 +52,8 @@ void main() {
         title: 'android高级---->AsyncTask的源码分析',
         url: "https://www.cnblogs.com/huhx/p/asynctask_theory.html",
         isPinned: true,
-        summary: '''在Android中实现异步任务机制有两种方式，Handler和AsyncTask,今天我们从源码着手去深入地理解AsyncTask的源码，做一个详细的过程分析与总结。对于方法执行的每一步，都比较细致的分析。''',
+        summary:
+            '''在Android中实现异步任务机制有两种方式，Handler和AsyncTask,今天我们从源码着手去深入地理解AsyncTask的源码，做一个详细的过程分析与总结。对于方法执行的每一步，都比较细致的分析。''',
         name: "huhx",
         commentCount: 9,
         diggCount: 11,
@@ -157,7 +158,8 @@ void main() {
         title: 'flutter feature---->quick action',
         url: "https://www.cnblogs.com/huhx/p/13406634.html",
         isPinned: false,
-        summary: '''reference: https://www.filledstacks.com/snippet/managing-quick-actions-in-flutter/ code import 'dart:io'; import
+        summary:
+            '''reference: https://www.filledstacks.com/snippet/managing-quick-actions-in-flutter/ code import 'dart:io'; import
             'package:flutter/material.dart'; impo''',
         name: "huhx",
         commentCount: 0,

@@ -14,7 +14,8 @@ class UserBlogParser {
 
   static List<UserBlog> __parseUserBlogs(Element element) {
     final Element dayTitleElement = element.getFirstByClass("dayTitle");
-    final List<String> dayInfo = dayTitleElement.children.first.attributes['href']!.split('archive/')[1].split('.')[0].split("/");
+    final List<String> dayInfo =
+        dayTitleElement.children.first.attributes['href']!.split('archive/')[1].split('.')[0].split("/");
 
     final String dayTitle = "${dayInfo[0]}年${dayInfo[1]}月${dayInfo[2]}日";
 
@@ -27,7 +28,8 @@ class UserBlogParser {
         .toList();
   }
 
-  static UserBlog _parseUserBlog(String dayTitle, Element titleElement, Element summaryElement, Element postInfoElement) {
+  static UserBlog _parseUserBlog(
+      String dayTitle, Element titleElement, Element summaryElement, Element postInfoElement) {
     final bool isPinned = titleElement.attributes['class']!.contains("pinned-post");
 
     final String postInfoString = postInfoElement.content.replaceFirst("posted @ ", "").trim();

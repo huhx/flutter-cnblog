@@ -30,7 +30,19 @@ class NewsInfo extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, url, submitter, summary, cover, homeUrl, commentCount, diggCount, viewCount, postDate];
+  List<Object?> get props => [
+        id,
+        title,
+        url,
+        submitter,
+        summary,
+        cover,
+        homeUrl,
+        commentCount,
+        diggCount,
+        viewCount,
+        postDate,
+      ];
 
   DetailModel toDetail() {
     return DetailModel(

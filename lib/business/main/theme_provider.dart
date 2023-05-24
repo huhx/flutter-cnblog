@@ -18,7 +18,7 @@ class AppThemeState extends ChangeNotifier {
   void setDark(bool isDark) {
     PrefsUtil.saveIsLightTheme(!isDark);
     themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
-    
+
     notifyListeners();
   }
 }

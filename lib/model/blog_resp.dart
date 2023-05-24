@@ -40,7 +40,18 @@ class BlogResp extends Equatable {
   factory BlogResp.fromJson(Map<String, dynamic> json) => _$BlogRespFromJson(json);
 
   @override
-  List<Object?> get props => [id, title, url, description, author, avatar, postDate, viewCount, commentCount, diggCount];
+  List<Object?> get props => [
+        id,
+        title,
+        url,
+        description,
+        author,
+        avatar,
+        postDate,
+        viewCount,
+        commentCount,
+        diggCount,
+      ];
 
   DetailModel toDetail({String? html}) {
     final String httpsUrl = toHttps();

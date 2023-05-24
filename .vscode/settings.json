@@ -22,6 +22,6 @@
     "editor.fontSize": 12,
     "gitlens.mode.active": "zen",
     "dart.closingLabels": false,
-    "dart.lineLength": 140,
-    "editor.rulers": [140],
+    "dart.lineLength": 120,
+    "editor.rulers": [120],
 }

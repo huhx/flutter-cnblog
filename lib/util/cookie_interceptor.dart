@@ -9,7 +9,7 @@ class CookieInterceptor extends QueuedInterceptorsWrapper {
 
     options.headers["Cookie"] = "${Constant.authCookieName}=${PrefsUtil.getCookie()};$forgeryCookie;";
     options.headers["x-requested-with"] = "XMLHttpRequest";
-    
+
     handler.next(options);
   }
 }

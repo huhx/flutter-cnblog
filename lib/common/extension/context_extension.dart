@@ -32,7 +32,8 @@ extension ContextExtensions on BuildContext {
   ScreenType get screenType {
     final MediaQueryData mediaQueryData = MediaQuery.of(this);
     final Orientation orientation = mediaQueryData.orientation;
-    final double deviceWidth = orientation == Orientation.landscape ? mediaQueryData.size.height : mediaQueryData.size.width;
+    final double deviceWidth =
+        orientation == Orientation.landscape ? mediaQueryData.size.height : mediaQueryData.size.width;
 
     if (deviceWidth > 950) {
       return ScreenType.desktop;

@@ -15,7 +15,7 @@ class SearchScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final query = useState("");
-    
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(

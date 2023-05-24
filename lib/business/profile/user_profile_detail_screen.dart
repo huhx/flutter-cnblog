@@ -163,7 +163,8 @@ class UserMoment extends StatefulHookWidget {
 class _UserMomentState extends StreamState<UserMoment, UserProfileMoment> {
   @override
   Future<void> fetchPage(int pageKey) async {
-    final List<UserProfileMoment> userMoments = await userProfileApi.getUserProfileMoment(widget.user.blogName, pageKey);
+    final List<UserProfileMoment> userMoments =
+        await userProfileApi.getUserProfileMoment(widget.user.blogName, pageKey);
     streamList.fetch(userMoments, pageKey, pageSize: 30);
   }
 

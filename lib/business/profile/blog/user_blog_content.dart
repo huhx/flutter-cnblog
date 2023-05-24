@@ -44,7 +44,8 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
         if (blogs.isEmpty) {
           return const EmptyWidget(message: "博客为空");
         }
-        final Map<String, List<UserBlog>> blogMap = blogs.where((element) => !element.isPinned).toList().groupBy((blog) => blog.dayTitle);
+        final Map<String, List<UserBlog>> blogMap =
+            blogs.where((element) => !element.isPinned).toList().groupBy((blog) => blog.dayTitle);
 
         return SmartRefresher(
           controller: streamList.refreshController,

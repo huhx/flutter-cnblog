@@ -44,7 +44,7 @@ dependencies:
   double_back_to_close: ^2.0.0
   badges: ^3.0.2
   animations: ^2.0.3
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   flutter_native_splash: ^2.2.7
   flutter_inappwebview: ^5.4.3+7
   html: ^0.15.0

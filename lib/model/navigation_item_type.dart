@@ -23,7 +23,9 @@ enum NavigationItemType {
   }
 
   static List<BottomNavigationBarItem> toItems() {
-    return NavigationItemType.values.map((item) => CustomNavigationBarItem(iconName: item.iconName, text: item.label)).toList();
+    return NavigationItemType.values
+        .map((item) => CustomNavigationBarItem(iconName: item.iconName, text: item.label))
+        .toList();
   }
 
   const NavigationItemType(this.iconName, this.label, this.pageIndex, this.screen);

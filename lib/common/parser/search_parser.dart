@@ -16,7 +16,8 @@ class SearchParser {
     final String urlString = element.getFirstByClass("searchURL").content.trim();
 
     int? viewCount = element.getFirstOrNullByClass("searchItemInfo-views")?.getRegexText(r"浏览\(([0-9]+)\)").toInt();
-    int? commentCount = element.getFirstOrNullByClass("searchItemInfo-comments")?.getRegexText(r"评论\(([0-9]+)\)").toInt();
+    int? commentCount =
+        element.getFirstOrNullByClass("searchItemInfo-comments")?.getRegexText(r"评论\(([0-9]+)\)").toInt();
     int? diggCount = element.getFirstOrNullByClass("searchItemInfo-good")?.getRegexText(r"推荐\(([0-9]+)\)").toInt();
 
     final Element? usernameElement = element.getFirstByClass("searchItemInfo-userName").children.firstOrNull;

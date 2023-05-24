@@ -14,7 +14,8 @@ class BookmarkParser {
   }
 
   static BookmarkInfo _parseBookmark(Element element) {
-    final Element titleElement = element.getElementsByTagName("a").firstWhere((element) => element.attributes['rel']! == "nofollow");
+    final Element titleElement =
+        element.getElementsByTagName("a").firstWhere((element) => element.attributes['rel']! == "nofollow");
     final Element bodyElement = element.getFirstByClass("link_memo");
 
     return BookmarkInfo(

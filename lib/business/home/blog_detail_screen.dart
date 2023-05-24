@@ -70,7 +70,8 @@ class BlogDetailScreen extends HookConsumerWidget {
                 child: InAppWebView(
                   onWebViewCreated: (controller) async {
                     final String string = await htmlCssApi.injectCss(blog.url, ContentType.blog);
-                    postId.value = blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
+                    postId.value =
+                        blog.id ?? RegExp(r"var cb_entryId = ([0-9]+)").firstMatch(string)!.group(1)!.toInt();
                     await controller.loadData(data: string, baseUrl: Uri.parse(ContentType.blog.host));
                   },
                   onPageCommitVisible: (controller, url) => isLoading.value = false,
@@ -190,7 +191,8 @@ class BottomComment extends HookConsumerWidget {
                       final bool? isSuccess = await context.gotoLogin(const LoginScreen());
                       if (isSuccess == null) return;
                     }
-                    final BlogDiggReq request = BlogDiggReq(voteType: VoteType.digg, postId: postId!, isAbandoned: false);
+                    final BlogDiggReq request =
+                        BlogDiggReq(voteType: VoteType.digg, postId: postId!, isAbandoned: false);
                     final BlogDiggResp result = await userBlogApi.diggBlog(blog.blogName!, request);
                     if (result.isSuccess) {
                       CommUtil.toast(message: "支持成功!");

@@ -69,7 +69,8 @@ void main() {
       instants[0],
       const InstantInfo(
         id: 2321091,
-        content: '<span class="ing_body" id="ing_body_2321091"><a href="/tag/%E6%A0%87%E7%AD%BE/" class="ing_tag">[标签]</a> </span>',
+        content:
+            '<span class="ing_body" id="ing_body_2321091"><a href="/tag/%E6%A0%87%E7%AD%BE/" class="ing_tag">[标签]</a> </span>',
         url: "https://ing.cnblogs.com/u/myx3/status/2321091/",
         submitter: "南城古",
         avatar: "https://pic.cnblogs.com/face/2864027/20220502184204.png",

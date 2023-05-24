@@ -109,7 +109,8 @@ void main() {
       comments[1],
       const BlogComment(
         id: 5096460,
-        content: '''<p><a href="#5095633" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,5095633);">@</a>some-body<br>
+        content:
+            '''<p><a href="#5095633" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,5095633);">@</a>some-body<br>
                     啊</p>''',
         replyToken: "o43e3oVfSqcowFHjawnKoho4ZlZS3Agk+TCS2jvKTih9/+Hf/gl7sg==",
         author: "一二三。",
