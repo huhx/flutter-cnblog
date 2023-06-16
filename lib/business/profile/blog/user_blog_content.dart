@@ -49,8 +49,8 @@ class _UserBlogContentState extends StreamState<UserBlogContent, UserBlog> {
 
         return SmartRefresher(
           controller: streamList.refreshController,
-          onRefresh: () => streamList.onRefresh(),
-          onLoading: () => streamList.onLoading(),
+          onRefresh: streamList.onRefresh,
+          onLoading: streamList.onLoading,
           enablePullUp: true,
           child: ListView.builder(
             itemCount: blogMap.length,

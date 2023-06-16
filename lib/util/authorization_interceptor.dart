@@ -19,7 +19,7 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
     AccessToken? accessToken = getToken(tokenType);
     if (accessToken == null) {
       if (tokenType == TokenType.user) {
-        return handler.reject(DioError(requestOptions: options));
+        return handler.reject(DioException(requestOptions: options));
       } else {
         accessToken = await tokenApi.getToken();
       }
@@ -30,7 +30,7 @@ class AuthorizationInterceptor extends QueuedInterceptorsWrapper {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) async {
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       if (tokenType == TokenType.user) {
         handler.reject(err);

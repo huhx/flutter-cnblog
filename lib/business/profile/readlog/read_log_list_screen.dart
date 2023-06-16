@@ -4,7 +4,6 @@ import 'package:app_common_flutter/pagination.dart';
 import 'package:app_common_flutter/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cnblog/api/read_log_api.dart';
-import 'package:flutter_cnblog/common/extension/context_extension.dart';
 import 'package:flutter_cnblog/model/read_log.dart';
 import 'package:flutter_cnblog/util/date_util.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -66,8 +65,8 @@ class _ReadLogListScreenState extends StreamState<ReadLogListScreen, ReadLog> {
           return SlidableAutoCloseBehavior(
             child: SmartRefresher(
               controller: streamList.refreshController,
-              onRefresh: () => streamList.onRefresh(),
-              onLoading: () => streamList.onLoading(),
+              onRefresh: streamList.onRefresh,
+              onLoading: streamList.onLoading,
               enablePullUp: true,
               child: ListView.builder(
                 itemCount: readLogMap.length,

@@ -36,9 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   hooks_riverpod: ^2.0.0
   retrofit: ^4.0.1
-  logger: ^1.1.0
+  logger: ^2.0.2+1
   json_annotation: ^4.6.0
-  google_fonts: ^4.0.1
+  google_fonts: ^6.1.0
   cached_network_image: ^3.2.1
   timeago: ^3.2.2
   double_back_to_close: ^2.0.0
@@ -50,11 +50,11 @@ dependencies:
   html: ^0.15.0
   flutter_html: ^3.0.0-alpha.5
   modal_bottom_sheet: ^2.1.0
-  flutter_hooks: ^0.18.5+1
+  flutter_hooks: ^0.20.3
   shared_preferences: ^2.0.15
   sqflite: ^2.0.3+1
   path: ^1.8.2
-  package_info_plus: ^4.0.0
+  package_info_plus: ^4.1.0
   flutter_slidable: ^3.0.0
   envied: ^0.3.0
   sticky_headers: ^0.3.0+2
@@ -80,7 +80,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  retrofit_generator: ^7.0.0
+  retrofit_generator: ^8.0.0
   json_serializable: ^6.3.1
   flutter_launcher_icons: ^0.13.1
   envied_generator: ^0.3.0
