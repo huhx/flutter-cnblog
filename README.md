@@ -42,4 +42,12 @@ notRobotCookie=CfDJ8EOBBtWq0dNFoDS-ZHPSe51ATHuFFilG3imii1Hj5WZ-TAK98xT4mJquvSMlY
 
 Android
 store: <https://play.google.com/store/apps/details?id=com.huhx.cnblog>
+
 pgyer: <https://www.pgyer.com/iwpS>
+
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=huhx/flutter-cnblog&type=Date&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=huhx/flutter-cnblog&type=Date" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=huhx/flutter-cnblog&type=Date" />
+</picture>
