@@ -30,7 +30,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: dba0a44694ff53b0a3bea020a28ff911021bd487
+      resolved-ref: e8246c575710e39b34f8c4244899dec73ef67455
       url: "https://github.com/huhx/app_common_flutter"
     source: git
     version: "0.0.1"
@@ -395,10 +395,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_riverpod
-      sha256: e667e406a74d67715f1fa0bd941d9ded49aff72f3a9f4440a36aece4e8d457a7
+      sha256: bdba94be666ecb1beeb0f5a748d96cdd6a37215f27e6b48c7673b95cecb800c8
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -469,10 +469,10 @@ packages:
     dependency: "direct main"
     description:
       name: hooks_riverpod
-      sha256: "69dcb88acbc68c81fc27ec15a89a4e24b7812c83c13a6307a1a9366ada758541"
+      sha256: "0e02037e6fd3511a06ab4770b1a766d2d9bb576f85780d5bb452ca53e3311044"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   html:
     dependency: "direct main"
     description:
@@ -646,10 +646,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: "6ff267fcd9d48cb61c8df74a82680e8b82e940231bb5f68356672fde0397334a"
+      sha256: "7e76fad405b3e4016cd39d08f455a4eb5199723cf594cd1b8916d47140d93017"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   package_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -815,10 +815,10 @@ packages:
     dependency: transitive
     description:
       name: riverpod
-      sha256: "494bf2cfb4df30000273d3052bdb1cc1de738574c6b678f0beb146ea56f5e208"
+      sha256: "2af3d127a6e4e34b89b8f1f018086f5ded04b8e538174f0510bba3e4c0d878b1"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   rxdart:
     dependency: transitive
     description:
@@ -831,18 +831,18 @@ packages:
     dependency: transitive
     description:
       name: share_plus
-      sha256: "6cec740fa0943a826951223e76218df002804adb588235a8910dc3d6b0654e11"
+      sha256: f74fc3f1cbd99f39760182e176802f693fa0ec9625c045561cfad54681ea93dd
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.0"
+    version: "7.2.1"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: "357412af4178d8e11d14f41723f80f12caea54cf0d5cd29af9dcdab85d58aea7"
+      sha256: df08bc3a07d01f5ea47b45d03ffcba1fa9cd5370fb44b3f38c70e42cced0f956
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "3.3.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -952,6 +952,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   sqflite:
     dependency: "direct main"
     description:
@@ -1116,10 +1124,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
+      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.7"
+    version: "4.1.0"
   vector_graphics:
     dependency: transitive
     description:
