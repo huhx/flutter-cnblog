@@ -5,7 +5,7 @@ final searchProvider = StateNotifierProvider<SearchModel, String>((ref) {
 });
 
 class SearchModel extends StateNotifier<String> {
-  SearchModel(String query) : super(query);
+  SearchModel(super.query);
 
   void update(String queryString) {
     state = queryString;

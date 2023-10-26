@@ -54,9 +54,9 @@ dependencies:
   shared_preferences: ^2.0.15
   sqflite: ^2.0.3+1
   path: ^1.8.2
-  package_info_plus: ^4.1.0
+  package_info_plus: ^5.0.1
   flutter_slidable: ^3.0.0
-  envied: ^0.3.0
+  envied: ^0.5.1
   sticky_headers: ^0.3.0+2
   app_common_flutter:
     git:
@@ -79,11 +79,11 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
   retrofit_generator: ^8.0.0
   json_serializable: ^6.3.1
   flutter_launcher_icons: ^0.13.1
-  envied_generator: ^0.3.0
+  envied_generator: ^0.5.1
   build_runner: ^2.3.2
 
 flutter_icons:

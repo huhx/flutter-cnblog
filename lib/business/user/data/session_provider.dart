@@ -14,7 +14,7 @@ final sessionProvider = StateNotifierProvider<SessionModel, User?>((ref) {
 });
 
 class SessionModel extends StateNotifier<User?> {
-  SessionModel(User? user) : super(user);
+  SessionModel(super.user);
 
   String get userId => state!.userId;
 
