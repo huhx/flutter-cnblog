@@ -34,7 +34,7 @@ final appThemeData = {
       },
     ),
     colorScheme: ColorScheme.light(
-      background: Colors.white.withOpacity(0.5),
+      surface: Colors.white.withOpacity(0.5),
     ),
   ),
   AppTheme.dark: ThemeData(
@@ -68,7 +68,7 @@ final appThemeData = {
       },
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromRGBO(30, 30, 30, 1),
+      surface: Color.fromRGBO(30, 30, 30, 1),
     ),
   )
 };

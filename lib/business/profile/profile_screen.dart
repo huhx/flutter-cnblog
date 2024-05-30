@@ -216,7 +216,7 @@ class ProfileMiddle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -252,7 +252,7 @@ class NoLoginProfileMiddle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -311,7 +311,7 @@ class ProfileFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

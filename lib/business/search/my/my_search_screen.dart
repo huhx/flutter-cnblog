@@ -30,7 +30,7 @@ class MySearchScreen extends ConsumerWidget {
               hintText: "Search",
               isDense: true,
               filled: true,
-              fillColor: Theme.of(context).colorScheme.background,
+              fillColor: Theme.of(context).colorScheme.surface,
               contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               border: outlineInputBorder,
               focusedBorder: outlineInputBorder,

@@ -34,7 +34,7 @@ class InstantDetailScreen extends HookWidget {
               padding: EdgeInsets.zero,
               children: [
                 Container(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class InstantDetailScreen extends HookWidget {
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -97,7 +97,7 @@ class InstantDetailScreen extends HookWidget {
                                 child: Card(
                                   margin: EdgeInsets.zero,
                                   child: Container(
-                                    color: Theme.of(context).colorScheme.background.withOpacity(0.4),
+                                    color: Theme.of(context).colorScheme.surface.withOpacity(0.4),
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +171,7 @@ class CommentWidget extends HookWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

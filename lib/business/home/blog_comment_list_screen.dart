@@ -61,7 +61,7 @@ class _BlogCommentListScreenState extends StreamConsumerState<BlogCommentListScr
                     },
                     child: Card(
                       child: Container(
-                        color: Theme.of(context).colorScheme.background.withOpacity(0.4),
+                        color: Theme.of(context).colorScheme.surface.withOpacity(0.4),
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +127,7 @@ class CommentWidget extends HookWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

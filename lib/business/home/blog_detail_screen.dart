@@ -131,7 +131,7 @@ class BottomComment extends HookConsumerWidget {
     final diggCount = useState(blog.diggCount ?? 0);
 
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

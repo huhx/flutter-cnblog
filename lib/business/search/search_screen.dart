@@ -43,7 +43,7 @@ class SearchScreen extends HookConsumerWidget {
               hintStyle: Theme.of(context).textTheme.bodyMedium!,
               isDense: true,
               filled: true,
-              fillColor: Theme.of(context).colorScheme.background.withOpacity(0.5),
+              fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
               contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               border: outlineInputBorder,
               focusedBorder: outlineInputBorder,
